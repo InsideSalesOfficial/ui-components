@@ -20,7 +20,7 @@ class ToggleSliderWrapper extends React.PureComponent {
 }
 
 
-storiesOf('Components', module)
+storiesOf('Forms', module)
   .addWithChapters(
   'ToggleSlider',
   {
