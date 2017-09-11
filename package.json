@@ -1,20 +1,28 @@
 {
-  "name": "ui-components-build-template",
+  "name": "insidesales-components-dev",
+  "description": "A set of UI components built with React and Styled-Components used on products by InsideSales.com.",
+  "homepage": "http://insidesalesofficial.github.io/ui-components/storybook/",
+  "repository": "http://insidesalesofficial.github.io/ui-components",
   "version": "0.5.1",
   "main": "./lib/index.js",
-  "private": true,
+  "private": false,
   "engines": {
     "node": ">4.0.0"
   },
-  "author": {
-    "name": "Austin Knight",
-    "email": "austinknight@austinknight.net",
-    "url": "http://austinknight.net"
+  "author": "InsideSales.com <austin.knight@insidesales.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InsideSalesOfficial/ui-components/issues"
   },
   "files": [
     "lib"
   ],
-  "keywords": [],
+  "keywords": [
+    "InsideSales.com",
+    "ui",
+    "ui-components",
+    "component"
+  ],
   "dependencies": {
     "polished": "^1.1.3",
     "react": "^15.6.0",
@@ -81,7 +89,6 @@
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
   },
-  "homepage": "http://austinknight.net/ui-components/",
   "scripts": {
     "prestart": "npm run gen:docs",
     "start": "npm run start:storybook",

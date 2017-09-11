@@ -62,7 +62,7 @@ function createPackageFile() {
     } = packageData;
 
     const minimalPackage = {
-      name: 'ui-components-test',
+      name: 'insidesales-components',
       author,
       version,
       description,
