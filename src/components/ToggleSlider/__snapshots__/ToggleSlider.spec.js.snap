@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleSlider Snapshots shows toggled off 1`] = `
+<label
+  className="sc-bdVaJa equNwL"
+>
+  <input
+    checked={false}
+    className="sc-bwzfXH eKeXgs"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <div
+    checked={false}
+    className="sc-htpNat dwgooG"
+  />
+</label>
+`;
+
+exports[`ToggleSlider Snapshots shows toggled on 1`] = `
+<label
+  className="sc-bdVaJa equNwL"
+>
+  <input
+    checked={true}
+    className="sc-bwzfXH eKeXgs"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <div
+    checked={true}
+    className="sc-htpNat dFyors"
+  />
+</label>
+`;
