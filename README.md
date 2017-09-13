@@ -1,4 +1,4 @@
-# InsideSales.com UI Component Library
+# InsideSales Components &middot; [![Travis CI Status](https://travis-ci.org/InsideSalesOfficial/insidesales-components.svg?branch=master)](https://travis-ci.org/InsideSalesOfficial/insidesales-components) [![npm version](https://badge.fury.io/js/insidesales-components.svg)](https://badge.fury.io/js/insidesales-components) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) 
 
 A set of UI components built with React and Styled-Components used on products by InsideSales.com.
 
@@ -11,31 +11,11 @@ View the documentation/storyboks at [http://insidesalesofficial.github.io/inside
 
 ## Development
 
-### Contributing
-
-1. Fork, then clone: `git clone https://github.com/YOUR_USERNAME/insidesales-components.git`
-2. Create a branch with a meaningful name describing the feature/issue
-3. Make your changes and commit: `git add` and `git commit`
-4. Make sure that the test are passing: `npm test`
-5. Push your branch: `git push -u origin you-branch-name`
-6. Submit a pull request to the upstream insidesales-components repository
-7. Use a descriptive title and describe your changes briefly
-8. Wait for a maintainer to review your PR, make any changes recommended, and get it merged
-10. Celebrate your successful contribution! 🙌🏼
-
 ### Project setup
 
 Run `npm install` and edit code in the `src/` folder.
 
 To start the project, run `npm start`. This will run the neccesary scripts to build storybooks and start the development server on http://localhost:3001. Running this command will also watch for any changes and update storybooks.
-
-### Deploying to NPM
-
-Starting in the root directory:
-1. `npm version major|minor|patch` - Use [semantic versioning](http://semver.org/) based on changes to the package
-2. `npm run build:lib`
-3. `cd lib` (we make you cd to lib to avoid accidental publishing from root)
-4. `npm publish`
 
 ### Deploying storybooks
 

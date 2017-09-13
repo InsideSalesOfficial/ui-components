@@ -59,6 +59,7 @@ function createPackageFile() {
       homepage,
       peerDependencies,
       dependencies,
+      scripts
     } = packageData;
 
     const minimalPackage = {
@@ -73,7 +74,10 @@ function createPackageFile() {
       bugs,
       homepage,
       peerDependencies,
-      dependencies
+      dependencies,
+      scripts: {
+        'semantic-release': scripts['semantic-release']
+      }
     };
 
     return new Promise((resolve) => {

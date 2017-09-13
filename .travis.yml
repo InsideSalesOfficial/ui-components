@@ -1,0 +1,26 @@
+language: node_js
+
+cache:
+  directories:
+    - node_modules
+
+notifications:
+  email: false
+
+node_js:
+  - 'node'
+
+script:
+  - npm run test
+  - npm run build:lib
+
+after_success:
+  - npm i -g semantic-release
+  - cd lib
+  - semantic-release pre && npm publish
+  - cd ..
+  - semantic-release post
+
+branches:
+  only:
+    - master
