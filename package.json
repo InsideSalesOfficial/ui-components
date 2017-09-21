@@ -105,6 +105,7 @@
   },
   "scripts": {
     "commit": "git-cz",
+    "clean:packagejson": "node scripts/cleanPackageJson",
     "prestart": "npm run gen:docs",
     "start": "npm run start:storybook",
     "startall": "npm-run-all --parallel start:docs start:storybook gen:docs-watch",

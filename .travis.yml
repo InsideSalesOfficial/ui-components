@@ -16,8 +16,8 @@ script:
   - npm run clean:packagejson
 
 after_success:
-  - npm run semantic-release
+  - test $TRAVIS_BRANCH = "master" && npm run semantic-release
 
 branches:
-  except:
+  only:
     - /^v\d+\.\d+\.\d+$/
