@@ -4,7 +4,7 @@
   "homepage": "http://insidesalesofficial.github.io/ui-components/storybook/",
   "repository": {
     "type": "git",
-    "url": "git@github.com:InsideSalesOfficial/insidesales-components.git"
+    "url": "https://github.com/InsideSalesOfficial/insidesales-components.git"
   },
   "version": "0.0.0-semantically-released",
   "main": "./lib/index.js",

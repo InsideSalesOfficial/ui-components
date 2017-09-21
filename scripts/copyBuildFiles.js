@@ -10,8 +10,6 @@ glob('src/components/**/*.css', {
 }, (er, files) => {
   
   let filesToCopy = [
-    'README.md',
-    'LICENSE',
     'src/components/styles/fonts'
   ];
 
@@ -24,8 +22,7 @@ glob('src/components/**/*.css', {
 
   Promise.all(
     filesToCopy.map((file) => copyFile(file))
-  )
-  .then(() => createPackageFile());
+  );
   
   function copyFile(file) {
     let libPath = resolveBuildPath(file);
@@ -56,61 +53,5 @@ glob('src/components/**/*.css', {
   
   function resolveBuildPath(file) {
     return path.resolve(__dirname, '../lib/', path.basename(file));
-  }
-  
-  function createPackageFile() {
-    return new Promise((resolve) => {
-      fse.readFile(path.resolve(__dirname, '../package.json'), 'utf8', (err, data) => {
-        if (err) {
-          throw err;
-        }
-  
-        resolve(data);
-      });
-    })
-    .then((data) => JSON.parse(data))
-    .then((packageData) => {
-      const {
-        author,
-        version,
-        description,
-        keywords,
-        repository,
-        license,
-        bugs,
-        homepage,
-        peerDependencies,
-        dependencies,
-        scripts
-      } = packageData;
-  
-      const minimalPackage = {
-        name: 'insidesales-components',
-        author,
-        version,
-        description,
-        main: './index.js',
-        keywords,
-        repository,
-        license,
-        bugs,
-        homepage,
-        peerDependencies,
-        dependencies,
-        scripts: {
-          'semantic-release': scripts['semantic-release']
-        }
-      };
-  
-      return new Promise((resolve) => {
-        const libPath = path.resolve(__dirname, '../lib/package.json');
-        const data = JSON.stringify(minimalPackage, null, 2);
-        fse.writeFile(libPath, data, (err) => {
-          if (err) throw (err);
-          console.log(`Created package.json in ${libPath}`);
-          resolve();
-        });
-      });
-    });
   }
 });

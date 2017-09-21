@@ -8,17 +8,16 @@ notifications:
   email: false
 
 node_js:
-  - 'node'
+  - node
 
 script:
   - npm run test
   - npm run build:lib
+  - npm run clean:packagejson
 
 after_success:
-  - npm i -g semantic-release
-  - cd lib
   - npm run semantic-release
 
 branches:
-  only:
-    - master
+  except:
+    - /^v\d+\.\d+\.\d+$/
