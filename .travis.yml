@@ -19,5 +19,5 @@ after_success:
   - test $TRAVIS_BRANCH = "master" && npm run semantic-release
 
 branches:
-  only:
+  except:
     - /^v\d+\.\d+\.\d+$/
