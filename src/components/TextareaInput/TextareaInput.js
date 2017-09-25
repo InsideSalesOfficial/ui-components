@@ -1,39 +1,55 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { colors, typography } from '../styles';
+import { colors, typography, darkScrollbar } from '../styles';
 
 const TextareaInputWrapper = styled.div`
-  position: relative;
   width: 100%;
 `;
 
-const Textarea = styled.textarea`
+const TextareaBox = styled.div`
   background-color: ${colors.white};
-  border: ${(props) => {
+  border: thin solid ${colors.black40};
+  border-color: ${(props) => {
     if (props.error) {
-      return `2px solid ${colors.red}`;
-    } else {
-      return `thin solid ${colors.black40}`;
+      return colors.red;
+    } else if (props.isFocused) {
+        return colors.green;
+    } else if (props.disabled) {
+      return colors.black20;
     }
+    return colors.black40;
   }};
   border-radius: 4px;
+  border-width: ${(props) => {
+    if (props.isFocused || props.error) {
+      return '2px';
+    }
+    return '1px';
+  }};
   box-sizing: border-box;
-  padding: ${(props) => {
-    if (props.error) {
-      return '27px 15px 15px';
+  cursor: ${(props) => {
+        if (props.disabled) {
+          return 'default';
+        }
+        return 'text';
+      }};
+  padding-top: ${(props) => {
+    if (props.error || props.isFocused) {
+      return '27px';
     } else {
-      return '28px 16px 16px';
+      return '28px';
     }
   }};
   height: 100px;
   min-height: 100px;
-  min-width: 100%;
-  resize: none;
-  text-align: left;
+  position: relative;
   transition: border-color 0.14s ease-in-out;
+  width: 100%;
+
   &:hover {
     border-width: ${(props) => {
       if (props.disabled) {
@@ -41,63 +57,108 @@ const Textarea = styled.textarea`
       }
       return '2px';
     }};
-    padding: ${(props) => {
+    padding-top: ${(props) => {
       if (props.disabled) {
-        return '28px 16px 16px';
+        return '28px';
       }
-      return '27px 15px 15px';
+      return '27px';
     }};
-  }
-  &:focus {
-    border: ${(props) => {
-      if (props.error) {
-        return `2px solid ${colors.red}`;
-      } else {
-        return `2px solid ${colors.green}`;
-      }
-    }};
-    outline: 0;
-    padding: 27px 15px 15px;
-    + label {
-      color: ${(props) => {
-        if (props.error) {
-          return colors.red;
+
+    textarea {
+      padding: ${(props) => {
+        if ((props.error || props.isFocused || props.open) && !props.disabled) {
+          return '0 15px';
         } else {
-          return colors.green;
+          return '0 16px';
         }
       }};
     }
-  }
-  &:disabled {
-    background-color: ${colors.black05};
-    border-color: ${colors.black40};
-    + label {
-      color: ${colors.black40};
+
+    label {
+      left: ${(props) => {
+        if (props.disabled) {
+          return '16px';
+        }
+        return '15px';
+      }};
+      top: ${(props) => {
+        if (props.disabled) {
+          return '0';
+        }
+        return '-1px';
+      }};
     }
   }
+
+  ${(props) => {
+    if (props.disabled) {
+      return `
+        background-color: ${colors.black05};
+        label {
+          color: ${colors.black40};
+        }
+      `;
+    }
+  }}
+`;
+
+const Textarea = styled.textarea`
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  height: 100%;
+  padding: ${(props) => {
+    if (props.error || props.isFocused) {
+      return '0 15px';
+    } else {
+      return '0 16px';
+    }
+  }};
+  resize: none;
+  text-align: left;
+  width: 100%;
+  
+  &:focus {
+    outline: 0;
+    padding: 0 15px;
+  }
   ${typography.subhead1}
+  ${darkScrollbar}
 `;
 
 const TextLabel = styled.label`
   color: ${(props) => {
       if (props.error) {
         return colors.red;
+      } else if (props.isFocused) {
+        return colors.green;
       } else {
         return colors.black60;
       }
     }};
-  left: 16px;
+  top: ${(props) => {
+    if (props.error || props.isFocused) {
+      return '-1px';
+    }
+    return '0';
+  }};;
+  left: ${(props) => {
+    if (props.error || props.isFocused) {
+      return '15px';
+    }
+    return '16px';
+  }};
   position: absolute;
   transform: ${(props) => {
-    if (props.open) {
-      return 'translateY(10px)';
+    if (props.open || props.isFocused) {
+      return 'translateY(8px)';
     } else {
-      return 'translateY(19px)';
+      return 'translateY(16px)';
     }
   }};
   transition: font-size 0.14s ease-in-out, transform 0.14s ease-in-out, color 0.14s ease-in-out;
   ${(props) => {
-    if (props.open) {
+    if (props.open || props.isFocused) {
       return typography.caption
     } else {
       return typography.subhead1
@@ -120,35 +181,39 @@ class TextareaInput extends React.Component {
     super(props);
 
     this.state = {
-      focusedOrHasValue: false
+      hasValue: false,
+      focused: false
     };
   }
 
   componentDidMount() {
     if (this.props.children) {
       this.setState({
-        focusedOrHasValue: true
+        hasValue: true
       });
     }
   }
 
   focused = () => {
     this.setState({
-      focusedOrHasValue: true
+      focused: true
     })
   }
 
   blurred = (e) => {
     if (_.get(e, 'target.value', false)) {
       this.setState({
-        focusedOrHasValue: true
+        hasValue: true
       })
     }
     else {
       this.setState({
-        focusedOrHasValue: false
+        hasValue: false
       })
     }
+    this.setState({
+      focused: false
+    })
   }
 
   renderHelperText() {
@@ -159,14 +224,40 @@ class TextareaInput extends React.Component {
     return (<TextareaHelper>{helper}</TextareaHelper>);
   }
 
+  focusOnTextarea = () => {
+    if (this.textareaInput !== document.activeElement) {
+      this.textareaInput.focus();
+    }
+  }
+
+  preventLostFocus = (e) => {
+    if (this.textareaInput === document.activeElement) {
+      e.preventDefault();
+    }
+  }
+
   render() {
     const { label, name, error, disabled, children } = this.props;
     return (
       <TextareaInputWrapper>
-        <Textarea onFocus={this.focused} onBlur={this.blurred} id={name} name={name} error={error} disabled={disabled}>
-          {children}
-        </Textarea>
-        <TextLabel open={this.state.focusedOrHasValue} htmlFor={name} error={error}>{label}</TextLabel>
+        <TextareaBox
+          onMouseDown={this.preventLostFocus}
+          onClick={this.focusOnTextarea}
+          isFocused={this.state.focused}
+          error={error}
+          open={this.state.hasValue}
+          disabled={disabled}>
+          <Textarea
+            onFocus={this.focused}
+            onBlur={this.blurred}
+            id={name} name={name}
+            disabled={disabled}
+            error={error}
+            value={children}
+            ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}>
+          </Textarea>
+          <TextLabel isFocused={this.state.focused} open={this.state.hasValue} htmlFor={name} error={error}>{label}</TextLabel>
+        </TextareaBox>
         {this.renderHelperText()}
       </TextareaInputWrapper>
     );

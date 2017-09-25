@@ -73,6 +73,18 @@ storiesOf('Form', module)
                 />
               )
             },
+            {
+              title: 'Example: textarea disabled with text',
+              sectionFn: () => (
+                <TextareaInput
+                  label="Label"
+                  helper="Helper text."
+                  disabled
+                  name="fifth">
+                    this is some example text
+                </TextareaInput>
+              )
+            },
           ]
         }
       ]
