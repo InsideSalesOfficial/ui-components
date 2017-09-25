@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import renderer from 'react-test-renderer';
 import TextareaInput from './TextareaInput';
 
 describe('TextareaInput', () => {
@@ -9,14 +8,8 @@ describe('TextareaInput', () => {
     const initialValue = true;
     const wrapper = mount(<TextareaInput name="test">Has text here</TextareaInput>);
     
-    expect(wrapper.state().focusedOrHasValue).toEqual(initialValue);
+    expect(wrapper.state().hasValue).toEqual(initialValue);
 
   });
 });
 
-describe('TextareaInput Snapshots', () => {
-  test('shows component with a label', () => {
-    const tree = renderer.create(<TextareaInput name="Name" label="test label" />);
-    expect(tree).toMatchSnapshot();
-  });
-});
