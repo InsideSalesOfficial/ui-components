@@ -169,6 +169,7 @@ const TextLabel = styled.label`
 
 const TextareaHelper = styled.div`
   color: ${colors.black40};
+  padding-top: 4px;
   ${typography.caption}
 `;
 
