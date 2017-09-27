@@ -38,14 +38,24 @@ const TextareaBox = styled.div`
         return 'text';
       }};
   padding-top: ${(props) => {
-    if (props.error || props.isFocused) {
+    if (!props.open && !props.isFocused && props.collapsed) {
+      return 0;
+    } else if (props.error || props.isFocused) {
       return '27px';
-    } else {
-      return '28px';
     }
+    
+    return '28px';
   }};
-  height: 100px;
-  min-height: 100px;
+  height: ${(props) => {
+    if (!props.open && !props.isFocused && props.collapsed) return '50px';
+
+    return '100px';
+  }};
+  min-height: ${(props) => {
+    if (!props.open && !props.isFocused && props.collapsed) return '50px';
+
+    return '100px';
+  }};
   position: relative;
   transition: border-color 0.14s ease-in-out;
   width: 100%;
@@ -58,7 +68,9 @@ const TextareaBox = styled.div`
       return '2px';
     }};
     padding-top: ${(props) => {
-      if (props.disabled) {
+      if (!props.open && !props.isFocused && props.collapsed) {
+        return 0;
+      } else if (props.disabled) {
         return '28px';
       }
       return '27px';
@@ -218,7 +230,12 @@ class TextareaInput extends React.Component {
   }
 
   renderHelperText() {
-    const { error, helper } = this.props;
+    const { error, helper, collapsed } = this.props;
+
+    if (collapsed && !this.state.hasValue && !this.state.focused) {
+      return null;
+    }
+
     if (error) {
       return (<TextareaError>{error}</TextareaError>);
     }
@@ -238,7 +255,7 @@ class TextareaInput extends React.Component {
   }
 
   render() {
-    const { label, name, error, disabled, children } = this.props;
+    const { label, name, error, disabled, children, collapsed } = this.props;
     return (
       <TextareaInputWrapper>
         <TextareaBox
@@ -247,7 +264,8 @@ class TextareaInput extends React.Component {
           isFocused={this.state.focused}
           error={error}
           open={this.state.hasValue}
-          disabled={disabled}>
+          disabled={disabled}
+          collapsed={collapsed}>
           <Textarea
             onFocus={this.focused}
             onBlur={this.blurred}
