@@ -96,6 +96,18 @@ storiesOf('Form', module)
                 </TextareaInput>
               )
             },
+            {
+              title: 'Example: textarea closed without value and has an error',
+              sectionFn: () => (
+                <TextareaInput
+                  label="Label"
+                  helper="Helper text."
+                  error={"This field is required."}
+                  name="sixth"
+                  collapsed>
+                </TextareaInput>
+              )
+            },
           ]
         }
       ]

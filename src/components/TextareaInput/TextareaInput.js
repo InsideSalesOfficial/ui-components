@@ -47,12 +47,12 @@ const TextareaBox = styled.div`
     return '28px';
   }};
   height: ${(props) => {
-    if (!props.open && !props.isFocused && props.collapsed) return '50px';
+    if (!props.open && !props.isFocused && !props.error && props.collapsed) return '50px';
 
     return '100px';
   }};
   min-height: ${(props) => {
-    if (!props.open && !props.isFocused && props.collapsed) return '50px';
+    if (!props.open && !props.isFocused && !props.error && props.collapsed) return '50px';
 
     return '100px';
   }};
@@ -232,7 +232,7 @@ class TextareaInput extends React.Component {
   renderHelperText() {
     const { error, helper, collapsed } = this.props;
 
-    if (collapsed && !this.state.hasValue && !this.state.focused) {
+    if (collapsed && !this.state.hasValue && !this.state.focused && !error) {
       return null;
     }
 
