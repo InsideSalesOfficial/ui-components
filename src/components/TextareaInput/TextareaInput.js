@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { get } from 'lodash';
 
 import { colors, typography, darkScrollbar } from '../styles';
 
@@ -178,13 +179,13 @@ const TextLabel = styled.label`
   line-height: 16px;
 `;
 
-const TextareaHelper = styled.div`
+export const TextareaHelper = styled.div`
   color: ${colors.black40};
   padding-top: 4px;
   ${typography.caption}
 `;
 
-const TextareaError = styled(TextareaHelper)`
+export const TextareaError = styled(TextareaHelper)`
   color: ${colors.red};
 `;
 
@@ -219,7 +220,7 @@ class TextareaInput extends React.Component {
     })
   }
 
-  renderHelperText() {
+  renderHelperText = () => {
     const { error, helper, collapsed } = this.props;
 
     if (collapsed && !this.state.value && !this.state.focused && !error) {
@@ -250,10 +251,10 @@ class TextareaInput extends React.Component {
     }
 
     this.setState({
-      value: e.target.value
+      value: get(e, 'target.value', this.textareaInput.value)
     }, () => {
       if (this.props.onChange) {
-        this.props.onChange(this.textareaInput.value);
+        this.props.onChange(this.state.value);
       }
     });
   }
@@ -278,6 +279,7 @@ class TextareaInput extends React.Component {
             disabled={disabled}
             error={error}
             value={this.state.value}
+            ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}>
           </Textarea>
           <TextLabel isFocused={this.state.focused} open={this.state.value} htmlFor={name} error={error}>{label}</TextLabel>
