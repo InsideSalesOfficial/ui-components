@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  storiesOf
+  storiesOf,
+  action
 } from '@storybook/react';
 
 import TextareaInput from './TextareaInput';
@@ -26,6 +27,7 @@ storiesOf('Form', module)
                 <TextareaInput
                   label="Label"
                   name="first"
+                  onChange={action('value')}
                 />
               )
             },
@@ -35,9 +37,9 @@ storiesOf('Form', module)
                 <TextareaInput
                   label="Label"
                   name="firstz"
-                >
-                  This text was hardcoded into stories. The structure of this component follows how a `textarea` should look.
-                </TextareaInput>
+                  onChange={action('value')}
+                  value="This text was hardcoded into stories. The structure of this component follows how a `textarea` should look."
+                />
               )
             },
             {
