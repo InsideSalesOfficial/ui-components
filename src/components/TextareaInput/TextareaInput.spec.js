@@ -4,12 +4,11 @@ import TextareaInput from './TextareaInput';
 
 describe('TextareaInput', () => {
   
-  it('componentDidMount should set focusedOrHasValue on state if there are any children', () => {
-    const initialValue = true;
-    const wrapper = mount(<TextareaInput name="test">Has text here</TextareaInput>);
-    
-    expect(wrapper.state().hasValue).toEqual(initialValue);
+  it('componentDidMount should set value on state if there is a value prop', () => {
+    const text = 'Has text here';
+    const wrapper = mount(<TextareaInput name="test" value={text} />);
 
+    expect(wrapper.state().value).toBe(text);
   });
 });
 
