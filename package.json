@@ -10,7 +10,7 @@
   "main": "./lib/index.js",
   "private": false,
   "engines": {
-    "node": ">4.0.0"
+    "node": ">8.0.0"
   },
   "author": "InsideSales.com <austin.knight@insidesales.com>",
   "license": "MIT",

@@ -14,7 +14,6 @@ function createPackageFile() {
   .then((data) => JSON.parse(data))
   .then((packageData) => {
     const {
-      name,
       description,
       homepage,
       repository,
