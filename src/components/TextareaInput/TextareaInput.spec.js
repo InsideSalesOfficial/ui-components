@@ -69,25 +69,27 @@ describe('TextareaInput', () => {
     }, 0);
   });
 
-  it('preventLostFocus calls event preventDefault when document activeElement is textarea input', () => {
-    jest.useFakeTimers();
-    const preventSpy = jest.fn();
-    const event = {
-      preventDefault: preventSpy
-    };
-
+  it('onContainerMouseDown sets cancelBlur to true on state', () => {
     const wrapper = mount(<TextareaInput name="test" />);
     
-    expect(wrapper.state().focused).toBeFalsy();
+    expect(wrapper.state().cancelBlur).toBeFalsy();
 
     wrapper.instance().focusOnTextarea();
     
-    setTimeout(() => {
-      wrapper.instance().preventLostFocus(event);
-      expect(preventSpy).toHaveBeenCalled();
-    }, 0);
+    wrapper.instance().cancelBlur();
+    expect(wrapper.state().cancelBlur).toBeTruthy();
+  });
 
-    jest.runAllTimers();
+  it('onContainerMouseUp sets cancelBlur to true on state', () => {
+    const wrapper = mount(<TextareaInput name="test" />);
+  
+    wrapper.instance().focusOnTextarea();
+
+    wrapper.instance().cancelBlur();
+    expect(wrapper.state().cancelBlur).toBeTruthy();
+    
+    wrapper.instance().removeCancelBlur();
+    expect(wrapper.state().cancelBlur).toBeFalsy();
   });
 
   it('onChange should set the state with the new value from the input', () => {

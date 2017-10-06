@@ -241,15 +241,13 @@ class TextareaInput extends React.Component {
     }
   }
 
-  onContainerMouseDown = (e) => {
-    if (this.textareaInput === document.activeElement) {
-      this.setState({
-        cancelBlur: true
-      });
-    }
+  cancelBlur = (e) => {
+    this.setState({
+      cancelBlur: true
+    });
   }
 
-  onContainerMouseUp = (e) => {
+  removeCancelBlur = () => {
     this.setState({
       cancelBlur: false
     });
@@ -274,8 +272,9 @@ class TextareaInput extends React.Component {
     return (
       <TextareaInputWrapper>
         <TextareaBox
-          onMouseDown={this.onContainerMouseDown}
-          onMouseUp={this.onMouseUp}
+          onMouseUp={this.removeCancelBlur}
+          onMouseDown={this.cancelBlur}
+          onMouseLeave={this.removeCancelBlur}
           onClick={this.focusOnTextarea}
           isFocused={this.state.focused}
           error={error}
