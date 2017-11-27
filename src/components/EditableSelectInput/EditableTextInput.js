@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {typography} from '../styles/typography';
@@ -12,13 +13,16 @@ import {colors} from '../styles/colors';
 
 const InputWrapper = styled.div`
   display: flex;
+  width: 100%;
   min-width: 0;
   border-bottom: 2px solid ${colors.white50};
 `;
 
 const TextInput = styled.input`
+  width: 100%;  
   min-width: 0;
   padding: 0;
+  margin-bottom: 6px;
   background-color: transparent;
   border: none;
   color: ${colors.white};
@@ -49,12 +53,14 @@ const OpenOptions = styled.div`
 `;
 
 class EditableTextInput extends React.Component {
+
   render() {
-    const { displayValue, toggleOptionsList } = this.props;
+    const { toggleOptionsList, inputChange, displayValue } = this.props;
 
     return (
       <InputWrapper>
-        <TextInput type="text" value={displayValue} />
+        <TextInput type="text" value={displayValue} onChange={inputChange}
+          ref={(input) => { this.textInput = ReactDOM.findDOMNode(input); }} />
         <OpenOptions onClick={toggleOptionsList} />
       </InputWrapper>
     );

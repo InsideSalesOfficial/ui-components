@@ -1,20 +1,13 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-// import { ThemeProvider } from 'styled-components';
 
-// import { lightSelectInputTheme } from '../SelectInput/SelectInputThemes';
 import SelectOptions from '../SelectInput/SelectOptions';
+import SelectWrapper from '../SelectInput/SelectWrapper';
 
 import EditableTextInput from './EditableTextInput';
-//////////// point this to the SelectWrapper if stays the same
-import EditableSelectWrapper from './EditableSelectWrapper';
-// import SelectWrapper from './SelectWrapper';
-// import SelectInputLabel from './SelectInputLabel';
-// import SelectInputDisplay from './SelectInputDisplay';
 
-class SelectInput extends React.Component {
+class EditableSelectInput extends React.Component {
   // static propTypes = {
   //   isDisabled: PropTypes.bool,
   //   options: PropTypes.array.isRequired,
@@ -39,12 +32,27 @@ class SelectInput extends React.Component {
     this.state = {
       optionsListVisible: false,
       valid: false,
-      touched: false
+      touched: false,
+      inputValue: 'Select'
     };
   }
 
+  componentDidMount() {
+    const {value} = this.props;
+
+    if (value) {
+      this.setState({
+        inputValue: value
+      });
+    } else {
+      this.setState({
+        inputValue: this.determineLabel()
+      });
+    }
+  }
+
   checkDocumentEvent = (event) => {
-    const component = ReactDOM.findDOMNode(this.refs.clickEventElement);
+    const component = ReactDOM.findDOMNode(this.clickEventElement);
     if (!component) {
       document.removeEventListener('click', this.checkDocumentEvent);
       return;
@@ -57,7 +65,13 @@ class SelectInput extends React.Component {
   }
 
   onChange = (newValue) => {
-    this.props.onChange(newValue);
+    if (this.props.onChange) {
+      this.props.onChange(newValue);
+    } else {
+      this.setState({
+        inputValue: _.find(this.props.options, ['value', newValue]).label
+      })
+    }
     this.closeOptionsList();
   }
 
@@ -108,6 +122,10 @@ class SelectInput extends React.Component {
       placeholder = defaultLabel;
     }
 
+    if (this.state.inputValue) {
+      placeholder = this.state.inputValue;
+    }
+
     // Determine what the input label should be
     if (!_.isNil(value)) {
       const optionObject = _.find(copiedOptions, { value });
@@ -118,59 +136,48 @@ class SelectInput extends React.Component {
         inputLabel = placeholder;
       }
     } else {
-      inputLabel = placeholder;
+      if (!_.isEmpty(copiedOptions)) {
+        inputLabel = copiedOptions[0].label
+      } else {
+        inputLabel = placeholder;        
+      }
     }
-
     return inputLabel;
   }
 
+  inputChange = (e) => {
+    if (e) {
+      e.preventDefault();
+    }
+
+    this.setState({
+      inputValue: _.get(e, 'target.value', this.textInputParent.textInput.value)
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(this.state.inputValue);
+      }
+    });
+  }
+
   render() {
-    // const isDisabled = this.props.isDisabled || (this.props.isDisabledOneOption && this.props.options.length <= 1);
     return (
-      /*
-       * Adding className to the outtermost element allows for users of this component to create a
-       * styled component based on this component.
-       *
-       * see https://github.com/styled-components/styled-components/blob/master/docs/existing-css.md
-       */
-      /*<ThemeProvider theme={this.props.theme}>
-        <SelectWrapper
-          ref="clickEventElement" style={this.props.containerStyles || {}}
-          className={this.props.className}
-          id="select-input__wrapper"
-          onClick={() => { if (!isDisabled) { this.toggleOptionsList(); } }}
-        >
-          {this.props.label &&
-            <SelectInputLabel>{this.props.label}</SelectInputLabel>
-          }
-          <SelectInputDisplay
-            label={this.determineLabel()}
-            selectArrowFollows={this.props.selectArrowFollows}
-            isDisabled={isDisabled}
-            noCarat={this.props.noCarat}
-          />
-          <SelectOptions
-            onOptionUpdate={this.onChange}
-            promotedOptions={this.props.promotedOptions}
-            options={this.props.options}
-            optionsCount={this.countOptions()}
-            visible={this.state.optionsListVisible} />
-        </SelectWrapper>
-      </ThemeProvider>*/
-      <EditableSelectWrapper ref="clickEventElement">
+      <SelectWrapper>
         <EditableTextInput
-          displayValue={this.determineLabel()}
+          displayValue={this.state.inputValue}
           isDisabled={this.props.isDisabled}
-          toggleOptionsList={this.toggleOptionsList} />
+          toggleOptionsList={this.toggleOptionsList}
+          inputChange={this.inputChange}
+          ref={(input) => { this.textInputParent = input; }}/>
         <SelectOptions
+          ref={(options) => { this.clickEventElement = options; }}
           onOptionUpdate={this.onChange}
           promotedOptions={this.props.promotedOptions}
           options={this.props.options}
           optionsCount={this.countOptions()}
           visible={this.state.optionsListVisible} />
-      </EditableSelectWrapper>
+      </SelectWrapper>
     );
   }
 }
 
-export default SelectInput;
+export default EditableSelectInput;
