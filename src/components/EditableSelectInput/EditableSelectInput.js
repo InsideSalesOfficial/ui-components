@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import SelectOptions from '../SelectInput/SelectOptions';
 import SelectWrapper from '../SelectInput/SelectWrapper';
@@ -8,24 +9,6 @@ import SelectWrapper from '../SelectInput/SelectWrapper';
 import EditableTextInput from './EditableTextInput';
 
 class EditableSelectInput extends React.Component {
-  // static propTypes = {
-  //   isDisabled: PropTypes.bool,
-  //   options: PropTypes.array.isRequired,
-  //   onChange: PropTypes.func.isRequired,
-  //   selectArrowFollows: PropTypes.bool,
-  //   theme: PropTypes.object,
-  //   isDisabledOneOption: PropTypes.bool
-  // };
-
-  // static defaultProps = {
-  //   isDisabled: false,
-  //   selectArrowFollows: false,
-  //   options: [],
-  //   onChange: value => value,
-  //   theme: lightSelectInputTheme,
-  //   isDisabledOneOption: false // Prop to disable the dropdown if only one option is present
-  // }
-
   constructor() {
     super();
 
@@ -139,7 +122,7 @@ class EditableSelectInput extends React.Component {
       if (!_.isEmpty(copiedOptions)) {
         inputLabel = copiedOptions[0].label
       } else {
-        inputLabel = placeholder;        
+        inputLabel = placeholder;
       }
     }
     return inputLabel;
@@ -178,6 +161,22 @@ class EditableSelectInput extends React.Component {
       </SelectWrapper>
     );
   }
+}
+
+EditableSelectInput.propTypes = {
+  isDisabled: PropTypes.bool,
+  options: PropTypes.array.isRequired,
+  // onChange: PropTypes.func.isRequired,
+  // selectArrowFollows: PropTypes.bool,
+  // isDisabledOneOption: PropTypes.bool
+};
+
+EditableSelectInput.defaultProps = {
+  isDisabled: false,
+  options: [],
+  // onChange: value => value,
+  // selectArrowFollows: false,
+  // isDisabledOneOption: false // Prop to disable the dropdown if only one option is present
 }
 
 export default EditableSelectInput;

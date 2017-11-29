@@ -9,7 +9,7 @@ import {
 //   transparentSelectInputTheme
 // } from './SelectInputThemes';
 
-import EditableTextInput from './';
+import EditableSelectInput from './';
 
 const darkExample = {
   height: '220px',
@@ -44,14 +44,14 @@ const genericOptions = [
 
 storiesOf('Form', module)
 .addWithChapters(
-  'EditableTextInput',
+  'EditableSelectInput',
   {
     info: `
       Usage
 
       ~~~
       import React from 'react';
-      import {EditableTextInput} from 'insidesales-components';
+      import {EditableSelectInput} from 'insidesales-components';
       ~~~
     `,
     chapters: [
@@ -61,7 +61,7 @@ storiesOf('Form', module)
             title: 'Default Theme',
             sectionFn: () => (
               <div style={darkExample}>
-                <EditableTextInput
+                <EditableSelectInput
                   options={genericOptions}
                 />
               </div>
@@ -72,4 +72,3 @@ storiesOf('Form', module)
     ]
   }
 );
-

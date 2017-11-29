@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {typography} from '../styles/typography';
 import {colors} from '../styles/colors';
@@ -19,7 +19,7 @@ const InputWrapper = styled.div`
 `;
 
 const TextInput = styled.input`
-  width: 100%;  
+  width: 100%;
   min-width: 0;
   padding: 0;
   margin-bottom: 6px;
@@ -67,16 +67,16 @@ class EditableTextInput extends React.Component {
   }
 }
 
-// EditableTextInput.propTypes = {
-//   label: PropTypes.any.isRequired,
-//   onClick: PropTypes.func.isRequired,
-//   value: PropTypes.string
-// };
+EditableTextInput.propTypes = {
+  toggleOptionsList: PropTypes.func.isRequired,
+  inputChange: PropTypes.func.isRequired,
+  displayValue: PropTypes.string
+};
 
-// EditableTextInput.defaultProps = {
-//   label: 'Select',
-//   onClick: () => {},
-//   value: 'select',
-// };
+EditableTextInput.defaultProps = {
+  toggleOptionsList: () => {},
+  inputChange: () => {},
+  displayValue: 'select',
+};
 
 export default EditableTextInput;
