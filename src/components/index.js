@@ -1,3 +1,4 @@
+export {default as AccordionList} from './AccordionList';
 export {default as Button} from './Button';
 export {default as RangeSlider} from './RangeSlider';
 export {default as SelectInput} from './SelectInput';
