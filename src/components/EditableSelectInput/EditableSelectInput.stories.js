@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  storiesOf,
-  // action
+  storiesOf
 } from '@storybook/react';
 
 import EditableSelectInput from './';
