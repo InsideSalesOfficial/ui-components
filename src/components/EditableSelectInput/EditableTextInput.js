@@ -1,15 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import {typography} from '../styles/typography';
 import {colors} from '../styles/colors';
-// import _ from 'lodash';
-
-// import { colors, typography } from '../styles';
-
-// import { OverflowWrapper } from './SelectInputThemes';
-// import { SelectOptionHeight } from './SelectOptions';
+import _ from 'lodash';
 
 const InputWrapper = styled.div`
   display: flex;
@@ -54,14 +48,39 @@ const OpenOptions = styled.div`
 
 class EditableTextInput extends React.Component {
 
+  onChange = (e) => {
+    if (this.props.inputChange) {
+      this.props.inputChange(_.get(e, 'target.value'));
+    }
+  }
+
+  handleFocus = () => {
+    if (this.props.toggleFocusState) {
+      this.props.toggleFocusState(true);
+    }
+  }
+
+  handleBlur = () => {
+    if (this.props.toggleFocusState) {
+      this.props.toggleFocusState(false);
+    }
+  }
+
   render() {
-    const { toggleOptionsList, inputChange, displayValue } = this.props;
+    const { toggleOptionsList, displayPlaceholder, displayValue, isOptionsDisabled } = this.props;
 
     return (
       <InputWrapper>
-        <TextInput type="text" value={displayValue} onChange={inputChange}
-          ref={(input) => { this.textInput = ReactDOM.findDOMNode(input); }} />
-        <OpenOptions onClick={toggleOptionsList} />
+        <TextInput
+          type="text"
+          value={displayValue}
+          onChange={this.onChange}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          placeholder={displayPlaceholder} />
+        {!isOptionsDisabled &&
+          <OpenOptions onClick={toggleOptionsList} />
+        }
       </InputWrapper>
     );
   }
@@ -75,8 +94,7 @@ EditableTextInput.propTypes = {
 
 EditableTextInput.defaultProps = {
   toggleOptionsList: () => {},
-  inputChange: () => {},
-  displayValue: 'select',
+  inputChange: () => {}
 };
 
 export default EditableTextInput;

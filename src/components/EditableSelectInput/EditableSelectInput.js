@@ -9,29 +9,12 @@ import SelectWrapper from '../SelectInput/SelectWrapper';
 import EditableTextInput from './EditableTextInput';
 
 class EditableSelectInput extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      optionsListVisible: false,
-      valid: false,
-      touched: false,
-      inputValue: 'Select'
+      optionsListVisible: false
     };
-  }
-
-  componentDidMount() {
-    const {value} = this.props;
-
-    if (value) {
-      this.setState({
-        inputValue: value
-      });
-    } else {
-      this.setState({
-        inputValue: this.determineLabel()
-      });
-    }
   }
 
   checkDocumentEvent = (event) => {
@@ -50,14 +33,10 @@ class EditableSelectInput extends React.Component {
   onChange = (newValue) => {
     if (this.props.onChange) {
       this.props.onChange(newValue);
-    } else {
-      this.setState({
-        inputValue: _.find(this.props.options, ['value', newValue]).label
-      })
     }
     this.closeOptionsList();
   }
-
+  
   toggleOptionsList = () => {
     if (!this.props.wrapCloseDisabled && this.state.optionsListVisible) {
       this.closeOptionsList();
@@ -105,10 +84,6 @@ class EditableSelectInput extends React.Component {
       placeholder = defaultLabel;
     }
 
-    if (this.state.inputValue) {
-      placeholder = this.state.inputValue;
-    }
-
     // Determine what the input label should be
     if (!_.isNil(value)) {
       const optionObject = _.find(copiedOptions, { value });
@@ -120,7 +95,7 @@ class EditableSelectInput extends React.Component {
       }
     } else {
       if (!_.isEmpty(copiedOptions)) {
-        inputLabel = copiedOptions[0].label
+        inputLabel = (typeof copiedOptions[0].label !== 'object') ? copiedOptions[0].label : _.get(copiedOptions, '[0].label.props.optionText');
       } else {
         inputLabel = placeholder;
       }
@@ -128,29 +103,25 @@ class EditableSelectInput extends React.Component {
     return inputLabel;
   }
 
-  inputChange = (e) => {
-    if (e) {
-      e.preventDefault();
+  inputChange = (val) => {
+    if (this.props.onChange) {
+      this.props.onChange(val);
     }
-
-    this.setState({
-      inputValue: _.get(e, 'target.value', this.textInputParent.textInput.value)
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(this.state.inputValue);
-      }
-    });
   }
 
   render() {
+    const isOptionsDisabled = this.props.options.length <= 1;
     return (
-      <SelectWrapper>
+      <SelectWrapper className={this.props.className}>
         <EditableTextInput
-          displayValue={this.state.inputValue}
+          displayValue={this.props.value}
+          displayPlaceholder={this.props.placeholder}
           isDisabled={this.props.isDisabled}
           toggleOptionsList={this.toggleOptionsList}
           inputChange={this.inputChange}
-          ref={(input) => { this.textInputParent = input; }}/>
+          ref={(input) => { this.textInputParent = input; }}
+          isOptionsDisabled={isOptionsDisabled}
+          toggleFocusState={this.props.toggleFocusState} />
         <SelectOptions
           ref={(options) => { this.clickEventElement = options; }}
           onOptionUpdate={this.onChange}
@@ -166,17 +137,14 @@ class EditableSelectInput extends React.Component {
 EditableSelectInput.propTypes = {
   isDisabled: PropTypes.bool,
   options: PropTypes.array.isRequired,
-  // onChange: PropTypes.func.isRequired,
-  // selectArrowFollows: PropTypes.bool,
-  // isDisabledOneOption: PropTypes.bool
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string
 };
 
 EditableSelectInput.defaultProps = {
   isDisabled: false,
   options: [],
-  // onChange: value => value,
-  // selectArrowFollows: false,
-  // isDisabledOneOption: false // Prop to disable the dropdown if only one option is present
+  onChange: () => {}
 }
 
 export default EditableSelectInput;
