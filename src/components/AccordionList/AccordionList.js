@@ -31,14 +31,16 @@ class AccordionList extends Component {
   }
 
   render = () => (
-    <div>
+    <div className={`accordion ${this.props.className}`} >
       {this.props.listItems.map((item, index) => (
-        <div key={`accordion-item-${index}`} onClick={this.setExpandedItem.bind(null, index)}>
-          <div>
+        <div className={`accordion__item accordion__item-${index}`}
+          key={`accordion-item-${index}`}
+          onClick={this.setExpandedItem.bind(null, index)}>
+          <div className="accordion__item__display">
             {item.renderDisplay()}
           </div>
           {this.state.expandedItem === index && item.canOpen &&
-            <div>
+            <div className="accordion__item__conent">
               {item.renderContent()}
             </div>
           }
@@ -55,10 +57,14 @@ AccordionList.defaultProps = {
 
 AccordionList.PropTypes = {
   expandedItem: PropTypes.number,
-  listItems: PropTypes.array.isRequired,
-  onItemExpanded: PropTypes.func,
-  renderContent: PropTypes.func.isRequired,
-  renderDisplay: PropTypes.func.isRequired
+  listItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      renderDisplay: PropTypes.func.isRequired,
+      renderContent: PropTypes.func.isRequired,
+      canOpen: PropTypes.bool.isRequired
+    })
+  ).isRequired,
+  onItemExpanded: PropTypes.func
 };
 
 export default AccordionList;

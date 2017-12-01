@@ -23,6 +23,7 @@ export const colors = {
   fontBlack: '#333333',
   lightBlue: '#69D9F9',
   green: '#3AB676',
+  greenLighter: '#F0FAF4',
   green00: 'rgba(58, 182, 118, 0)',
   green20: 'rgba(58,182,118,0.2)',
   green30: 'rgba(58, 182, 118, 0.3)',
