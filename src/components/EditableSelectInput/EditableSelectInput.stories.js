@@ -4,11 +4,6 @@ import {
   // action
 } from '@storybook/react';
 
-// import {
-//   lineSelectInputTheme,
-//   transparentSelectInputTheme
-// } from './SelectInputThemes';
-
 import EditableSelectInput from './';
 
 const darkExample = {
@@ -16,17 +11,6 @@ const darkExample = {
   backgroundColor: '#2a434a',
   padding: '16px'
 }
-
-// const lightExample = {
-//   height: '220px',
-//   backgroundColor: '#2a434a',
-//   padding: '16px'
-// }
-
-// const promotedOptions = [
-//   { value: '101', label: 'Promoted Option 1', disabled: true },
-//   { value: '102', label: 'Promoted Option 2' },
-// ];
 
 const genericOptions = [
   { value: '1', label: 'Option One' },
@@ -63,6 +47,8 @@ storiesOf('Form', module)
               <div style={darkExample}>
                 <EditableSelectInput
                   options={genericOptions}
+                  value='555-555-5555'
+                  placeholder={'Phone Number'}
                 />
               </div>
             )

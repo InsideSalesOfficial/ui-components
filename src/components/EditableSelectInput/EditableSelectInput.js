@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 import SelectOptions from '../SelectInput/SelectOptions';
@@ -66,41 +65,6 @@ class EditableSelectInput extends React.Component {
     }
 
     return optionsCount;
-  }
-
-  determineLabel = () => {
-    const { defaultLabel, options, promotedOptions, value } = this.props;
-
-    let copiedOptions = _.map(options, _.clone);
-
-    if (promotedOptions && promotedOptions.length) {
-      copiedOptions = [...promotedOptions, ...options];
-    }
-
-    let inputLabel;
-    let placeholder = 'Select';
-
-    if (defaultLabel) {
-      placeholder = defaultLabel;
-    }
-
-    // Determine what the input label should be
-    if (!_.isNil(value)) {
-      const optionObject = _.find(copiedOptions, { value });
-
-      if (optionObject && optionObject.label) {
-        inputLabel = optionObject.label;
-      } else {
-        inputLabel = placeholder;
-      }
-    } else {
-      if (!_.isEmpty(copiedOptions)) {
-        inputLabel = (typeof copiedOptions[0].label !== 'object') ? copiedOptions[0].label : _.get(copiedOptions, '[0].label.props.optionText');
-      } else {
-        inputLabel = placeholder;
-      }
-    }
-    return inputLabel;
   }
 
   inputChange = (val) => {
