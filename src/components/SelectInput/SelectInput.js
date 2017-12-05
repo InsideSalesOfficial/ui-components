@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import { ThemeProvider } from 'styled-components';
 
-import { lightSelectInputTheme } from '../SelectInput/SelectInputThemes';
+import { lightSelectInputTheme } from './SelectInputThemes';
 
 import SelectWrapper from './SelectWrapper';
 import SelectInputLabel from './SelectInputLabel';
