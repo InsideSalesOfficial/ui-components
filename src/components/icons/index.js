@@ -1,3 +1,4 @@
+import AddCircleIcon from './AddCircleIcon';
 import AddIcon from './AddIcon';
 import AttachmentIcon from './AttachmentIcon';
 import AlarmIcon from './AlarmIcon';
@@ -26,6 +27,7 @@ import CogIcon from './CogIcon';
 import CompanyIcon from './CompanyIcon';
 import ConferenceCallIcon from './ConferenceCallIcon';
 import CRMIcon from './CRMIcon';
+import DeleteIcon from './DeleteIcon';
 import DialpadIcon from './DialpadIcon';
 import EditFilledIcon from './EditFilledIcon';
 import EditIcon from './EditIcon';
@@ -73,6 +75,7 @@ import TrashIcon from './TrashIcon';
 import ArrowBack from './ArrowBack';
 
 export default {
+  AddCircleIcon,
   AddIcon,
   AttachmentIcon,
   AlarmIcon,
@@ -101,6 +104,7 @@ export default {
   CompanyIcon,
   ConferenceCallIcon,
   CRMIcon,
+  DeleteIcon,
   DialpadIcon,
   EditFilledIcon,
   EditIcon,
