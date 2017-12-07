@@ -36,15 +36,6 @@ const TextBox = styled.div`
         }
         return 'text';
       }};
-  /* padding-top: ${(props) => {
-    if (!props.open && !props.isFocused && props.collapsed) {
-      return 0;
-    } else if (props.error || props.isFocused) {
-      return '27px';
-    }
-    
-    return '28px';
-  }}; */
   padding-top: 24px;
   padding-bottom: ${(props) => {
     if (props.error || props.isFocused) {
@@ -53,7 +44,6 @@ const TextBox = styled.div`
     
     return '8px';
   }};
-  /* height: 50px; */
   position: relative;
   transition: border-color 0.14s ease-in-out;
   width: 100%;
@@ -65,45 +55,12 @@ const TextBox = styled.div`
       }
       return '2px';
     }};
-    /* padding-top: ${(props) => {
-      if (!props.open && !props.isFocused && props.collapsed) {
-        return 0;
-      } else if (props.disabled) {
-        return '28px';
-      }
-      return '27px';
-    }}; */
     padding-bottom: ${(props) => {
       if (props.disabled) {
         return '8px';
       }
       return '7px';
     }};
-
-    input {
-      /* padding: ${(props) => {
-        if ((props.error || props.isFocused || props.open) && !props.disabled) {
-          return '0 0px';
-        } else {
-          return '0 1px';
-        }
-      }}; */
-    }
-
-    label {
-      /* left: ${(props) => {
-        if (props.disabled) {
-          return '1px';
-        }
-        return '0px';
-      }}; */
-      /* top: ${(props) => {
-        if (props.disabled) {
-          return '0';
-        }
-        return '-1px';
-      }}; */
-    }
   }
 
   ${(props) => {
