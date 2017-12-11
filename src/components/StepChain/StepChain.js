@@ -49,6 +49,7 @@ const StepItem = styled.div`
   margin: auto;
   margin-bottom: 8px;
   border: 8px solid ${colors.white};
+  box-sizing: content-box;
 `;
 
 const GreenStep = styled(StepItem)`
