@@ -213,9 +213,9 @@ class TextInput extends React.Component {
   }
 
   render() {
-    const { label, name, error, disabled, collapsed } = this.props;
+    const { label, name, error, disabled, collapsed, className } = this.props;
     return (
-      <TextInputWrapper>
+      <TextInputWrapper className={className}>
         <TextBox
           onMouseUp={this.removeCancelBlur}
           onMouseDown={this.cancelBlur}

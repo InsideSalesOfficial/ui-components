@@ -130,7 +130,7 @@ class StepChain extends React.Component {
 
   render() {
     return (
-      <StepChainWrapper>
+      <StepChainWrapper className={this.state.className}>
         {this.chainItems()}
       </StepChainWrapper>
     );
