@@ -109,7 +109,7 @@ class StepChain extends React.Component {
       if (currentStep >= keyPlus) {
         const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
         return (
-          <StepWrapper>
+          <StepWrapper key={key}>
             <GreenStep>
               <StepText>{checkOrKey}</StepText>
             </GreenStep>
@@ -118,7 +118,7 @@ class StepChain extends React.Component {
         );
       }
       return (
-        <StepWrapper>
+        <StepWrapper key={key}>
           <StepItem>
             <StepText>{keyPlus}</StepText>
           </StepItem>
