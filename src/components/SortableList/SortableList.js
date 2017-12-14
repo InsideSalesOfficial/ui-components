@@ -1,15 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import styled from 'styled-components';
 
 import { colors, typography } from '../styles';
 import OverflowMenu from '../OverflowMenu';
 
-const UL = styled.ul`
+const ItemList = styled.ul`
   list-style: none;
   padding: 0;
 `;
 
-const LI = styled.li`
+const Item = styled.li`
   background: ${colors.galeryGray};
   border-radius: 2px;
   display: flex;
@@ -25,34 +27,107 @@ const Label = styled.p`
   margin: 0;
 `;
 
-const ItemActions = styled(OverflowMenu)`
+const Menu = styled(OverflowMenu)`
   .overflow-menu__icon {
     fill: ${colors.dimGray};
   }
 `;
 
-const overflowMenuOptions = [{
-  action: () => {},
-  label: 'Move Up'
-}, {
-  action: () => {},
-  label: 'Move Down'
-}, {
-  action: () => {},
-  label: 'Delete'
-}]
-
 class SortableList extends React.Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })).isRequired,
+    onItemsChanged: PropTypes.func
+  }
+
+  static defaultProps = {
+    onItemsChanged: () => {}
+  };
+
+  constructor() {
+    super();
+
+    this.state = {
+      items: []
+    };
+  }
+
+  componentWillMount() {
+    if(!_.get(this.props, 'items')) return;
+
+    this.setState({
+      items: _.cloneDeep(this.props.items)
+    }, () => {
+      this.props.onItemsChanged(this.state.items);
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.items !== nextProps.items) {
+      this.setState({
+        items: nextProps.items
+      });
+    }
+  }
+
+  moveItemInArray(array, element, delta) {
+    const newArray = _.cloneDeep(array);
+
+    const index = _.findIndex(array, {id: element.id});
+    const newIndex = index + delta;
+
+    if (newIndex < 0 || newIndex === newArray.length) return;
+
+    var indexes = [index, newIndex].sort(); 
+
+    newArray.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+
+    this.setState({
+      items: newArray
+    }, () => {
+      this.props.onItemsChanged(this.state.items);
+    });
+  }
+
+  moveItemUp = (item) => {
+    this.moveItemInArray(this.state.items, item, -1);
+  }
+
+  moveItemDown = (item) => {
+    this.moveItemInArray(this.state.items, item, 1);
+  }
+
+  removeItem = (itemId) => {
+    const items = _.cloneDeep(this.state.items);
+    this.setState({
+      items: _.filter(items, (item) => item.id !== itemId)
+    });
+  }
+
+  generateMenuOptions = (item) => [{
+    action: this.moveItemUp.bind(null, item),
+    label: 'Move Up'
+  }, {
+    action: this.moveItemDown.bind(null, item),
+    label: 'Move Down'
+  }, {
+    action: this.removeItem.bind(null, item.id),
+    label: 'Delete'
+  }];
+
   render() {
     return (
-      <UL>
-        {this.props.items.map(item => (
-          <LI key={item.id}>
+      <ItemList>
+        {this.state.items.map(item => (
+          <Item key={item.id}>
             <Label>{item.label}</Label>
-            <ItemActions options={overflowMenuOptions} />
-          </LI>
+            <Menu options={this.generateMenuOptions(item)} />
+          </Item>
         ))}
-      </UL>
+      </ItemList>
     )
   }
 }
