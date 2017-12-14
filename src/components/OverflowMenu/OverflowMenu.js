@@ -14,10 +14,10 @@ const SelectOption = styled.div`
   display: flex;
   padding: 0 10px;
   width: 100%;
-  height: 32px;
+  height: 38px;
   transition: background .25s ease-in-out;
 
-  ${typography.body1}
+  ${typography.subhead1}
   color: ${colors.selectItemColor};
   text-align: left;
   text-overflow: ellipsis;
@@ -40,7 +40,7 @@ const SelectOption = styled.div`
 
 const OptionsContainer = styled.div`
   position: absolute;
-  top: 38px;
+  top: 31px;
   right: -6px;
 
   min-width: 200px;
