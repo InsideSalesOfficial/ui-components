@@ -157,6 +157,7 @@ class OverflowMenu extends React.Component {
       <OverflowWrapper {...this.props} ref="clickEventElement">
         <InteractiveElement onClick={() => { this.toggleMenu(); }}>
           <MoreVertIcon
+            className="overflow-menu__icon"
             fill={colors.white80}
             size={{ width: 24, height: 24 }}
           />

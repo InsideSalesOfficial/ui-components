@@ -1,1 +1,1 @@
-export { default } from './OverflowMenu'
+export { default } from './OverflowMenu';

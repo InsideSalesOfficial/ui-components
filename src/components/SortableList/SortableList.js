@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Icons from '../icons'
 import { colors, typography } from '../styles';
-
-const { MoreVertIcon } = Icons;
+import OverflowMenu from '../OverflowMenu';
 
 const UL = styled.ul`
   list-style: none;
@@ -27,9 +25,22 @@ const Label = styled.p`
   margin: 0;
 `;
 
-const MoreIcon = styled(MoreVertIcon)`
-  cursor: pointer;  
+const ItemActions = styled(OverflowMenu)`
+  .overflow-menu__icon {
+    fill: ${colors.dimGray};
+  }
 `;
+
+const overflowMenuOptions = [{
+  action: () => {},
+  label: 'Move Up'
+}, {
+  action: () => {},
+  label: 'Move Down'
+}, {
+  action: () => {},
+  label: 'Delete'
+}]
 
 class SortableList extends React.Component {
   render() {
@@ -38,7 +49,7 @@ class SortableList extends React.Component {
         {this.props.items.map(item => (
           <LI key={item.id}>
             <Label>{item.label}</Label>
-            <MoreIcon fill={colors.dimGray} size={{width: "26", height: "26"}} />
+            <ItemActions options={overflowMenuOptions} />
           </LI>
         ))}
       </UL>
