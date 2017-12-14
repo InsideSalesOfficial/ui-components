@@ -65,6 +65,7 @@ export const colors = {
   barLightGray: '#E1E1E1',
   barDarkGray: 'rgba(229,229,229,0.5)',
   boulder: '#757575',
+  galeryGray: '#EFEFEF',
   middleGray: '#808080',
   darkGray: '#4F6F70',
   darkslategray: '#2f4f4f',
