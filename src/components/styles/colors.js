@@ -1,24 +1,24 @@
-import { lighten, transparentize } from 'polished';
+import { transparentize } from 'polished';
 
 export const black = '#000000';
 export const white = '#ffffff';
 
 export const colors = {
   black,
-  black05: lighten(.95, black),
-  black10: lighten(.90, black),
-  black12: lighten(.88, black),
-  black20: lighten(.80, black),
-  black30: lighten(.70, black),
-  black36: lighten(.46, black),
-  black24: lighten(.76, black),
-  black40: lighten(.60, black),
-  black50: lighten(.50, black),
-  black54: lighten(.46, black),
-  black60: lighten(.40, black),
-  black80: lighten(.20, black),
-  black87: lighten(.13, black),
-  black90: lighten(.10, black),
+  black05: transparentize(.95, black),
+  black10: transparentize(.90, black),
+  black12: transparentize(.88, black),
+  black20: transparentize(.80, black),
+  black30: transparentize(.70, black),
+  black36: transparentize(.46, black),
+  black24: transparentize(.76, black),
+  black40: transparentize(.60, black),
+  black50: transparentize(.50, black),
+  black54: transparentize(.46, black),
+  black60: transparentize(.40, black),
+  black80: transparentize(.20, black),
+  black87: transparentize(.13, black),
+  black90: transparentize(.10, black),
   blackLight: '#1a1a1a',
   fontBlack: '#333333',
   lightBlue: '#69D9F9',
