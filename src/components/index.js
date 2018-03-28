@@ -19,3 +19,4 @@ export {default as RadioList} from './RadioList';
 export {default as Radio} from './RadioList/Radio';
 export {default as SelectInputLabelBox} from './SelectInputLabelBox';
 export {default as TextareaBox} from './TextareaBox';
+export { colors, boxShadows, scrollbars, typography } from './styles'
