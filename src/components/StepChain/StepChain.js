@@ -45,7 +45,7 @@ const StepItem = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: ${colors.black40};
+  background-color: ${colors.aluminum};
   margin: auto;
   margin-bottom: 8px;
   border: 8px solid ${colors.white};
