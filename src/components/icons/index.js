@@ -41,6 +41,7 @@ import MessageAlertIcon from './MessageAlertIcon';
 import MessageBulletedIcon from './MessageBulletedIcon';
 import MicrosoftIcon from './MicrosoftIcon';
 import MinimizeIcon from './MinimizeIcon';
+import MinusIcon from './MinusIcon';
 import MoreVertIcon from './MoreVertIcon';
 import MoveIcon from './MoveIcon';
 import NotificationBellIcon from './NotificationBellIcon';
@@ -96,6 +97,7 @@ module.exports = {
   LinkedinSocialIcon,
   LinkIcon,
   MenuIcon,
+  MinusIcon,
   MoveIcon,
   LogoutIcon,
   MergeFieldIcon,
