@@ -130,6 +130,9 @@ export const InputItem = styled.input`
   }
   ${typography.subhead1}
   ${darkScrollbar}
+  &::placeholder {
+    color: ${colors.black30};
+  }
 `;
 
 export const TextLabel = styled.label`
