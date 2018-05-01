@@ -58,7 +58,7 @@ const invertColor = (color) => {
 
 }
 
-const icons = _.map(colors, (color, key) => {
+const colorList = _.map(colors, (color, key) => {
   return (
   <ColorWrapper onClick={action(key)} key={key} style={{backgroundColor: color, color: invertColor(color)}}>
     {key}
@@ -75,7 +75,7 @@ storiesOf('Base', module)
 
       ~~~
       import React from 'react';
-      import { Icons } from 'insidesales-components';
+      import { colors } from 'insidesales-components';
       ~~~
     `,
     chapters: [
@@ -85,7 +85,7 @@ storiesOf('Base', module)
             title: 'Default',
             sectionFn: () => (
               <ExampleWrapper>
-                {icons}
+                {colorList}
               </ExampleWrapper>
             )
           }

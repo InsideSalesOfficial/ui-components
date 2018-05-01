@@ -25,7 +25,7 @@ const TypographyWrapper = styled.div`
   ${props => props.extraStyle};
 `;
 
-const icons = _.map(typography, (type, key) => {
+const typographyList = _.map(typography, (type, key) => {
   return (
   <TypographyWrapper onClick={action(key)} key={key} extraStyle={type}>
     {`${key}`}
@@ -42,7 +42,7 @@ storiesOf('Base', module)
 
       ~~~
       import React from 'react';
-      import { Icons } from 'insidesales-components';
+      import { typography } from 'insidesales-components';
       ~~~
     `,
     chapters: [
@@ -52,7 +52,7 @@ storiesOf('Base', module)
             title: 'Default',
             sectionFn: () => (
               <ExampleWrapper>
-                {icons}
+                {typographyList}
               </ExampleWrapper>
             )
           }
