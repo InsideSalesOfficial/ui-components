@@ -15,16 +15,16 @@ const media = {
 }
 
 const ExampleWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  ${ media.large`
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  ` }
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const ColorWrapper = styled.div`
-  width: 150px;
-  height: 100px;
+  width: 200px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const invertColor = (color) => {
