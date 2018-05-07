@@ -1,6 +1,6 @@
 import { colors } from './colors';
 
-export const darkScrollbar = `
+const scrollBar = color => `
   &::-webkit-scrollbar {
     background: transparent;
     border-left: none;
@@ -14,7 +14,7 @@ export const darkScrollbar = `
   }
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
-    background-color: ${colors.black40};
+    background-color: ${color};
     border: 1px solid transparent;
     border-radius: 5px;
   }
@@ -22,3 +22,11 @@ export const darkScrollbar = `
     background: transparent;
   }
 `
+
+export const darkScrollbar = scrollBar(colors.black40);
+export const lightScrollbar = scrollBar(colors.white40);
+
+export const scrollbars = {
+  darkScrollbar,
+  lightScrollbar
+}
