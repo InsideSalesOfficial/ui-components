@@ -3,6 +3,14 @@ import { storiesOf } from '@storybook/react';
 
 import DropdownButton from './DropdownButton';
 
+const buttonAction = (selectedOption) => {
+  alert(`Clicked ${selectedOption.label}!`)
+};
+
+const dropdownOptions = [
+  { value: 0, label: 'Option 1', },
+  { value: 1, label: 'Option 2', }
+];
 
 storiesOf('Base', module)
 .addWithChapters(
@@ -22,7 +30,10 @@ storiesOf('Base', module)
           {
             title: 'Default',
             sectionFn: () => (
-              <DropdownButton label="Dropdown Button" />
+              <DropdownButton
+                options={dropdownOptions}
+                onClick={buttonAction}
+              />
             )
           },
           //{

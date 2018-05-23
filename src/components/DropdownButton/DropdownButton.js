@@ -9,16 +9,17 @@ import { typography } from '../styles/typography';
 import PropTypes from 'prop-types';
 
 export const buttonAnimationTimeSeconds = 2;
+const LEAVE_DROPDOWN_OPEN = 'leave-dropdown-open';
 const padding = '16px';
 
 const WrapperHoverStyles = (props) => {
-  console.log(props);
   return `
   box-shadow: ${(props.loading || props.fade || props.disabled || props.flat) ?
     0 :
     '0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24)'};
 
     button {
+      /* TODO: Make this not override CaretButton background */
       background: ${(props.flat) ?
         'rgba(58,182,118,0.12)' :
         'var(--background)'};
@@ -202,6 +203,7 @@ const CenteredSpan = styled.span`
 `;
 
 const CaretButton = styled(ButtonBase)`
+  background-color: #34A369; /* TODO: Move color const to theme? */
   border-radius: 0 2px 2px 0;
   width: 36px;
   min-width: unset;
@@ -230,58 +232,123 @@ const Dropdown = styled(SelectOptions)`
 `;
 
 export default class DropdownButton extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       optionsListVisible: false,
       dropdownActive: false,
+      leaveDropdownOpenClickEventAttached: false,
+      selectedOption: props.options[props.value] || props.options[0],
     }
   }
 
-  checkDocumentEvent = (e) => { checkDocumentEvent.call(this, e) }
+  checkDocumentEvent (e) {
+    checkDocumentEvent.call(this, e)
+  }
 
-  openOptionsList = () => {
-    console.log('make wrapper active');
+  clickOutsideDropdownHandler (event) {
+    // If the dropdown is open and we don't have the LEAVE_DROPDOWN_OPEN class
+    // anywhere in the DOM tree then close the dropdown
+    const element = event.target;
+    const hasClass = this.checkElementAndParentForClass(element, LEAVE_DROPDOWN_OPEN);
+    if (this.state.dropdownActive && !hasClass) {
+      this.toggleOptionsList();
+    }
+  }
+
+  checkElementAndParentForClass (element, className) {
+    // Get parent and check for class
+    const parent = element.parentElement;
+    const hasClass = element.classList.contains(className);
+    let parentHasClass = false;
+
+    // If we have a parent, check that for the class as well
+    if (parent) {
+      parentHasClass = parent.classList.contains(className);
+    }
+
+    // If the element or it's parent have the class, return true
+    if (hasClass || parentHasClass) {
+      return true;
+    } else if (!parent) { // If there was no parent, return false
+      return false;
+    }
+
+    // There was a parent, but we didn't find the class, so let's go up one
+    // level
+    return this.checkElementAndParentForClass(parent, className);
+  }
+
+  openOptionsList () {
+    // Make Wrapper active
     this.setState({
       dropdownActive: true,
     });
+
+    if (!this.state.leaveDropdownOpenClickEventAttached) {
+      document.body.addEventListener('click', this.clickOutsideDropdownHandler.bind(this));
+      this.setState({
+        leaveDropdownOpenClickEventAttached: true,
+      });
+    }
+
     openOptionsList.call(this);
   }
 
-  closeOptionsList = () => {
-    console.log('make wrapper not active');
+  closeOptionsList () {
+    // Make wrapper innactive
     this.setState({
       dropdownActive: false,
     });
     closeOptionsList.call(this);
   }
 
-  toggleOptionsList = () => { toggleOptionsList.call(this) }
+  toggleOptionsList () {
+    toggleOptionsList.call(this)
+  }
 
-  determineLabel = () => {
-    const selectedOption = _.find(this.props.options, o => o.value === this.props.value);
-    return _.get(selectedOption, 'label', this.props.value);
+  updateOption (value) {
+    this.setState({
+      value,
+      selectedOption: this.props.options[value],
+    });
+
+    this.toggleOptionsList();
+  }
+
+  getLabel () {
+    // Get the selected option or return the first as a default
+    const selectedOption = this.props.options[this.props.value] || this.props.options[0];
+    return selectedOption.label || this.props.value || 'Please Select an Option'
+  }
+
+  handleBaseButtonClick () {
+    this.props.onClick(this.state.selectedOption);
   }
 
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper isActive={this.state.dropdownActive}>
-          <ButtonBase>
+          <ButtonBase onClick={this.handleBaseButtonClick.bind(this)}>
             <CenteredSpan>
-              {this.props.label}
+              {this.state.selectedOption.label}
             </CenteredSpan>
           </ButtonBase>
-          <CaretButton onClick={this.toggleOptionsList} {...this.props} ref={(el) => { this.clickEventElement = el }}>
-            <CenteredSpan>
+          <CaretButton
+            className={LEAVE_DROPDOWN_OPEN}
+            onClick={this.toggleOptionsList.bind(this)}
+            ref={(el) => { this.clickEventElement = el }}>
+            <CenteredSpan className={LEAVE_DROPDOWN_OPEN}>
               &nbsp;
-              <Caret open={this.state.optionsListVisible} />
+              <Caret className={LEAVE_DROPDOWN_OPEN} open={this.state.optionsListVisible} />
             </CenteredSpan>
           </CaretButton>
           <Dropdown
+            className={LEAVE_DROPDOWN_OPEN}
             selectedOptions={this.props.value}
             promotedOptions={this.props.promotedOptions}
-            onOptionUpdate={this.props.onChange}
+            onOptionUpdate={this.updateOption.bind(this)}
             options={this.props.options}
             hideDivider={_.isEmpty(this.props.options)}
             visible={this.state.optionsListVisible}
