@@ -9,7 +9,7 @@ import { typography } from '../styles/typography';
 import PropTypes from 'prop-types';
 
 export const buttonAnimationTimeSeconds = 2;
-const LEAVE_DROPDOWN_OPEN = 'leave-dropdown-open';
+const COMPONENT_CLASS = 'dropdown-button';
 const padding = '16px';
 
 const WrapperHoverStyles = (props) => {
@@ -239,58 +239,35 @@ export default class DropdownButton extends React.Component {
       dropdownActive: false,
       leaveDropdownOpenClickEventAttached: false,
       selectedOption: props.options[props.value] || props.options[0],
+      dropdownId: _.uniqueId('dropdown-button_'),
+      bodyClickHandler: this.clickOutsideDropdownHandler.bind(this),
     }
+  }
+
+  componentDidMount () {
+    document.addEventListener('click', this.state.bodyClickHandler);
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('click', this.state.bodyClickHandler);
   }
 
   checkDocumentEvent (e) {
     checkDocumentEvent.call(this, e)
   }
 
-  clickOutsideDropdownHandler (event) {
-    // If the dropdown is open and we don't have the LEAVE_DROPDOWN_OPEN class
-    // anywhere in the DOM tree then close the dropdown
-    const element = event.target;
-    const hasClass = this.checkElementAndParentForClass(element, LEAVE_DROPDOWN_OPEN);
-    if (this.state.dropdownActive && !hasClass) {
+  clickOutsideDropdownHandler = (event) => {
+    const clickedInsideComponent = event.target.closest(`#${this.state.dropdownId}`)
+    if (this.state.dropdownActive && !clickedInsideComponent) {
       this.toggleOptionsList();
     }
   }
 
-  checkElementAndParentForClass (element, className) {
-    // Get parent and check for class
-    const parent = element.parentElement;
-    const hasClass = element.classList.contains(className);
-    let parentHasClass = false;
-
-    // If we have a parent, check that for the class as well
-    if (parent) {
-      parentHasClass = parent.classList.contains(className);
-    }
-
-    // If the element or it's parent have the class, return true
-    if (hasClass || parentHasClass) {
-      return true;
-    } else if (!parent) { // If there was no parent, return false
-      return false;
-    }
-
-    // There was a parent, but we didn't find the class, so let's go up one
-    // level
-    return this.checkElementAndParentForClass(parent, className);
-  }
-
-  openOptionsList () {
+  openOptionsList (event) {
     // Make Wrapper active
     this.setState({
       dropdownActive: true,
     });
-
-    if (!this.state.leaveDropdownOpenClickEventAttached) {
-      document.body.addEventListener('click', this.clickOutsideDropdownHandler.bind(this));
-      this.setState({
-        leaveDropdownOpenClickEventAttached: true,
-      });
-    }
 
     openOptionsList.call(this);
   }
@@ -313,7 +290,9 @@ export default class DropdownButton extends React.Component {
       selectedOption: this.props.options[value],
     });
 
-    this.toggleOptionsList();
+    if (this.state.dropdownActive) {
+      this.toggleOptionsList();
+    }
   }
 
   getLabel () {
@@ -323,29 +302,30 @@ export default class DropdownButton extends React.Component {
   }
 
   handleBaseButtonClick () {
+    if (this.state.dropdownActive) {
+      this.toggleOptionsList();
+    }
     this.props.onClick(this.state.selectedOption);
   }
 
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper isActive={this.state.dropdownActive}>
+        <Wrapper id={this.state.dropdownId} className={COMPONENT_CLASS} isActive={this.state.dropdownActive}>
           <ButtonBase onClick={this.handleBaseButtonClick.bind(this)}>
             <CenteredSpan>
               {this.state.selectedOption.label}
             </CenteredSpan>
           </ButtonBase>
           <CaretButton
-            className={LEAVE_DROPDOWN_OPEN}
             onClick={this.toggleOptionsList.bind(this)}
             ref={(el) => { this.clickEventElement = el }}>
-            <CenteredSpan className={LEAVE_DROPDOWN_OPEN}>
+            <CenteredSpan>
               &nbsp;
-              <Caret className={LEAVE_DROPDOWN_OPEN} open={this.state.optionsListVisible} />
+              <Caret open={this.state.optionsListVisible} />
             </CenteredSpan>
           </CaretButton>
           <Dropdown
-            className={LEAVE_DROPDOWN_OPEN}
             selectedOptions={this.props.value}
             promotedOptions={this.props.promotedOptions}
             onOptionUpdate={this.updateOption.bind(this)}
