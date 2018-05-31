@@ -2,6 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import DropdownButton from './DropdownButton';
+import Icons from '../icons';
+
+const SFIcon = Icons.ColoredSalesforceIcon;
 
 const buttonAction = (selectedOption) => {
   alert(`Clicked ${selectedOption.label}!`)
@@ -30,10 +33,14 @@ storiesOf('Base', module)
           {
             title: 'Default',
             sectionFn: () => (
+              <div>
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
+                theme={{gray: true}}
+                icon={ <SFIcon size={{ width: 24, height: 16.45 }} />}
               />
+              </div>
             )
           },
           //{

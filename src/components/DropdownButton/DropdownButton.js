@@ -9,98 +9,7 @@ import { typography } from '../styles/typography';
 import PropTypes from 'prop-types';
 
 export const buttonAnimationTimeSeconds = 2;
-const COMPONENT_CLASS = 'dropdown-button';
 const padding = '16px';
-
-const WrapperHoverStyles = (props) => {
-  return `
-  box-shadow: ${(props.loading || props.fade || props.disabled || props.flat) ?
-    0 :
-    '0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24)'};
-
-    button {
-      /* TODO: Make this not override CaretButton background */
-      background: ${(props.flat) ?
-        'rgba(58,182,118,0.12)' :
-        'var(--background)'};
-
-      filter: ${(props.loading || props.fade || props.disabled) ?
-        'none' :
-        'brightness(0.9)'};
-    }
-`;
-}
-const Wrapper = styled.div`
-  position: relative;
-  display: inline-block;
-
-  ${(props) => {
-    if (props.isActive) {
-      return WrapperHoverStyles(props);
-    }
-  }}
-  &:hover {
-    ${(props) => {
-      return WrapperHoverStyles(props);
-    }}
-  }
-`;
-
-export const Value = styled.button`
-  border: 0;
-  display: block;
-  width: 100%;
-  text-align: left;
-  ${typography.subhead1};
-  color: ${(props) => {
-    if (props.isPlaceHolder) {
-      return colors.black60;
-    }
-
-    return colors.black90;
-  }};
-  height: 56px;
-  padding: 22px ${padding} 0 ${(props) => {
-    if (props.theme.leftDisplayPosition) {
-      return props.theme.leftDisplayPosition;
-    }
-
-    return padding;
-  }};
-  background: ${(props) => {
-    if (props.theme.background) {
-      return props.theme.background;
-    }
-
-    return colors.lighterGray;
-  }};
-  box-sizing: border-box;
-  border-bottom-width: ${(props) => {
-    if (props.theme.borderWidth) {
-      return props.theme.borderWidth;
-    }
-
-    return '2px';
-  }};
-  border-bottom-style: solid;
-  border-bottom-color: ${props => props.isDisabled ? 'transparent' : colors.black40};
-  cursor: ${props => props.isDisabled ? 'auto' : 'pointer'};
-  border-radius: ${(props) => {
-    if (props.theme.borderRadius) {
-      return props.theme.borderRadius;
-    }
-
-    return '2px';
-  }};
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  &:focus {
-    outline: 0;
-    border-color: ${props => props.isDisabled ? 'transparent' : colors.green};
-  }
-`;
 
 const ButtonBase = styled.button`
   animation: ${(props) => {
@@ -126,6 +35,10 @@ const ButtonBase = styled.button`
 
     if (props.neuralytics) {
       return colors.neuralBlue;
+    }
+
+    if (props.theme.gray) {
+      return colors.gray90;
     }
 
     return colors.green;
@@ -170,7 +83,13 @@ const ButtonBase = styled.button`
   }};
 
   border-radius: 2px 0 0 2px;
-  color: ${colors.white90};
+  color: ${(props) => {
+    if (props.theme.gray) {
+      return colors.black60;
+    }
+
+    return colors.white90;
+  }};
 
   height: 36px;
   line-height: 24px;
@@ -202,8 +121,21 @@ const CenteredSpan = styled.span`
   margin: 0;
 `;
 
+const LeftIconSpan = styled.span`
+  display: inline;
+  position: relative;
+  top: 3px;
+  padding 0 10px 0 0;
+`;
+
 const CaretButton = styled(ButtonBase)`
-  background-color: #34A369; /* TODO: Move color const to theme? */
+  background-color: ${(props) => {
+    if (props.theme.gray) {
+      return colors.gray90;
+    }
+
+    return colors.greenDarker;
+  }};
   border-radius: 0 2px 2px 0;
   width: 36px;
   min-width: unset;
@@ -224,11 +156,51 @@ const Caret = styled.div`
     margin: auto;
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
-    border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => props.open ? colors.black90 : colors.black40} solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${(props) => {
+      if (props.theme.gray) {
+        return colors.black60;
+      }
+
+      return colors.white;
+    }} solid;
   }
 `;
 
 const Dropdown = styled(SelectOptions)`
+`;
+
+const WrapperHoverStyles = (props) => {
+  return `
+  box-shadow: ${(props.loading || props.fade || props.disabled || props.flat) ?
+    0 :
+    '0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24)'};
+`;
+}
+
+const Wrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  ${(props) => {
+    if (props.isActive) {
+      return WrapperHoverStyles(props);
+    }
+  }}
+  &:hover {
+    ${(props) => {
+      return WrapperHoverStyles(props);
+    }}
+
+    ${ButtonBase}:not(:hover) {
+      * {
+        opacity: 0.8;
+      }
+    }
+
+    ${CaretButton}:not(:hover) {
+      opacity: 0.8;
+    }
+  }
 `;
 
 export default class DropdownButton extends React.Component {
@@ -311,13 +283,19 @@ export default class DropdownButton extends React.Component {
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper id={this.state.dropdownId} className={COMPONENT_CLASS} isActive={this.state.dropdownActive}>
+        <Wrapper id={this.state.dropdownId} isActive={this.state.dropdownActive}>
           <ButtonBase onClick={this.handleBaseButtonClick.bind(this)}>
+            {this.props.icon &&
+              <LeftIconSpan>
+                {this.props.icon}
+              </LeftIconSpan>
+            }
             <CenteredSpan>
               {this.state.selectedOption.label}
             </CenteredSpan>
           </ButtonBase>
           <CaretButton
+            onMouseEnter={console.log}
             onClick={this.toggleOptionsList.bind(this)}
             ref={(el) => { this.clickEventElement = el }}>
             <CenteredSpan>

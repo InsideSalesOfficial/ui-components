@@ -18,6 +18,8 @@ import CloseFullIcon from './CloseFullIcon';
 import CloseIcon from './CloseIcon';
 import CogIcon from './CogIcon';
 import CollapseIcon from './CollapseIcon';
+import ColoredMicrosoftIcon from './ColoredMicrosoftIcon';
+import ColoredSalesforceIcon from './ColoredSalesforceIcon';
 import CompanyIcon from './CompanyIcon';
 import CRMIcon from './CRMIcon';
 import DeleteIcon from './DeleteIcon';
@@ -87,6 +89,8 @@ export default {
   CloseIcon,
   CogIcon,
   CollapseIcon,
+  ColoredMicrosoftIcon,
+  ColoredSalesforceIcon,
   CompanyIcon,
   CRMIcon,
   DeleteIcon,
