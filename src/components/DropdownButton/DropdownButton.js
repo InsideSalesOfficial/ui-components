@@ -29,11 +29,11 @@ const ButtonBase = styled.button`
     }
 
     if (props.disabled || props.fade) {
-      return colors.green50;
+      return colors.green40;
     }
 
     if (props.theme.gray) {
-      return colors.gray90;
+      return colors.grayB;
     }
 
     return colors.green;
@@ -70,7 +70,7 @@ const ButtonBase = styled.button`
   border: ${(props) => {
     if (props.outline) {
       if (props.disabled) {
-        return `1px solid ${colors.green30}`;
+        return `1px solid ${colors.green10}`;
       }
       return `1px solid ${colors.green}`;
     }
@@ -126,10 +126,10 @@ const LeftIconSpan = styled.span`
 const CaretButton = styled(ButtonBase)`
   background-color: ${(props) => {
     if (props.theme.gray) {
-      return colors.gray90;
+      return colors.grayB;
     }
 
-    return colors.greenDarker;
+    return colors.greenB;
   }};
   border-radius: 0 2px 2px 0;
   width: 36px;
