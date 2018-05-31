@@ -32,10 +32,6 @@ const ButtonBase = styled.button`
       return colors.green50;
     }
 
-    if (props.neuralytics) {
-      return colors.neuralBlue;
-    }
-
     if (props.theme.gray) {
       return colors.gray90;
     }
