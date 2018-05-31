@@ -33,40 +33,43 @@ storiesOf('Base', module)
           {
             title: 'Default',
             sectionFn: () => (
-              <div>
+              <DropdownButton
+                options={dropdownOptions}
+                onClick={buttonAction}
+              />
+            )
+          },
+          {
+            title: 'Gray',
+            sectionFn: () => (
+              <DropdownButton
+                options={dropdownOptions}
+                onClick={buttonAction}
+                theme={{gray: true}}
+              />
+            )
+          },
+          {
+            title: 'With Icon',
+            sectionFn: () => (
+              <DropdownButton
+                options={dropdownOptions}
+                onClick={buttonAction}
+                icon={ <SFIcon size={{ width: 24, height: 16.45 }} />}
+              />
+            )
+          },
+          {
+            title: 'Gray with Icon',
+            sectionFn: () => (
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
                 theme={{gray: true}}
                 icon={ <SFIcon size={{ width: 24, height: 16.45 }} />}
               />
-              </div>
             )
           },
-          //{
-            //title: 'Loading',
-            //sectionFn: () => (
-              //<DropdownButton label='Button' loading/>
-            //)
-          //},
-          //{
-            //title: 'Disabled',
-            //sectionFn: () => (
-              //<DropdownButton label='Button' disabled/>
-            //)
-          //},
-          //{
-            //title: 'Danger',
-            //sectionFn: () => (
-              //<DropdownButton label='Button' danger/>
-            //)
-          //},
-          //{
-            //title: 'Neuralytics',
-            //sectionFn: () => (
-              //<DropdownButton label='Button' neuralytics/>
-            //)
-          //},
         ]
       }
     ]

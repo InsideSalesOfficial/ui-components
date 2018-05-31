@@ -9,7 +9,6 @@ import { typography } from '../styles/typography';
 import PropTypes from 'prop-types';
 
 export const buttonAnimationTimeSeconds = 2;
-const padding = '16px';
 
 const ButtonBase = styled.button`
   animation: ${(props) => {
