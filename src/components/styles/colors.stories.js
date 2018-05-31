@@ -3,19 +3,61 @@ import { storiesOf, action } from '@storybook/react';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import { colors } from './colors';
+import { colors, white, black, gray, darkBlue, red, orange, blue, tron, green } from './colors';
+import { typography } from './typography';
+import { boxShadows } from './boxShadows';
+
+
+const allColors = {green, tron, blue, orange, red, darkBlue, gray, black, white};
 
 const ExampleWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  background-color: ${colors.darkBlue};
+  padding: 32px 64px;
 `;
 
-const ColorWrapper = styled.div`
-  width: 200px;
-  height: 50px;
+const ColorRow = styled.div`
+  margin-bottom: 32px;
+`;
+
+const ColorName = styled.h3`
+  display: block;
+  color: ${colors.white};
+  text-transform: capitalize;
+  ${typography.subhead2}
+`;
+
+const Colors = styled.div`
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-column-gap: 32px;
+  grid-row-gap: 32px;
+  ${(props) => { if (props.darkBlue) {
+    return 'grid-template: repeat(2, 1fr) / repeat(6, 1fr); grid-auto-flow: column';
+  }}};
+`;
+
+const ColorSwatch = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  height: 64px;
+  border-radius: 2px;
+  box-shadow: ${boxShadows.lvl2};
+  background-color: ${(props) => {
+    return props.bgColor;
+  }};
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: ${boxShadows.lvl5};
+  }
+`;
+
+const SwatchName = styled.div`
+  margin: 4px 8px;
+  color: ${props => invertColor(props.swatchColor)};
+  ${typography.body1}
 `;
 
 const getRGBAValues = (color) => {
@@ -48,55 +90,36 @@ const getRGBAValues = (color) => {
 const invertColor = (color) => {
   const c = getRGBAValues(color);  
 
-  return c.a < 0.5 || Math.max(c.r,c.g,c.b) > 186
-      ? 'black'
-      : 'white';
+  return c.a > 0.3 && c.r + c.g + c.b > 686
+      ? colors.black60
+      : colors.white60;
 }
 
-const rgbToHSL = (r, g, b) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
+const displayColorSwatches = (colorDetails) => {
+  return _.map(colorDetails, (colorItem, key) => {
+    return (
+      <ColorSwatch key={key} bgColor={colorItem} onClick={action(colorItem)}>
+        <SwatchName swatchColor={colorItem}>
+          {key}
+        </SwatchName>
+      </ColorSwatch>
+    );
+  });
+};
 
-  var max = Math.max(r, g, b), min = Math.min(r, g, b);
-  var h, s, l = (max + min) / 2;
-
-  if (max === min) {
-    h = s = 0; // achromatic
-  } else {
-    var d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-    switch (max) {
-      case r: h = (g - b) / d + (g <= b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
-      default: ;
-    }
-
-    h /= 6;
-  }
-
-  return { h, s, l };
-}
-
-const colorComboValue = (color) => {
-  const rgba = getRGBAValues(color);
-  return rgba.r + rgba.g + rgba.b + rgba.a;
-}
-
-const sortByColor = (items) => {
-  return _.sortBy(items, ['props.hslVal.h', 'props.colorVal']);
-}
-
-const colorList = sortByColor(_.map(colors, (color, key) => {
-  const {r, g, b} = getRGBAValues(color);
+const playbooksColors = _.map(allColors, (colorDetails, key) => {
   return (
-  <ColorWrapper onClick={action(key)} key={key} hslVal={rgbToHSL(r, g, b)} colorVal={colorComboValue(color)} style={{backgroundColor: color, color: invertColor(color)}}>
-    {key}
-  </ColorWrapper>
-)}
-));
+    <ColorRow key={key}>
+      <ColorName>
+        {key}
+      </ColorName>
+      <Colors darkBlue={key === 'darkBlue'}>
+        {displayColorSwatches(colorDetails)}
+      </Colors>
+    </ColorRow>
+  )
+});
+
 
 storiesOf('Base', module)
 .addWithChapters(
@@ -114,10 +137,13 @@ storiesOf('Base', module)
       {
         sections: [
           {
-            title: 'Default',
+            title: 'Color Palette',
+            options: {
+              showSource: false
+            },
             sectionFn: () => (
               <ExampleWrapper>
-                {colorList}
+                {playbooksColors}
               </ExampleWrapper>
             )
           }

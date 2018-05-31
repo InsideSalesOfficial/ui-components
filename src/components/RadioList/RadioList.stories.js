@@ -135,7 +135,52 @@ storiesOf('Form', module)
 
               return (<Wrapper />);
             }
-          }
+          },
+          {
+            title: 'Example: Two line label',
+            subtitle: 'A Radio List with Numeric Values and an Initial Value of 3',
+            sectionFn: () => {
+              const radios = [
+                {
+                  value: 0,
+                  id: 'radio-0',
+                  label: 'Unassigned'
+                },
+                {
+                  value: 1,
+                  id: 'radio-1',
+                  label: {
+                    super: 'label 1',
+                    main: '801-545-5656'
+                  }
+                },
+                {
+                  value: 2,
+                  id: 'radio-2',
+                  label: {
+                    super: 'label 2',
+                    main: '801-545-5657'
+                  }
+                },
+                {
+                  value: 3,
+                  id: 'radio-3',
+                  label: {
+                    super: 'label 3',
+                    main: '801-545-5658'
+                  }
+                },
+              ];
+              
+              return (
+                <RadioListComponent
+                  radios={radios}
+                  value={value}
+                  onChange={action('onChange')}
+                  name={name} />
+              )
+            }
+          },
         ]
       }
     ]

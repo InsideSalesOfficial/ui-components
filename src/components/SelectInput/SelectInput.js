@@ -187,7 +187,10 @@ class SelectInput extends React.Component {
           {this.props.label && !this.props.addButtonList &&
             <SelectInputLabel>{this.props.label}</SelectInputLabel>
           }
-          <div style={{width: '100%'}} onClick={(e) => { if (!isDisabled) { this.toggleOptionsList(e); } }}>
+          <div
+            style={{width: '100%'}}
+            className='pb-test__selectInputDisplay'
+            onClick={(e) => { if (!isDisabled) { this.toggleOptionsList(e); } }}>
             <SelectInputDisplay
               defaultLabel={this.props.defaultLabel}
               label={this.determineLabel()}
@@ -198,6 +201,7 @@ class SelectInput extends React.Component {
             />
           </div>
           <SelectOptions
+            className='pb-test__selectInputOptions'
             selectedOptions={this.props.value}
             onOptionUpdate={this.onChange}
             promotedOptions={promotedOptions}

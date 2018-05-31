@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import * as _ from 'lodash';
 
 import Loader from '../Loader';
-import { colors, typography } from '../styles';
+import { colors, typography, boxShadows } from '../styles';
 
 export const buttonAnimationTimeSeconds = 2;
 
@@ -28,67 +28,110 @@ const ButtonBase = styled.button`
   }} ${buttonAnimationTimeSeconds}s;
 
   --background: ${(props) => {
-    if (props.flat) {
-      return 'none';
+    if (props.danger && props.disabled) {
+      return colors.red10;
+    }
+
+    if (props.disabled || props.fade) {
+      return colors.green10;
     }
 
     if (props.danger) {
       return colors.red;
     }
 
-    if (props.disabled || props.fade) {
-      return colors.green50;
+    if (props.outline || props.flat || props.flatAlt) {
+      return 'transparent';
     }
 
     if (props.neuralytics) {
-      return colors.neuralBlue;
+      return colors.tron;
     }
 
     return colors.green;
   }};
   background: var(--background);
 
-  transition: filter .25s ease-in-out, box-shadow .25s ease-in-out;
+  transition: box-shadow .25s ease-in-out, background-color .25s ease-in-out;
   &:hover {
-    background: ${(props) => {
-      if (props.flat) {
-        return 'rgba(58,182,118,0.12)';
+    background-color: ${(props) => {
+      if (props.flat || props.flatAlt || props.outline) {
+        return colors.green10;
       }
 
       return 'var(--background)';
     }};
 
-    filter: ${(props) => {
-      if (props.loading || props.fade || props.disabled) {
-        return 'none';
-      }
-      return 'brightness(0.9)';
-    }};
-
     box-shadow: ${(props) => {
-      if (props.loading || props.fade || props.disabled || props.flat) {
-        return 0;
+      if (props.loading || props.fade || props.disabled || props.flat || props.flatAlt || props.outline) {
+        return;
       }
 
-      return '0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24)';
+      return `inset 0 0 0 9999px ${colors.black10}, ` + boxShadows.lvl3;
     }};
   }
 
   &:active {
-    background: ${(props) => {
-      if (props.flat) {
-        return 'rgba(58,182,118,0.24)';
+    transition: box-shadow .01s linear, background-color .01s linear;
+    background-color: ${(props) => {
+      if (props.flat || props.flatAlt || props.outline) {
+        return colors.green10;
       }
 
       return 'var(--background)';
     }};
 
     box-shadow: ${(props) => {
-      if (props.loading || props.fade || props.disabled || props.flat) {
-        return 0;
+      if (props.loading || props.fade || props.disabled) {
+        return;
+      }
+      if ((props.flat && !props.onDarkBg) || (props.flatAlt && !props.onDarkBg) || (props.outline && !props.onDarkBg)) {
+        return `inset 0 0 0 9999px ${colors.black4}`;
+      }
+      if ((props.flat && props.onDarkBg) || (props.flatAlt && props.onDarkBg) || (props.outline && props.onDarkBg)) {
+        return `inset 0 0 0 9999px ${colors.white4}`;
       }
 
-      return '0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24)';
+      return `inset 0 0 0 9999px transparent, ` + boxShadows.lvl6;
+    }};
+
+    color: ${(props) => {
+      if (props.flat || props.outline) {
+        return colors.green
+      }
+    }};
+  }
+  
+  &:disabled {
+    box-shadow: ${(props) => {
+      if (props.flat || props.flatAlt || props.outline) {
+        return 'transparent';
+      }
+      if (props.onDarkBg) {
+        return `inset 0 0 0 9999px ${colors.white10}`;
+      }
+      return `inset 0 0 0 9999px ${colors.black10}`;
+    }};
+    background: ${(props) => {
+      if (props.flat || props.flatAlt || props.outline) {
+        return 'transparent';
+      }
+      return 'var(--background)';
+    }};
+    color: ${(props) => {
+      if ((props.flat && !props.onDarkBg) || (props.outline && !props.onDarkBg)) {
+        return colors.black40;
+      }
+      if (props.flatAlt) {
+        return colors.green40;
+      }
+      return colors.white40;
+    }};
+    border-color: ${(props) => {
+      if (props.outline) {
+        return colors.green40;
+      }
+      return;
     }};
   }
 
@@ -102,7 +145,7 @@ const ButtonBase = styled.button`
   border: ${(props) => {
     if (props.outline) {
       if (props.disabled) {
-        return `1px solid ${colors.green30}`;
+        return `1px solid ${colors.green40}`;
       }
       return `1px solid ${colors.green}`;
     }
@@ -110,7 +153,15 @@ const ButtonBase = styled.button`
   }};
 
   border-radius: 2px;
-  color: ${colors.white90};
+  color: ${(props) => {
+    if ((props.outline && !props.onDarkBg) || (props.flat && !props.onDarkBg)) {
+      return colors.black90;
+    }
+    if (props.flatAlt) {
+      return colors.green;
+    }
+    return colors.white90;
+  }};
 
   height: 36px;
   line-height: 24px;
@@ -123,6 +174,8 @@ const ButtonBase = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  box-sizing: border-box;
 `;
 
 const CenteredSpan = styled.span`
@@ -139,8 +192,6 @@ const CenteredSpan = styled.span`
 
   font-family: 'isdc-roboto', 'Roboto', sans-serif;
   ${typography.body2}
-
-  filter: none;
 
   padding: 0;
   margin: 0;
