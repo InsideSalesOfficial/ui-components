@@ -4,6 +4,7 @@ export {default as ActionOverflowButtons} from './ActionOverflowButtons';
 export {default as Button} from './Button';
 export {default as ButtonBar} from './ButtonBar';
 export {default as Checkbox} from './Checkbox';
+export {default as DropdownButton} from './DropdownButton';
 export {default as EditableSelectInput} from './EditableSelectInput';
 export {default as InteractiveElement} from './InteractiveElement';
 export {default as Loader} from './Loader';
