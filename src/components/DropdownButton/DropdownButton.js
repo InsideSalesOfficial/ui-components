@@ -290,7 +290,6 @@ export default class DropdownButton extends React.Component {
             </CenteredSpan>
           </ButtonBase>
           <CaretButton
-            onMouseEnter={console.log}
             onClick={this.toggleOptionsList.bind(this)}
             ref={(el) => { this.clickEventElement = el }}>
             <CenteredSpan>
