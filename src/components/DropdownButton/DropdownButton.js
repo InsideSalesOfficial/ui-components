@@ -201,11 +201,16 @@ const Wrapper = styled.div`
 export default class DropdownButton extends React.Component {
   constructor(props) {
     super(props);
+
+    const selectedOption = _.find(props.options, (option) => {
+      return option.value === props.value;
+    });
+
     this.state = {
       optionsListVisible: false,
       dropdownActive: false,
       leaveDropdownOpenClickEventAttached: false,
-      selectedOption: props.options[props.value] || props.options[0],
+      selectedOption: selectedOption || props.options[0],
       dropdownId: _.uniqueId('dropdown-button_'),
       bodyClickHandler: this.clickOutsideDropdownHandler.bind(this),
     }
@@ -254,7 +259,9 @@ export default class DropdownButton extends React.Component {
   updateOption (value) {
     this.setState({
       value,
-      selectedOption: this.props.options[value],
+      selectedOption: _.find(this.props.options, (option) => {
+        return option.value === value;
+      }),
     });
 
     if (this.state.dropdownActive) {
@@ -264,7 +271,9 @@ export default class DropdownButton extends React.Component {
 
   getLabel () {
     // Get the selected option or return the first as a default
-    const selectedOption = this.props.options[this.props.value] || this.props.options[0];
+    const selectedOption = _.find(this.props.options, (option) => {
+      return option.value === this.props.value;
+    }) || this.props.options[0];
     return selectedOption.label || this.props.value || 'Please Select an Option'
   }
 
