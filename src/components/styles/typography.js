@@ -23,6 +23,7 @@ export const fontWeights = {
   light: 300,
   regular: 400,
   medium: 500,
+  halfBold: 600,
   bold: 700
 };
 
@@ -46,6 +47,12 @@ export const typography = {
     font-size: 20px;
     line-height: 28px;
     font-weight: ${fontWeights.medium};
+    letter-spacing: 0.5px;
+  `,
+  halfBoldTitle: `
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: ${fontWeights.halfBold};
     letter-spacing: 0.5px;
   `,
   subhead2: `

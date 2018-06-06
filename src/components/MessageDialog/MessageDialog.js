@@ -76,7 +76,7 @@ const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   display: inline-block;
-  ${typography.title}
+  ${typography.halfBoldTitle}
 `;
 
 const ContentWrapper = styled.div`
