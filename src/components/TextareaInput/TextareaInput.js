@@ -331,7 +331,7 @@ class TextareaInput extends React.Component {
   }
 
   charLimitExceeded = () => {
-    return size(this.state.value) > this.props.charLimit;
+    return (this.props.charLimit > 0) && (size(this.state.value) > this.props.charLimit);
   };
 
   setLocalError = () => {
