@@ -111,6 +111,30 @@ storiesOf('Form', module)
                   collapsed />
               )
             },
+            {
+              title: 'Example: textarea with value and character limit',
+              sectionFn: () => (
+                <TextareaInput
+                  label="Label"
+                  name="first"
+                  value="Hello world"
+                  charLimit={120}
+                  onChange={action('value')}
+                />
+              )
+            },
+            {
+              title: 'Example: textarea with value over character limit',
+              sectionFn: () => (
+                <TextareaInput
+                  label="Label"
+                  name="first"
+                  value="Hello world. This is the story of a dog named Scott. Scott loved to walk and talk with people. He was a talking dog, of course. Everywhere Scott went his friend, Ruby, the bunny, went with him. They had a happy life. The end."
+                  charLimit={120}
+                  onChange={action('value')}
+                />
+              )
+            },
           ]
         }
       ]
