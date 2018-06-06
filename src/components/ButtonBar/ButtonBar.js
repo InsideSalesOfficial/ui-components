@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Button from '../Button';
 import InteractiveElement from '../InteractiveElement';
 import { colors } from '../styles';
+import {fontWeights} from "../styles/typography";
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -27,6 +28,7 @@ const SecondaryActionElement = styled(InteractiveElement)`
   border: none;
   padding: 0;
   color: ${colors.black90};
+  font-weight: ${fontWeights.halfBold}
   cursor: pointer;
   text-align: left;
 `;
@@ -36,6 +38,7 @@ const SecondaryActionButton = styled(Button)`
   border: none;
   padding: 0;
   color: ${colors.black90};
+  font-weight: ${fontWeights.halfBold}
 `;
 
 const PrimaryActionElement = styled(InteractiveElement)`
@@ -43,6 +46,7 @@ const PrimaryActionElement = styled(InteractiveElement)`
   border: none;
   padding: 0;
   color: ${colors.green};
+  font-weight: ${fontWeights.halfBold}
   cursor: pointer;
   text-align: left;
 `;
@@ -52,6 +56,7 @@ const PrimaryButtonElement = styled(Button)`
   padding-left: 16px;
   padding-right: 16px;
   min-width: 88px;
+  font-weight: ${fontWeights.halfBold}
 `;
 
 const ButtonBar = ({
