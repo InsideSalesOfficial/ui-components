@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import TextareaInput, { TextareaError, TextareaHelper } from './TextareaInput';
+import TextareaInput, { TextareaError, TextareaHelper, HelperTextContainer, ErrorTextContainer } from './TextareaInput';
 
 describe('TextareaInput', () => {
   
@@ -40,13 +40,13 @@ describe('TextareaInput', () => {
     expect(helperText).toBeFalsy();
   });
 
-  it('renderHelperText should return TextareaError if there is an error', () => {
+  it('renderErrorText should return HelperTextContainer if there is an error', () => {
     const error = 'some error';
     const wrapper = shallow(<TextareaInput name="test" error={error}/>);
     
-    const helperText = wrapper.instance().renderHelperText();
+    const helperText = wrapper.instance().renderErrorText();
 
-    expect(helperText).toEqual(<TextareaError>{error}</TextareaError>);
+    expect(helperText).toEqual(<ErrorTextContainer charLimit={0} label="Label" name="test" error={error} />);
   });
 
   it('renderHelperText should return TextareaHelper if component is not collapsed.', () => {
@@ -55,7 +55,7 @@ describe('TextareaInput', () => {
     
     const helperText = wrapper.instance().renderHelperText();
 
-    expect(helperText).toEqual(<TextareaHelper>{helperTextString}</TextareaHelper>);
+    expect(helperText).toEqual(<TextareaHelper hasCharLimit={false} helper={helperTextString} />);
   });
 
   it('focusOnTextarea should set focused state to true', () => {

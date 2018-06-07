@@ -204,17 +204,36 @@ export const FooterTextContainer = styled.div`
   justify-content: space-between;
 `;
 
-const HelperTextContainer = styled.div`
+export const HelperTextContainer = styled.div`
   width:${props => props.hasCharLimit ? 'calc(100% - ${CharCountTextWidth})' : '100%'};
 `;
 
-const HelperText = styled.span`
+export const HelperText = styled.span`
   ${typography.caption}
 `;
 
 const HelperErrorText = styled(HelperText)`
   color: ${colors.red};
 `;
+
+export const ErrorTextContainer = (props) => {
+  const { charLimit, error, localError } = this.props;
+  return (
+    <HelperTextContainer hasCharLimit={charLimit > 0}>
+      {(error || localError) &&
+      <HelperErrorText>{error || localError}</HelperErrorText>}
+    </HelperTextContainer>
+  );
+};
+
+export const TextareaHelper = (props) => {
+  const { hasCharLimit, helper } = props;
+  return (
+    <HelperTextContainer hasCharLimit={hasCharLimit}>
+      <HelperText>{helper}</HelperText>
+    </HelperTextContainer>
+  );
+};
 
 class TextareaInput extends React.Component {
   constructor(props) {
@@ -275,27 +294,25 @@ class TextareaInput extends React.Component {
     );
   };
 
+  renderErrorText = () => {
+    return (
+      <ErrorTextContainer {...this.props} />
+    );
+  };
+
   renderHelperText = () => {
     const { error, helper, collapsed, charLimit } = this.props;
     const localError = this.setLocalError();
 
-    if (collapsed && !this.state.value && !this.state.focused && !(error || localError)) {
+    if (collapsed && !this.state.value && !this.state.focused && !(error || localError || helper)) {
       return null;
     }
 
     if (error || localError) {
-      return (
-        <HelperTextContainer hasCharLimit={charLimit > 0}>
-          {(error || localError) &&
-          <HelperErrorText>{error || localError}</HelperErrorText>}
-        </HelperTextContainer>
-    );
+      this.renderErrorText();
     }
-    return (
-      <HelperTextContainer hasCharLimit={charLimit > 0}>
-        <HelperText>{helper}</HelperText>
-      </HelperTextContainer>
-    );
+
+    return <TextareaHelper hasCharLimit={charLimit > 0} helper={helper} />;
   }
 
   focusOnTextarea = () => {
