@@ -183,13 +183,13 @@ const TextLabel = styled.label`
   line-height: 16px;
 `;
 
-const CharCountTextWidth = '110px';
+const charCountTextWidth = '110px';
 
 export const CharCounterText = styled.div`
   ${typography.caption}
   color: ${colors.green};
   text-align: right;
-  width: ${CharCountTextWidth};
+  width: ${charCountTextWidth};
 `;
 
 export const CharCounterErrorText = styled(CharCounterText)`
@@ -205,7 +205,7 @@ export const FooterTextContainer = styled.div`
 `;
 
 export const HelperTextContainer = styled.div`
-  width:${props => props.hasCharLimit ? 'calc(100% - ${CharCountTextWidth})' : '100%'};
+  width:${props => props.hasCharLimit ? `calc(100% - ${charCountTextWidth})` : '100%'};
 `;
 
 export const HelperText = styled.span`
