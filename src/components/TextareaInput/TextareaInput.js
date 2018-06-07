@@ -185,14 +185,14 @@ const TextLabel = styled.label`
 
 const CharCountTextWidth = '110px';
 
-const CharCounterText = styled.div`
+export const CharCounterText = styled.div`
   ${typography.caption}
   color: ${colors.green};
   text-align: right;
   width: ${CharCountTextWidth};
 `;
 
-const CharCounterErrorText = styled(CharCounterText)`
+export const CharCounterErrorText = styled(CharCounterText)`
   color: ${colors.red};
 `;
 
@@ -216,6 +216,29 @@ const HelperErrorText = styled(HelperText)`
   color: ${colors.red};
 `;
 
+/**
+ * Indicates if the string value has exceeded the char limit
+ * @param {number} charLimit
+ * @param {string} value
+ */
+export function charLimitExceeded(charLimit, value) {
+  if (charLimit === 0 || size(value) === 0) {
+    return false;
+  }
+  return size(value) > charLimit;
+}
+
+/**
+ * Returns the char counter text string
+ * @param {number} charLimit
+ * @param {string} value
+ */
+export function determineCharCounterTextValue(charLimit, value) {
+    if (!charLimit) return null;
+    
+    return `${size(value)} / ${charLimit}`;
+}
+
 export const ErrorTextContainer = (props) => {
   const { charLimit, error, localError } = this.props;
   return (
@@ -234,6 +257,8 @@ export const TextareaHelper = (props) => {
     </HelperTextContainer>
   );
 };
+
+export const CharLimitExceededError = 'Character limit exceeded';
 
 class TextareaInput extends React.Component {
   constructor(props) {
@@ -269,12 +294,13 @@ class TextareaInput extends React.Component {
   }
 
   renderCharCounterText = () => {
+    const inputValue = get(this.state, 'value', get(this.props, 'value', ''));
     const { charLimit } = this.props;
     if (!charLimit) return null;
 
-    const charTextValue = `${size(this.state.value)} / ${charLimit}`;
+    const charTextValue = determineCharCounterTextValue(charLimit, inputValue);
 
-    if (this.charLimitExceeded()) {
+    if (charLimitExceeded(charLimit, inputValue)) {
       return (
         <CharCounterErrorText>{charTextValue}</CharCounterErrorText>
       );
@@ -295,9 +321,20 @@ class TextareaInput extends React.Component {
   };
 
   renderErrorText = () => {
+    const { charLimit, error } = this.props;
+    const localError = this.setLocalError();
     return (
-      <ErrorTextContainer {...this.props} />
+      <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />
     );
+  };
+  
+  setLocalError = () => {
+    const { charLimit } = this.props;
+    const value = get(this.state, 'value', get(this.props, 'value', ''));
+    if (charLimitExceeded(charLimit, value)) {
+      return CharLimitExceededError;
+    }
+    return '';
   };
 
   renderHelperText = () => {
@@ -347,20 +384,6 @@ class TextareaInput extends React.Component {
     });
   }
 
-  charLimitExceeded = () => {
-    if (this.props.charLimit === 0) {
-      return false;
-    }
-    return size(this.state.value) > this.props.charLimit;
-  };
-
-  setLocalError = () => {
-    if (this.charLimitExceeded()) {
-      return 'Character limit exceeded';
-    }
-    return '';
-  };
-
   render() {
     const { className, label, name, error, disabled, collapsed, labelColor, lineColor } = this.props;
     const localError = this.setLocalError();
@@ -400,7 +423,8 @@ class TextareaInput extends React.Component {
 TextareaInput.defaultProps = {
   name: 'Name',
   label: 'Label',
-  charLimit: 0
+  charLimit: 0,
+  error: ''
 };
 
 TextareaInput.propTypes = {
