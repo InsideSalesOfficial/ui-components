@@ -220,19 +220,29 @@ class TextInput extends React.Component {
       });
     }
   }
+  
+  handleCursorPositionChange = () =>  {
+    this.props.onSelectionStartChange(this.textInputEl.selectionStart)
+  }
 
   focused = () => {
+    document.addEventListener('keyup', this.handleCursorPositionChange)
     this.setState({
       focused: true
     }, this.handleFocusChange())
   }
 
   blurred = () => {
+    document.removeEventListener('keyup', this.handleCursorPositionChange)
     if(!this.state.cancelBlur) {
       this.setState({
         focused: false
       });
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.handleCursorPositionChange)
   }
 
   renderHelperText = () => {
@@ -367,6 +377,7 @@ class TextInput extends React.Component {
             type={this.getInputType(inputType)}
             onFocus={this.focused}
             onBlur={this.blurred}
+            onClick={this.handleCursorPositionChange}
             id={name}
             name={name}
             disabled={disabled}
@@ -406,7 +417,8 @@ const DEFAULT_LABEL = 'Label';
 
 TextInput.defaultProps = {
   name: 'Name',
-  label: DEFAULT_LABEL
+  label: DEFAULT_LABEL,
+  onSelectionStartChange: _.noop
 };
 
 TextInput.propTypes = {
@@ -421,6 +433,7 @@ TextInput.propTypes = {
   collapsed: PropTypes.bool,
   lowPadding: PropTypes.bool,
   selectOptionsWidth: PropTypes.number,
+  onSelectionStartChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string,
