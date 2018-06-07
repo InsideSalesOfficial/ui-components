@@ -224,7 +224,7 @@ class TextInput extends React.Component {
   focused = () => {
     this.setState({
       focused: true
-    })
+    }, this.handleFocusChange())
   }
 
   blurred = () => {
@@ -273,6 +273,12 @@ class TextInput extends React.Component {
   handleValueChange = () => {
     if (this.props.onChange) {
       this.props.onChange(this.state.value);
+    }
+  }
+
+  handleFocusChange = () => {
+    if (this.props.onFocus) {
+      this.props.onFocus(this.state.value);
     }
   }
 

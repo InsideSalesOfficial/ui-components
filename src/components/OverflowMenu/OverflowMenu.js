@@ -44,7 +44,7 @@ const OptionsContainer = styled.div`
   bottom: ${props => props.openUp ? '31px' : 'initial'};
   right: -6px;
 
-  min-width: 200px;
+  min-width: 120px;
   background-color: transparent;
   overflow: visible;
   z-index: 1;

@@ -11,8 +11,8 @@ const buttonAction = (selectedOption) => {
 };
 
 const dropdownOptions = [
-  { value: 0, label: 'Option 1', },
-  { value: 1, label: 'Option 2', }
+  { value: '1', label: 'Option 1', },
+  { value: '2', label: 'Option 2', }
 ];
 
 storiesOf('Base', module)
