@@ -275,6 +275,50 @@ storiesOf('Form', module)
                 />
               )
             },
+            {
+              title: 'Example: stateless text input based on props',
+              sectionFn: () => {
+
+                class StatefulWrapper extends React.Component {
+                  constructor() {
+                    super();
+                    this.state = {
+                      value: ''
+                    }
+                  }
+                  render = () => {
+                    return <TextInput
+                      label="Label"
+                      name="first"
+                      stateless
+                      value={this.state.value}
+                      onSelectionStartChange={action('selectionStart')}
+                      onChange={(value) => {
+                        this.setState({
+                          value
+                        })
+                        return action('value')(value);
+                      }}
+                      onFocus={action('onFocus')}
+                    />
+                  }
+                }
+
+                return (<div>
+                  Stateless: <TextInput
+                    label="Label"
+                    name="first"
+                    stateless
+                    value="value"
+                    onSelectionStartChange={action('selectionStart')}
+                    onChange={action('value')}
+                    onFocus={action('onFocus')}
+                  /> <br />
+                  Wrapped In Stateful Component: <StatefulWrapper />
+
+                </div>)
+              }
+            },
           ]
         }
       ]
