@@ -199,6 +199,28 @@ storiesOf('Form', module)
                   theme={lineSelectInputBoxTransparentTheme} />
               </div>
             )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with searchable dropdown',
+            sectionFn: () => (
+              <div>
+                <WrapperEmailThreadComponent
+                  options={htmlOptions}
+                  promotedOptions={optionsToPromote}
+                  searchable />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with multiselect',
+            sectionFn: () => (
+              <div>
+                <WrapperEmailThreadComponent
+                  options={htmlOptions}
+                  promotedOptions={optionsToPromote}
+                  multiSelect />
+              </div>
+            )
           }
         ]
       }

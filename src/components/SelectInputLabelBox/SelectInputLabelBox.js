@@ -176,6 +176,8 @@ export default class SelectInputLabelBox extends React.Component {
             options={this.props.options}
             hideDivider={_.isEmpty(this.props.options)}
             visible={this.state.optionsListVisible}
+            multiSelect={this.props.multiSelect}
+            searchable={this.props.searchable}
           />
         </Wrapper>
       </ThemeProvider>
@@ -200,5 +202,7 @@ SelectInputLabelBox.propTypes = {
   onChange: PropTypes.func,
   label: PropTypes.string,
   isDisabled: PropTypes.bool,
-  isPlaceHolder: PropTypes.bool
+  isPlaceHolder: PropTypes.bool,
+  multiSelect: PropTypes.bool,
+  searchable: PropTypes.bool
 }
