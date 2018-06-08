@@ -68,7 +68,6 @@ export const Value = styled.button`
   text-align: left;
   ${typography.subhead1};
   color: ${(props) => {
-    console.log(props);
     if (props.isPlaceHolder) {
       return colors.black60;
     }
