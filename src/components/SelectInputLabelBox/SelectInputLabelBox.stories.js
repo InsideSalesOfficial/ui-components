@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { storiesOf, action } from '@storybook/react';
 import SelectInputLabelBox from './SelectInputLabelBox';
-import { lineSelectInputBoxTransparentTheme } from './SelectInputLabelBoxThemes';
+import { lineSelectInputBoxTransparentTheme, darkTheme } from './SelectInputLabelBoxThemes';
 import styled from 'styled-components';
 
 import { typography } from '../styles/typography';
@@ -197,6 +197,31 @@ storiesOf('Form', module)
                   options={htmlOptions}
                   promotedOptions={optionsToPromote}
                   theme={lineSelectInputBoxTransparentTheme} />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBox with darkTheme',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  theme={darkTheme}
+                  onChange={action('Option Selected')}
+                  options={genericOptions} />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBox with darkTheme with value',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  theme={darkTheme}
+                  value='Hi world'
+                  onChange={action('Option Selected')}
+                  options={genericOptions} />
               </div>
             )
           }
