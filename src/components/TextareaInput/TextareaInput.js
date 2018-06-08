@@ -322,11 +322,11 @@ class TextareaInput extends React.Component {
 
   renderErrorText = () => {
     const { charLimit, error } = this.props;
-    const localError = this.setLocalError();
+    const localError = this.determineLocalError();
     return <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />;
   };
   
-  setLocalError = () => {
+  determineLocalError = () => {
     const { charLimit } = this.props;
     const value = get(this.state, 'value', get(this.props, 'value', ''));
     if (charLimitExceeded(charLimit, value)) {
@@ -337,7 +337,7 @@ class TextareaInput extends React.Component {
 
   renderHelperText = () => {
     const { error, helper, collapsed, charLimit } = this.props;
-    const localError = this.setLocalError();
+    const localError = this.determineLocalError();
 
     if (collapsed && !this.state.value && !this.state.focused && !(error || localError || helper)) {
       return null;
@@ -384,7 +384,7 @@ class TextareaInput extends React.Component {
 
   render() {
     const { className, label, name, error, disabled, collapsed, labelColor, lineColor } = this.props;
-    const localError = this.setLocalError();
+    const localError = this.determineLocalError();
 
     return (
       <TextareaInputWrapper className={className}>
