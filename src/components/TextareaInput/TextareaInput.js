@@ -240,7 +240,7 @@ export function determineCharCounterTextValue(charLimit, value) {
 }
 
 export const ErrorTextContainer = (props) => {
-  const { charLimit, error, localError } = this.props;
+  const { charLimit, error, localError } = props;
   return (
     <HelperTextContainer hasCharLimit={charLimit > 0}>
       {(error || localError) &&
@@ -323,9 +323,7 @@ class TextareaInput extends React.Component {
   renderErrorText = () => {
     const { charLimit, error } = this.props;
     const localError = this.setLocalError();
-    return (
-      <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />
-    );
+    return <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />;
   };
   
   setLocalError = () => {
@@ -346,7 +344,7 @@ class TextareaInput extends React.Component {
     }
 
     if (error || localError) {
-      this.renderErrorText();
+      return this.renderErrorText();
     }
 
     return <TextareaHelper hasCharLimit={charLimit > 0} helper={helper} />;
