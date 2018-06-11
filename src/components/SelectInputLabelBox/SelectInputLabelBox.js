@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 const padding = '16px';
 
 export const Label = styled.div`
-  color: ${colors.black40};
+  color: ${props => props.theme.labelColor || colors.black40};
   transition: all 200ms;
   transform: translateY(-50%);
   position: absolute;
@@ -52,7 +52,12 @@ const Caret = styled.div`
     margin: auto;
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
-    border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => props.open ? colors.black90 : colors.black40} solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => {
+      if (props.theme.borderColor){
+        return props.theme.borderColor;
+      }
+      return props.open ? colors.black90 : colors.black40;
+    }} solid;
   }
 `;
 
@@ -65,6 +70,10 @@ export const Value = styled.button`
   color: ${(props) => {
     if (props.isPlaceHolder) {
       return colors.black60;
+    }
+
+    if (props.theme.valueColor){
+      return props.theme.valueColor;
     }
 
     return colors.black90;
@@ -93,7 +102,17 @@ export const Value = styled.button`
     return '2px';
   }};
   border-bottom-style: solid;
-  border-bottom-color: ${props => props.isDisabled ? 'transparent' : colors.black40};
+  border-bottom-color: ${props => {
+    if (props.isDisabled){
+      return 'transparent';
+    }
+
+    if (props.theme.borderColor) {
+      return props.theme.borderColor;
+    }
+
+    return colors.black40;
+  }};
   cursor: ${props => props.isDisabled ? 'auto' : 'pointer'};
   border-radius: ${(props) => {
     if (props.theme.borderRadius) {
