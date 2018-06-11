@@ -3,5 +3,6 @@ export {
   checkDocumentEvent,
   openOptionsList,
   closeOptionsList,
-  toggleOptionsList
+  toggleOptionsList,
+  toggleOptionsListOnSearch
 } from './SelectInput';
