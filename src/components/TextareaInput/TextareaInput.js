@@ -138,6 +138,10 @@ const Textarea = styled.textarea`
   }
   ${typography.subhead1}
   ${darkScrollbar}
+
+  &::-webkit-input-placeholder {
+    color: ${colors.black40};
+  }
 `;
 
 const TextLabel = styled.label`
