@@ -240,7 +240,7 @@ export function determineCharCounterTextValue(charLimit, value) {
 }
 
 export const ErrorTextContainer = (props) => {
-  const { charLimit, error, localError } = this.props;
+  const { charLimit, error, localError } = props;
   return (
     <HelperTextContainer hasCharLimit={charLimit > 0}>
       {(error || localError) &&
@@ -322,13 +322,11 @@ class TextareaInput extends React.Component {
 
   renderErrorText = () => {
     const { charLimit, error } = this.props;
-    const localError = this.setLocalError();
-    return (
-      <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />
-    );
+    const localError = this.determineLocalError();
+    return <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />;
   };
   
-  setLocalError = () => {
+  determineLocalError = () => {
     const { charLimit } = this.props;
     const value = get(this.state, 'value', get(this.props, 'value', ''));
     if (charLimitExceeded(charLimit, value)) {
@@ -339,14 +337,14 @@ class TextareaInput extends React.Component {
 
   renderHelperText = () => {
     const { error, helper, collapsed, charLimit } = this.props;
-    const localError = this.setLocalError();
+    const localError = this.determineLocalError();
 
     if (collapsed && !this.state.value && !this.state.focused && !(error || localError || helper)) {
       return null;
     }
 
     if (error || localError) {
-      this.renderErrorText();
+      return this.renderErrorText();
     }
 
     return <TextareaHelper hasCharLimit={charLimit > 0} helper={helper} />;
@@ -386,7 +384,7 @@ class TextareaInput extends React.Component {
 
   render() {
     const { className, label, name, error, disabled, collapsed, labelColor, lineColor, placeholder } = this.props;
-    const localError = this.setLocalError();
+    const localError = this.determineLocalError();
 
     return (
       <TextareaInputWrapper className={className}>
