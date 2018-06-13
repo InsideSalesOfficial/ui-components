@@ -138,6 +138,10 @@ const Textarea = styled.textarea`
   }
   ${typography.subhead1}
   ${darkScrollbar}
+
+  &::-webkit-input-placeholder {
+    color: ${colors.black40};
+  }
 `;
 
 const TextLabel = styled.label`
@@ -153,20 +157,20 @@ const TextLabel = styled.label`
       }
     }};
   top: ${(props) => {
-    if (props.error || props.isFocused) {
+    if (props.error || props.isFocused || props.placeholder) {
       return '-1px';
     }
     return '0';
   }};;
   left: ${(props) => {
-    if (props.error || props.isFocused) {
+    if (props.error || props.isFocused || props.placeholder) {
       return '15px';
     }
     return '16px';
   }};
   position: absolute;
   transform: ${(props) => {
-    if (props.open || props.isFocused) {
+    if (props.open || props.isFocused || props.placeholder) {
       return 'translateY(8px)';
     } else {
       return 'translateY(16px)';
@@ -174,7 +178,7 @@ const TextLabel = styled.label`
   }};
   transition: font-size 0.14s ease-in-out, transform 0.14s ease-in-out, color 0.14s ease-in-out;
   ${(props) => {
-    if (props.open || props.isFocused) {
+    if (props.open || props.isFocused || props.placeholder) {
       return typography.caption
     } else {
       return typography.subhead1
@@ -383,7 +387,7 @@ class TextareaInput extends React.Component {
   }
 
   render() {
-    const { className, label, name, error, disabled, collapsed, labelColor, lineColor } = this.props;
+    const { className, label, name, error, disabled, collapsed, labelColor, lineColor, placeholder } = this.props;
     const localError = this.determineLocalError();
 
     return (
@@ -408,9 +412,18 @@ class TextareaInput extends React.Component {
             error={error || localError}
             value={this.state.value}
             ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
-            onChange={this.onChange}>
+            onChange={this.onChange}
+            placeholder={placeholder}>
           </Textarea>
-          <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.state.value} htmlFor={name} error={error || localError}>{label}</TextLabel>
+          <TextLabel
+            isFocused={this.state.focused}
+            labelColor={labelColor}
+            open={this.state.value}
+            htmlFor={name}
+            error={error || localError}
+            placeholder={placeholder}>
+              {label}
+            </TextLabel>
         </TextareaBox>
         {this.renderFooterText()}
       </TextareaInputWrapper>
@@ -422,7 +435,8 @@ TextareaInput.defaultProps = {
   name: 'Name',
   label: 'Label',
   charLimit: 0,
-  error: ''
+  error: '',
+  placeholder: ''
 };
 
 TextareaInput.propTypes = {
@@ -434,7 +448,8 @@ TextareaInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   collapsed: PropTypes.bool,
-  charLimit: PropTypes.number
+  charLimit: PropTypes.number,
+  placeholder: PropTypes.string
 };
 
 export default TextareaInput;
