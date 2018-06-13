@@ -140,7 +140,7 @@ export const TextLabel = styled.label`
       if (props.error) {
         return colors.red;
       } else if (props.isFocused) {
-        return colors.green;
+        return props.theme.focusedColor || colors.green;
       } else if (props.labelColor) {
         return props.labelColor;
       } else {

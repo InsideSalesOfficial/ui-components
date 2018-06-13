@@ -8,8 +8,6 @@ import TextInputBox from './TextInputBox';
 import { darkTheme } from './TextInputBoxThemes';
 
 
-import { white, red } from '../styles/colors';
-
 storiesOf('Form', module)
   .addWithChapters(
     'TextInputBox',
