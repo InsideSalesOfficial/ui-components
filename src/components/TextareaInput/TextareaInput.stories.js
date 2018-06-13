@@ -32,6 +32,16 @@ storiesOf('Form', module)
               )
             },
             {
+              title: 'Example: textarea with placeholder',
+              sectionFn: () => (
+                <TextareaInput
+                  label="Label"
+                  placeholder="Hi, what would you like to say?"
+                  onChange={action('value')}
+                />
+              )
+            },
+            {
               title: 'Example: textarea with existing text',
               sectionFn: () => (
                 <TextareaInput

@@ -193,7 +193,7 @@ storiesOf('Form', module)
             title: 'SelectInputLabelBoxTransparent with value and promotedOption',
             sectionFn: () => (
               <div>
-                <WrapperEmailThreadComponent
+                <SelectInputLabelBox
                   options={htmlOptions}
                   promotedOptions={optionsToPromote}
                   theme={lineSelectInputBoxTransparentTheme} />
@@ -205,10 +205,34 @@ storiesOf('Form', module)
             sectionFn: () => (
               <div>
                 <SelectInputLabelBox
-                  label="Hello World!"
                   theme={darkTheme}
                   onChange={action('Option Selected')}
                   options={genericOptions} />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with searchable dropdown',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  onChange={action('Option Selected')}
+                  options={genericOptions} 
+                  searchable />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with multiselect',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  onChange={action('Option Selected')}
+                  value={selectedOptions}
+                  options={genericOptions} 
+                  multiSelect />
               </div>
             )
           },
@@ -217,7 +241,6 @@ storiesOf('Form', module)
             sectionFn: () => (
               <div>
                 <SelectInputLabelBox
-                  label="Hello World!"
                   theme={darkTheme}
                   value='Hi world'
                   onChange={action('Option Selected')}

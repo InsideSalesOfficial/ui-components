@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 import _ from 'lodash';
-import TextareaInput, { TextareaError, TextareaHelper, HelperTextContainer, ErrorTextContainer, charLimitExceeded, CharLimitExceededError, determineCharCounterTextValue, CharCounterText, CharCounterErrorText } from './TextareaInput';
+import TextareaInput, { TextareaHelper, ErrorTextContainer, charLimitExceeded, CharLimitExceededError, determineCharCounterTextValue, CharCounterText, CharCounterErrorText } from './TextareaInput';
 
 describe('TextareaInput', () => {
   
@@ -183,6 +184,15 @@ describe('TextareaInput', () => {
 
     jest.runAllTimers();
 
+  });
+
+  it('placeholder prop should set a placeholder on the textarea element', () => {
+    const placeholder = 'Hello, I am a placeholder';
+    const wrapper = mount(<TextareaInput name="test" placeholder={placeholder} />)
+    const instance = wrapper.instance();
+    const dom = ReactDOM.findDOMNode(instance);
+    const textarea = dom.querySelector('textarea');
+    expect(textarea.placeholder).toBe(placeholder);
   });
 });
 

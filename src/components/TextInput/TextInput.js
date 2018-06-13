@@ -222,7 +222,9 @@ class TextInput extends React.Component {
   }
   
   handleCursorPositionChange = () =>  {
-    this.props.onSelectionStartChange(this.textInputEl.selectionStart)
+    if(this.props.onSelectionStartChange) {
+      this.props.onSelectionStartChange(this.textInputEl.selectionStart);
+    }
   }
 
   focused = () => {

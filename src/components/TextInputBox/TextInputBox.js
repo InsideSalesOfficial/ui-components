@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import { colors } from '../styles';
 import TextInput, { TextInputWrapper, InputItem, TextLabel } from '../TextInput/TextInput';
 
 const TextBox = styled.div`
-    background-color: ${colors.lighterGray};
+    background-color: ${props => props.theme.background || colors.lightGrey};
     border-bottom: thin solid ${colors.black40};
     border-radius: 2px;
     border-width: 2px; 
@@ -19,6 +19,8 @@ const TextBox = styled.div`
         return colors.black20;
     } else if (props.lineColor) {
         return props.lineColor;
+    } else if (props.theme.borderColor) {
+        return props.theme.borderColor;
     }
     return colors.black40;
     }};
@@ -49,7 +51,7 @@ const TextBox = styled.div`
             `;
         }
     }}
-    `;
+`;
 
 const TextBoxLabel = styled(TextLabel)`
     left: 16px; 
@@ -70,51 +72,67 @@ const InputBoxItem = styled(InputItem)`
         -webkit-appearance: none; 
         margin: 0; 
     }
-`
+    ${
+        (props) => {
+            if(props.theme){
+                return ('color: ' + props.theme.valueColor) ;
+            }
+        }
+    }
+`;
 
 export default class TextInputBox extends TextInput {
     render() {
         const { label, name, inputType, error, disabled, collapsed, className, labelColor, lineColor } = this.props;
-            
-        return (<TextInputWrapper
-            className={className}
-            ref={(el) => { this.clickEventElement = el }}>
-            <TextBox
-                onMouseUp={this.removeCancelBlur}
-                onMouseDown={this.cancelBlur}
-                onMouseLeave={this.removeCancelBlur}
-                onClick={this.focusOnTextInput}
-                isFocused={this.state.focused}
-                error={error}
-                open={this.state.value}
-                disabled={disabled}
-                lineColor={lineColor}
-                collapsed={collapsed}
-                label={label}>
-            <InputBoxItem
-                type={this.getInputType(inputType)}
-                onFocus={this.focused}
-                onBlur={this.blurred}
-                id={name}
-                name={name}
-                disabled={disabled}
-                error={error}
-                value={this.state.value}
-                ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
-                onChange={this.onChange} />
-            { this.props.label &&
-                <TextBoxLabel isFocused={this.state.focused} labelColor={labelColor} open={this.state.value} htmlFor={name} error={error}>{label}</TextBoxLabel>
-            }
-            </TextBox>
-            {this.renderHelperText()}
-        </TextInputWrapper>)
+        return (
+        <ThemeProvider theme={this.props.theme}>
+            <TextInputWrapper
+                className={className}
+                ref={(el) => { this.clickEventElement = el }}>
+                <TextBox
+                    onMouseUp={this.removeCancelBlur}
+                    onMouseDown={this.cancelBlur}
+                    onMouseLeave={this.removeCancelBlur}
+                    onClick={this.focusOnTextInput}
+                    isFocused={this.state.focused}
+                    error={error}
+                    open={this.state.value}
+                    disabled={disabled}
+                    lineColor={lineColor}
+                    collapsed={collapsed}
+                    label={label}>
+                <InputBoxItem
+                    type={this.getInputType(inputType)}
+                    onFocus={this.focused}
+                    onBlur={this.blurred}
+                    id={name}
+                    name={name}
+                    disabled={disabled}
+                    error={error}
+                    value={this.state.value}
+                    ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
+                    onChange={this.onChange} />
+                { this.props.label &&
+                    <TextBoxLabel 
+                        isFocused={this.state.focused} 
+                        labelColor={this.props.theme.labelColor || labelColor} 
+                        open={this.state.value} 
+                        htmlFor={name} 
+                        error={error}>{label}
+                    </TextBoxLabel>
+                }
+                </TextBox>
+                {this.renderHelperText()}
+            </TextInputWrapper>
+        </ThemeProvider>)
     }
 }
 
 
 TextInput.defaultProps = {
     name: 'Name',
-    label: ''
+    label: '',
+    theme: {}
 };
 
 TextInput.propTypes = {

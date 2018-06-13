@@ -42,7 +42,7 @@ const OptionsContainer = styled.div`
   position: absolute;
   top: ${props => props.openUp ? 'initial' : '31px'};
   bottom: ${props => props.openUp ? '31px' : 'initial'};
-  right: -6px;
+  right: ${props => props.openRight ? '-89px' : '-6px'};
 
   min-width: 120px;
   background-color: transparent;
@@ -52,7 +52,7 @@ const OptionsContainer = styled.div`
   &:before {
     position: absolute;
     content: '';
-    right: 10px;
+    right: ${props => props.openRight ? '94px' : '10px'};
     top: ${props => props.openUp ? 'auto' : '-5px'};
     bottom: ${props => props.openUp ? '-5px' : 'auto'};
     width: 14px;
@@ -65,7 +65,7 @@ const OptionsContainer = styled.div`
   &:after {
     position: absolute;
     content: '';
-    right: 10px;
+    right: ${props => props.openRight ? '94px' : '10px'};
     top: ${props => props.openUp ? 'auto' : '-16px'};
     bottom: ${props => props.openUp ? '-16px' : 'auto'};
     width: 0;
@@ -98,15 +98,23 @@ class OverflowMenu extends React.Component {
   static propTypes = {
     isDisabled: PropTypes.bool,
     openUp: PropTypes.bool,
+    openRight: PropTypes.bool,
     options: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    icon: PropTypes.element
   };
 
   static defaultProps = {
     isDisabled: false,
     openUp: false,
+    openRight: false,
     options: [],
-    onChange: value => value
+    onChange: value => value,
+    icon: <Icons.MoreVertIcon
+            className="overflow-menu__icon"
+            fill={colors.white80}
+            size={{ width: 24, height: 24 }}
+          />
   };
 
   constructor() {
@@ -161,14 +169,10 @@ class OverflowMenu extends React.Component {
       {...this.props}
       ref={(el) => { this.clickEventElement = el }}>
         <InteractiveElement onClick={() => { this.toggleMenu(); }}>
-          <Icons.MoreVertIcon
-            className="overflow-menu__icon"
-            fill={colors.white80}
-            size={{ width: 24, height: 24 }}
-          />
+          {this.props.icon}
         </InteractiveElement>
         {this.state.menuVisible &&
-          <OptionsContainer openUp={this.props.openUp}>
+          <OptionsContainer openUp={this.props.openUp} openRight={this.props.openRight}>
             <OptionsWrapper>
               {this.renderMenu()}
             </OptionsWrapper>
