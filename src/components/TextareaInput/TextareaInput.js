@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, size } from 'lodash';
 
 import { colors, typography, darkScrollbar } from '../styles';
 
@@ -183,15 +183,82 @@ const TextLabel = styled.label`
   line-height: 16px;
 `;
 
-export const TextareaHelper = styled.div`
+const charCountTextWidth = '110px';
+
+export const CharCounterText = styled.div`
+  ${typography.caption}
+  color: ${colors.green};
+  text-align: right;
+  width: ${charCountTextWidth};
+`;
+
+export const CharCounterErrorText = styled(CharCounterText)`
+  color: ${colors.red};
+`;
+
+export const FooterTextContainer = styled.div`
   color: ${colors.black40};
   padding-top: 4px;
   ${typography.caption}
+  display: flex;
+  justify-content: space-between;
 `;
 
-export const TextareaError = styled(TextareaHelper)`
+export const HelperTextContainer = styled.div`
+  width:${props => props.hasCharLimit ? `calc(100% - ${charCountTextWidth})` : '100%'};
+`;
+
+export const HelperText = styled.span`
+  ${typography.caption}
+`;
+
+const HelperErrorText = styled(HelperText)`
   color: ${colors.red};
 `;
+
+/**
+ * Indicates if the string value has exceeded the char limit
+ * @param {number} charLimit
+ * @param {string} value
+ */
+export function charLimitExceeded(charLimit, value) {
+  if (charLimit === 0 || size(value) === 0) {
+    return false;
+  }
+  return size(value) > charLimit;
+}
+
+/**
+ * Returns the char counter text string
+ * @param {number} charLimit
+ * @param {string} value
+ */
+export function determineCharCounterTextValue(charLimit, value) {
+    if (!charLimit) return null;
+    
+    return `${size(value)} / ${charLimit}`;
+}
+
+export const ErrorTextContainer = (props) => {
+  const { charLimit, error, localError } = props;
+  return (
+    <HelperTextContainer hasCharLimit={charLimit > 0}>
+      {(error || localError) &&
+      <HelperErrorText>{error || localError}</HelperErrorText>}
+    </HelperTextContainer>
+  );
+};
+
+export const TextareaHelper = (props) => {
+  const { hasCharLimit, helper } = props;
+  return (
+    <HelperTextContainer hasCharLimit={hasCharLimit}>
+      <HelperText>{helper}</HelperText>
+    </HelperTextContainer>
+  );
+};
+
+export const CharLimitExceededError = 'Character limit exceeded';
 
 class TextareaInput extends React.Component {
   constructor(props) {
@@ -226,17 +293,61 @@ class TextareaInput extends React.Component {
     }
   }
 
-  renderHelperText = () => {
-    const { error, helper, collapsed } = this.props;
+  renderCharCounterText = () => {
+    const inputValue = get(this.state, 'value', get(this.props, 'value', ''));
+    const { charLimit } = this.props;
+    if (!charLimit) return null;
 
-    if (collapsed && !this.state.value && !this.state.focused && !error) {
+    const charTextValue = determineCharCounterTextValue(charLimit, inputValue);
+
+    if (charLimitExceeded(charLimit, inputValue)) {
+      return (
+        <CharCounterErrorText>{charTextValue}</CharCounterErrorText>
+      );
+    }
+
+    return (
+      <CharCounterText>{charTextValue}</CharCounterText>
+    );
+  };
+
+  renderFooterText = () => {
+    return (
+      <FooterTextContainer>
+        {this.renderHelperText()}
+        {this.renderCharCounterText()}
+      </FooterTextContainer>
+    );
+  };
+
+  renderErrorText = () => {
+    const { charLimit, error } = this.props;
+    const localError = this.determineLocalError();
+    return <ErrorTextContainer localError={localError} charLimit={charLimit} error={error} />;
+  };
+  
+  determineLocalError = () => {
+    const { charLimit } = this.props;
+    const value = get(this.state, 'value', get(this.props, 'value', ''));
+    if (charLimitExceeded(charLimit, value)) {
+      return CharLimitExceededError;
+    }
+    return '';
+  };
+
+  renderHelperText = () => {
+    const { error, helper, collapsed, charLimit } = this.props;
+    const localError = this.determineLocalError();
+
+    if (collapsed && !this.state.value && !this.state.focused && !(error || localError || helper)) {
       return null;
     }
 
-    if (error) {
-      return (<TextareaError>{error}</TextareaError>);
+    if (error || localError) {
+      return this.renderErrorText();
     }
-    return (<TextareaHelper>{helper}</TextareaHelper>);
+
+    return <TextareaHelper hasCharLimit={charLimit > 0} helper={helper} />;
   }
 
   focusOnTextarea = () => {
@@ -273,6 +384,8 @@ class TextareaInput extends React.Component {
 
   render() {
     const { className, label, name, error, disabled, collapsed, labelColor, lineColor } = this.props;
+    const localError = this.determineLocalError();
+
     return (
       <TextareaInputWrapper className={className}>
         <TextareaBox
@@ -282,7 +395,7 @@ class TextareaInput extends React.Component {
           onClick={this.focusOnTextarea}
           lineColor={lineColor}
           isFocused={this.state.focused}
-          error={error}
+          error={error || localError}
           open={this.state.value}
           disabled={disabled}
           collapsed={collapsed}>
@@ -292,14 +405,14 @@ class TextareaInput extends React.Component {
             id={name}
             name={name}
             disabled={disabled}
-            error={error}
+            error={error || localError}
             value={this.state.value}
             ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}>
           </Textarea>
-          <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.state.value} htmlFor={name} error={error}>{label}</TextLabel>
+          <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.state.value} htmlFor={name} error={error || localError}>{label}</TextLabel>
         </TextareaBox>
-        {this.renderHelperText()}
+        {this.renderFooterText()}
       </TextareaInputWrapper>
     );
   }
@@ -307,7 +420,9 @@ class TextareaInput extends React.Component {
 
 TextareaInput.defaultProps = {
   name: 'Name',
-  label: 'Label'
+  label: 'Label',
+  charLimit: 0,
+  error: ''
 };
 
 TextareaInput.propTypes = {
@@ -318,7 +433,8 @@ TextareaInput.propTypes = {
   disabled: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
-  collapsed: PropTypes.bool
+  collapsed: PropTypes.bool,
+  charLimit: PropTypes.number
 };
 
 export default TextareaInput;

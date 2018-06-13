@@ -1,0 +1,1 @@
+export { default, TD, TR, TH } from './FlexTable';

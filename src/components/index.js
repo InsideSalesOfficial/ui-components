@@ -6,6 +6,7 @@ export {default as ButtonBar} from './ButtonBar';
 export {default as Checkbox} from './Checkbox';
 export {default as DropdownButton} from './DropdownButton';
 export {default as EditableSelectInput} from './EditableSelectInput';
+export {default as FlexTable, TR as FlexTR, TD as FlexTD, TH as FlexTH} from './FlexTable';
 export {default as InteractiveElement} from './InteractiveElement';
 export {default as Loader} from './Loader';
 export {default as MessageDialog} from './MessageDialog';

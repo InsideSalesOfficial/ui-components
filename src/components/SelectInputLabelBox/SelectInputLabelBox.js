@@ -3,7 +3,7 @@ import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
 
-import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsList } from '../SelectInput';
+import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsListOnSearch } from '../SelectInput';
 import SelectOptions from '../SelectInput/SelectOptions';
 import { colors } from '../styles/colors';
 import { typography } from '../styles/typography';
@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 const padding = '16px';
 
 export const Label = styled.div`
-  color: ${colors.black40};
+  color: ${props => props.theme.labelColor || colors.black40};
   transition: all 200ms;
   transform: translateY(-50%);
   position: absolute;
@@ -52,7 +52,12 @@ const Caret = styled.div`
     margin: auto;
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
-    border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => props.open ? colors.black90 : colors.black40} solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => {
+      if (props.theme.borderColor){
+        return props.theme.borderColor;
+      }
+      return props.open ? colors.black90 : colors.black40;
+    }} solid;
   }
 `;
 
@@ -65,6 +70,10 @@ export const Value = styled.button`
   color: ${(props) => {
     if (props.isPlaceHolder) {
       return colors.black60;
+    }
+
+    if (props.theme.valueColor){
+      return props.theme.valueColor;
     }
 
     return colors.black90;
@@ -93,7 +102,17 @@ export const Value = styled.button`
     return '2px';
   }};
   border-bottom-style: solid;
-  border-bottom-color: ${props => props.isDisabled ? 'transparent' : colors.black40};
+  border-bottom-color: ${props => {
+    if (props.isDisabled){
+      return 'transparent';
+    }
+
+    if (props.theme.borderColor) {
+      return props.theme.borderColor;
+    }
+
+    return colors.black40;
+  }};
   cursor: ${props => props.isDisabled ? 'auto' : 'pointer'};
   border-radius: ${(props) => {
     if (props.theme.borderRadius) {
@@ -135,7 +154,8 @@ export default class SelectInputLabelBox extends React.Component {
   constructor() {
     super();
     this.state = {
-      optionsListVisible: false
+      optionsListVisible: false,
+      searchFilter: ''
     }
   }
 
@@ -145,15 +165,83 @@ export default class SelectInputLabelBox extends React.Component {
 
   closeOptionsList = () => { closeOptionsList.call(this) }
 
-  toggleOptionsList = () => { toggleOptionsList.call(this) }
-
+  toggleOptionsList = (e) => { toggleOptionsListOnSearch.bind(this)(e) }
+/*
   determineLabel = () => {
     const selectedOption = _.find(this.props.options, o => o.value === this.props.value);
     return _.get(selectedOption, 'label', this.props.value);
+  }*/
+
+  filterOptions = (searchFilter) => {
+    this.setState({
+      searchFilter
+    });
+  }
+
+  filterOptionsWithSearch = (options) => _.filter(options, (option) => {
+    if (!_.isObject(option)) return true;
+    if ( !(_.isString(option.label) || _.isObject(option.label)) ) return true;
+    if (_.isObject(option.label) && !_.isString(option.optionValue)) return true;
+
+    const labelString = _.isString(option.label) ? option.label : option.optionValue;
+    const searchFilter = this.state.searchFilter || '';
+    return _.includes(labelString.toLowerCase(), searchFilter.toLowerCase());
+  });
+
+
+  onChange = (newValue) => {
+    if(this.props.multiSelect) {
+      if(_.includes(this.props.value, newValue)) {
+        this.props.onChange(_.without(this.props.value, newValue));
+      } else {
+        this.props.onChange(_.concat(this.props.value, [newValue]));
+      }
+    } else {
+      this.props.onChange(newValue);
+      this.closeOptionsList();
+    }
+  }
+
+  determineLabel = () => {
+    const { defaultLabel, options, promotedOptions, value, multiSelect } = this.props;
+
+    let copiedOptions = _.map(options, _.clone);
+
+    if (promotedOptions && promotedOptions.length) {
+      copiedOptions = [...promotedOptions, ...options];
+    }
+
+    let inputLabel;
+    let placeholder = '';
+
+    if (defaultLabel) {
+      placeholder = defaultLabel;
+    }
+
+    // Determine what the input label should be
+    if (!_.isNil(value)) {
+      const optionObject = _.find(copiedOptions, { value });
+
+      if (multiSelect && _.size(value)) {
+        inputLabel = `${_.size(value)} Selected`;
+      } else if (optionObject && optionObject.label) {
+        inputLabel = optionObject.label;
+      } else {
+        inputLabel = placeholder;
+      }
+    } else {
+      inputLabel = placeholder;
+    }
+
+    return inputLabel;
   }
 
   render() {
     const optionLabel = this.determineLabel();
+
+    const options = this.filterOptionsWithSearch(this.props.options);
+    const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
+
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper onClick={this.toggleOptionsList}
@@ -171,11 +259,14 @@ export default class SelectInputLabelBox extends React.Component {
           >{optionLabel}</Value>
           <SelectOptions
             selectedOptions={this.props.value}
-            promotedOptions={this.props.promotedOptions}
-            onOptionUpdate={this.props.onChange}
-            options={this.props.options}
+            promotedOptions={promotedOptions}
+            onOptionUpdate={this.onChange}
+            options={options}
             hideDivider={_.isEmpty(this.props.options)}
             visible={this.state.optionsListVisible}
+            multiSelect={this.props.multiSelect}
+            searchable={this.props.searchable}
+            onSearch={this.filterOptions}
           />
         </Wrapper>
       </ThemeProvider>
@@ -200,5 +291,7 @@ SelectInputLabelBox.propTypes = {
   onChange: PropTypes.func,
   label: PropTypes.string,
   isDisabled: PropTypes.bool,
-  isPlaceHolder: PropTypes.bool
+  isPlaceHolder: PropTypes.bool,
+  multiSelect: PropTypes.bool,
+  searchable: PropTypes.bool
 }

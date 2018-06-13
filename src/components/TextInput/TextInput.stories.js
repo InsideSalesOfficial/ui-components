@@ -27,7 +27,9 @@ storiesOf('Form', module)
                 <TextInput
                   label="Label"
                   name="first"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                 />
               )
             },
@@ -37,7 +39,9 @@ storiesOf('Form', module)
                 <TextInput
                   label="Label"
                   name="firstz"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                   value="This text was hardcoded into stories. The structure of this component follows how a `TextInput` should look."
                 />
               )
@@ -50,7 +54,9 @@ storiesOf('Form', module)
                   helper="Helper text."
                   error=""
                   name="second"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                 />
               )
             },
@@ -62,7 +68,9 @@ storiesOf('Form', module)
                   helper="Helper text."
                   error="Errors will override helper text."
                   name="third"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                   value="This text was hardcoded into stories."
                 />
               )
@@ -75,7 +83,9 @@ storiesOf('Form', module)
                   helper="Helper text."
                   disabled
                   name="fourth"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                 />
               )
             },
@@ -88,7 +98,9 @@ storiesOf('Form', module)
                   disabled
                   name="fifth"
                   value="this is some example text"
-                  onChange={action('value')}/>
+                  onSelectionStartChange={action('selectionStart')}
+                  onChange={action('value')}
+                  onFocus={action('onFocus')}/>
               )
             },
             {
@@ -118,7 +130,9 @@ storiesOf('Form', module)
                 <TextInput
                   placeholder="Search"
                   name="seven"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                   search
                 />
               )
@@ -129,7 +143,9 @@ storiesOf('Form', module)
                 <TextInput
                   label="Search"
                   name="eight"
+                  onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
+                  onFocus={action('onFocus')}
                   options={[
                     {
                       label: 'Foo',
@@ -156,7 +172,9 @@ storiesOf('Form', module)
                     name="Country"
                     lowPadding={true}
                     selectOptionsWidth={400}
-                    onChange={action('value')}
+                    onSelectionStartChange={action('selectionStart')}
+                  onChange={action('value')}
+                  onFocus={action('onFocus')}
                     options={[
                       {
                         label: '+1 (US)',
@@ -256,6 +274,50 @@ storiesOf('Form', module)
                   inputType="password"
                 />
               )
+            },
+            {
+              title: 'Example: stateless text input based on props',
+              sectionFn: () => {
+
+                class StatefulWrapper extends React.Component {
+                  constructor() {
+                    super();
+                    this.state = {
+                      value: ''
+                    }
+                  }
+                  render = () => {
+                    return <TextInput
+                      label="Label"
+                      name="first"
+                      stateless
+                      value={this.state.value}
+                      onSelectionStartChange={action('selectionStart')}
+                      onChange={(value) => {
+                        this.setState({
+                          value
+                        })
+                        return action('value')(value);
+                      }}
+                      onFocus={action('onFocus')}
+                    />
+                  }
+                }
+
+                return (<div>
+                  Stateless: <TextInput
+                    label="Label"
+                    name="first"
+                    stateless
+                    value="value"
+                    onSelectionStartChange={action('selectionStart')}
+                    onChange={action('value')}
+                    onFocus={action('onFocus')}
+                  /> <br />
+                  Wrapped In Stateful Component: <StatefulWrapper />
+
+                </div>)
+              }
             },
           ]
         }

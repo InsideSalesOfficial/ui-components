@@ -220,19 +220,31 @@ class TextInput extends React.Component {
       });
     }
   }
+  
+  handleCursorPositionChange = () =>  {
+    if(this.props.onSelectionStartChange) {
+      this.props.onSelectionStartChange(this.textInputEl.selectionStart);
+    }
+  }
 
   focused = () => {
+    document.addEventListener('keyup', this.handleCursorPositionChange)
     this.setState({
       focused: true
     }, this.handleFocusChange())
   }
 
   blurred = () => {
+    document.removeEventListener('keyup', this.handleCursorPositionChange)
     if(!this.state.cancelBlur) {
       this.setState({
         focused: false
       });
     }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keyup', this.handleCursorPositionChange)
   }
 
   renderHelperText = () => {
@@ -242,7 +254,7 @@ class TextInput extends React.Component {
       return null;
     }
 
-    if (collapsed && !this.state.value && !this.state.focused && !error) {
+    if (collapsed && !this.getValue() && !this.state.focused && !error) {
       return null;
     }
 
@@ -270,15 +282,15 @@ class TextInput extends React.Component {
     });
   }
 
-  handleValueChange = () => {
+  handleValueChange = (value) => {
     if (this.props.onChange) {
-      this.props.onChange(this.state.value);
+      this.props.onChange(value);
     }
   }
 
   handleFocusChange = () => {
     if (this.props.onFocus) {
-      this.props.onFocus(this.state.value);
+      this.props.onFocus(this.getValue());
     }
   }
 
@@ -297,9 +309,13 @@ class TextInput extends React.Component {
       this.toggleOptionsList();
     }
 
+    const value =  get(e, 'target.value', this.textInputEl.value)
+
     this.setState({
-      value: get(e, 'target.value', this.textInputEl.value),
-    }, this.handleValueChange);
+      value,
+    }, () => {
+      this.handleValueChange(value)
+    });
 
     this.scrollToTop();
   }
@@ -307,7 +323,9 @@ class TextInput extends React.Component {
   onDropDownSelect = (value) => {
     this.setState({
       value
-    }, this.handleValueChange);
+    }, () => {
+      this.handleValueChange(value)
+    });
     this.closeOptionsList();
   }
 
@@ -326,9 +344,11 @@ class TextInput extends React.Component {
     return labelIndex > valIndex ? valIndex : labelIndex
   }
 
+  getValue = () => this.props.stateless ? this.props.value : this.state.value;
+
   getPromotedOptions = () => {
-    const lowerValue = this.state.value.toLowerCase();
-    return this.state.value
+    const lowerValue = this.getValue().toLowerCase();
+    return this.getValue()
       ? filter(this.props.options, o =>
           o.value.toLowerCase().indexOf(lowerValue) > -1 ||
           o.label.toLowerCase().indexOf(lowerValue) > -1)
@@ -346,7 +366,20 @@ class TextInput extends React.Component {
   }
 
   render() {
-    const { label, name, inputType, error, disabled, collapsed, className, options, promotedOptions, lowPadding, labelColor, lineColor } = this.props;
+    const {
+      label,
+      name,
+      inputType,
+      error,
+      disabled,
+      collapsed,
+      className,
+      options,
+      promotedOptions,
+      lowPadding,
+      labelColor,
+      lineColor,
+    } = this.props;
 
     return (
       <TextInputWrapper
@@ -359,7 +392,7 @@ class TextInput extends React.Component {
           onClick={this.focusOnTextInput}
           isFocused={this.state.focused}
           error={error}
-          open={this.state.value}
+          open={this.getValue()}
           disabled={disabled}
           lineColor={lineColor}
           collapsed={collapsed}>
@@ -367,11 +400,12 @@ class TextInput extends React.Component {
             type={this.getInputType(inputType)}
             onFocus={this.focused}
             onBlur={this.blurred}
+            onClick={this.handleCursorPositionChange}
             id={name}
             name={name}
             disabled={disabled}
             error={error}
-            value={this.state.value}
+            value={this.getValue()}
             ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}
             search={this.props.search}
@@ -380,7 +414,7 @@ class TextInput extends React.Component {
             <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
           }
           { !this.props.search &&
-            <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.state.value} htmlFor={name} error={error}>{label}</TextLabel>
+            <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue()} htmlFor={name} error={error}>{label}</TextLabel>
           }
         </TextBox>
         { options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
@@ -406,7 +440,9 @@ const DEFAULT_LABEL = 'Label';
 
 TextInput.defaultProps = {
   name: 'Name',
-  label: DEFAULT_LABEL
+  label: DEFAULT_LABEL,
+  onSelectionStartChange: _.noop,
+  stateless: false,
 };
 
 TextInput.propTypes = {
@@ -420,7 +456,9 @@ TextInput.propTypes = {
   onChange: PropTypes.func,
   collapsed: PropTypes.bool,
   lowPadding: PropTypes.bool,
+  stateless: PropTypes.bool,
   selectOptionsWidth: PropTypes.number,
+  onSelectionStartChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string,
