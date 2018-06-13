@@ -6,7 +6,7 @@ import { colors } from '../styles';
 import TextInput, { TextInputWrapper, InputItem, TextLabel } from '../TextInput/TextInput';
 
 const TextBox = styled.div`
-    background-color: ${props => props.theme.background || colors.lightGrey};
+    background-color: ${props => props.theme.background || colors.lighterGrey};
     border-bottom: thin solid ${colors.black40};
     border-radius: 2px;
     border-width: 2px; 
