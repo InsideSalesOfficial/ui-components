@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { storiesOf, action } from '@storybook/react';
 import SelectInputLabelBox from './SelectInputLabelBox';
-import { lineSelectInputBoxTransparentTheme } from './SelectInputLabelBoxThemes';
+import { lineSelectInputBoxTransparentTheme, darkTheme } from './SelectInputLabelBoxThemes';
 import styled from 'styled-components';
 
 import { typography } from '../styles/typography';
@@ -193,10 +193,58 @@ storiesOf('Form', module)
             title: 'SelectInputLabelBoxTransparent with value and promotedOption',
             sectionFn: () => (
               <div>
-                <WrapperEmailThreadComponent
+                <SelectInputLabelBox
                   options={htmlOptions}
                   promotedOptions={optionsToPromote}
                   theme={lineSelectInputBoxTransparentTheme} />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBox with darkTheme',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  theme={darkTheme}
+                  onChange={action('Option Selected')}
+                  options={genericOptions} />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with searchable dropdown',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  onChange={action('Option Selected')}
+                  options={genericOptions} 
+                  searchable />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBoxTransparent with multiselect',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  label="Hello World!"
+                  onChange={action('Option Selected')}
+                  value={selectedOptions}
+                  options={genericOptions} 
+                  multiSelect />
+              </div>
+            )
+          },
+          {
+            title: 'SelectInputLabelBox with darkTheme with value',
+            sectionFn: () => (
+              <div>
+                <SelectInputLabelBox
+                  theme={darkTheme}
+                  value='Hi world'
+                  onChange={action('Option Selected')}
+                  options={genericOptions} />
               </div>
             )
           }

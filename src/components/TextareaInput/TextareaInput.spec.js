@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import TextareaInput, { TextareaError, TextareaHelper } from './TextareaInput';
+import _ from 'lodash';
+import TextareaInput, { TextareaError, TextareaHelper, HelperTextContainer, ErrorTextContainer, charLimitExceeded, CharLimitExceededError, determineCharCounterTextValue, CharCounterText, CharCounterErrorText } from './TextareaInput';
 
 describe('TextareaInput', () => {
   
@@ -40,13 +41,24 @@ describe('TextareaInput', () => {
     expect(helperText).toBeFalsy();
   });
 
-  it('renderHelperText should return TextareaError if there is an error', () => {
+  it('renderErrorText should return HelperTextContainer if there is an error', () => {
     const error = 'some error';
     const wrapper = shallow(<TextareaInput name="test" error={error}/>);
     
-    const helperText = wrapper.instance().renderHelperText();
+    const errorText = wrapper.instance().renderErrorText();
 
-    expect(helperText).toEqual(<TextareaError>{error}</TextareaError>);
+    expect(errorText).toEqual(<ErrorTextContainer charLimit={0} error={error} localError="" />);
+  });
+
+  it('renderErrorText should return HelperTextContainer if there is a charLimit and the value is greater than the charLimit, even if no error is present', () => {
+    const localError = CharLimitExceededError;
+    const value = 'hello world';
+    const charLimit = value.length - 1;
+    const wrapper = shallow(<TextareaInput name="test" charLimit={charLimit} value={value}/>);
+
+    const errorText = wrapper.instance().renderErrorText();
+
+    expect(errorText).toEqual(<ErrorTextContainer localError={localError} error='' charLimit={charLimit} />);
   });
 
   it('renderHelperText should return TextareaHelper if component is not collapsed.', () => {
@@ -55,7 +67,60 @@ describe('TextareaInput', () => {
     
     const helperText = wrapper.instance().renderHelperText();
 
-    expect(helperText).toEqual(<TextareaHelper>{helperTextString}</TextareaHelper>);
+    expect(helperText).toEqual(<TextareaHelper hasCharLimit={false} helper={helperTextString} />);
+  });
+
+  it('determineCharCounterTextValue should return counter string if the charLimit is greater than 0', () => {
+    const charLimit = 100;
+    const inputValue = 'hello';
+
+    const charCounterStr = determineCharCounterTextValue(charLimit, inputValue);
+
+    expect(charCounterStr).toBe(`${_.size(inputValue)} / ${charLimit}`);
+  });
+
+  it('determineCharCounterTextValue should return null if charLimit is 0', () => {
+    expect(determineCharCounterTextValue(0, 'hello')).toBe(null);
+  });
+
+  it('renderCharCounterText should return CharCounterText if charLimit greater than 0 and char limit not reached', () => {
+    const charLimit = 100;
+    const inputValue = 'hello world';
+    const wrapper = shallow(<TextareaInput name="test" value={inputValue} charLimit={charLimit}/>);
+
+    const charCounter = wrapper.instance().renderCharCounterText();
+    const charCounterStr = determineCharCounterTextValue(charLimit, inputValue);
+    
+    expect(charCounter).toEqual(<CharCounterText>{charCounterStr}</CharCounterText>)
+  });
+
+  it('renderCharCounterText should return null if charLimit is 0', () => {
+    const inputValue = 'hello world';
+    const wrapper = shallow(<TextareaInput name="test" value={inputValue}/>);
+
+    const charCounter = wrapper.instance().renderCharCounterText();
+    
+    expect(charCounter).toBe(null);
+  });
+
+  it('renderCharCounterText should return CharCounterText if charLimit greater than 0 and char limit has been passed', () => {
+    const charLimit = 10;
+    const inputValue = 'hello world, there is some text';
+    const wrapper = shallow(<TextareaInput name="test" value={inputValue} charLimit={charLimit}/>);
+
+    const charCounter = wrapper.instance().renderCharCounterText();
+    const charCounterStr = determineCharCounterTextValue(charLimit, inputValue);
+    
+    expect(charCounter).toEqual(<CharCounterErrorText>{charCounterStr}</CharCounterErrorText>)
+  });
+
+  it('renderCharCounterText should return null if charLimit is 0', () => {
+    const inputValue = 'hello world, there is some text';
+    const wrapper = shallow(<TextareaInput name="test" value={inputValue}/>);
+
+    const charCounter = wrapper.instance().renderCharCounterText();
+    
+    expect(charCounter).toBe(null);
   });
 
   it('focusOnTextarea should set focused state to true', () => {
@@ -121,3 +186,21 @@ describe('TextareaInput', () => {
   });
 });
 
+
+describe('charLimitExceeded', () => {
+  it(`should return ${false} if there is no charLimit`, () => {
+    expect(charLimitExceeded(0, 'hello world')).toBe(false);
+  });
+
+  it(`should return ${false} if the string length is equal to the charLimit`, () => {
+    const str = 'hello world';
+    const charLimit = str.length;
+    expect(charLimitExceeded(charLimit, str)).toBe(false)
+  });
+
+  it(`should return ${true} if the string length is greater than the charLimit`, () => {
+    const str = 'hello world';
+    const charLimit = str.length - 1;
+    expect(charLimitExceeded(charLimit, str)).toBe(true);
+  });
+});
