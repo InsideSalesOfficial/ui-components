@@ -66,7 +66,7 @@ const SelectOptionsContainer = styled.div`
 
 const SelectOptionsWrapper = styled.div`
   width: 100%;
-  max-height: 200px;
+  max-height: ${props => props.maxHeight};
   transform: translateZ(0);
   overflow-y: auto;
 
@@ -289,6 +289,7 @@ SelectOptions.propTypes = {
   optionsCount: PropTypes.number.isRequired,
   visible: PropTypes.bool.isRequired,
   multiSelect: PropTypes.bool,
+  maxHeight: PropTypes.string.isRequired,
   optionsRef: PropTypes.func,
   promotedOptions: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
@@ -303,6 +304,7 @@ SelectOptions.defaultProps = {
   optionsCount: 0,
   visible: false,
   multiSelect: false,
+  maxHeight: "200px",
   bottomActionArea: null,
   optionsRef: _.noop,
 };

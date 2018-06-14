@@ -91,7 +91,7 @@ export const Value = styled.button`
       return props.theme.background;
     }
 
-    return colors.lighterGray;
+    return colors.greyA;
   }};
   box-sizing: border-box;
   border-bottom-width: ${(props) => {
@@ -265,6 +265,7 @@ export default class SelectInputLabelBox extends React.Component {
             hideDivider={_.isEmpty(this.props.options)}
             visible={this.state.optionsListVisible}
             multiSelect={this.props.multiSelect}
+            maxHeight="240px"
             searchable={this.props.searchable}
             onSearch={this.filterOptions}
           />
