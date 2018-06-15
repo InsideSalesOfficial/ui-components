@@ -15,15 +15,20 @@ describe('ToggleSlider', () => {
       expect(onToggle).toHaveBeenCalled();
     }, 0)
   });
+  it('toggle')
 });
 
 describe('ToggleSlider Snapshots', () => {
   test('shows toggled on', () => {
-    const tree = renderer.create(<ToggleSlider checked={true} toggle={_.noop} />);
+    const tree = renderer.create(<ToggleSlider checked={true} disabled={false} toggle={_.noop} />);
     expect(tree).toMatchSnapshot();
   })
   test('shows toggled off', () => {
-    const tree = renderer.create(<ToggleSlider checked={false} toggle={_.noop}/>);
+    const tree = renderer.create(<ToggleSlider checked={false} disabled={false} toggle={_.noop}/>);
+    expect(tree).toMatchSnapshot();
+  });
+  test('shows disabled', () => {
+    const tree = renderer.create(<ToggleSlider checked={false} disabled={true} toggle={_.noop}/>);
     expect(tree).toMatchSnapshot();
   });
 });

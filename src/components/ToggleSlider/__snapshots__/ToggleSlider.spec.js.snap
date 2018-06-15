@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ToggleSlider Snapshots shows disabled 1`] = `
+<label
+  className="sc-bdVaJa equNwL"
+>
+  <input
+    checked={false}
+    className="sc-bwzfXH eKeXgs"
+    disabled={true}
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <div
+    checked={false}
+    className="sc-htpNat jiIFKi"
+    disabled={true}
+  />
+</label>
+`;
+
 exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 <label
   className="sc-bdVaJa equNwL"
@@ -7,12 +26,14 @@ exports[`ToggleSlider Snapshots shows toggled off 1`] = `
   <input
     checked={false}
     className="sc-bwzfXH eKeXgs"
+    disabled={false}
     onChange={[Function]}
     type="checkbox"
   />
   <div
     checked={false}
     className="sc-htpNat dwgooG"
+    disabled={false}
   />
 </label>
 `;
@@ -24,12 +45,14 @@ exports[`ToggleSlider Snapshots shows toggled on 1`] = `
   <input
     checked={true}
     className="sc-bwzfXH eKeXgs"
+    disabled={false}
     onChange={[Function]}
     type="checkbox"
   />
   <div
     checked={true}
     className="sc-htpNat dFyors"
+    disabled={false}
   />
 </label>
 `;

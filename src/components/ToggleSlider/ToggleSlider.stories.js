@@ -7,13 +7,14 @@ class ToggleSliderWrapper extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      checked: true
+      checked: props.checked,
+      disabled: props.disabled
     };
   }
   render() {
-    return <ToggleSlider checked={this.state.checked} toggle={() => {
+    return <ToggleSlider checked={this.state.checked} disabled={this.state.disabled} toggle={() => {
       this.props.toggle();
-      this.setState({ checked: !this.state.checked })
+      this.setState({ checked: !this.state.checked})
     }
     } />
   }
@@ -54,10 +55,21 @@ storiesOf('Form', module)
             )
           },
           {
+            title: 'Example: Disabled Toggle',
+            subtitle: 'A toggle slider that cannot be toggled.',
+            sectionFn: () => (
+              <ToggleSliderWrapper toggle={action("toggled")}
+              checked={false}
+              disabled={true} />
+            )
+          },
+          {
             title: 'Example: Wrapped in another component',
             subtitle: 'A toggle slider wrapped by another component that updates the checked prop on toggle',
             sectionFn: () => (
-              <ToggleSliderWrapper toggle={action("toggled")} />
+              <ToggleSliderWrapper toggle={action("toggled")}
+              checked={true}
+              disabled={false} />
             )
           }
         ]
