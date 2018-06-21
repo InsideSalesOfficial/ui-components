@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, {ThemeProvider}  from 'styled-components';
 import PropTypes from 'prop-types';
-import { get, size } from 'lodash';
+import { get, size, isString } from 'lodash';
 
 import { colors, typography, darkScrollbar } from '../styles';
 import {defaultTheme} from './TextareaInputThemes'
@@ -216,6 +216,7 @@ export const HelperTextContainer = styled.div`
 `;
 
 export const HelperText = styled.span`
+  color: ${props => props.theme.helperColor};
   ${typography.caption}
 `;
 
@@ -389,6 +390,13 @@ class TextareaInput extends React.Component {
     });
   }
 
+  getValue(stateValue, overrideValue){
+    if (isString(overrideValue)){
+      return overrideValue;
+    }
+    return stateValue;
+  }
+
   render() {
     const { className, label, name, error, disabled, collapsed, labelColor, lineColor, placeholder } = this.props;
     const localError = this.determineLocalError();
@@ -404,7 +412,7 @@ class TextareaInput extends React.Component {
           lineColor={lineColor}
           isFocused={this.state.focused}
           error={error || localError}
-          open={this.state.value}
+          open={this.getValue(this.state.value,  this.props.overrideValue)}
           disabled={disabled}
           collapsed={collapsed}>
           <Textarea
@@ -414,7 +422,7 @@ class TextareaInput extends React.Component {
             name={name}
             disabled={disabled}
             error={error || localError}
-            value={this.state.value}
+            value={this.getValue(this.state.value,  this.props.overrideValue)}
             ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}
             placeholder={placeholder}>
@@ -422,7 +430,7 @@ class TextareaInput extends React.Component {
           <TextLabel
             isFocused={this.state.focused}
             labelColor={labelColor}
-            open={this.state.value}
+            open={this.getValue(this.state.value,  this.props.overrideValue)}
             htmlFor={name}
             error={error || localError}
             placeholder={placeholder}>
@@ -442,7 +450,8 @@ TextareaInput.defaultProps = {
   charLimit: 0,
   error: '',
   placeholder: '',
-  theme: defaultTheme
+  theme: defaultTheme,
+  overrideValue: null
 };
 
 TextareaInput.propTypes = {
@@ -452,6 +461,7 @@ TextareaInput.propTypes = {
   error: PropTypes.string,
   disabled: PropTypes.bool,
   value: PropTypes.string,
+  overrideValue: PropTypes.string,
   onChange: PropTypes.func,
   collapsed: PropTypes.bool,
   charLimit: PropTypes.number,
