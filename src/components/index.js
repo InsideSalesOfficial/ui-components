@@ -13,6 +13,7 @@ export {default as MessageDialog} from './MessageDialog';
 export {default as OverflowMenu} from './OverflowMenu';
 export {default as RangeSlider} from './RangeSlider';
 export {default as SelectInput} from './SelectInput';
+export {default as Modal} from './Modal';
 export {default as SortableList} from './SortableList';
 export {default as StepChain} from './StepChain';
 export {
@@ -20,18 +21,20 @@ export {
   darkTheme as TextareaInputDarkTheme
 } from './TextareaInput';
 export {default as TextInput} from './TextInput';
+export {default as SearchBox} from './SearchBox';
 export {
   default as TextInputBox,
   darkTheme as TextInputBoxDarkTheme
 } from './TextInputBox';
 export {default as ToggleSlider} from './ToggleSlider';
+export {default as FilterBar} from './FilterBar';
 export {default as Icons} from './icons';
 export {default as RadioList} from './RadioList';
 export {default as Radio} from './RadioList/Radio';
 export {
   default as SelectInputLabelBox,
   darkTheme as SelectInputLabelBoxDarkTheme,
-  ineSelectInputBoxTransparentTheme as SelectInputLabelBoxlineSelectInputBoxTransparentTheme
+  lineSelectInputBoxTransparentTheme as SelectInputLabelBoxLineSelectInputBoxTransparentTheme
 } from './SelectInputLabelBox';
 export {default as TextareaBox} from './TextareaBox';
 export { colors, boxShadows, scrollbars, typography } from './styles'

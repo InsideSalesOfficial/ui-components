@@ -85,6 +85,17 @@ storiesOf('Form', module)
             )
           },
           {
+            subtitle: 'Header Label',
+            sectionFn: () => (
+              <div style={darkExample}>
+                <SelectInput
+                  onChange={action('Option Selected')}
+                  headerLabel="Custom Label"
+                  options={genericOptions} />
+              </div>
+            )
+          },
+          {
             subtitle: 'Custom Label',
             sectionFn: () => (
               <div style={darkExample}>

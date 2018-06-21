@@ -166,11 +166,6 @@ export default class SelectInputLabelBox extends React.Component {
   closeOptionsList = () => { closeOptionsList.call(this) }
 
   toggleOptionsList = (e) => { toggleOptionsListOnSearch.bind(this)(e) }
-/*
-  determineLabel = () => {
-    const selectedOption = _.find(this.props.options, o => o.value === this.props.value);
-    return _.get(selectedOption, 'label', this.props.value);
-  }*/
 
   filterOptions = (searchFilter) => {
     this.setState({

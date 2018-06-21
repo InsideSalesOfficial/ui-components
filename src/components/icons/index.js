@@ -12,6 +12,8 @@ import CalendarIcon from './CalendarIcon';
 import CautionFilledIcon from './CautionFilledIcon';
 import CheckCircleIcon from './CheckCircleIcon';
 import CheckmarkFilledIcon from './CheckmarkFilledIcon';
+import ChevronLeftIcon from './ChevronLeftIcon';
+import ChevronRightIcon from './ChevronRightIcon';
 import ClockIcon from './ClockIcon';
 import ClockIconFilled from './ClockIconFilled';
 import CloseFullIcon from './CloseFullIcon';
@@ -30,6 +32,7 @@ import EmailRepliedIcon from './EmailRepliedIcon';
 import ExpandIcon from './ExpandIcon';
 import ExploreIcon from './ExploreIcon';
 import EyeIcon from './EyeIcon';
+import FilterIcon from './FilterIcon';
 import ForwardEmailIcon from './ForwardEmailIcon';
 import GroupAddIcon from './GroupAddIcon';
 import HelpBoxIcon from './HelpBoxIcon';
@@ -52,6 +55,7 @@ import NeuralIcon from './NeuralIcon';
 import NotificationBellIcon from './NotificationBellIcon';
 import OtherFilledIcon from './OtherFilledIcon';
 import PauseCircleIcon from './PauseCircleIcon';
+import PersonAddIcon from './PersonAddIcon';
 import PersonIcon from './PersonIcon';
 import PhoneFilledIcon from './PhoneFilledIcon';
 import PlayIcon from './PlayIcon';
@@ -84,6 +88,8 @@ export default {
   CautionFilledIcon,
   CheckCircleIcon,
   CheckmarkFilledIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ClockIcon,
   ClockIconFilled,
   CloseFullIcon,
@@ -102,6 +108,7 @@ export default {
   ExpandIcon,
   ExploreIcon,
   EyeIcon,
+  FilterIcon,
   ForwardEmailIcon,
   GroupAddIcon,
   HelpBoxIcon,
@@ -124,6 +131,7 @@ export default {
   NotificationBellIcon,
   OtherFilledIcon,
   PauseCircleIcon,
+  PersonAddIcon,
   PersonIcon,
   PhoneFilledIcon,
   PlayIcon,

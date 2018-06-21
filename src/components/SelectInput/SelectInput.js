@@ -195,6 +195,7 @@ class SelectInput extends React.Component {
             onClick={(e) => { if (!isDisabled) { this.toggleOptionsList(e); } }}>
             <SelectInputDisplay
               defaultLabel={this.props.defaultLabel}
+              headerLabel={this.props.headerLabel}
               label={this.determineLabel()}
               selectArrowFollows={this.props.selectArrowFollows}
               isDisabled={isDisabled}

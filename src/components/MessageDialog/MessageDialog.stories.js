@@ -33,9 +33,9 @@ storiesOf('Components', module)
                     </div>
                   }
                   secondaryActionText='Cancel'
-                  onSecondaryActionClick={action('click option')}
+                  onSecondaryActionClick={action('onSecondaryActionClick')}
                   primaryActionText='Save'
-                  onPrimaryActionClick={action('click option')}
+                  onPrimaryActionClick={action('onPrimaryActionClick')}
                   center
                   onStoryBook
                 />

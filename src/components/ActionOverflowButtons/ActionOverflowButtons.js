@@ -61,8 +61,15 @@ const OverflowList = styled.ul`
       return '0';
     }
   }};
+  ${(props) => {
+    if(props.openDirection === 'down') {
+      return 'top: 55px;'
+    } else {
+      return 'bottom: 55px;'
+    }
+  }}
   margin: 0;
-  margin-top: 16px;
+
   padding: 0;
   list-style-type: none;
   opacity: ${(props) => {
@@ -76,7 +83,7 @@ const OverflowList = styled.ul`
     return _.map(props.overflowItems, (item, key) => {
       const currentItemKey = key + 1;
       return `
-        li:nth-child(${currentItemKey}) {
+        ${props.openDirection === 'down' ? 'li:nth-child' : 'li:nth-last-child'}(${currentItemKey}) {
           transition-delay: ${props.itemDelay * currentItemKey}ms;
           transform: scale(0.4) translateY(-${key * 16}px);
           span {
@@ -97,7 +104,15 @@ const OverflowListItem = styled.li`
   }};
   margin-left: 2px;
   margin-right: 2px;
-  margin-bottom: 14px;
+
+  ${(props) => {
+    if(props.openDirection === 'down') {
+      return 'margin-bottom: 14px;'
+    } else {
+      return 'margin-top: 14px;'
+    }
+  }}
+
   opacity: ${(props) => {
     if (props.overflowItemsVisible) {
       return 1;
@@ -203,11 +218,11 @@ class ActionOverflowButtons extends React.Component {
 
   renderOverflowItems = () => {
     const { overflowItemsVisible } = this.state;
-    const { labelsPosition } = this.props;
+    const { labelsPosition, openDirection } = this.props;
     const items = _.map(this.props.overflowItems, (item, key) => {
       const IconEl = Icons[item.icon];
       return (
-        <OverflowListItem key={`overflow-item-${key}`} overflowItemsVisible={overflowItemsVisible} labelsPosition={labelsPosition}>
+        <OverflowListItem key={`overflow-item-${key}`} overflowItemsVisible={overflowItemsVisible} labelsPosition={labelsPosition} openDirection={openDirection}>
           <OverflowItemButton className={item.className} onClick={(e) => { this.clickItem(item.onClick, e); }} labelsPosition={labelsPosition}>
             <IconWrapper>
               <IconEl />
@@ -222,7 +237,7 @@ class ActionOverflowButtons extends React.Component {
 
   render() {
     const { overflowItemsVisible, transitionOff, actionButtonToggle } = this.state;
-    const { labelsPosition, actionButtonIcon, overflowItems, className, title } = this.props;
+    const { labelsPosition, openDirection, actionButtonIcon, overflowItems, className, title } = this.props;
     return (
       <ActionOverflowButtonsWrapper className={this.props.className}>
         <ActionButton title={title} className={className} icon={actionButtonIcon} onClick={this.toggleOverflowItems} toggled={actionButtonToggle} />
@@ -231,7 +246,8 @@ class ActionOverflowButtons extends React.Component {
           transitionOff={transitionOff}
           itemDelay={this.animationDelay}
           overflowItems={overflowItems}
-          labelsPosition={labelsPosition}>
+          labelsPosition={labelsPosition}
+          openDirection={openDirection}>
             {this.renderOverflowItems()}
         </OverflowList>
       </ActionOverflowButtonsWrapper>
@@ -241,13 +257,15 @@ class ActionOverflowButtons extends React.Component {
 
 ActionOverflowButtons.defaultProps = {
   overflowItems: [],
-  labelsPosition: 'right'
+  labelsPosition: 'right',
+  openDirection: 'down'
 };
 
 ActionOverflowButtons.propTypes = {
   actionButtonIcon: PropTypes.string,
   overflowItems: PropTypes.array.isRequired,
-  labelsPosition: PropTypes.string
+  labelsPosition: PropTypes.string,
+  openDirection: PropTypes.string
 };
 
 export default ActionOverflowButtons;

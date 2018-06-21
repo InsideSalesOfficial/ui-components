@@ -4,7 +4,10 @@ import { colors, typography } from '../styles';
 import { ellipsis } from 'polished';
 
 const SelectInputLabel = styled.label`
-  color: ${colors.boulder};
+  color: ${(props) => {
+    if (props.theme.labelColor) return props.theme.labelColor;
+    return colors.boulder;
+  }};
   ${typography.caption};
   ${ellipsis()}
 `;

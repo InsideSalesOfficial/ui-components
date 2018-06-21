@@ -136,6 +136,18 @@ storiesOf('Components', module)
                 </div>
               )
             },
+            {
+              title: 'Example: Toggle with 4 items; Labels on left; Open up',
+              sectionFn: () => (
+                <div style={{padding: '16px', paddingTop: '300px', paddingLeft: '300px', backgroundColor: colors.greenBackground}}>
+                  <ActionOverflowButtons
+                    labelsPosition="left"
+                    openDirection="up"
+                    overflowItems={dropDownItems}
+                  />
+                </div>
+              )
+            },
           ]
         }
       ]

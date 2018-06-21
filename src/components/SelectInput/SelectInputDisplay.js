@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { colors, typography } from '../styles';
 import Icons from '../icons';
 
+import SelectInputLabel from './SelectInputLabel';
 import { OverflowWrapper } from './SelectInputThemes';
 import { SelectOptionHeight } from './SelectOptions';
 
@@ -205,6 +206,12 @@ const AddButton = styled.div`
   }
 `;
 
+const LabelWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 class SelectInputDisplay extends React.Component {
   render() {
     const { onClick, label, isDisabled, selectArrowFollows, noCarat, defaultLabel } = this.props;
@@ -212,6 +219,7 @@ class SelectInputDisplay extends React.Component {
 
     return (
       <div style={{width: '100%'}}>
+
         {this.props.addButtonList &&
           <AddButton><Icons.AddCircleIcon fill={colors.green} size={{width: 24, height: 24}} /> {defaultLabel}</AddButton>
         }
@@ -223,7 +231,12 @@ class SelectInputDisplay extends React.Component {
             selectArrowFollows={selectArrowFollows}
             isDisabled={isDisabled}
           >
-            <Label title={typeof (label) === 'string' ? label : _.get(label, 'props.label')}>{clonedLabel}</Label>
+            <LabelWrapper>
+              {this.props.headerLabel && !this.props.addButtonList &&
+                <SelectInputLabel>{this.props.headerLabel}</SelectInputLabel>
+              }
+              <Label title={typeof (label) === 'string' ? label : _.get(label, 'props.label')}>{clonedLabel}</Label>
+            </LabelWrapper>
             <Carat isDisabled={isDisabled} selectArrowFollows={selectArrowFollows} noCarat={noCarat} className="input-carat" />
           </Input>
         }
@@ -235,11 +248,13 @@ class SelectInputDisplay extends React.Component {
 SelectInputDisplay.propTypes = {
   label: PropTypes.any.isRequired,
   onClick: PropTypes.func.isRequired,
+  headerLabel: PropTypes.any,
   value: PropTypes.string
 };
 
 SelectInputDisplay.defaultProps = {
   label: 'Select',
+  headerLabel: '',
   onClick: () => {},
   value: 'select',
 };
