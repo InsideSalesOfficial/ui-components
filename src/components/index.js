@@ -1,7 +1,10 @@
 export {default as AccordionList} from './AccordionList';
 export {default as ActionButton} from './ActionButton';
 export {default as ActionOverflowButtons} from './ActionOverflowButtons';
-export {default as Button} from './Button';
+export {
+  default as Button,
+  darkBarTheme as ButtonBarDarkTheme
+} from './Button';
 export {default as ButtonBar} from './ButtonBar';
 export {default as Checkbox} from './Checkbox';
 export {default as DropdownButton} from './DropdownButton';
