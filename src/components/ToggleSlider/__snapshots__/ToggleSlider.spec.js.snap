@@ -2,7 +2,8 @@
 
 exports[`ToggleSlider Snapshots shows disabled 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eZMVZj"
+  disabled={true}
 >
   <input
     checked={false}
@@ -21,7 +22,8 @@ exports[`ToggleSlider Snapshots shows disabled 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eouhrO"
+  disabled={false}
 >
   <input
     checked={false}
@@ -40,7 +42,8 @@ exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled on 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eouhrO"
+  disabled={false}
 >
   <input
     checked={true}
