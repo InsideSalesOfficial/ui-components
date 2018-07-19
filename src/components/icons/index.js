@@ -82,6 +82,7 @@ import PlayIcon from './PlayIcon';
 import PlusIcon from './PlusIcon';
 import RadioboxBlankIcon from './RadioboxBlankIcon';
 import RadioboxMarkedIcon from './RadioboxMarkedIcon';
+import RefreshIcon from './RefreshIcon';
 import ReminderIcon from './ReminderIcon';
 import SalesforceIcon from './SalesforceIcon';
 import SearchMaterialIcon from './SearchMaterialIcon';
@@ -186,6 +187,7 @@ export default {
   PlusIcon,
   RadioboxBlankIcon,
   RadioboxMarkedIcon,
+  RefreshIcon,
   ReminderIcon,
   SalesforceIcon,
   SearchMaterialIcon,
