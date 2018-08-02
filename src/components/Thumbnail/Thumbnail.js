@@ -129,7 +129,8 @@ const Thumbnail = (props) =>
         'dialogBottomInner',
         'dialogTopInner',
         'padding'
-        ])}>
+        ])}
+        className={props.className}>
         <Arrow {..._.pick(props, [
             'arrowXCenter',
             'arrowYCenter',
