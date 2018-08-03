@@ -1,5 +1,6 @@
 import React from 'react';
 
+//SyncIcon is the sync icon from the material design library
 const SyncIcon = props => (
   <svg {...props.size || { width: '24px', height: '24px' }} {...props} viewBox="0 0 24 24">
     {props.title && <title>{props.title}</title>}
