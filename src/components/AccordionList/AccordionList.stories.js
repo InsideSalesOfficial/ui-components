@@ -29,7 +29,7 @@ const ItemDisplay = styled.div`
 `;
 const ItemContent = styled.div`
   ${typography.body1};
-  
+
   background: ${(props) => {
     if (props.active) return colors.greenLighter;
     return colors.white;
@@ -48,7 +48,7 @@ class AccordionExample extends React.Component {
       items.push({
         active,
         canOpen: true,
-        renderDisplay: () =>  <ItemDisplay active={active === i}>Item {i + 1} Display</ItemDisplay>,
+        renderDisplay: () => <ItemDisplay active={active === i}>Item {i + 1} Display</ItemDisplay>,
         renderContent: () => <ItemContent active={active === i}>I am the content</ItemContent>
       });
     }
@@ -61,9 +61,10 @@ class AccordionExample extends React.Component {
       <StyledAccordionList
         onItemExpanded={(active) => {
           console.log('##', active)
-          this.setState({expandedItem: active})
+          this.setState({ expandedItem: active })
         }}
         expandedItem={this.state.expandedItem}
+        canCollapse={this.props.canCollapse}
         listItems={this.generateListItems(this.state.expandedItem)}
       />
     )
@@ -71,10 +72,10 @@ class AccordionExample extends React.Component {
 }
 
 storiesOf('Lists', module)
-.addWithChapters(
-  'AccordionList',
-  {
-    info: `
+  .addWithChapters(
+    'AccordionList',
+    {
+      info: `
       Usage
 
       ~~~
@@ -82,9 +83,10 @@ storiesOf('Lists', module)
       import { AccordionList } from 'insidesales-components';
 
       const SomeComponent = () => (
-        <AccordionList 
+        <AccordionList
           onItemExpanded={(active) => { console.log('Active Item: ', active) }}
           expandedItem={0}
+          canCollapse={true}
           listItems={[{
             canOpen: true,
             renderDisplay: () => <div>Display Content</div>
@@ -96,18 +98,24 @@ storiesOf('Lists', module)
       export default SomeComponent;
       ~~~
     `,
-    chapters: [
-      {
-        sections: [
-          {
-            title: 'Default',
-            sectionFn: () => {
-              return <AccordionExample/>
+      chapters: [
+        {
+          sections: [
+            {
+              title: 'Default',
+              sectionFn: () => {
+                return <AccordionExample />
+              }
+            },
+            {
+              title: 'Example: Can Collapse',
+              sectionFn: () => {
+                return <AccordionExample canCollapse />
+              }
             }
-          }
-        ]
-      }
-    ]
-  }
-);
+          ]
+        }
+      ]
+    }
+  );
 
