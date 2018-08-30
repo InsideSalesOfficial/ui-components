@@ -52,6 +52,25 @@ storiesOf('Form', module)
                 />
               </div>
             )
+          },
+          {
+            title: 'Example: SearchBox with theme',
+            sectionFn: () => (
+                <div style={{
+                    background: 'white',
+                    padding: '20px'
+                }}>
+                <SearchBox
+                    placeholder={'Search'}
+                    searchText={''}
+                    enabled={true}
+                    theme={{onWhite: true}}
+                    onSearch={action('onSearch')}
+                    clearSearch={action('clearSearch')}
+                    iconSize={20}
+                />
+              </div>
+            )
           }
         ]
     }

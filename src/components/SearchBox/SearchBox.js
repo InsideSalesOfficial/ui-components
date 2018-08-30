@@ -1,6 +1,6 @@
 import { colors } from '../styles';
 import Icons from '../icons';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
@@ -9,12 +9,7 @@ import _ from 'lodash';
 const SearchBarContainer = styled.div`
     height: 36px;
     border: 1px solid;
-    border-color: ${(props) => {
-        if (props.onWhite) {
-            return colors.grayC;
-        }
-        return colors.white60;
-        }};
+    border-color: ${(props) => { return props.theme.onWhite ? colors.grayC : colors.white60; }};
     background: ${colors.white10};
     border-radius: 3px;
     position: relative;
@@ -26,23 +21,13 @@ const SearchIconWrapper = styled(Icons.SearchMaterialIcon)`
     left: 7px;
     top: 50%;
     transform: translateY(-50%);
-    fill: ${(props) => {
-        if (props.onWhite) {
-            return colors.grayC;
-        }
-        return colors.white60;
-        }};
+    fill: ${(props) => { return props.theme.onWhite ? colors.grayC : colors.white60; }};
 `;
 
 const SearchBarText = styled.input`
     font-size: 16px;
     line-height: 20px;
-    color: ${(props) => {
-        if (props.onWhite) {
-            return colors.grayC;
-        }
-        return colors.white60;
-        }};
+    color: ${(props) => { return props.theme.onWhite ? colors.grayC : colors.white60; }};
     width: 100%;
     height: 100%;
     padding-right: 8px;
@@ -55,14 +40,9 @@ const SearchBarText = styled.input`
     border: 0;
 
     ${_.map(['::-webkit-input-placeholder', '::-moz-placeholder', ':-ms-input-placeholder', ':-moz-placeholder'], selector => `
-            ${selector} {
-                color: ${(props) => {
-                    if (props.onWhite) {
-                      return colors.grayC;
-                    }
-                    return colors.white60;
-                  }};
-            }
+      ${selector} {
+        color: ${(props) => { return props.theme.onWhite ? colors.grayC : colors.white60; }};
+        }
         `).join('')}
 `;
 
@@ -77,17 +57,19 @@ const SearchClearContent = styled(Icons.CloseIcon)`
 const SearchBox = (props) => {
     const size = { width: `${props.iconSize}px`, height: `${props.iconSize}px` };
     return (
-        <SearchBarContainer onWhite={props.onWhiteBg}>
-        <SearchIconWrapper size={size} onWhite={props.onWhiteBg}/>
-        {props.enabled &&
-            <SearchBarText
-            onWhite={props.onWhiteBg}
-            value={props.value}
-            placeholder={props.placeholder} onChange={(e) => props.onChange(e.target.value)}/>}
-        {props.value.length > 0 &&
-          <SearchClearContent onClick={props.clearSearch} fill={colors.white90}/>}
-      </SearchBarContainer>
-      );
+        <ThemeProvider theme={props.theme}>
+        <SearchBarContainer>
+            <SearchIconWrapper size={size} />
+            {props.enabled &&
+                <SearchBarText
+                    onWhite={props.onWhiteBg}
+                    value={props.value}
+                    placeholder={props.placeholder} onChange={(e) => props.onChange(e.target.value)}/>}
+            {props.value.length > 0 &&
+            <SearchClearContent onClick={props.clearSearch} fill={colors.white90}/>}
+        </SearchBarContainer>
+        </ThemeProvider>
+    );
 }
 
 SearchBox.propTypes = {
@@ -102,6 +84,7 @@ SearchBox.propTypes = {
 SearchBox.defaultProps = {
   placeholder: 'Search',
   value: '',
+  theme: {},
   enabled: true,
   onChange: () => {},
   clearSearch: () => {},
