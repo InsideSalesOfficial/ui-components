@@ -25,7 +25,10 @@ export {
   TextareaInputThemes
 } from './TextareaInput';
 export {default as TextInput} from './TextInput';
-export {default as SearchBox} from './SearchBox';
+export {
+  default as SearchBox,
+  SearchBoxThemes
+} from './SearchBox';
 export {
   default as TextInputBox,
   TextInputBoxThemes
