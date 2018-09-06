@@ -132,7 +132,7 @@ export const Value = styled.div`
 
     return '2px';
   }};
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -288,7 +288,7 @@ export default class SelectInputLabelBox extends React.Component {
             promotedOptions={promotedOptions}
             onOptionUpdate={this.onChange}
             options={options}
-            width={this.props.optionsWidth}	
+            width={this.props.optionsWidth}
             hideDivider={_.isEmpty(this.props.options)}
             visible={this.state.optionsListVisible}
             multiSelect={this.props.multiSelect}

@@ -30,7 +30,7 @@ class EditableSelectInput extends React.Component {
     }
     this.closeOptionsList();
   }
-  
+
   toggleOptionsList = toggleOptionsList.bind(this)
 
   openOptionsList = openOptionsList.bind(this)
@@ -72,6 +72,7 @@ class EditableSelectInput extends React.Component {
         <SelectOptions
           ref={(options) => { this.clickEventElement = options; }}
           onOptionUpdate={this.onChange}
+          optionsTitle={this.props.optionsTitle}
           promotedOptions={this.props.promotedOptions}
           options={this.props.options}
           optionsCount={this.countOptions()}

@@ -126,7 +126,7 @@ class SelectInput extends React.Component {
   }
 
   determineLabel = () => {
-    const { defaultLabel, options, promotedOptions, value, multiSelect } = this.props;
+    const { defaultLabel, options, promotedOptions, value, multiSelect, permanentLabel } = this.props;
 
     let copiedOptions = _.map(options, _.clone);
 
@@ -142,7 +142,7 @@ class SelectInput extends React.Component {
     }
 
     // Determine what the input label should be
-    if (!_.isNil(value)) {
+    if (!_.isNil(value) && !permanentLabel) {
       const optionObject = _.find(copiedOptions, { value });
 
       if (multiSelect && _.size(value)) {
@@ -216,6 +216,7 @@ class SelectInput extends React.Component {
             promotedOptions={promotedOptions}
             options={options}
             optionsCount={this.countOptions()}
+            optionsTitle={this.props.optionsTitle}
             searchable={this.props.searchable}
             onSearch={this.filterOptions}
             width={this.props.selectOptionsWidth}

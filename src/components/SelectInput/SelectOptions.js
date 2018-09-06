@@ -171,6 +171,19 @@ const BottomActionAreaDivider = styled.hr`
   color: ${colors.black40};
 `;
 
+const OptionsTitle = styled.div`
+  height: 24px;
+	width: 100%;
+	color: rgba(0,0,0,0.87);
+	font-family: Roboto;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 24px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  padding-left: 25px;
+`;
+
 class SelectOptions extends React.Component {
 
   constructor() {
@@ -240,6 +253,14 @@ class SelectOptions extends React.Component {
     }
   }
 
+  renderOptionsTitle = () => {
+    if (!this.props.optionsTitle) return null;
+
+    return (
+      <OptionsTitle>{this.props.optionsTitle}</OptionsTitle>
+    );
+  }
+
   renderSearch = () => {
     if (!this.props.searchable) return null;
 
@@ -272,6 +293,7 @@ class SelectOptions extends React.Component {
       {...this.props}
       ref={this.props.optionsRef}
       >
+        {this.renderOptionsTitle()}
         <SelectOptionsWrapper {...this.props}>
           {this.renderSearch()}
           {this.renderPromotedOptions()}

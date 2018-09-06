@@ -178,7 +178,9 @@ const Label = styled.div`
     if (props.theme.textPaddingRight) return props.theme.textPaddingRight;
     return 0;
   }};
-
+  padding-left: ${(props) => {
+    return props.theme.textPaddingLeft || 0;
+  }};
   text-transform: ${(props) => {
     if (props.theme.textTransform) return props.theme.textTransform;
     return 'inherit';

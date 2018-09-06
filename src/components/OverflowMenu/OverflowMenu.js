@@ -81,13 +81,17 @@ const OptionsContainer = styled.div`
 `;
 
 const OptionsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   width: 100%;
   align-items: flex-start;
   background-color: ${colors.white};
   border-radius: 2px;
   box-shadow: ${boxShadows.lvl20};
+`;
+
+const SubmenuOptionsWrapper = styled.div`
+  display: flex;
+  background-color: ${colors.white};
+
 `;
 
 const OverflowWrapper = styled.div`
@@ -124,7 +128,8 @@ class OverflowMenu extends React.Component {
     super();
 
     this.state = {
-      menuVisible: false
+      menuVisible: false,
+      selectedIds: []
     };
   }
 
@@ -154,15 +159,52 @@ class OverflowMenu extends React.Component {
 
   closeMenu = () => {
     document.removeEventListener('click', this.checkDocumentEvent);
-    this.setState({ menuVisible: false });
+    this.setState({
+      menuVisible: false,
+      selectedIds: []
+    });
   }
 
-  renderMenu = () => {
-    const { options } = this.props;
+  handleSelectedId = (selected, depthLevel) => {
+    return () => {
+      const updatedArray = this.state.selectedIds.slice(0);
+
+      updatedArray[depthLevel] = selected;
+
+      this.setState({
+        selectedIds: updatedArray
+      })
+    }
+  }
+
+  renderMenu = (options, depthLevel = 0) => {
+    const menu = options.map((option, idx) => {
+      const positionText = {position: 'absolute', left: '101%',  width: 'auto'}
+      const mainMenu = <SelectOption key={idx} onMouseEnter={this.handleSelectedId(option.id, depthLevel)} onClick={option.action}>{option.label}</SelectOption>
+
+      let submenu;
+      if (this.state.selectedIds[depthLevel] === option.id && _.get(option,'subOptions.length',0) > 0) {
+        const newDepthLevel = depthLevel + 1;
+        submenu = this.renderMenu(option.subOptions, newDepthLevel);
+      }
+      return (
+        <SubmenuOptionsWrapper>
+          <OptionsWrapper >
+            {mainMenu}
+          </OptionsWrapper>
+          {!_.isUndefined(submenu) &&
+            <OptionsWrapper style={positionText}>
+              {submenu}
+            </OptionsWrapper>
+          }
+        </SubmenuOptionsWrapper>
+      )
+    }
+    );
     return (
-      options.map((option, idx) => (
-        <SelectOption key={idx} onClick={option.action}>{option.label}</SelectOption>
-        ))
+      <div>
+        {menu}
+      </div>
     );
   }
 
@@ -175,12 +217,10 @@ class OverflowMenu extends React.Component {
           {this.props.icon}
         </InteractiveElement>
         {this.state.menuVisible &&
-          <OptionsContainer openUp={this.props.openUp} openRight={this.props.openRight}>
-            <OptionsWrapper>
-              {this.renderMenu()}
-            </OptionsWrapper>
-          </OptionsContainer>
-        }
+          <OptionsContainer>
+            {this.renderMenu(this.props.options)}
+          </OptionsContainer>}
+
       </OverflowWrapper>
     );
   }

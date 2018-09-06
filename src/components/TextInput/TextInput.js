@@ -48,6 +48,10 @@ const Caret = styled.div`
 `;
 
 export const TextBox = styled.div`
+  border: ${(props) => {
+    return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
+  }};
+  border-radius: 3px;
   background-color: ${colors.white};
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
@@ -220,7 +224,7 @@ class TextInput extends React.Component {
       });
     }
   }
-  
+
   handleCursorPositionChange = () =>  {
     if(this.props.onSelectionStartChange) {
       this.props.onSelectionStartChange(this.textInputEl.selectionStart);
