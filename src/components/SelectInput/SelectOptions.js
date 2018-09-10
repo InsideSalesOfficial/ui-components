@@ -348,6 +348,10 @@ SelectOptions.propTypes = {
   maxHeight: PropTypes.string.isRequired,
   optionsRef: PropTypes.func,
   closeOptionsList: PropTypes.func,
+  primaryActionText: PropTypes.string,
+  secondaryActionText: PropTypes.string,
+  onPrimaryActionClick: PropTypes.func,
+  onSecondaryActionClick: PropTypes.func,
   promotedOptions: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string,
@@ -364,6 +368,10 @@ SelectOptions.defaultProps = {
   maxHeight: '200px',
   bottomActionArea: null,
   optionsRef: _.noop,
+  primaryActionText: '',
+  secondaryActionText: '',
+  onPrimaryActionClick: () => {},
+  onSecondaryActionClick: () => {},
 };
 
 export default SelectOptions;

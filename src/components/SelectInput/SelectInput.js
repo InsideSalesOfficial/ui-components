@@ -69,7 +69,13 @@ class SelectInput extends React.Component {
     selectArrowFollows: PropTypes.bool,
     theme: PropTypes.object,
     isDisabledOneOption: PropTypes.bool,
-    multiSelect: PropTypes.bool
+    multiSelect: PropTypes.bool,
+    closeAfterClick: PropTypes.bool,
+    primaryActionText: PropTypes.string,
+    secondaryActionText: PropTypes.string,
+    onPrimaryActionClick: PropTypes.func,
+    onSecondaryActionClick: PropTypes.func,
+    showButtonBar: PropTypes.bool
   };
 
   static defaultProps = {
@@ -79,7 +85,12 @@ class SelectInput extends React.Component {
     onChange: value => value,
     theme: lightSelectInputTheme,
     isDisabledOneOption: false, // Prop to disable the dropdown if only one option is present
-    multiSelect: false
+    multiSelect: false,
+    primaryActionText: '',
+    secondaryActionText: '',
+    onPrimaryActionClick: () => {},
+    onSecondaryActionClick: () => {},
+    showButtonBar: false
   }
 
   constructor() {
