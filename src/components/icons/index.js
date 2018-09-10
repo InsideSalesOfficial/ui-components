@@ -86,6 +86,7 @@ import RefreshIcon from './RefreshIcon';
 import ReminderIcon from './ReminderIcon';
 import SalesforceIcon from './SalesforceIcon';
 import SearchMaterialIcon from './SearchMaterialIcon';
+import SharedIcon from './SharedIcon';
 import SkipIcon from './SkipIcon';
 import SyncIcon from './SyncIcon';
 import TaskIcons from './TaskIcons';
@@ -192,6 +193,7 @@ export default {
   ReminderIcon,
   SalesforceIcon,
   SearchMaterialIcon,
+  SharedIcon,
   SkipIcon,
   StarFilledIcon,
   SyncIcon,

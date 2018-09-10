@@ -25,7 +25,9 @@ export function checkDocumentEvent(event) {
 
 export function openOptionsList() {
   document.addEventListener('click', this.checkDocumentEvent);
-  this.setState({ optionsListVisible: true });
+  this.setState({
+    optionsListVisible: true
+   });
 }
 
 export function closeOptionsList() {
@@ -82,7 +84,6 @@ class SelectInput extends React.Component {
 
   constructor() {
     super();
-
     this.state = {
       optionsListVisible: false,
       valid: false,
@@ -177,7 +178,6 @@ class SelectInput extends React.Component {
 
     const options = this.filterOptionsWithSearch(this.props.options);
     const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
-
     return (
       /*
        * Adding className to the outtermost element allows for users of this component to create a
@@ -211,6 +211,7 @@ class SelectInput extends React.Component {
           </div>
           <SelectOptions
             className='pb-test__selectInputOptions'
+            image={this.props.image}
             selectedOptions={this.props.value}
             onOptionUpdate={this.onChange}
             promotedOptions={promotedOptions}
@@ -222,6 +223,13 @@ class SelectInput extends React.Component {
             width={this.props.selectOptionsWidth}
             visible={this.state.optionsListVisible}
             multiSelect={this.props.multiSelect}
+            closeOptionsList={this.closeOptionsList}
+            closeAfterClick={this.props.closeAfterClick}
+            primaryActionText={this.props.primaryActionText}
+            secondaryActionText={this.props.secondaryActionText}
+            onPrimaryActionClick={this.props.onPrimaryActionClick}
+            onSecondaryActionClick={this.props.onSecondaryActionClick}
+            showButtonBar={this.props.showButtonBar}
             bottomActionArea={this.props.bottomActionArea}/>
         </SelectWrapper>
       </ThemeProvider>

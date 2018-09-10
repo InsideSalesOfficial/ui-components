@@ -11,6 +11,8 @@ import Checkbox from '../Checkbox';
 
 import TextInput from '../TextInput';
 
+import ButtonBar from '../ButtonBar';
+
 export const SelectOptionHeight = 36;
 
 const SelectOptionsContainer = styled.div`
@@ -227,9 +229,24 @@ class SelectOptions extends React.Component {
             }}/>
           }
           {clonedOptionItem}
+          {option.showImage && this.props.image}
         </SelectOption>
     );
   };
+
+  onPrimaryActionClick = () => {
+    if (this.props.closeAfterClick) {
+      this.props.closeOptionsList();
+    }
+    this.props.onPrimaryActionClick();
+  }
+
+  onSecondaryActionClick = () => {
+    if (this.props.closeAfterClick) {
+      this.props.closeOptionsList();
+    }
+    this.props.onSecondaryActionClick();
+  }
 
   renderOptions = () => {
     const { options, promotedOptions } = this.props;
@@ -305,6 +322,16 @@ class SelectOptions extends React.Component {
             {this.props.bottomActionArea}
           </BottomActionAreaWrapper>
         }
+        {this.props.showButtonBar &&
+          <BottomActionAreaWrapper>
+            <ButtonBar
+            primaryActionText={this.props.primaryActionText}
+            secondaryActionText={this.props.secondaryActionText}
+            onPrimaryActionClick={this.onPrimaryActionClick}
+            onSecondaryActionClick={this.onSecondaryActionClick}/>
+          </BottomActionAreaWrapper>
+        }
+
       </SelectOptionsContainer>
     );
   }
@@ -320,6 +347,7 @@ SelectOptions.propTypes = {
   multiSelect: PropTypes.bool,
   maxHeight: PropTypes.string.isRequired,
   optionsRef: PropTypes.func,
+  closeOptionsList: PropTypes.func,
   promotedOptions: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.any,
     label: PropTypes.string,
