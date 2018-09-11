@@ -6,6 +6,7 @@ import { colors } from '../styles';
 import TextInput, { TextInputWrapper, InputItem, TextLabel } from '../TextInput/TextInput';
 import { defaultTheme } from './TextInputBoxThemes';
 import { hasValue } from './utils';
+import SelectOptions from '../SelectInput/SelectOptions';
 
 const TextBox = styled.div`
     background-color: ${props => props.theme.background};
@@ -39,7 +40,10 @@ const TextBox = styled.div`
     transition: border-color 0.14s ease-in-out;
     width: 100%;
     padding-left: 16px;
-    padding-right: 16px;
+    padding-right: ${(props) => { 
+        if (props.options) return '25px';
+        return '16px';
+    }};
     padding-bottom: ${props => props.label ? '9px' : '17px'};
 
     ${(props) => {
@@ -52,6 +56,33 @@ const TextBox = styled.div`
             `;
         }
     }}
+`;
+
+const Caret = styled.div`
+    position: absolute;
+    right: 0;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 32px;
+    cursor: pointer;
+    height: 32px;
+
+
+
+    &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    border-left: 5px transparent solid;
+    border-right: 5px transparent solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${colors.black40} solid;
+    }
 `;
 
 const TextBoxLabel = styled(TextLabel)`
@@ -82,7 +113,20 @@ const InputBoxItem = styled(InputItem)`
 
 export default class TextInputBox extends TextInput {
     render() {
-        const { label, name, inputType, error, disabled, collapsed, className, labelColor, lineColor } = this.props;
+        const {
+            label,
+            name,
+            inputType,
+            error,
+            disabled,
+            collapsed,
+            className,
+            promotedOptions,
+            labelColor,
+            lineColor,
+            options,
+            placeholder
+        } = this.props;
         return (
         <ThemeProvider theme={this.props.theme}>
             <TextInputWrapper
@@ -99,7 +143,8 @@ export default class TextInputBox extends TextInput {
                     disabled={disabled}
                     lineColor={lineColor}
                     collapsed={collapsed}
-                    label={label}>
+                    label={label}
+                    options={options}>
                 <InputBoxItem
                     type={this.getInputType(inputType)}
                     onFocus={this.focused}
@@ -110,7 +155,8 @@ export default class TextInputBox extends TextInput {
                     error={error}
                     value={this.getValue()}
                     ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
-                    onChange={this.onChange} />
+                    onChange={this.onChange}
+                    placeholder={this.state.focused ? placeholder : ''} />
                 { this.props.label &&
                     <TextBoxLabel 
                         isFocused={this.state.focused} 
@@ -121,7 +167,19 @@ export default class TextInputBox extends TextInput {
                     </TextBoxLabel>
                 }
                 </TextBox>
+                {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
                 {this.renderHelperText()}
+                {options && <SelectOptions
+                    onOptionUpdate={this.onDropDownSelect}
+                    promotedOptions={promotedOptions || this.getPromotedOptions() }
+                    options={options}
+                    optionsCount={options.length}
+                    visible={this.state.optionsListVisible}
+                    width={this.props.selectOptionsWidth}
+                    optionsRef={(ref) => {
+                      this.optionsRef = ref;
+                    }}
+                />}
             </TextInputWrapper>
         </ThemeProvider>)
     }
@@ -143,4 +201,15 @@ TextInput.propTypes = {
     value: PropTypes.any,
     onChange: PropTypes.func,
     collapsed: PropTypes.bool,
+    promotedOptions: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string,
+        disabled: PropTypes.bool
+    })),
+    options: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string,
+        disabled: PropTypes.bool
+    })),
+    placeholder: PropTypes.string,
 };

@@ -163,6 +163,114 @@ storiesOf('Form', module)
                 </div>
               )
             },
+            {
+              title: 'Example: text input with options',
+              sectionFn: () => (
+                <div style={{ width: '140px' }}>
+                  <TextInputBox
+                    label="Country"
+                    onChange={action('value')}
+                    selectOptionsWidth={400}
+                    options={[
+                      {
+                        label: '+1 (US)',
+                        value: '+1'
+                      },
+                      {
+                        label: '+44 (UK)',
+                        value: '+44'
+                      },
+                      {
+                        label: '+35 (AB)',
+                        value: '+35'
+                      },
+                      {
+                        label: '+45 (CD)',
+                        value: '+45'
+                      },
+                      {
+                        label: '+46 (EF)',
+                        value: '+46'
+                      },
+                      {
+                        label: '+47 (GH)',
+                        value: '+47'
+                      },
+                      {
+                        label: '+48 (IJ)',
+                        value: '+48'
+                      },
+                      {
+                        label: '+49 (KL)',
+                        value: '+49'
+                      },
+                      {
+                        label: '+50 (MN)',
+                        value: '+50'
+                      },
+                      {
+                        label: '+60 (OP)',
+                        value: '+60'
+                      },
+                      {
+                        label: '+70 (QR)',
+                        value: '+70'
+                      },
+                      {
+                        label: '+80 (ST)',
+                        value: '+80'
+                      },
+                      {
+                        label: '+90 (UV)',
+                        value: '+90'
+                      },
+                      {
+                        label: '+91 (WX)',
+                        value: '+91'
+                      },
+                      {
+                        label: '+92 (YZ)',
+                        value: '+92'
+                      },
+                      {
+                        label: '+93 (NO)',
+                        value: '+93'
+                      },
+                      {
+                        label: '+64 (WI)',
+                        value: '+64'
+                      },
+                      {
+                        label: '+86 (KN)',
+                        value: '+86'
+                      },
+                      {
+                        label: '+777 (OW)',
+                        value: '+777'
+                      },
+                      {
+                        label: '+56 (MY)',
+                        value: '+56'
+                      },
+                      {
+                        label: '+12 (AB)',
+                        value: '+12'
+                      },
+                    ]}
+                  />
+                </div>
+              )
+            },
+            {
+              title: 'Example: text input with placeholder',
+              sectionFn: () => (
+                <TextInputBox
+                  label="Placeholder"
+                  onChange={action('value')}
+                  placeholder="what a beautiful placeholder"
+                />
+              )
+            },
           ]
         }
       ]
