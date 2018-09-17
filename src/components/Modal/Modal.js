@@ -43,7 +43,10 @@ const DialogBackground = styled.div`
 `;
 
 const DialogBase = styled.div`
-  width: 336px;
+  position: relative;
+  width: ${(props) => {
+    return props.width ? `${props.width}px` : '336px';
+  }};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -63,6 +66,38 @@ const DialogBase = styled.div`
   box-shadow: 0 15px 12px 0 rgba(0,0,0,0.12), 0 19px 38px 0 rgba(0,0,0,0.3);
   border-radius: 2px;
   z-index: 2;
+`;
+
+const DialogCaret = styled.div`
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: ${(props) => {
+    if (props.position === 'bottom-right' || props.position === 'bottom-left') return `10px solid ${colors.white}`;
+    return 'none';
+  }};
+  border-bottom: ${(props) => {
+    if (props.position === 'top-right' || props.position === 'top-left') return `10px solid ${colors.white}`;
+    return 'none';
+  }};
+  top: ${(props) => {
+    if (props.position === 'top-right' || props.position === 'top-left') return '-5px';
+    return 'inherit';
+  }};
+  right: ${(props) => {
+    if (props.position === 'top-right' || props.position === 'bottom-right') return props.distanceFromSide ? `${props.distanceFromSide}px` : '10px';
+    return 'inherit';
+  }};
+  bottom: ${(props) => {
+    if (props.position === 'bottom-right' || props.position === 'bottom-left') return '-5px';
+    return 'inherit';
+  }};
+  left: ${(props) => {
+    if (props.position === 'top-left' || props.position === 'bottom-left') return props.distanceFromSide ? `${props.distanceFromSide}px` : '10px';
+    return 'inherit';
+  }};
 `;
 
 
@@ -137,13 +172,17 @@ class Modal extends React.Component {
     const {
       center,
       children,
+      caretPosition,
+      modalWidth,
+      distanceFromSide,
       ...props
     } = this.props;
     return (
       <DialogWrapper ref="message_dialog_wrapper" center={center} {...props}>
         <DialogBackground ref="message_dialog_background" />
-        <DialogBase ref="message_dialog_component" center={center}>
-            {children}
+        <DialogBase ref="message_dialog_component" center={center} width={this.props.modalWidth}>
+          {caretPosition && <DialogCaret position={caretPosition} distanceFromSide={distanceFromSide} />}
+          {children}
         </DialogBase>
       </DialogWrapper>
     );

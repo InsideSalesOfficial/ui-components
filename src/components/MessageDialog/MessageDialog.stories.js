@@ -41,6 +41,27 @@ storiesOf('Components', module)
                 />
               )
             },
+            {
+              title: 'Modal with caret',
+              sectionFn: () => (
+                <MessageDialog
+                  dialogTitle={'Caret modal'}
+                  caretPosition='bottom-right'
+                  distanceFromSide={20}
+                  bodyElement={
+                    <div>
+                      Caret position can be one of the following: 'top-left', 'top-right', 'bottom-left', 'bottom-right'
+                    </div>
+                  }
+                  secondaryActionText='Cancel'
+                  onSecondaryActionClick={action('onSecondaryActionClick')}
+                  primaryActionText='Save'
+                  onPrimaryActionClick={action('onPrimaryActionClick')}
+                  center
+                  onStoryBook
+                />
+              )
+            },
           ]
         }
       ]
