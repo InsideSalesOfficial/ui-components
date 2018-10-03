@@ -58,12 +58,23 @@ storiesOf('Form', module)
               )
             },
             {
+              title: 'Example: text input with required',
+              sectionFn: () => (
+                <TextInputBox
+                  label="Label"
+                  name="d"
+                  onChange={action('value')}
+                  required
+                />
+              )
+            },
+            {
               title: 'Example: text input empty no label',
               sectionFn: () => (
                 <TextInputBox
                   label=""
                   inputType="number"
-                  name="d"
+                  name="e"
                   onChange={action('value')}
                 />
               )
@@ -74,7 +85,7 @@ storiesOf('Form', module)
                 <TextInputBox
                   label=""
                   value="hello world"
-                  name="e"
+                  name="f"
                   onChange={action('value')}
                   disabled
                 />

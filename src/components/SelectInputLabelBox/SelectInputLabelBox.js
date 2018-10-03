@@ -15,21 +15,21 @@ const padding = '16px';
 
 export const Label = styled.div`
   color: ${props => {
-    if (props.error) {
-      return colors.red;
-    }
-    return props.theme.labelColor || colors.black40;
-  }};
+  if (props.error) {
+    return colors.red;
+  }
+  return props.theme.labelColor || colors.black40;
+}};
   transition: all 200ms;
   transform: translateY(-50%);
   position: absolute;
   left: ${(props) => {
-    if (props.theme.leftDisplayPosition) {
-      return props.theme.leftDisplayPosition;
-    }
+  if (props.theme.leftDisplayPosition) {
+    return props.theme.leftDisplayPosition;
+  }
 
-    return padding;
-  }};
+  return padding;
+}};
   top: 50%;
 
   ${props => isValued(props.value) && `
@@ -42,12 +42,12 @@ const Caret = styled.div`
   position: absolute;
   right: 24px;
   top: ${(props) => {
-    if (props.theme.caretTopPosition) {
-      return props.theme.caretTopPosition;
-    }
+  if (props.theme.caretTopPosition) {
+    return props.theme.caretTopPosition;
+  }
 
-    return '50%';
-  }};
+  return '50%';
+}};
   transform: translateY(-50%);
   cursor: pointer;
 
@@ -60,13 +60,40 @@ const Caret = styled.div`
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
     border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => {
-      if (props.theme.borderColor){
-        return props.theme.borderColor;
-      }
-      return props.open ? colors.black90 : colors.black40;
-    }} solid;
+  if (props.theme.borderColor){
+    return props.theme.borderColor;
+  }
+  return props.open ? colors.black90 : colors.black40;
+}} solid;
   }
 `;
+
+export const RequiredText = styled.div`
+  color: ${(props) => {
+  if (props.error) {
+    return colors.red;
+  } else if (props.isFocused) {
+    return props.theme.focusedColor || colors.green;
+  } else if (props.requiredColor) {
+    return props.requiredColor;
+  } else {
+    return colors.black60;
+  }
+}};
+  opacity: ${(props) => {
+  if (props.open || props.isFocused) {
+    return 0;
+  } else {
+    return 1;
+  }
+}};
+  top: 0;
+  right: 30px;
+  position: absolute;
+  transform: translateY(24px);
+  transition: font-size 0.14s ease-in-out, transform 0.14s ease-in-out, color 0.14s ease-in-out;
+  ${typography.caption}
+  `;
 
 export const Value = styled.div`
   border: 0;
@@ -75,63 +102,63 @@ export const Value = styled.div`
   text-align: left;
   ${typography.subhead1};
   color: ${(props) => {
-    if (props.error) {
-      return colors.red;
-    }
+  if (props.error) {
+    return colors.red;
+  }
 
-    if (props.isPlaceHolder) {
-      return colors.black60;
-    }
+  if (props.isPlaceHolder) {
+    return colors.black60;
+  }
 
-    if (props.theme.valueColor){
-      return props.theme.valueColor;
-    }
+  if (props.theme.valueColor){
+    return props.theme.valueColor;
+  }
 
-    return colors.black90;
-  }};
+  return colors.black90;
+}};
   height: 56px;
   padding: 22px 26px 0 ${(props) => {
-    if (props.theme.leftDisplayPosition) {
-      return props.theme.leftDisplayPosition;
-    }
+  if (props.theme.leftDisplayPosition) {
+    return props.theme.leftDisplayPosition;
+  }
 
-    return padding;
-  }};
+  return padding;
+}};
   background: ${(props) => {
-    if (props.theme.background) {
-      return props.theme.background;
-    }
+  if (props.theme.background) {
+    return props.theme.background;
+  }
 
-    return colors.grayA;
-  }};
+  return colors.grayA;
+}};
   box-sizing: border-box;
   border-bottom-width: ${(props) => {
-    if (props.theme.borderWidth) {
-      return props.theme.borderWidth;
-    }
+  if (props.theme.borderWidth) {
+    return props.theme.borderWidth;
+  }
 
-    return '2px';
-  }};
+  return '2px';
+}};
   border-bottom-style: solid;
   border-bottom-color: ${props => {
-    if (props.isDisabled){
-      return 'transparent';
-    } else if (props.error) {
-      return colors.red;
-    } else if (props.theme.borderColor) {
-      return props.theme.borderColor;
-    }
+  if (props.isDisabled){
+    return 'transparent';
+  } else if (props.error) {
+    return colors.red;
+  } else if (props.theme.borderColor) {
+    return props.theme.borderColor;
+  }
 
-    return colors.black40;
-  }};
+  return colors.black40;
+}};
   cursor: ${props => props.isDisabled ? 'auto' : 'pointer'};
   border-radius: ${(props) => {
-    if (props.theme.borderRadius) {
-      return props.theme.borderRadius;
-    }
+  if (props.theme.borderRadius) {
+    return props.theme.borderRadius;
+  }
 
-    return '2px';
-  }};
+  return '2px';
+}};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -139,11 +166,11 @@ export const Value = styled.div`
   &:focus {
     outline: 0;
     border-color: ${props => {
-      if (props.error) {
-        return colors.red;
-      }
-      return props.isDisabled ? 'transparent' : colors.green
-    }};
+  if (props.error) {
+    return colors.red;
+  }
+  return props.isDisabled ? 'transparent' : colors.green
+}};
   }
 `;
 
@@ -153,12 +180,12 @@ export const Wrapper = styled.div`
   position: relative;
   ${typography.subhead1};
   width: ${(props) => {
-    if (props.theme.selectDisplayWidth) {
-      return props.theme.selectDisplayWidth;
-    }
+  if (props.theme.selectDisplayWidth) {
+    return props.theme.selectDisplayWidth;
+  }
 
-    return 'auto';
-  }};
+  return 'auto';
+}};
 
   ${props => props.isDisabled && `
     opacity: 0.6;
@@ -225,6 +252,26 @@ export default class SelectInputLabelBox extends React.Component {
     }
   }
 
+  renderRequiredText = () => {
+    const { required, value } = this.props;
+    const message = "Required";
+
+    if (!value && _.isBoolean(value)) {
+      return null;
+    }
+
+    if (this.state.optionsListVisible) {
+      return null;
+    }
+
+    if (value && !this.state.optionsListVisible) {
+      return null
+    }
+    if (required) {
+      return (<RequiredText>{message}{required}</RequiredText>);
+    }
+  }
+
   determineLabel = () => {
     const { defaultLabel, options, promotedOptions, value, multiSelect } = this.props;
 
@@ -270,7 +317,7 @@ export default class SelectInputLabelBox extends React.Component {
         <Wrapper
           {...this.props}
           ref={(el) => { this.clickEventElement = el }}
-          >
+        >
           <SelectToggle onClick={this.toggleOptionsList}>
             <Caret open={this.state.optionsListVisible} />
             <Label error={this.props.error}value={this.props.value}>{this.props.label}</Label>
@@ -283,6 +330,7 @@ export default class SelectInputLabelBox extends React.Component {
               error={this.props.error}
             >{optionLabel}</Value>
           </SelectToggle>
+          {this.renderRequiredText()}
           <SelectOptions
             selectedOptions={this.props.value}
             promotedOptions={promotedOptions}
