@@ -14,10 +14,10 @@ const DarkBackground = styled.div`
 `;
 
 storiesOf('Menus', module)
-.addWithChapters(
-  'OverflowMenu',
-  {
-    info: `
+  .addWithChapters(
+    'OverflowMenu',
+    {
+      info: `
       Usage
 
       ~~~
@@ -33,79 +33,101 @@ storiesOf('Menus', module)
 
       ~~~
     `,
-    chapters: [
-      {
-        sections: [
-          {
-            title: 'Default',
-            sectionFn: () => {
-              const options = [
-                { action: action('click option'), label: 'Option 1' },
-                { action: action('click option'), label: 'Option 2' }
-              ];
+      chapters: [
+        {
+          sections: [
+            {
+              title: 'Default',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2' }
+                ];
 
-              return  <DarkBackground><OverflowMenu options={options} /></DarkBackground>
-            }
-          },
-          {
-            title: 'Example: openUp',
-            sectionFn: () => {
-              const options = [
-                { action: action('click option'), label: 'Option 1' },
-                { action: action('click option'), label: 'Option 2' }
-              ];
+                return  <DarkBackground><OverflowMenu options={options} /></DarkBackground>
+              }
+            },
+            {
+              title: 'Example: openUp',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2' }
+                ];
 
-              return  <DarkBackground><OverflowMenu options={options} openUp /></DarkBackground>
-            }
-          },
-          {
-            title: 'Example: openRight',
-            sectionFn: () => {
-              const options = [
-                { action: action('click option'), label: 'Option 1' },
-                { action: action('click option'), label: 'Option 2' }
-              ];
-              const LeftDarkBackground = styled(DarkBackground)`
+                return  <DarkBackground><OverflowMenu options={options} openUp /></DarkBackground>
+              }
+            },
+            {
+              title: 'Example: openRight',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2' }
+                ];
+                const LeftDarkBackground = styled(DarkBackground)`
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-start;
               `;
 
-              return  <LeftDarkBackground><OverflowMenu options={options} openRight /></LeftDarkBackground>
-            }
-          },
-          {
-            title: 'Example: openRight and openUp',
-            sectionFn: () => {
-              const options = [
-                { action: action('click option'), label: 'This is some really, length text for demo' },
-                { action: action('click option'), label: 'Some short text' }
-              ];
-              const LeftDarkBackground = styled(DarkBackground)`
+                return  <LeftDarkBackground><OverflowMenu options={options} openRight /></LeftDarkBackground>
+              }
+            },
+            {
+              title: 'Example: openRight and openUp',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'This is some really, length text for demo' },
+                  { action: action('click option'), label: 'Some short text' }
+                ];
+                const LeftDarkBackground = styled(DarkBackground)`
                 display: flex;
                 justify-content: flex-start;
                 align-items: flex-start;
               `;
 
-              return  <LeftDarkBackground><OverflowMenu options={options} openRight openUp /></LeftDarkBackground>
-            }
-          },
-          {
-            title: 'Example: custom icon',
-            sectionFn: () => {
-              const options = [
-                { action: action('click option'), label: 'Option 1' },
-                { action: action('click option'), label: 'Option 2' }
-              ];
+                return  <LeftDarkBackground><OverflowMenu options={options} openRight openUp /></LeftDarkBackground>
+              }
+            },
+            {
+              title: 'Example: custom icon',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2' }
+                ];
 
-              const icon = <AttachmentIcon fill={colors.white80} size={{ width: 24, height: 24 }} />;
+                const icon = <AttachmentIcon fill={colors.white80} size={{ width: 24, height: 24 }} />;
 
-              return  <DarkBackground><OverflowMenu options={options} icon={icon} /></DarkBackground>
+                return <DarkBackground><OverflowMenu options={options} icon={icon} /></DarkBackground>
+              }
+            },
+            {
+              title: 'Example: keep menu open',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2', isHighlighted: true }
+                ];
+
+                return <DarkBackground><OverflowMenu options={options} stayOpen={true} /></DarkBackground>
+              }
+            },
+            {
+              title: 'Example: second menu option disabled',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Option 1' },
+                  { action: action('click option'), label: 'Option 2', isDisabled: true }
+                ];
+
+                return <DarkBackground><OverflowMenu options={options}/></DarkBackground>
+              }
             }
-          }
-        ]
-      }
-    ]
-  }
-);
+          ]
+        }
+      ]
+    }
+  );
 
