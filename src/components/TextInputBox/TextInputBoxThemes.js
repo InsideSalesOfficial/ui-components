@@ -5,6 +5,7 @@ export const darkTheme = {
   valueColor: colors.white90,
   labelColor: colors.white60,
   borderColor: colors.white40,
+  requiredColor: colors.white60
 }
 
 export const defaultTheme = {

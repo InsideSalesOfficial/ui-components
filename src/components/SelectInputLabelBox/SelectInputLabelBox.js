@@ -2,7 +2,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
-
+import { requiredText } from '../RequiredText/RequiredText';
 import { isValued } from './utils';
 
 import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsListOnSearch } from '../SelectInput';
@@ -68,32 +68,8 @@ const Caret = styled.div`
   }
 `;
 
-export const RequiredText = styled.div`
-  color: ${(props) => {
-  if (props.error) {
-    return colors.red;
-  } else if (props.isFocused) {
-    return props.theme.focusedColor || colors.green;
-  } else if (props.requiredColor) {
-    return props.requiredColor;
-  } else {
-    return colors.black60;
-  }
-}};
-  opacity: ${(props) => {
-  if (props.open || props.isFocused) {
-    return 0;
-  } else {
-    return 1;
-  }
-}};
-  top: 0;
-  right: 30px;
-  position: absolute;
-  transform: translateY(24px);
-  transition: font-size 0.14s ease-in-out, transform 0.14s ease-in-out, color 0.14s ease-in-out;
-  ${typography.caption}
-  `;
+export const RequiredText = requiredText;
+
 
 export const Value = styled.div`
   border: 0;
@@ -101,11 +77,10 @@ export const Value = styled.div`
   width: 100%;
   text-align: left;
   ${typography.subhead1};
-  color: ${(props) => {
+  color: ${props => {
     if (props.error) {
       return colors.red;
     }
-
     if (props.isPlaceHolder) {
       return colors.black60;
     }
