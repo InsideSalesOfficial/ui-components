@@ -49,73 +49,73 @@ const Caret = styled.div`
 
 export const TextBox = styled.div`
   border: ${(props) => {
-  return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
-}};
+    return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
+  }};
   border-radius: 3px;
   background-color: ${colors.white};
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
-  if (props.error) {
-    return colors.red;
-  } else if (props.isFocused) {
-    return colors.green;
-  } else if (props.disabled) {
-    return colors.black20;
-  } else if (props.lineColor) {
-    return props.lineColor;
-  }
-  return colors.black40;
-}};
+    if (props.error) {
+      return colors.red;
+    } else if (props.isFocused) {
+        return colors.green;
+    } else if (props.disabled) {
+      return colors.black20;
+    } else if (props.lineColor) {
+      return props.lineColor;
+    }
+    return colors.black40;
+  }};
   border-width: ${(props) => {
-  if (props.isFocused || props.error) {
-    return '2px';
-  }
-  return '1px';
-}};
+    if (props.isFocused || props.error) {
+      return '2px';
+    }
+    return '1px';
+  }};
   box-sizing: border-box;
   cursor: ${(props) => {
-  if (props.disabled) {
-    return 'default';
-  }
-  return 'text';
-}};
+        if (props.disabled) {
+          return 'default';
+        }
+        return 'text';
+      }};
   padding-top: 24px;
   padding-bottom: ${(props) => {
-  if (props.error || props.isFocused) {
-    return '7px';
-  }
+    if (props.error || props.isFocused) {
+      return '7px';
+    }
 
-  return '8px';
-}};
+    return '8px';
+  }};
   position: relative;
   transition: border-color 0.14s ease-in-out;
   width: 100%;
 
   &:hover {
     border-width: ${(props) => {
-  if (props.disabled) {
-    return '1px';
-  }
-  return '2px';
-}};
+      if (props.disabled) {
+        return '1px';
+      }
+      return '2px';
+    }};
     padding-bottom: ${(props) => {
-  if (props.disabled) {
-    return '8px';
-  }
-  return '7px';
-}};
+      if (props.disabled) {
+        return '8px';
+      }
+      return '7px';
+    }};
   }
 
   ${(props) => {
-  if (props.disabled) {
-    return `
+    if (props.disabled) {
+      return `
         background-color: ${colors.black05};
         label {
           color: ${colors.black40};
         }
       `;
-  }
-}}
+    }
+  }}
 `;
 
 export const InputItem = styled.input`
@@ -169,41 +169,41 @@ export const RequiredText = styled.div`
 
 export const TextLabel = styled.label`
   color: ${(props) => {
-  if (props.error) {
-    return colors.red;
-  } else if (props.isFocused) {
-    return props.theme.focusedColor || colors.green;
-  } else if (props.labelColor) {
-    return props.labelColor;
-  } else {
-    return colors.black60;
-  }
-}};
+      if (props.error) {
+        return colors.red;
+      } else if (props.isFocused) {
+        return props.theme.focusedColor || colors.green;
+      } else if (props.labelColor) {
+        return props.labelColor;
+      } else {
+        return colors.black60;
+      }
+    }};
   top: 0;
   left: 1px;
   position: absolute;
   transform: ${(props) => {
-  if (props.open || props.isFocused) {
-    return 'translateY(4px)';
-  } else {
-    return 'translateY(24px)';
-  }
-}};
+    if (props.open || props.isFocused) {
+      return 'translateY(4px)';
+    } else {
+      return 'translateY(24px)';
+    }
+  }};
   transition: font-size 0.14s ease-in-out, transform 0.14s ease-in-out, color 0.14s ease-in-out;
   ${(props) => {
-  if (props.open || props.isFocused) {
-    return typography.caption
-  } else {
-    return typography.subhead1
-  }
-}}
+    if (props.open || props.isFocused) {
+      return typography.caption
+    } else {
+      return typography.subhead1
+    }
+  }}
   line-height: 16px;
 `;
 
 export const TextInputHelper = styled.div`
-  color: ${(props) => {
-  return props.theme.helperColor || colors.black40;
-}};
+   color: ${(props) => {
+     return props.theme.helperColor || colors.black40;
+  }};
   padding-top: 4px;
   ${typography.caption}
 `;
@@ -405,8 +405,8 @@ class TextInput extends React.Component {
     const lowerValue = this.getValue().toLowerCase();
     return this.getValue()
       ? filter(this.props.options, o =>
-        o.value.toLowerCase().indexOf(lowerValue) > -1 ||
-        o.label.toLowerCase().indexOf(lowerValue) > -1)
+          o.value.toLowerCase().indexOf(lowerValue) > -1 ||
+          o.label.toLowerCase().indexOf(lowerValue) > -1)
         .sort((a, b) => this.findBestOptionIndex(a, lowerValue) - this.findBestOptionIndex(b, lowerValue))
       : [];
   }
@@ -466,10 +466,10 @@ class TextInput extends React.Component {
             search={this.props.search}
             placeholder={this.usePlaceholder()} />
           {this.props.search &&
-          <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
+            <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
           }
           { !this.props.search &&
-          <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue()} htmlFor={name} error={error}>{label}</TextLabel>
+            <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue()} htmlFor={name} error={error}>{label}</TextLabel>
           }
         </TextBox>
         { options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
