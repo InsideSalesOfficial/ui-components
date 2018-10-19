@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { get, filter } from 'lodash';
 import _ from 'lodash';
-import { requiredText } from '../RequiredText/RequiredText';
+import { RequiredText } from '../RequiredText/RequiredText';
 
 import Icons from '../icons';
 import { colors, typography, darkScrollbar } from '../styles';
@@ -139,8 +139,6 @@ export const InputItem = styled.input`
     color: ${colors.black30};
   }
 `;
-
-export const RequiredText = requiredText;
 
 export const TextLabel = styled.label`
   color: ${(props) => {
@@ -278,19 +276,7 @@ class TextInput extends React.Component {
     const { required, collapsed } = this.props;
     const message = "Required";
 
-    if (this.state.focused) {
-      return null;
-    }
-
-    if (this.getValue() && !this.state.focused) {
-      return null;
-    }
-
-    if (collapsed && !this.getValue() && !this.state.focused) {
-      return null;
-    }
-
-    if (required) {
+    if (!this.state.focused && !this.getValue() && !collapsed && required) {
       return (<RequiredText>{message}{required}</RequiredText>);
     }
   }

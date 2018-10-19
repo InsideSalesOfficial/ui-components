@@ -2,15 +2,9 @@ import {colors} from '../styles/colors';
 import {typography} from '../styles/typography';
 import styled from 'styled-components';
 
-export const requiredText = styled.div`
+export const RequiredText = styled.div`
   color: ${(props) => {
-  if (props.isFocused) {
-    return props.theme.focusedColor || colors.green;
-  } else if (props.theme.requiredColor) {
-    return props.theme.requiredColor;
-  } else {
-    return colors.black60;
-  }
+    return props.theme.requiredColor || colors.black40;
 }};
   opacity: ${(props) => {
   if (props.open || props.isFocused) {

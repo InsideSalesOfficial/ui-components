@@ -2,7 +2,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
-import { requiredText } from '../RequiredText/RequiredText';
+import { RequiredText } from '../RequiredText/RequiredText';
 import { isValued } from './utils';
 
 import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsListOnSearch } from '../SelectInput';
@@ -67,9 +67,6 @@ const Caret = styled.div`
     }} solid;
   }
 `;
-
-export const RequiredText = requiredText;
-
 
 export const Value = styled.div`
   border: 0;
@@ -231,18 +228,7 @@ export default class SelectInputLabelBox extends React.Component {
     const { required, value } = this.props;
     const message = "Required";
 
-    if (!value && _.isBoolean(value)) {
-      return null;
-    }
-
-    if (this.state.optionsListVisible) {
-      return null;
-    }
-
-    if (value && !this.state.optionsListVisible) {
-      return null
-    }
-    if (required) {
+    if (!value && !_.isBoolean(value) && !this.state.optionsListVisible && required) {
       return (<RequiredText>{message}{required}</RequiredText>);
     }
   }
