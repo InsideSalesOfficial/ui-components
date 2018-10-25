@@ -46,6 +46,8 @@ class MessageDialog extends React.Component {
       center,
       ...props
     } = this.props;
+    const canRenderButtonBar = props.primaryActionText || props.secondaryActionText;
+
     return (
         <Modal {...props}>
           <ContentWrapper>
@@ -56,7 +58,9 @@ class MessageDialog extends React.Component {
               {bodyElement}
             </BodyDisplay>
           </ContentWrapper>
-          <ButtonBar {...this.props} />
+          {canRenderButtonBar &&
+            <ButtonBar {...this.props} />
+          }
         </Modal>
     );
   }

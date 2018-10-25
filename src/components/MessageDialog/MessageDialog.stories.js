@@ -41,6 +41,21 @@ storiesOf('Components', module)
                 />
               )
             },
+            {
+              title: 'Modal with no actions',
+              sectionFn: () => (
+                <MessageDialog
+                  dialogTitle="Syncing from Salesforce"
+                  bodyElement={
+                    <p>
+                      Syncing information from Salesforce may take a few seconds...
+                    </p>
+                  }
+                  center
+                  onStoryBook
+                />
+              )
+            }
           ]
         }
       ]
