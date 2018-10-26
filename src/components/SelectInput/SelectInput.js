@@ -75,7 +75,8 @@ class SelectInput extends React.Component {
     secondaryActionText: PropTypes.string,
     onPrimaryActionClick: PropTypes.func,
     onSecondaryActionClick: PropTypes.func,
-    showButtonBar: PropTypes.bool
+    showButtonBar: PropTypes.bool,
+    maxHeight: PropTypes.string
   };
 
   static defaultProps = {
@@ -233,6 +234,7 @@ class SelectInput extends React.Component {
             searchable={this.props.searchable}
             onSearch={this.filterOptions}
             width={this.props.selectOptionsWidth}
+            maxHeight={this.props.maxHeight}
             visible={this.state.optionsListVisible}
             multiSelect={this.props.multiSelect}
             closeOptionsList={this.closeOptionsList}

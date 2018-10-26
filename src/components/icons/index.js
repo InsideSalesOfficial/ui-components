@@ -102,6 +102,9 @@ import UpdateFilledIcon from './UpdateFIlledIcon';
 import VerifyShieldIcon from './VerifyShieldIcon';
 import VideoLibraryIcon from './VideoLibraryIcon';
 import VoicemailIcon from './VoicemailIcon';
+import Notes from './Notes';
+import CallForward from './CallForward';
+import ArrowForward from './ArrowForward';
 
 export default {
   AddCircleIcon,
@@ -207,5 +210,8 @@ export default {
   UpdateFilledIcon,
   VerifyShieldIcon,
   VideoLibraryIcon,
-  VoicemailIcon
+  VoicemailIcon,
+  Notes,
+  CallForward,
+  ArrowForward
 };
