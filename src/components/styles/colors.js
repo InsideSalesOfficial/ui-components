@@ -102,6 +102,9 @@ const deprecatedColors = {
   green80: 'rgba(58, 182, 118, 0.8)',
   greenBackground: '#244b4d',
   greenDarkBackground: officialColors.darkBlueD,
+  greenBWithOpacity40: '#33AF74',
+  disabledGreen: '#cbdad3',
+  disabledGreenB: '#bcd3c8',
   darkGreen: '#204244',
   fontDarkGreen: '#0E2E2E',
   greenCard: officialColors.darkBlueB,
@@ -142,6 +145,8 @@ const deprecatedColors = {
   mineShaft: '#333333',
   dustyGray: officialColors.grayC,
   doveGray: officialColors.grayD,
+  disabledTronB: '#c4d0d3',
+  disabledTronC: '#adbfc5'
 };
 
 export const colors = Object.assign(deprecatedColors, officialColors);
