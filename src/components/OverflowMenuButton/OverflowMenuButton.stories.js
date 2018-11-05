@@ -69,7 +69,7 @@ storiesOf('Components', module)
             {
               title: 'Manual Email Send Button (Disabled)',
               sectionFn: () => (
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
                   <OverflowMenuButton
                     shouldHover={true}
                     openDirection={'up'}
@@ -97,7 +97,7 @@ storiesOf('Components', module)
             {
               title: 'Neural Email Send Button (Disabled)',
               sectionFn: () => (
-                <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
                   <OverflowMenuButton
                     shouldHover={true}
                     openDirection={'up'}

@@ -5,7 +5,9 @@ export const green = {
   greenB: '#34A369',
   greenC: '#2A915E',
   green40: 'rgba(58,182,118,0.4)',
-  green10: 'rgba(58,182,118,0.1)'
+  green10: 'rgba(58,182,118,0.1)',
+  disabledGreen: '#416463',
+  disabledGreenB: '#3F6963'
 };
 
 export const tron = {
@@ -13,7 +15,9 @@ export const tron = {
   tronB: '#006580',
   tronC: '#004A5E',
   tron40: 'rgba(0,201,255,0.4)',
-  tron10: 'rgba(0,201,255,0.1)'
+  tron10: 'rgba(0,201,255,0.1)',
+  disabledTronB: '#3A5A64',
+  disabledTronC: '#335861'
 };
 
 export const blue = {

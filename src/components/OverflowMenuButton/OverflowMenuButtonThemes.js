@@ -6,7 +6,17 @@ export const neuralSendTheme = {
   actionButtonDisabledBackgroundColor: colors.disabledTronB,
   actionButtonDisabledFillColor: colors.grayB,
   caretButtonBackgroundColor: colors.tronC,
-  caretButtonDisabledBackgroundColor: colors.disabledTronC,
+  caretButtonHoverBackgroundColor: colors.tronC,
+  caretButtonDisabledBackgroundColor: colors.disabledTronC
 }
 
-export default { neuralSendTheme };
+export const defaultTheme = {
+  actionButtonWidth: '88px',
+  actionButtonBackgroundColor: colors.green,
+  actionButtonDisabledBackgroundColor: colors.disabledGreen,
+  caretButtonBackgroundColor: colors.greenB,
+  caretButtonHoverBackgroundColor: colors.greenC,
+  caretButtonDisabledBackgroundColor: colors.disabledGreenB
+}
+
+export default { neuralSendTheme, defaultTheme };

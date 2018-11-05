@@ -6,39 +6,15 @@ import InteractiveElement from '../InteractiveElement';
 import { colors, boxShadows, typography } from '../styles';
 import ArrowDropUpIcon from '../icons/ArrowDropUpIcon';
 import ArrowDropDownIcon from '../icons/ArrowDropDownIcon';
+import { defaultTheme } from './OverflowMenuButtonThemes';
 
 const ActionButtonWrapper = styled(InteractiveElement)`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 36px;
-  width: ${props => props.theme.actionButtonWidth ? props.theme.actionButtonWidth : '88px'};
+  width: ${props => props.theme.actionButtonWidth};
   border-radius: 2px 0 0 2px;
-  background: ${(props) => {
-    if (props.theme.actionButtonBackgroundColor && !props.disabled) {
-      return props.theme.actionButtonBackgroundColor;
-    }
-    if (!props.disabled) {
-      return colors.green;
-    }
-    if (props.theme.actionButtonDisabledBackgroundColor && props.disabled) {
-      return props.theme.actionButtonDisabledBackgroundColor;
-    }
-
-    return colors.disabledGreen;
-  }};
-  ${(props) => {
-    if (props.disabled) {
-      return `
-        cursor: default;
-        * {
-          fill: ${props.theme.actionButtonDisabledFillColor};
-        }
-      `;
-    }
-
-    return '';
-  }}
 `;
 
 const CaretWrapper = styled(InteractiveElement)`
@@ -48,25 +24,14 @@ const CaretWrapper = styled(InteractiveElement)`
   height: 36px;
   width: 36px;
   border-radius: 0 2px 2px 0;
-  background: ${(props) => {
-    if (props.theme.caretButtonBackgroundColor && !props.disabled) {
-      return props.theme.caretButtonBackgroundColor;
-    }
-    if (!props.disabled) {
-      return colors.greenB;
-    }
-    if (props.theme.caretButtonDisabledBackgroundColor && props.disabled) {
-      return props.theme.caretButtonDisabledBackgroundColor;
-    }
-
-    return colors.disabledGreenB;
-  }};
-  ${props => props.disabled ? 'cursor: default;' : ''}
+  background: ${props => props.disabled ? props.theme.caretButtonDisabledBackgroundColor : props.theme.caretButtonBackgroundColor};
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   position: relative;
+  border-radius: 2px;
+  background: ${props => props.disabled ? props.theme.actionButtonDisabledBackgroundColor : props.theme.actionButtonBackgroundColor};
   ${(props) => {
     if (!props.disabled && props.shouldHover) {
       return `
@@ -82,16 +47,31 @@ const ButtonWrapper = styled.div`
             }
           }
           .caret {
-            background: ${props => props.theme.caretButtonBackgroundColor ? props.theme.caretButtonBackgroundColor : colors.greenBWithOpacity40};
-            .arrow {
-              fill-opacity: 0.4;
-            }
+            opacity: 0.4;
             &:hover {
-              background: ${props => props.theme.caretButtonBackgroundColor ? props.theme.caretButtonBackgroundColor : colors.greenC};
-              .arrow {
-                fill-opacity: 1;
-              }
+              background: ${props.theme.caretButtonHoverBackgroundColor};
+              opacity: 1;
             }
+          }
+        }
+      `;
+    }
+
+    if (props.disabled) {
+      return `
+        .action {
+          cursor: default;
+          * {
+            color: ${colors.white60};
+            fill: ${colors.white};
+            fill-opacity: 0.6; 
+          }
+        }
+        .caret {
+          cursor: default;
+          * {
+            color: ${colors.white60};
+            fill-opacity: 0.6; 
           }
         }
       `;
@@ -230,6 +210,6 @@ export default class OverflowMenuButton extends React.Component {
 }
 
 OverflowMenuButton.defaultProps = {
-  theme: {},
+  theme: defaultTheme,
   actionButtonOnClick: _.noop
 }
