@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { colors } from '../styles';
 import TextInput, { TextInputWrapper, InputItem, TextLabel } from '../TextInput/TextInput';
 import { defaultTheme } from './TextInputBoxThemes';
@@ -125,7 +126,8 @@ export default class TextInputBox extends TextInput {
             labelColor,
             lineColor,
             options,
-            placeholder
+            placeholder,
+            inert
         } = this.props;
         return (
         <ThemeProvider theme={this.props.theme}>
@@ -147,11 +149,11 @@ export default class TextInputBox extends TextInput {
                     options={options}>
                 <InputBoxItem
                     type={this.getInputType(inputType)}
-                    onFocus={this.focused}
+                    onFocus={inert ? _.noop : this.focused}
                     onBlur={this.blurred}
                     id={name}
                     name={name}
-                    disabled={disabled}
+                    disabled={disabled || inert}
                     error={error}
                     value={this.getValue()}
                     ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
@@ -202,6 +204,7 @@ TextInput.propTypes = {
     value: PropTypes.any,
     onChange: PropTypes.func,
     collapsed: PropTypes.bool,
+    inert: PropTypes.bool,
     promotedOptions: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string,

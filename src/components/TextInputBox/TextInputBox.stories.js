@@ -114,6 +114,18 @@ storiesOf('Form', module)
               )
             },
             {
+              title: 'Example: Inert',
+              sectionFn: () => (
+                <TextInputBox
+                  label="This is a test"
+                  value="I cannot be changed"
+                  name="inert"
+                  onChange={action('value')}
+                  inert={true}
+                />
+              )
+            },
+            {
               title: 'Example: Stateless no value',
               sectionFn: () => (
                 <TextInputBox
