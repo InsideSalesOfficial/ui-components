@@ -81,6 +81,20 @@ storiesOf('Components', module)
               )
             },
             {
+              title: 'Manual Email Send Button (Loading)',
+              sectionFn: () => (
+                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+                  <OverflowMenuButton
+                    shouldHover={true}
+                    openDirection={'up'}
+                    options={options}
+                    content={<EmailSendButtonText>SEND</EmailSendButtonText>}
+                    loading
+                  />
+                </div>
+              )
+            },
+            {
               title: 'Neural Email Send Button',
               sectionFn: () => (
                 <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -105,6 +119,21 @@ storiesOf('Components', module)
                     theme={neuralSendTheme}
                     content={<NeuralSendWrapper><NeuralIcon fillOpacity={0.4}/><NeuralSendButtonText>SEND AT 12:45 PM</NeuralSendButtonText></NeuralSendWrapper>}
                     disabled
+                  />
+                </div>
+              )
+            },
+            {
+              title: 'Neural Email Send Button (Loading)',
+              sectionFn: () => (
+                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+                  <OverflowMenuButton
+                    shouldHover={true}
+                    openDirection={'up'}
+                    options={options}
+                    theme={neuralSendTheme}
+                    content={<NeuralSendWrapper><NeuralIcon /><NeuralSendButtonText>SEND AT 12:45 PM</NeuralSendButtonText></NeuralSendWrapper>}
+                    loading
                   />
                 </div>
               )

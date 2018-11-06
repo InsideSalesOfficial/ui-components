@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import styled, { ThemeProvider } from 'styled-components';
+
 import InteractiveElement from '../InteractiveElement';
 import { colors, boxShadows, typography } from '../styles';
 import ArrowDropUpIcon from '../icons/ArrowDropUpIcon';
 import ArrowDropDownIcon from '../icons/ArrowDropDownIcon';
+import Loader from '../Loader';
+
 import { defaultTheme } from './OverflowMenuButtonThemes';
 
 const ActionButtonWrapper = styled(InteractiveElement)`
@@ -33,7 +36,7 @@ const ButtonWrapper = styled.div`
   border-radius: 2px;
   background: ${props => props.disabled ? props.theme.actionButtonDisabledBackgroundColor : props.theme.actionButtonBackgroundColor};
   ${(props) => {
-    if (!props.disabled && props.shouldHover) {
+    if (!props.disabled && props.shouldHover && !props.loading) {
       return `
         &:hover {
           .action {
@@ -73,6 +76,14 @@ const ButtonWrapper = styled.div`
             color: ${colors.white60};
             fill-opacity: 0.6; 
           }
+        }
+      `;
+    }
+
+    if (props.loading) {
+      return `
+        * {
+          cursor: default;
         }
       `;
     }
@@ -179,24 +190,26 @@ export default class OverflowMenuButton extends React.Component {
       <ThemeProvider theme={this.props.theme}>
         <ButtonWrapper
           disabled={this.props.disabled}
-          shouldHover={this.props.shouldHover}>
+          shouldHover={this.props.shouldHover}
+          loading={this.props.loading}
+        >
           <ActionButtonWrapper
             className='action'
             disabled={this.props.disabled}
-            onClick={this.props.actionButtonOnClick}>
-            {this.props.content}
+            onClick={this.props.loading ? _.noop : this.props.actionButtonOnClick}>
+            {this.props.loading ? <Loader white small/> : this.props.content}
           </ActionButtonWrapper>
           <CaretWrapper
             className='caret'
             disabled={this.props.disabled}
-            onClick={this.caretOnClick}>
+            onClick={this.props.loading ? _.noop : this.caretOnClick}>
             {
               this.state.menuOpen ? <ArrowDropUpIcon className="arrow" fill={colors.white}/> : <ArrowDropDownIcon className="arrow" fill={colors.white}/>
             }
             
           </CaretWrapper>
           {
-            this.state.menuOpen &&
+            this.state.menuOpen && !this.props.loading &&
             <OverflowMenuWrapper
               ref={this.setOverflowMenuRef}
               openDirection={this.props.openDirection}>
