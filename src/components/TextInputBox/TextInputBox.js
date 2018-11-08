@@ -105,6 +105,7 @@ const InputBoxItem = styled(InputItem)`
         -webkit-appearance: none;
         margin: 0;
     }
+    ${props => props.inert && `color: ${colors.black90};`}
     ${(props) => {
         if(props.theme.valueColor){
             return ('color: ' + props.theme.valueColor) ;
@@ -154,6 +155,7 @@ export default class TextInputBox extends TextInput {
                     id={name}
                     name={name}
                     disabled={disabled || inert}
+                    inert={inert}
                     error={error}
                     value={this.getValue()}
                     ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
