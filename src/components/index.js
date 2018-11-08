@@ -43,4 +43,8 @@ export {
   SelectInputLabelBoxThemes
 } from './SelectInputLabelBox';
 export {default as TextareaBox} from './TextareaBox';
+export {
+  default as OverflowMenuButton,
+  OverflowMenuButtonThemes
+} from './OverflowMenuButton';
 export { colors, boxShadows, scrollbars, typography } from './styles'

@@ -9,7 +9,7 @@ import ArrowDropUpIcon from '../icons/ArrowDropUpIcon';
 import ArrowDropDownIcon from '../icons/ArrowDropDownIcon';
 import Loader from '../Loader';
 
-import { defaultOverflowMenuButtonTheme } from './OverflowMenuButtonThemes';
+import { defaultTheme } from './OverflowMenuButtonThemes';
 
 const ActionButtonWrapper = styled(InteractiveElement)`
   display: flex;
@@ -223,6 +223,6 @@ export default class OverflowMenuButton extends React.Component {
 }
 
 OverflowMenuButton.defaultProps = {
-  theme: defaultOverflowMenuButtonTheme,
+  theme: defaultTheme,
   actionButtonOnClick: _.noop
 }

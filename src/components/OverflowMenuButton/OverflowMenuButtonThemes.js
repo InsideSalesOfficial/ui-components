@@ -29,7 +29,7 @@ export const regularScheduledEmailTheme = {
   caretButtonDisabledBackgroundColor: colors.disabledGreenB
 }
 
-export const defaultOverflowMenuButtonTheme = {
+export const defaultTheme = {
   actionButtonWidth: '88px',
   actionButtonBackgroundColor: colors.green,
   actionButtonDisabledBackgroundColor: colors.disabledGreen,
@@ -38,4 +38,4 @@ export const defaultOverflowMenuButtonTheme = {
   caretButtonDisabledBackgroundColor: colors.disabledGreenB
 }
 
-export default { neuralSendEmailTheme, neuralScheduledEmailTheme, regularScheduledEmailTheme, defaultOverflowMenuButtonTheme };
+export default { neuralSendEmailTheme, neuralScheduledEmailTheme, regularScheduledEmailTheme, defaultTheme };
