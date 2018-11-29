@@ -277,7 +277,7 @@ export default class SelectInputLabelBox extends React.Component {
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper
-          {...this.props}
+          className={this.props.className}
           ref={(el) => { this.clickEventElement = el }}
           >
           <SelectToggle onClick={this.toggleOptionsList} isDisabled={this.props.isDisabled}>
@@ -319,7 +319,8 @@ SelectInputLabelBox.defaultProps = {
   isDisabled: false,
   theme: {},
   isPlaceHolder: false,
-  error: false
+  error: false,
+  onChange: _.noop
 }
 
 SelectInputLabelBox.propTypes = {
