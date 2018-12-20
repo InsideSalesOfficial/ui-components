@@ -16,13 +16,12 @@ const HeadsetMicOffIcon = props => (
     <g
       stroke="none"
       strokeWidth="1"
-      fill="none"
       fillRule="evenodd"
     >
       <mask id="mask-2" fill="white">
         <use xlinkHref="#path-1" />
       </mask>
-      <use id="Combined-Shape" fill="#000000" xlinkHref="#path-1" />
+      <use id="Combined-Shape" xlinkHref="#path-1" />
     </g>
   </svg>
 );
