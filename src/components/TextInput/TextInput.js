@@ -456,7 +456,7 @@ class TextInput extends React.Component {
 const DEFAULT_LABEL = 'Label';
 
 TextInput.defaultProps = {
-  name: 'Name',
+  name: undefined,
   label: DEFAULT_LABEL,
   onSelectionStartChange: _.noop,
   stateless: false,
