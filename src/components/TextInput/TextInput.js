@@ -463,7 +463,7 @@ TextInput.defaultProps = {
 };
 
 TextInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired,
   inputType: PropTypes.string,
   helper: PropTypes.string,

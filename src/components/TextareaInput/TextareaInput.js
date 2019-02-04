@@ -458,7 +458,7 @@ TextareaInput.defaultProps = {
 };
 
 TextareaInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired,
   helper: PropTypes.string,
   error: PropTypes.string,
