@@ -10,7 +10,7 @@ import _ from 'lodash';
 const SearchBarContainer = styled.div`
     height: 36px;
     border: 1px solid;
-    border-color: ${(props) => { return props.theme.borderColor || colors.white60; }};
+    border-color: ${(props) => { return props.theme.borderColor || props.theme.foreground || colors.white60; }};
     background: ${(props) => { return props.theme.background || colors.white10; }};
     border-radius: 3px;
     position: relative;
@@ -23,13 +23,13 @@ const SearchIconWrapper = styled(Icons.SearchMaterialIcon)`
     left: 7px;
     top: 50%;
     transform: translateY(-50%);
-    fill: ${(props) => { return props.theme.iconColor || colors.white60; }};
+    fill: ${(props) => { return props.theme.iconColor || props.theme.foreground || colors.white60; }};
 `;
 
 const SearchBarText = styled.input`
     font-size: 16px;
     line-height: 20px;
-    color: ${(props) => { return props.theme.valueColor || colors.white60; }};
+    color: ${(props) => { return props.theme.valueColor || props.theme.foreground || colors.white60; }};
     width: 100%;
     height: 100%;
     padding-right: 8px;
@@ -41,7 +41,7 @@ const SearchBarText = styled.input`
     outline: 0;
     border: 0;
     &::placeholder {
-    color: ${(props) => { return props.theme.placeholderColor || colors.white60; }};
+    color: ${(props) => { return props.theme.placeholderColor || props.theme.foreground || colors.white60; }};
     }
 `;
 
