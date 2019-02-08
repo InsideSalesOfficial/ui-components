@@ -47,4 +47,11 @@ export {
   default as OverflowMenuButton,
   OverflowMenuButtonThemes
 } from './OverflowMenuButton';
+export {
+  default as MiniInput,
+  MiniInputThemes
+} from './MiniInput';
+export {
+  default as PaginationControls
+} from './PaginationControls';
 export { colors, boxShadows, scrollbars, typography } from './styles'
