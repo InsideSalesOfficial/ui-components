@@ -47,9 +47,10 @@ class PageSelector extends React.Component {
   }
 
   onPageRequest = (value) => {
-    let currentPage = value;
+    let currentPage = _.parseInt(value);
     if (value > this.props.totalPages) currentPage = this.props.totalPages;
     else if (value <= 0 && !_.isEmpty(value)) currentPage = 1;
+    else if (value <= 0 && _.isInteger(value)) currentPage = 1;
 
     this.setState({ currentPage });
   }
