@@ -64,7 +64,7 @@ class PageSelector extends React.Component {
         value={this.state.focused ? this.state.currentPage : this.props.currentPage}
         disabled={totalPages === 1}
         onChange={this.onPageRequest}
-        onEnterUp={() => _.isEmpty(this.state.currentPage) ? _.noop : this.props.requestPage(Number(this.state.currentPage))}
+        onEnterUp={() => !_.isInteger(this.state.currentPage) ? _.noop : this.props.requestPage(Number(this.state.currentPage))}
         onFocus={() => this.setState({focused: true, currentPage: this.props.currentPage})}
         onBlur={() => this.setState({focused: false})}
       />
