@@ -396,6 +396,7 @@ class TextInput extends React.Component {
       lowPadding,
       labelColor,
       lineColor,
+      outlinedSearch
     } = this.props;
 
     return (
@@ -411,6 +412,7 @@ class TextInput extends React.Component {
           error={error}
           disabled={disabled}
           lineColor={lineColor}
+          outlinedSearch={outlinedSearch}
           collapsed={collapsed}>
           <InputItem
             type={this.getInputType(inputType)}

@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { typography, colors } from '../styles';
 
-import { GREEN_CHECKBOX, GRAY_CHECKBOX } from './CheckboxIcons';
+import { GREEN_CHECKBOX, GRAY_CHECKBOX, GREEN_DISABLED_CHECKBOX } from './CheckboxIcons';
 import { defaultTheme } from './CheckboxThemes';
 
 const CheckboxEl = styled.input`
@@ -26,7 +26,11 @@ const CheckboxEl = styled.input`
     border: none;
     background-image: url(${GREEN_CHECKBOX});
     &:disabled {
-      background-image: url(${GRAY_CHECKBOX});
+      background-image: ${props => props.greenDisabled ? `url(${GREEN_DISABLED_CHECKBOX})` : `url(${GRAY_CHECKBOX})`};
+      background-color: transparent;
+    }
+    &:greenDisabled {
+      background-image: url(${GREEN_DISABLED_CHECKBOX});
       background-color: transparent;
     }
   }
@@ -48,10 +52,10 @@ const Text = styled.label`
   ${typography.subhead1}
 `;
 
-const Checkbox = ({ label, defaultChecked, checked, disabled, name, onChange, className, theme }) => (
+const Checkbox = ({ label, defaultChecked, checked, disabled, name, onChange, className, theme, greenDisabled }) => (
   <ThemeProvider theme={theme}>
     <div className={className}>
-      <CheckboxEl onChange={e => e.stopPropagation()} id={name} name={name} type="checkbox" defaultChecked={defaultChecked} checked={checked} disabled={disabled} onClick={ onChange } />
+      <CheckboxEl onChange={e => e.stopPropagation()} id={name} name={name} type="checkbox" greenDisabled={greenDisabled} defaultChecked={defaultChecked} checked={checked} disabled={disabled} onClick={ onChange } />
       {label && (
         <Text htmlFor={name}>{label}</Text>
       )}
