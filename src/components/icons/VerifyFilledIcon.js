@@ -1,6 +1,6 @@
 import React from 'react';
 
-const VerifyShieldIcon = props => (
+const VerifyFilledIcon = props => (
   <svg {...props.size || { width: '24px', height: '24px' }} {...props} viewBox="0 0 24 24" fill="currentColor">
     {props.title && <title>{props.title}</title>}
     <path d="M0 0h24v24H0z" fill="none" />
@@ -8,4 +8,4 @@ const VerifyShieldIcon = props => (
   </svg>
 );
 
-export default VerifyShieldIcon;
+export default VerifyFilledIcon;

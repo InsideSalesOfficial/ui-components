@@ -50,20 +50,22 @@ import FilterIcon from './FilterIcon';
 import ForwardEmailIcon from './ForwardEmailIcon';
 import GroupAddIcon from './GroupAddIcon';
 import HelpBoxIcon from './HelpBoxIcon';
+import HelpCircleIcon from './HelpCircleIcon';
 import HomeIcon from './HomeIcon';
 import InfoIcon from './InfoIcon';
 import InsideSalesLogoIcon from './InsideSalesLogoIcon';
 import LinkedinSocialIcon from './LinkedinSocialIcon';
 import LinkIcon from './LinkIcon';
-import MenuIcon from './MenuIcon';
 import LaunchIcon from './LaunchIcon';
 import LogoutIcon from './LogoutIcon';
+import MenuIcon from './MenuIcon';
 import MergeFieldIcon from './MergeFieldIcon';
 import MessageAlertIcon from './MessageAlertIcon';
 import MessageBulletedIcon from './MessageBulletedIcon';
 import MicrosoftIcon from './MicrosoftIcon';
 import MinimizeIcon from './MinimizeIcon';
 import MinusIcon from './MinusIcon';
+import MobilePhoneIcon from './MobilePhoneIcon';
 import MoreVertIcon from './MoreVertIcon';
 import MoveIcon from './MoveIcon';
 import NeuralIcon from './NeuralIcon';
@@ -80,11 +82,13 @@ import PhoneIcon from './PhoneIcon';
 import PlaybookIcon from './PlaybookIcon';
 import PlayIcon from './PlayIcon';
 import PlusIcon from './PlusIcon';
+import PrintIcon from './PrintIcon';
 import QueueMusicIcon from './QueueMusicIcon';
 import RadioboxBlankIcon from './RadioboxBlankIcon';
 import RadioboxMarkedIcon from './RadioboxMarkedIcon';
 import RefreshIcon from './RefreshIcon';
 import ReminderIcon from './ReminderIcon';
+import RemoveCircleIcon from './RemoveCircleIcon';
 import SalesforceIcon from './SalesforceIcon';
 import SearchMaterialIcon from './SearchMaterialIcon';
 import SharedIcon from './SharedIcon';
@@ -100,7 +104,8 @@ import StarFilledIcon from './StarFilledIcon';
 import TagsIcon from './TagsIcon';
 import TeamsIcon from './TeamsIcon';
 import UpdateFilledIcon from './UpdateFIlledIcon';
-import VerifyShieldIcon from './VerifyShieldIcon';
+import VerifyFilledIcon from './VerifyFilledIcon';
+import VerifyIcon from './VerifyIcon';
 import VideoLibraryIcon from './VideoLibraryIcon';
 import VoicemailIcon from './VoicemailIcon';
 import Notes from './Notes';
@@ -162,6 +167,7 @@ export default {
   ForwardEmailIcon,
   GroupAddIcon,
   HelpBoxIcon,
+  HelpCircleIcon,
   HomeIcon,
   ImportIcon,
   InfoIcon,
@@ -178,6 +184,7 @@ export default {
   MicrosoftIcon,
   MinimizeIcon,
   MinusIcon,
+  MobilePhoneIcon,
   MoreVertIcon,
   MoveIcon,
   NeuralIcon,
@@ -194,11 +201,13 @@ export default {
   PlaybookIcon,
   PlayIcon,
   PlusIcon,
+  PrintIcon,
   QueueMusicIcon,
   RadioboxBlankIcon,
   RadioboxMarkedIcon,
   RefreshIcon,
   ReminderIcon,
+  RemoveCircleIcon,
   SalesforceIcon,
   SearchMaterialIcon,
   SharedIcon,
@@ -212,7 +221,8 @@ export default {
   TodayIcon,
   TrashIcon,
   UpdateFilledIcon,
-  VerifyShieldIcon,
+  VerifyFilledIcon,
+  VerifyIcon,
   VideoLibraryIcon,
   VoicemailIcon,
   Notes,
