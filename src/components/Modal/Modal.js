@@ -68,7 +68,7 @@ const DialogBase = styled.div`
 
 class Modal extends React.Component {
   componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.message_dialog_background).addEventListener('click', this.clickHandler);
+    if (!this.props.clickOutsideDisabled) ReactDOM.findDOMNode(this.refs.message_dialog_background).addEventListener('click', this.clickHandler);
     document.addEventListener('keydown', this.clickHandler);
     document.addEventListener('keyup', this.enterKeyHandler);
     
@@ -156,13 +156,15 @@ class Modal extends React.Component {
 Modal.defaultProps = {
   theme: {
     width: 336
-  }
+  },
+  clickOutsideDisabled: false
 }
 
 Modal.propTypes = {
     center: PropTypes.bool,
     onStoryBook: PropTypes.bool,
-    theme: PropTypes.object
+    theme: PropTypes.object,
+    clickOutsideDisabled: PropTypes.bool
 }
 
 
