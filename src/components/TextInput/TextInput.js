@@ -396,6 +396,7 @@ class TextInput extends React.Component {
       lowPadding,
       labelColor,
       lineColor,
+      maxLength,
       outlinedSearch
     } = this.props;
 
@@ -423,6 +424,7 @@ class TextInput extends React.Component {
             name={name}
             disabled={disabled}
             error={error}
+            maxLength={maxLength}
             value={this.getValue()}
             ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}
