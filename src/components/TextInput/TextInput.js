@@ -393,10 +393,10 @@ class TextInput extends React.Component {
       className,
       options,
       promotedOptions,
+      maxLength,
       lowPadding,
       labelColor,
       lineColor,
-      maxLength,
       outlinedSearch
     } = this.props;
 
