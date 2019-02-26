@@ -397,6 +397,7 @@ class TextInput extends React.Component {
       labelColor,
       maxLength,
       lineColor,
+      maxLength,
       outlinedSearch
     } = this.props;
 
