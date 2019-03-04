@@ -75,11 +75,13 @@ import OtherFilledIcon from './OtherFilledIcon';
 import OtherIcon from './OtherIcon';
 import OutlinedFlagIcon from './OutlinedFlagIcon';
 import PauseCircleIcon from './PauseCircleIcon';
+import PauseCircleIconBold from './PauseCircleIconBold';
 import PersonAddIcon from './PersonAddIcon';
 import PersonIcon from './PersonIcon';
 import PhoneFilledIcon from './PhoneFilledIcon';
 import PhoneIcon from './PhoneIcon';
 import PlaybookIcon from './PlaybookIcon';
+import PlayCircleIcon from './PlayCircleIcon';
 import PlayIcon from './PlayIcon';
 import PlusIcon from './PlusIcon';
 import PrintIcon from './PrintIcon';
@@ -98,6 +100,7 @@ import TaskIcons from './TaskIcons';
 import TemplateIcon from './TemplateIcon';
 import TodayIcon from './TodayIcon';
 import TrashIcon from './TrashIcon';
+import TrophyIcon from './TrophyIcon';
 import ImportIcon from './ImportIcon';
 import InfoOutlineIcon from './InfoOutlineIcon';
 import StarFilledIcon from './StarFilledIcon';
@@ -194,11 +197,13 @@ export default {
   OtherIcon,
   OutlinedFlagIcon,
   PauseCircleIcon,
+  PauseCircleIconBold,
   PersonAddIcon,
   PersonIcon,
   PhoneFilledIcon,
   PhoneIcon,
   PlaybookIcon,
+  PlayCircleIcon,
   PlayIcon,
   PlusIcon,
   PrintIcon,
@@ -220,6 +225,7 @@ export default {
   TemplateIcon,
   TodayIcon,
   TrashIcon,
+  TrophyIcon,
   UpdateFilledIcon,
   VerifyFilledIcon,
   VerifyIcon,
