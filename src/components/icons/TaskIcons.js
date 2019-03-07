@@ -5,6 +5,7 @@ import PhoneFilledIcon from './PhoneFilledIcon';
 import EmailFilledIcon from './EmailFilledIcon';
 import OtherFilledIcon from './OtherFilledIcon';
 import CallbackIcon from './CallbackIcon';
+import LinkedinSocialIcon from './LinkedinSocialIcon';
 
 const TaskIcons = (props) => {
   switch (props.type) {
@@ -29,6 +30,11 @@ const TaskIcons = (props) => {
       return (<OtherFilledIcon {...props} />);
     case 'other-filled':
       return (<OtherFilledIcon {...props} />);
+    case 'inMailConnect':
+    case 'inMailMessage':
+    case 'inMailConnect-filled':
+    case 'inMailMessage-filled':
+      return (<LinkedinSocialIcon {...props}/>);
     default:
       return null;
   }
