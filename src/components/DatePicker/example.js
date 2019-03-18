@@ -11,7 +11,7 @@ import { colors } from '../styles/colors';
 import { fontSizes, fontFamilies, fontWeights } from '../styles/typography';
 
 const BaseExample = styled.div`
-fontFamily: ${fontFamilies.roboto}, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif,
+fontFamily: ${fontFamilies.roboto},
 marginBottom: 25px,
 padding: 10px,
 position: relative,
