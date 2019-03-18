@@ -1,11 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import moment from 'moment';
 
-import ComponentDescription from './ComponentDescription';
 import Example from './example';
 
 import DatePicker from './';
+
+const ExampleWrapper = styled.div`
+height: 120px
+`;
 
 const examples = [
   {
@@ -63,12 +67,11 @@ storiesOf('Components', module)
             {
               sectionFn: () => (
                 <div>
-                  <ComponentDescription/>
                   {examples.map((example, idx) => (
                     <Example title={example.title} description={example.description} key={idx}>
-                      <div style={{ height: '50px' }}>
+                      <ExampleWrapper>
                         {example.render()}
-                      </div>
+                      </ExampleWrapper>
                     </Example>
                   ))}
                 </div>
