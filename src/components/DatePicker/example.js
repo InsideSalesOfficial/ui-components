@@ -6,8 +6,9 @@
 import React from 'react';
 
 import PbTheme from './theme';
+import { colors } from '../styles/colors';
 
-const { fontFamilies } = PbTheme;
+const { fontFamilies, fontSizes, fontWeights } = PbTheme;
 
 const style = {
   base: {
@@ -18,30 +19,29 @@ const style = {
     WebkitFontSmoothing: 'antialiased'
   },
   exampleWrapper: {
-    border: '1px solid #E6ECF0',
+    border: `1px solid ${colors.white60}`,
     padding: '0px 20px 20px 20px',
     display: 'flex',
     flex: '0 0 100%',
     flexDirection: 'column'
   },
   exampleText: {
-    color: '#b0c1cb',
     display: 'inline-flex',
     flex: '0 0 100%',
     flexDirection: 'column',
-    fontSize: '14px',
-    fontWeight: '600',
+    fontSize: `${fontSizes.xSmall}`,
+    fontWeight: `${fontWeights.bold}`,
     textTransform: 'uppercase'
   },
   title: {
-    color: '#383838',
-    fontWeight: 400,
-    fontSize: '22px',
+    color: `${colors.grayE}`,
+    fontWeight: `${fontWeights.regular}`,
+    fontSize: `${fontSizes.large}`,
     margin: 0
   },
   description: {
-    color: '#656565',
-    fontWeight: 300,
+    color: `${colors.grayD}`,
+    fontWeight: `${fontWeights.light}`,
     marginTop: '10px'
   },
   componentWrapper: {
@@ -58,14 +58,14 @@ export const Example = ({
   description
 }) => {
   if (dark) {
-    style.exampleWrapper.background = '#2a434a';
-    style.exampleText.color = '#ffffff';
+    style.exampleWrapper.background = `${colors.darkBlue}`;
+    style.exampleText.color = `${colors.white}`;
   } else if (darkerBg) {
-    style.exampleWrapper.background = '#1D2E33';
-    style.exampleText.color = '#ffffff';
+    style.exampleWrapper.background = `${colors.darkBlueD}`;
+    style.exampleText.color = `${colors.white}`;
   } else {
     style.exampleWrapper.backgroundColor = 'transparent';
-    style.exampleText.color = '#b0c1cb';
+    style.exampleText.color = `${colors.grayD}`;
   }
   if (children.props.w440) {
     style.componentWrapper.width = '440px';

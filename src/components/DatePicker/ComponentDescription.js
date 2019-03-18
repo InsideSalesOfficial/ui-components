@@ -2,22 +2,22 @@
 // an app component
 
 import React from 'react';
+import PbTheme from './theme';
+const { fontFamilies, fontSizes, fontWeights } = PbTheme;
 
 const style = {
   base: {
-    color: '#383838',
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif',
+    fontFamily: `${fontFamilies.roboto}, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif`,
     marginBottom: '25px',
     padding: '10px'
   },
   title: {
-    fontSize: '30px',
-    fontWeight: 400,
+    fontSize: `${fontSizes.xLarge}`,
+    fontWeight: `${fontWeights.regular}`,
     margin: 0
   },
   description: {
-    color: '#8a8a8a',
-    fontWeight: 300
+    fontWeight: `${fontWeights.light}`
   }
 };
 
