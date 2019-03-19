@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 import { SingleDatePicker } from 'react-dates';
 
-import '../../../node_modules/react-dates/lib/css/_datepicker.css';
 import CalendarIcon from '../icons/CalendarIcon';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
