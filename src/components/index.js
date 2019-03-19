@@ -7,6 +7,7 @@ export {
   ButtonBarThemes
 } from './ButtonBar';
 export {default as Checkbox} from './Checkbox';
+export {default as DatePicker} from './DatePicker';
 export {default as DropdownButton} from './DropdownButton';
 export {default as EditableSelectInput} from './EditableSelectInput';
 export {default as FlexTable, TR as FlexTR, TD as FlexTD, TH as FlexTH} from './FlexTable';
