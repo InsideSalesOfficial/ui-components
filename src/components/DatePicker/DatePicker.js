@@ -4,7 +4,6 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 import { SingleDatePicker } from 'react-dates';
 
-import CalendarIcon from '../icons/CalendarIcon';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { colors } from '../styles/colors';
@@ -169,7 +168,7 @@ export class DatePicker extends React.Component {
           <Label>{this.props.label}</Label>
         }
         <SingleDatePicker
-          customInputIcon={<CalendarIcon size={{ width: 18, height: 20 }} fill={colors.black40}/>}
+          customInputIcon={this.props.customInputIcon}
           date={selectedDate}
           focused={this.state.focused}
           isDayBlocked={this.isDayBlocked}
@@ -186,7 +185,6 @@ export class DatePicker extends React.Component {
           isOutsideRange={this.isOutsideRange}
           displayFormat={this.props.displayFormat}
           daySize={this.props.daySize}
-          openBelow
         />
       </DatePickerWrapper>
     );
@@ -196,7 +194,8 @@ export class DatePicker extends React.Component {
 DatePicker.defaultProps = {
   displayFormat: 'MMMM DD, YYYY',
   daySize: 36,
-  onDateChange: _.identity
+  onDateChange: _.identity,
+  customInputIcon: null
 };
 
 export default DatePicker;

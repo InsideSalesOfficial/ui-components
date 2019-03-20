@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
+import CalendarIcon from '../icons/CalendarIcon';
+import { colors } from '../styles/colors';
 import moment from 'moment';
 
 import Example from './example';
@@ -30,7 +32,7 @@ const examples = [
   },
   {
     title: 'Weekends Blocked',
-    description: 'The DatePicker with weekends blocked',
+    description: 'The DatePicker with weekends blocked.',
     render: () => <DatePicker
     label={'Date'}
     maxEndDate={moment().startOf('day').add(1, 'year')}
@@ -38,9 +40,10 @@ const examples = [
     />
   },
   {
-    title: 'Week Highlighted',
-    description: 'The DatePicker with selected week highlighted and weekends blocked',
+    title: 'Week Highlighted With Custom Input Icon',
+    description: 'The DatePicker with selected week highlighted and weekends blocked with a custom input icon.',
     render: () => <DatePicker
+    customInputIcon={<CalendarIcon size={{ width: 18, height: 20 }} fill={colors.black40}/>}
     label={'Date'} 
     maxEndDate={moment().startOf('day').add(1, 'year')} 
     blockWeekends 
