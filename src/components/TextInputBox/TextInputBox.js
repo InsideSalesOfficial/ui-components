@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { colors } from '../styles';
+import { colors, typography } from '../styles';
 import TextInput, { TextInputWrapper, InputItem, TextLabel } from '../TextInput/TextInput';
 import { defaultTheme } from './TextInputBoxThemes';
 import { hasValue } from './utils';
@@ -98,6 +98,16 @@ const TextBoxLabel = styled(TextLabel)`
     }};
 `;
 
+const Chars = styled.div`
+  color: ${props => {
+    if(props.error) return colors.red;
+    return colors.green;
+  }};
+  text-align: right;
+  padding: 0.25em 0;
+  ${typography.caption}
+`;
+
 
 const InputBoxItem = styled(InputItem)`
     &[type=number]::-webkit-inner-spin-button,
@@ -119,7 +129,6 @@ export default class TextInputBox extends TextInput {
             label,
             name,
             inputType,
-            error,
             disabled,
             collapsed,
             className,
@@ -130,6 +139,8 @@ export default class TextInputBox extends TextInput {
             placeholder,
             inert
         } = this.props;
+
+        const error = this.props.error || (this.props.max && _.size(this.state.value) > this.props.max)
         return (
         <ThemeProvider theme={this.props.theme}>
             <TextInputWrapper
@@ -171,6 +182,7 @@ export default class TextInputBox extends TextInput {
                     </TextBoxLabel>
                 }
                 </TextBox>
+                {this.state.focused && this.props.max && <Chars error={error}>{`${_.size(this.state.value)} / ${this.props.max}`}</Chars>}
                 {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
                 {this.renderHelperText()}
                 {this.renderRequiredText()}
@@ -217,4 +229,5 @@ TextInput.propTypes = {
         disabled: PropTypes.bool
     })),
     placeholder: PropTypes.string,
+    max: PropTypes.number
 };
