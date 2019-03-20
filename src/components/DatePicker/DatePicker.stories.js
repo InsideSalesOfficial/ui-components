@@ -42,7 +42,7 @@ const examples = [
     />
   },
   {
-    title: 'Week Highlighted With Custom Input Icon',
+    title: 'Week Highlighted With Default Input Icon',
     description: 'The DatePicker with selected week highlighted and weekends blocked with default input icon.',
     render: () => <DatePicker
     label={'Date'} 
