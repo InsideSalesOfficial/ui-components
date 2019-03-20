@@ -4,6 +4,7 @@ import _ from 'lodash';
 import moment from 'moment-timezone';
 import { SingleDatePicker } from 'react-dates';
 
+import CalendarIcon from '../icons/CalendarIcon';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import { colors } from '../styles/colors';
@@ -195,7 +196,7 @@ DatePicker.defaultProps = {
   displayFormat: 'MMMM DD, YYYY',
   daySize: 36,
   onDateChange: _.identity,
-  customInputIcon: null
+  customInputIcon: <CalendarIcon size={{ width: 18, height: 20 }} fill={colors.black40}/>
 };
 
 export default DatePicker;
