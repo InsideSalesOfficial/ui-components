@@ -174,13 +174,7 @@ export class DatePicker extends React.Component {
           focused={this.state.focused}
           isDayBlocked={this.isDayBlocked}
           isDayHighlighted={this.isDayHighlighted}
-          onDateChange={(newDate) => {
-            if (newDate.startOf('day').isSame(this.state.defaultDate)) return;
-  
-            this.setState({
-              defaultDate: newDate.startOf('day')
-            });
-          }}
+          onDateChange={this.props.onDateChange}
           onFocusChange={({ focused }) => { this.setState({ focused }); }}
           numberOfMonths={1}
           isOutsideRange={this.isOutsideRange}
