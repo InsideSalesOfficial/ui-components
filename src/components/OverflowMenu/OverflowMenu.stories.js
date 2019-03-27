@@ -125,7 +125,29 @@ storiesOf('Menus', module)
 
                 return <DarkBackground><OverflowMenu options={options}/></DarkBackground>
               }
-            }
+            },
+            {
+              title: 'Example: medium menu size',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Medium' },
+                  { action: action('click option'), label: 'Option 2' },
+                ];
+
+                return  <DarkBackground><OverflowMenu options={options} medium/></DarkBackground>
+              }
+            },
+            {
+              title: 'Example: large menu size',
+              sectionFn: () => {
+                const options = [
+                  { action: action('click option'), label: 'Large' },
+                  { action: action('click option'), label: 'Option 2' },
+                ];
+
+                return  <DarkBackground><OverflowMenu options={options} large/></DarkBackground>
+              }
+            },
           ]
         }
       ]
