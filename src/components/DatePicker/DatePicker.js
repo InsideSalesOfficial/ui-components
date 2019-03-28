@@ -180,6 +180,9 @@ export class DatePicker extends React.Component {
           isOutsideRange={this.isOutsideRange}
           displayFormat={this.props.displayFormat}
           daySize={this.props.daySize}
+          disabled={this.props.disabled}
+          required={this.props.required}
+          small={this.props.small}
         />
       </DatePickerWrapper>
     );

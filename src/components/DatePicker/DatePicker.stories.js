@@ -23,6 +23,14 @@ const examples = [
     />
   },
   {
+    title: 'Disabled DatePicker',
+    description: 'The DatePicker disabled.',
+    render: () => <DatePicker
+    label={'Date'}
+    disabled
+    />
+  },
+  {
     title: 'Custom Max Date - 1 year',
     description: 'The DatePicker with a max end date of 1 year and custom icon.',
     render: () => <DatePicker
