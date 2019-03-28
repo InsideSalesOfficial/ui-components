@@ -24,7 +24,12 @@ const Input = styled.div`
 
     return colors.white10;
   }};
-  border-radius: 2px;
+  border-radius: ${(props) => {
+    if (props.theme.borderRadius) {
+      return `${props.theme.borderRadius}px`
+    }
+    return '2px';
+  }};
   box-sizing: border-box;
   border-bottom: ${(props) => {
     if (props.theme.borderColor) {
