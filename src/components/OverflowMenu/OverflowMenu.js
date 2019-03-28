@@ -83,6 +83,7 @@ const OptionsContainer = styled.div`
   background-color: transparent;
   overflow: visible;
   z-index: 1;
+  box-shadow: ${boxShadows.lvl20};
 `;
 
 const OptionsWrapper = styled.div`
@@ -90,7 +91,6 @@ const OptionsWrapper = styled.div`
   align-items: flex-start;
   background-color: ${colors.white};
   border-radius: 2px;
-  box-shadow: ${boxShadows.lvl20};
 `;
 
 const SubmenuOptionsWrapper = styled.div`
