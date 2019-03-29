@@ -8,6 +8,7 @@ const SelectInputLabel = styled.label`
     if (props.theme.labelColor) return props.theme.labelColor;
     return colors.boulder;
   }};
+  transition: color .25s ease-in-out;
   ${typography.caption};
   ${ellipsis()}
 `;

@@ -105,3 +105,36 @@ export const lineSelectInputTheme = {
   noLeftPadding: true,
   inputPaddingRight: 22
 };
+
+export const darkCalendarSelectInputTheme = {
+  background: colors.white10,
+  inputColor: colors.white90,
+  selectArrowColor: colors.white90,
+  labelColor: colors.white60,
+  focusLabelColor: colors.green,
+  borderColor: colors.white40,
+  focusBorderColor: colors.green,
+  optionHeight: '55'
+}
+
+export const whiteBackgroundSelectInputTheme = {
+  background: colors.black10,
+  inputColor: colors.black90,
+  selectArrowColor: colors.black90,
+  labelColor: colors.white60,
+  focusLabelColor: colors.green,
+  borderColor: colors.black40,
+  focusBorderColor: colors.green,
+}
+
+export const whiteBackgroundErrorSelectInputTheme = {
+  background: colors.black10,
+  inputColor: colors.black90,
+  selectArrowColor: colors.black90,
+  labelColor: colors.white60,
+  focusLabelColor: colors.green,
+  borderColor: colors.red,
+  focusBorderColor: colors.red,
+}
+
+export default {taskSelectInputTheme, transparentSelectInputTheme, addButtonSelectInputTheme, lightSelectInputTheme, darkSelectInputTheme, transparentCenterTheme, lineSelectInputTheme, darkCalendarSelectInputTheme, whiteBackgroundSelectInputTheme, whiteBackgroundErrorSelectInputTheme};

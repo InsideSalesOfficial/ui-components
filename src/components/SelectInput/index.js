@@ -6,3 +6,5 @@ export {
   toggleOptionsList,
   toggleOptionsListOnSearch
 } from './SelectInput';
+
+export {default as SelectInputThemes} from './SelectInputThemes';

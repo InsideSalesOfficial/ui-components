@@ -7,7 +7,8 @@ import Icons from '../icons';
 
 import {
   lineSelectInputTheme,
-  transparentSelectInputTheme
+  transparentSelectInputTheme,
+  darkCalendarSelectInputTheme
 } from './SelectInputThemes';
 import SelectInput from './';
 
@@ -254,6 +255,18 @@ storiesOf('Form', module)
                   value={selectedOptions}
                   maxHeight={'600px'}
                   multiSelect />
+              </div>
+            )
+          },
+          {
+            title: 'Dark Playbooks Calendar Theme',
+            sectionFn: () => (
+              <div style={{...darkExample}}>
+                <SelectInput
+                  headerLabel={'Header'}
+                  onChange={action('Option Selected')}
+                  options={genericOptions}
+                  theme= {darkCalendarSelectInputTheme} />
               </div>
             )
           },

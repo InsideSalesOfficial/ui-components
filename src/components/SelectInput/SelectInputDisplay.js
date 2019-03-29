@@ -77,7 +77,7 @@ const Input = styled.div`
     if (props.theme.transition) {
       return props.theme.transition;
     }
-    return 'background .25s ease-in-out';
+    return 'background .25s ease-in-out, border-color .25s ease-in-out';
   }};
 
   &:focus {
@@ -88,12 +88,25 @@ const Input = styled.div`
         return props.theme.focusTextColor;
       }
     }};
+    ${(props) => {
+      if(props.theme.focusBorderColor) {
+        return `border-color: ${props.theme.focusBorderColor}`;
+      }
+    }};
 
     .input-carat {
       border-top: ${(props) => {
         if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${props.theme.disabledSelectArrowColor}`;
         else if (props.theme.focusSelectArrowColor) {
           return `5px solid ${props.theme.focusSelectArrowColor}`;
+        }
+      }};
+    }
+
+    .input-header-label {
+      ${(props) => {
+        if(props.theme.focusLabelColor) {
+          return `color: ${props.theme.focusLabelColor}`;
         }
       }};
     }
@@ -236,7 +249,7 @@ class SelectInputDisplay extends React.Component {
           >
             <LabelWrapper>
               {this.props.headerLabel && !this.props.addButtonList &&
-                <SelectInputLabel>{this.props.headerLabel}</SelectInputLabel>
+                <SelectInputLabel className="input-header-label">{this.props.headerLabel}</SelectInputLabel>
               }
               <Label title={typeof (label) === 'string' ? label : _.get(label, 'props.label')}>{clonedLabel}</Label>
             </LabelWrapper>
