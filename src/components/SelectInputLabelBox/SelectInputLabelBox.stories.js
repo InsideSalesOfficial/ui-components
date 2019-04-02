@@ -354,6 +354,7 @@ storiesOf('Form', module)
               sectionFn: () => (
                 <div>
                   <SelectInputLabelBox
+                    label="Hello World!"
                     theme={SelectInputLabelBoxThemes.darkTheme}
                     value='Hi world'
                     onChange={action('Option Selected')}
