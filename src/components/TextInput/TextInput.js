@@ -52,7 +52,12 @@ export const TextBox = styled.div`
   border: ${(props) => {
     return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
   }};
-  border-radius: 3px;
+  border-radius: ${(props) => {
+    if (props.disabled) {
+      return '3px';
+    }
+    return '0';
+  }};
   background-color: ${colors.white};
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
@@ -68,7 +73,7 @@ export const TextBox = styled.div`
     return colors.black40;
   }};
   border-width: ${(props) => {
-    if (props.isFocused || props.error) {
+    if (props.isFocused || props.error || props.disabled) {
       return '2px';
     }
     return '1px';
@@ -93,17 +98,8 @@ export const TextBox = styled.div`
   width: 100%;
 
   &:hover {
-    border-width: ${(props) => {
-      if (props.disabled) {
-        return '1px';
-      }
-      return '2px';
-    }};
-    padding-bottom: ${(props) => {
-      if (props.disabled) {
-        return '8px';
-      }
-      return '7px';
+    border-width: 2px;
+    padding-bottom: 7px;
     }};
   }
 

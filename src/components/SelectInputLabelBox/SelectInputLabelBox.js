@@ -134,16 +134,6 @@ export const Value = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  &:focus {
-    outline: 0;
-    border-color: ${props => {
-      if (props.error) {
-        return colors.red;
-      }
-      return props.isDisabled ? 'transparent' : colors.green
-    }};
-  }
 `;
 
 
@@ -173,6 +163,16 @@ export const SelectToggle = styled.button`
   ${props => props.isDisabled && `
     opacity: 0.6;
   `}
+
+  &:focus ${Value} {
+    outline: 0;
+    border-color: ${props => {
+      if (props.error) {
+        return colors.red;
+      }
+      return props.isDisabled ? 'transparent' : colors.green
+    }};
+  }
 `;
 
 export default class SelectInputLabelBox extends React.Component {
