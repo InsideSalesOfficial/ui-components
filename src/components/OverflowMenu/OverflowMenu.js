@@ -21,12 +21,7 @@ const SelectOption = styled.div`
 
   box-sizing: border-box;
   display: flex;
-  padding: 0 10px 0 ${(props) => {
-    if (props.medium || props.large) {
-      return 24;
-    }
-    return 10;
-  }}px;
+  padding: 0 24px 0 10px;
   width: 100%;
   height: 38px;
   transition: background .25s ease-in-out;
@@ -83,15 +78,7 @@ const OptionsContainer = styled.div`
   bottom: ${props => props.openUp ? `calc(100% + ${caretSize}px)` : 'initial'};
   right: ${props => props.openRight ? 'auto' : '-6px'};
   left: ${props => props.openRight ? '-6px' : 'auto'};
-  ${(props) => {
-    if (props.medium) {
-      return 'width: 160px;';
-    }
-    if (props.large) {
-      return 'width: 200px;';
-    }
-    return 'min-width: 120px;';
-  }}
+  min-width: 120px;
   background-color: transparent;
   overflow: visible;
   z-index: 1;
@@ -134,9 +121,7 @@ class OverflowMenu extends React.Component {
     options: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     icon: PropTypes.element,
-    stayOpen: PropTypes.bool,
-    medium: PropTypes.bool,
-    large: PropTypes.bool
+    stayOpen: PropTypes.bool
   };
 
   static defaultProps = {
@@ -150,9 +135,7 @@ class OverflowMenu extends React.Component {
       fill={colors.white80}
       size={{ width: 24, height: 24 }}
     />,
-    stayOpen: false,
-    medium: false,
-    large: false
+    stayOpen: false
   };
 
   constructor() {
@@ -216,8 +199,7 @@ class OverflowMenu extends React.Component {
         onMouseEnter={this.handleSelectedId(option.id, depthLevel)}
         onClick={option.isDisabled ? ()=> {} : option.action}
         isHighlighted={option.isHighlighted}
-        isDisabled={option.isDisabled}
-        {...this.props}>{option.label}</SelectOption>
+        isDisabled={option.isDisabled}>{option.label}</SelectOption>
 
       let submenu;
       if (this.state.selectedIds[depthLevel] === option.id && _.get(option,'subOptions.length',0) > 0) {
@@ -256,9 +238,7 @@ class OverflowMenu extends React.Component {
           </FlexInteractiveElement>
           {(this.state.menuVisible || this.props.stayOpen) &&
               [<DropdownCaret {..._.pick(this.props, ['openUp', 'openDown'])} />,
-              <OptionsContainer openUp={this.props.openUp} openRight={this.props.openRight}
-                medium={this.props.medium} large={this.props.large}
-              >
+              <OptionsContainer openUp={this.props.openUp} openRight={this.props.openRight}>
                 {this.renderMenu(this.props.options)}
               </OptionsContainer>]
           }
