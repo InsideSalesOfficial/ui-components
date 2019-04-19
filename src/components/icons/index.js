@@ -116,6 +116,9 @@ import CallForward from './CallForward';
 import ArrowForward from './ArrowForward';
 import HeadsetMicOffIcon from './HeadsetMicOffIcon.js';
 import HeadsetMicOnIcon from './HeadsetMicOnIcon.js';
+import PlayOutlined from './PlayOutlined';
+import Record from './Record';
+import PauseOutlined from './PauseOutlined.js';
 
 export default {
   AddCircleIcon,
@@ -235,5 +238,8 @@ export default {
   CallForward,
   ArrowForward,
   HeadsetMicOffIcon,
-  HeadsetMicOnIcon
+  HeadsetMicOnIcon,
+  PlayOutlined,
+  Record,
+  PauseOutlined
 };
