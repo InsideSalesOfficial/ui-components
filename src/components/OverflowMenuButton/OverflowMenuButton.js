@@ -196,7 +196,7 @@ export default class OverflowMenuButton extends React.Component {
           <ActionButtonWrapper
             className='action'
             disabled={this.props.disabled}
-            {...this.props}
+            id={this.props.id}
             onClick={this.props.loading ? _.noop : this.props.actionButtonOnClick}>
             {this.props.loading ? <Loader white small/> : this.props.content}
           </ActionButtonWrapper>
