@@ -119,6 +119,7 @@ import HeadsetMicOnIcon from './HeadsetMicOnIcon.js';
 import PlayOutlined from './PlayOutlined';
 import Record from './Record';
 import PauseOutlined from './PauseOutlined.js';
+import EmptyStateIcon from './EmptyStateIcon.js';
 
 export default {
   AddCircleIcon,
@@ -241,5 +242,6 @@ export default {
   HeadsetMicOnIcon,
   PlayOutlined,
   Record,
-  PauseOutlined
+  PauseOutlined,
+  EmptyStateIcon
 };
