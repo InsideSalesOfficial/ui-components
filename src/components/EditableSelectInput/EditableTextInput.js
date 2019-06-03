@@ -73,13 +73,14 @@ class EditableTextInput extends React.Component {
       <InputWrapper>
         <TextInput
           type="text"
+          className="pb-test__editable-select-input"
           value={displayValue}
           onChange={this.onChange}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           placeholder={displayPlaceholder} />
         {!isOptionsDisabled &&
-          <OpenOptions onClick={toggleOptionsList} />
+          <OpenOptions className="pb-test__editable-select-input-open-options" onClick={toggleOptionsList} />
         }
       </InputWrapper>
     );

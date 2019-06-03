@@ -19,12 +19,12 @@ const promotedOptions = [
   { value: '8', label: 'Custom Sort 2' }
 ]
 
-const darkExample = {
+const darkExample = ({width = 440} = {}) => ({
   height: '200px',
-  width: '440px',
+  width: `${width}px`,
   padding: '0',
   backgroundColor: colors.darkBlueB
-}
+})
 
 
 class FilterBarWrapper extends React.PureComponent {
@@ -76,7 +76,7 @@ storiesOf('Components', module)
             title: 'Example: Filter Bar',
             subtitle: '',
             sectionFn: () => (
-              <div style={darkExample}>
+              <div style={darkExample()}> 
                 <FilterBarWrapper onSearchComplete={action('You have searched')}/>
               </div>
             )
@@ -84,9 +84,17 @@ storiesOf('Components', module)
           {
             title: 'Example: Filter Button Hidden',
             sectionFn: () => (
-              <div style={darkExample}>
+              <div style={darkExample()}> 
                 <FilterBarWrapper
                 hideFilter={true}/>
+              </div>
+            )
+          },
+          {
+            title: 'Example: Wide Bar',
+            sectionFn: () => (
+              <div style={darkExample({width: 660})}> 
+                <FilterBarWrapper wide/>
               </div>
             )
           },

@@ -287,7 +287,10 @@ export default class DropdownButton extends React.Component {
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper id={this.state.dropdownId} isActive={this.state.dropdownActive}>
-          <ButtonBase onClick={this.handleBaseButtonClick.bind(this)}>
+          <ButtonBase
+            className="pb-test__dropdown-base-button"
+            onClick={this.handleBaseButtonClick.bind(this)}
+          >
             {this.props.icon &&
               <LeftIconSpan>
                 {this.props.icon}
@@ -298,6 +301,7 @@ export default class DropdownButton extends React.Component {
             </CenteredSpan>
           </ButtonBase>
           <CaretButton
+            className="pb-test__dropdown-caret"
             onClick={this.toggleOptionsList.bind(this)}
             ref={(el) => { this.clickEventElement = el }}>
             <CenteredSpan>

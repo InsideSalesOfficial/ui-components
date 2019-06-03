@@ -427,7 +427,8 @@ class TextInput extends React.Component {
             onChange={this.onChange}
             search={this.props.search}
             placeholder={this.usePlaceholder()}
-            autoFocus={autoFocus} />
+            autoFocus={autoFocus}
+            className="pb-test__text-input" />
           {this.props.search &&
             <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
           }

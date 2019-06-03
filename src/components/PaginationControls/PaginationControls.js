@@ -99,8 +99,16 @@ export default function PaginationControls({ currentPage, totalPages, isRequestP
 function NavigationArrows({ currentPage, totalPages, advanceAPage, goBackAPage }) {
   return (
     <span>
-      <StyledArrowBack disabled={currentPage === 1} onClick={goBackAPage} />
-      <StyledArrowForward disabled={currentPage === totalPages} onClick={advanceAPage} />
+      <StyledArrowBack
+        className="pb-test__pagination-back"
+        disabled={currentPage === 1}
+        onClick={goBackAPage}
+      />
+      <StyledArrowForward
+        className="pb-test__pagination-forward"
+        disabled={currentPage === totalPages}
+        onClick={advanceAPage}
+      />
     </span>
   );
 }

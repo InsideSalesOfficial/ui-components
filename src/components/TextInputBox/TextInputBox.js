@@ -171,7 +171,8 @@ export default class TextInputBox extends TextInput {
                     value={this.getValue()}
                     ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
                     onChange={this.onChange}
-                    placeholder={this.state.focused ? placeholder : ''} />
+                    placeholder={this.state.focused ? placeholder : ''}
+                    className="pb-test__text-input" />
                 { this.props.label &&
                     <TextBoxLabel
                         isFocused={this.state.focused}

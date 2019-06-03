@@ -47,7 +47,8 @@ const MiniInput = ({theme, value, onChange, onEnterUp, type, disabled, onFocus, 
         onChange={(e) => {
             e.stopPropagation();
             onChange(_.get(e, 'target.value'));
-        }} />
+        }}
+        className="pb-test__mini-input"/>
 
 
 MiniInput.defaultProps = {

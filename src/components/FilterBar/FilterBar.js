@@ -36,7 +36,6 @@ const ButtonsWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-basis: 0;
-  flex-grow: ${props => props.buttonsSize};
   border-left: 1px ${colors.black20} solid;
   height: 100%;
 `;
@@ -44,7 +43,9 @@ const ButtonsWrapper = styled.div`
 const StyledInteractiveElement = styled(InteractiveElement)`
   cursor: pointer;
   display: flex;
+  width: 48px;
   fill: ${colors.white60};
+  justify-content: center;
   &:hover {
     fill: ${colors.white90};
   }
@@ -109,7 +110,7 @@ class FilterBar extends React.Component {
       ))
     }
     return (
-      <ButtonsWrapper buttonsSize={_.size(buttons)}>
+      <ButtonsWrapper>
         {buttons}
       </ButtonsWrapper>
     );
@@ -119,7 +120,10 @@ class FilterBar extends React.Component {
     if(this.state.showSearch) {
     return (
         <SearchBarWrapper {...this.props}>
-          <InteractiveElement onClick={this.props.onSearchComplete}>
+          <InteractiveElement
+            onClick={this.props.onSearchComplete}
+            className="pb-test__filter-bar-complete-search"
+          >
             <Icons.SearchMaterialIcon fill={colors.black60}/>
           </InteractiveElement>
           <StyledInputItem
@@ -129,7 +133,10 @@ class FilterBar extends React.Component {
             placeholder={this.props.searchPlaceholder}
             onKeyUp={this.onKeyUp}
             autoFocus/>
-          <StyledInteractiveElement onClick={this.hideSearch}>
+          <StyledInteractiveElement
+            onClick={this.hideSearch}
+            className="pb-test__hide-search"
+          >
             <Icons.CloseIcon fill={colors.black60}/>
           </StyledInteractiveElement>
         </SearchBarWrapper>
@@ -144,6 +151,7 @@ class FilterBar extends React.Component {
           onChange={this.props.onSortOptionChange}
           headerLabel={this.props.sortLabel}
           value={this.props.selectedSortOption}
+          selectOptionsWidth={330}
           theme={{
             background: 'transparent',
             noLeftPadding: true,

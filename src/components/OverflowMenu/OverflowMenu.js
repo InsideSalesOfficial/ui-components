@@ -196,6 +196,7 @@ class OverflowMenu extends React.Component {
       const positionText = {position: 'absolute', left: '101%',  width: 'auto'}
       const mainMenu = <SelectOption
         key={idx}
+        className="pb-test__select-option"
         onMouseEnter={this.handleSelectedId(option.id, depthLevel)}
         onClick={option.isDisabled ? ()=> {} : option.action}
         isHighlighted={option.isHighlighted}
@@ -233,7 +234,10 @@ class OverflowMenu extends React.Component {
         {...this.props}
         ref={(el) => { this.clickEventElement = el }}>
         <OverflowParent>
-          <FlexInteractiveElement onClick={() => { this.toggleMenu(); }}>
+          <FlexInteractiveElement
+            className="pb-test__toggle-menu"
+            onClick={() => { this.toggleMenu(); }}
+          >
             {this.props.icon}
           </FlexInteractiveElement>
           {(this.state.menuVisible || this.props.stayOpen) &&
