@@ -122,6 +122,7 @@ import PauseOutlined from './PauseOutlined.js';
 import EmptyStateIcon from './EmptyStateIcon.js';
 import MonetizationOnIcon from './MonetizationOnIcon.js';
 import DescriptionIcon from './DescriptionIcon.js';
+import SmsIcon from './SmsIcon.js';
 
 export default {
   AddCircleIcon,
@@ -247,5 +248,6 @@ export default {
   PauseOutlined,
   EmptyStateIcon,
   MonetizationOnIcon,
-  DescriptionIcon
+  DescriptionIcon,
+  SmsIcon
 };
