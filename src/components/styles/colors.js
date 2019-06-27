@@ -5,7 +5,9 @@ export const green = {
   greenB: '#34A369',
   greenC: '#2A915E',
   green40: 'rgba(58,182,118,0.4)',
-  green10: 'rgba(58,182,118,0.1)'
+  green10: 'rgba(58,182,118,0.1)',
+  disabledGreen: '#416463',
+  disabledGreenB: '#3F6963'
 };
 
 export const tron = {
@@ -13,7 +15,9 @@ export const tron = {
   tronB: '#006580',
   tronC: '#004A5E',
   tron40: 'rgba(0,201,255,0.4)',
-  tron10: 'rgba(0,201,255,0.1)'
+  tron10: 'rgba(0,201,255,0.1)',
+  disabledTronB: '#3A5A64',
+  disabledTronC: '#335861'
 };
 
 export const blue = {
@@ -102,6 +106,9 @@ const deprecatedColors = {
   green80: 'rgba(58, 182, 118, 0.8)',
   greenBackground: '#244b4d',
   greenDarkBackground: officialColors.darkBlueD,
+  greenBWithOpacity40: '#33AF74',
+  disabledGreen: '#cbdad3',
+  disabledGreenB: '#bcd3c8',
   darkGreen: '#204244',
   fontDarkGreen: '#0E2E2E',
   greenCard: officialColors.darkBlueB,
@@ -142,6 +149,8 @@ const deprecatedColors = {
   mineShaft: '#333333',
   dustyGray: officialColors.grayC,
   doveGray: officialColors.grayD,
+  disabledTronB: '#c4d0d3',
+  disabledTronC: '#adbfc5'
 };
 
 export const colors = Object.assign(deprecatedColors, officialColors);

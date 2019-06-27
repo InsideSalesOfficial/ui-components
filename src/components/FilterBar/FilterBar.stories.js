@@ -19,12 +19,12 @@ const promotedOptions = [
   { value: '8', label: 'Custom Sort 2' }
 ]
 
-const darkExample = {
+const darkExample = ({width = 440} = {}) => ({
   height: '200px',
-  width: '440px',
+  width: `${width}px`,
   padding: '0',
   backgroundColor: colors.darkBlueB
-}
+})
 
 
 class FilterBarWrapper extends React.PureComponent {
@@ -42,10 +42,12 @@ class FilterBarWrapper extends React.PureComponent {
       promotedSortOptions={promotedOptions}
       selectedSortOption={this.state.sortValue}
       sortLabel={'Sort By'}
+      onSearchComplete={this.props.onSearchComplete}
       onSortOptionChange={(value) => {
         this.setState({ sortValue: value})
       }}
       onClickFilter={action('on clicked filter')}
+      onSearchClear={action('on search clear')}
       onSearchChange={
         (value) => {
           this.setState({ searchValue: value})
@@ -74,17 +76,25 @@ storiesOf('Components', module)
             title: 'Example: Filter Bar',
             subtitle: '',
             sectionFn: () => (
-              <div style={darkExample}>
-                <FilterBarWrapper/>
+              <div style={darkExample()}> 
+                <FilterBarWrapper onSearchComplete={action('You have searched')}/>
               </div>
             )
           },
           {
             title: 'Example: Filter Button Hidden',
             sectionFn: () => (
-              <div style={darkExample}>
+              <div style={darkExample()}> 
                 <FilterBarWrapper
                 hideFilter={true}/>
+              </div>
+            )
+          },
+          {
+            title: 'Example: Wide Bar',
+            sectionFn: () => (
+              <div style={darkExample({width: 660})}> 
+                <FilterBarWrapper wide/>
               </div>
             )
           },

@@ -197,11 +197,13 @@ const CenteredSpan = styled.span`
   margin: 0;
 `;
 
+const buttonSelector = 'pb-test__button';
+
 export const Button = ({ className, label, loading, onClick, ...props }) => {
   const debouncedOnClick = _.debounce(onClick, 175);
 
   return <ButtonBase
-    className={className}
+    className={className ? [buttonSelector, className].join(' ') : buttonSelector}
     onClick={() => { if (!loading && !props.fade && onClick) { debouncedOnClick(); } }}
     loading={loading}
     {...props}

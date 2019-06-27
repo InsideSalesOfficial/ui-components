@@ -41,6 +41,41 @@ storiesOf('Components', module)
                 />
               )
             },
+            {
+              title: 'Basic Modal w/ danger',
+              sectionFn: () => (
+                <MessageDialog
+                  dialogTitle={'Email Deletion'}
+                  bodyElement={
+                    <div>
+                      Your email will be removed from the account.
+                    </div>
+                  }
+                  secondaryActionText='Cancel'
+                  onSecondaryActionClick={action('onSecondaryActionClick')}
+                  primaryActionText='Delete'
+                  onPrimaryActionClick={action('onPrimaryActionClick')}
+                  primaryActionDanger
+                  center
+                  onStoryBook
+                />
+              )
+            },
+            {
+              title: 'Modal with no actions',
+              sectionFn: () => (
+                <MessageDialog
+                  dialogTitle="Syncing from Salesforce"
+                  bodyElement={
+                    <p>
+                      Syncing information from Salesforce may take a few seconds...
+                    </p>
+                  }
+                  center
+                  onStoryBook
+                />
+              )
+            }
           ]
         }
       ]

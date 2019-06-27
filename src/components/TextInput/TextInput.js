@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { get, filter } from 'lodash';
 import _ from 'lodash';
+import { RequiredText } from '../RequiredText/RequiredText';
 
 import Icons from '../icons';
 import { colors, typography, darkScrollbar } from '../styles';
@@ -48,13 +49,22 @@ const Caret = styled.div`
 `;
 
 export const TextBox = styled.div`
+  border: ${(props) => {
+    return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
+  }};
+  border-radius: ${(props) => {
+    if (props.disabled) {
+      return '3px';
+    }
+    return '0';
+  }};
   background-color: ${colors.white};
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
     if (props.error) {
       return colors.red;
     } else if (props.isFocused) {
-        return colors.green;
+      return colors.green;
     } else if (props.disabled) {
       return colors.black20;
     } else if (props.lineColor) {
@@ -63,18 +73,18 @@ export const TextBox = styled.div`
     return colors.black40;
   }};
   border-width: ${(props) => {
-    if (props.isFocused || props.error) {
+    if (props.isFocused || props.error || props.disabled) {
       return '2px';
     }
     return '1px';
   }};
   box-sizing: border-box;
   cursor: ${(props) => {
-        if (props.disabled) {
-          return 'default';
-        }
-        return 'text';
-      }};
+    if (props.disabled) {
+      return 'default';
+    }
+    return 'text';
+  }};
   padding-top: 24px;
   padding-bottom: ${(props) => {
     if (props.error || props.isFocused) {
@@ -88,17 +98,8 @@ export const TextBox = styled.div`
   width: 100%;
 
   &:hover {
-    border-width: ${(props) => {
-      if (props.disabled) {
-        return '1px';
-      }
-      return '2px';
-    }};
-    padding-bottom: ${(props) => {
-      if (props.disabled) {
-        return '8px';
-      }
-      return '7px';
+    border-width: 2px;
+    padding-bottom: 7px;
     }};
   }
 
@@ -137,16 +138,16 @@ export const InputItem = styled.input`
 
 export const TextLabel = styled.label`
   color: ${(props) => {
-      if (props.error) {
-        return colors.red;
-      } else if (props.isFocused) {
-        return props.theme.focusedColor || colors.green;
-      } else if (props.labelColor) {
-        return props.labelColor;
-      } else {
-        return colors.black60;
-      }
-    }};
+    if (props.error) {
+      return colors.red;
+    } else if (props.isFocused) {
+      return props.theme.focusedColor || colors.green;
+    } else if (props.labelColor) {
+      return props.labelColor;
+    } else {
+      return colors.black60;
+    }
+  }};
   top: 0;
   left: 1px;
   position: absolute;
@@ -169,7 +170,9 @@ export const TextLabel = styled.label`
 `;
 
 export const TextInputHelper = styled.div`
-  color: ${colors.black40};
+   color: ${(props) => {
+    return props.theme.helperColor || colors.black40;
+  }};
   padding-top: 4px;
   ${typography.caption}
 `;
@@ -204,9 +207,9 @@ class TextInput extends React.Component {
   toggleOptionsList = () => { toggleOptionsList.call(this) }
 
   componentDidMount() {
-    const {value} = this.props;
+    const { value } = this.props;
 
-    if (value) {
+    if (value !== undefined && value !== '') {
       this.setState({
         value
       });
@@ -220,9 +223,9 @@ class TextInput extends React.Component {
       });
     }
   }
-  
-  handleCursorPositionChange = () =>  {
-    if(this.props.onSelectionStartChange) {
+
+  handleCursorPositionChange = () => {
+    if (this.props.onSelectionStartChange) {
       this.props.onSelectionStartChange(this.textInputEl.selectionStart);
     }
   }
@@ -236,7 +239,7 @@ class TextInput extends React.Component {
 
   blurred = () => {
     document.removeEventListener('keyup', this.handleCursorPositionChange)
-    if(!this.state.cancelBlur) {
+    if (!this.state.cancelBlur) {
       this.setState({
         focused: false
       });
@@ -250,7 +253,7 @@ class TextInput extends React.Component {
   renderHelperText = () => {
     const { error, helper, collapsed } = this.props;
 
-    if((!error || _.isBoolean(error)) && !helper) {
+    if ((!error || _.isBoolean(error)) && !helper) {
       return null;
     }
 
@@ -261,7 +264,17 @@ class TextInput extends React.Component {
     if (error) {
       return (<TextInputError>{error}</TextInputError>);
     }
+
     return (<TextInputHelper>{helper}</TextInputHelper>);
+  }
+
+  renderRequiredText = () => {
+    const { required, collapsed } = this.props;
+    const message = "Required";
+
+    if (!this.state.focused && !this.getValue() && !collapsed && required) {
+      return (<RequiredText>{message}{required}</RequiredText>);
+    }
   }
 
   focusOnTextInput = () => {
@@ -295,7 +308,7 @@ class TextInput extends React.Component {
   }
 
   scrollToTop() {
-    if(get(ReactDOM.findDOMNode(this.optionsRef), 'scrollTop', false)) {
+    if (get(ReactDOM.findDOMNode(this.optionsRef), 'scrollTop', false)) {
       ReactDOM.findDOMNode(this.optionsRef).scrollTop = 0;
     }
   }
@@ -305,11 +318,11 @@ class TextInput extends React.Component {
       e.preventDefault();
     }
 
-    if(!this.state.optionsListVisible) {
+    if (!this.state.optionsListVisible) {
       this.toggleOptionsList();
     }
 
-    const value =  get(e, 'target.value', this.textInputEl.value)
+    const value = get(e, 'target.value', this.textInputEl.value)
 
     this.setState({
       value,
@@ -333,11 +346,11 @@ class TextInput extends React.Component {
     const valIndex = opt.value.toLowerCase().indexOf(value);
     const labelIndex = opt.label.toLowerCase().indexOf(value);
 
-    if(valIndex === -1 && labelIndex !== -1) {
+    if (valIndex === -1 && labelIndex !== -1) {
       return labelIndex;
     }
 
-    if(labelIndex === -1 && valIndex !== -1) {
+    if (labelIndex === -1 && valIndex !== -1) {
       return valIndex;
     }
 
@@ -350,8 +363,8 @@ class TextInput extends React.Component {
     const lowerValue = this.getValue().toLowerCase();
     return this.getValue()
       ? filter(this.props.options, o =>
-          o.value.toLowerCase().indexOf(lowerValue) > -1 ||
-          o.label.toLowerCase().indexOf(lowerValue) > -1)
+        o.value.toLowerCase().indexOf(lowerValue) > -1 ||
+        o.label.toLowerCase().indexOf(lowerValue) > -1)
         .sort((a, b) => this.findBestOptionIndex(a, lowerValue) - this.findBestOptionIndex(b, lowerValue))
       : [];
   }
@@ -376,9 +389,12 @@ class TextInput extends React.Component {
       className,
       options,
       promotedOptions,
+      maxLength,
       lowPadding,
       labelColor,
       lineColor,
+      outlinedSearch,
+      autoFocus
     } = this.props;
 
     return (
@@ -392,9 +408,9 @@ class TextInput extends React.Component {
           onClick={this.focusOnTextInput}
           isFocused={this.state.focused}
           error={error}
-          open={this.getValue()}
           disabled={disabled}
           lineColor={lineColor}
+          outlinedSearch={outlinedSearch}
           collapsed={collapsed}>
           <InputItem
             type={this.getInputType(inputType)}
@@ -405,23 +421,27 @@ class TextInput extends React.Component {
             name={name}
             disabled={disabled}
             error={error}
+            maxLength={maxLength}
             value={this.getValue()}
             ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}
             search={this.props.search}
-            placeholder={this.usePlaceholder()} />
+            placeholder={this.usePlaceholder()}
+            autoFocus={autoFocus}
+            className="pb-test__text-input" />
           {this.props.search &&
             <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
           }
-          { !this.props.search &&
-            <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue()} htmlFor={name} error={error}>{label}</TextLabel>
+          {!this.props.search &&
+            <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue() !== '' && this.getValue() !== undefined} htmlFor={name} error={error}>{label}</TextLabel>
           }
         </TextBox>
-        { options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
+        {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
         {this.renderHelperText()}
-        { options && <SelectOptions
+        {this.renderRequiredText()}
+        {options && <SelectOptions
           onOptionUpdate={this.onDropDownSelect}
-          promotedOptions={promotedOptions || this.getPromotedOptions() }
+          promotedOptions={promotedOptions || this.getPromotedOptions()}
           options={options}
           optionsCount={options.length}
           visible={this.state.optionsListVisible}
@@ -439,17 +459,17 @@ class TextInput extends React.Component {
 const DEFAULT_LABEL = 'Label';
 
 TextInput.defaultProps = {
-  name: 'Name',
   label: DEFAULT_LABEL,
   onSelectionStartChange: _.noop,
   stateless: false,
 };
 
 TextInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired,
   inputType: PropTypes.string,
   helper: PropTypes.string,
+  required: PropTypes.bool,
   error: PropTypes.any,
   disabled: PropTypes.bool,
   value: PropTypes.string,

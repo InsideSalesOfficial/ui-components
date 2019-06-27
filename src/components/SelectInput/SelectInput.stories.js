@@ -244,6 +244,19 @@ storiesOf('Form', module)
               </div>
             )
           },
+          {
+            title: 'Dropdown Max Height',
+            sectionFn: () => (
+              <div style={{...darkExample}}>
+                <SelectInput
+                  onChange={action('Option Selected')}
+                  options={genericOptions}
+                  value={selectedOptions}
+                  maxHeight={'600px'}
+                  multiSelect />
+              </div>
+            )
+          },
         ]
       }
     ]

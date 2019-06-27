@@ -2,7 +2,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
-
+import { RequiredText } from '../RequiredText/RequiredText';
 import { isValued } from './utils';
 
 import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsListOnSearch } from '../SelectInput';
@@ -68,17 +68,16 @@ const Caret = styled.div`
   }
 `;
 
-export const Value = styled.button`
+export const Value = styled.div`
   border: 0;
   display: block;
   width: 100%;
   text-align: left;
   ${typography.subhead1};
-  color: ${(props) => {
+  color: ${props => {
     if (props.error) {
       return colors.red;
     }
-
     if (props.isPlaceHolder) {
       return colors.black60;
     }
@@ -90,7 +89,7 @@ export const Value = styled.button`
     return colors.black90;
   }};
   height: 56px;
-  padding: 22px ${padding} 0 ${(props) => {
+  padding: 22px 26px 0 ${(props) => {
     if (props.theme.leftDisplayPosition) {
       return props.theme.leftDisplayPosition;
     }
@@ -132,19 +131,9 @@ export const Value = styled.button`
 
     return '2px';
   }};
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  &:focus {
-    outline: 0;
-    border-color: ${props => {
-      if (props.error) {
-        return colors.red;
-      }
-      return props.isDisabled ? 'transparent' : colors.green
-    }};
-  }
 `;
 
 
@@ -159,10 +148,31 @@ export const Wrapper = styled.div`
 
     return 'auto';
   }};
+`;
 
+export const SelectToggle = styled.button`
+  display: block;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+  cursor: pointer;
+  ${typography.subhead1}
   ${props => props.isDisabled && `
     opacity: 0.6;
   `}
+
+  &:focus ${Value} {
+    outline: 0;
+    border-color: ${props => {
+      if (props.error) {
+        return colors.red;
+      }
+      return props.isDisabled ? 'transparent' : colors.green
+    }};
+  }
 `;
 
 export default class SelectInputLabelBox extends React.Component {
@@ -204,12 +214,23 @@ export default class SelectInputLabelBox extends React.Component {
     if(this.props.multiSelect) {
       if(_.includes(this.props.value, newValue)) {
         this.props.onChange(_.without(this.props.value, newValue));
-      } else {
+      } else if (_.isArray(this.props.value)) {
         this.props.onChange(_.concat(this.props.value, [newValue]));
+      } else {
+        this.props.onChange([newValue]);
       }
     } else {
       this.props.onChange(newValue);
       this.closeOptionsList();
+    }
+  }
+
+  renderRequiredText = () => {
+    const { required, value } = this.props;
+    const message = "Required";
+
+    if (!value && !_.isBoolean(value) && !this.state.optionsListVisible && required) {
+      return (<RequiredText>{message}{required}</RequiredText>);
     }
   }
 
@@ -233,7 +254,7 @@ export default class SelectInputLabelBox extends React.Component {
     if (!_.isNil(value)) {
       const optionObject = _.find(copiedOptions, { value });
 
-      if (multiSelect && _.size(value)) {
+      if (multiSelect && _.isArray(value) && _.size(value)) {
         inputLabel = `${_.size(value)} Selected`;
       } else if (optionObject && optionObject.label) {
         inputLabel = optionObject.label;
@@ -256,21 +277,27 @@ export default class SelectInputLabelBox extends React.Component {
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper
-          {...this.props}
+          className={this.props.className}
           ref={(el) => { this.clickEventElement = el }}
           >
-          <Caret open={this.state.optionsListVisible} />
-          <Label error={this.props.error}value={this.props.value}>{this.props.label}</Label>
-          <Value
-            onClick={this.toggleOptionsList}
-            open={this.state.optionsListVisible}
-            isDisabled={this.props.isDisabled}
-            title={optionLabel}
-            isPlaceHolder={this.props.isPlaceHolder}
-            className="select-input-label-box-value"
-            error={this.props.error}
-          >{optionLabel}</Value>
+          <SelectToggle
+          onClick={this.toggleOptionsList} isDisabled={this.props.isDisabled}
+          className="pb-test__select-input"
+          >
+            <Caret open={this.state.optionsListVisible} />
+            <Label error={this.props.error}value={this.props.value}>{this.props.label}</Label>
+            <Value
+              open={this.state.optionsListVisible}
+              isDisabled={this.props.isDisabled}
+              title={optionLabel}
+              isPlaceHolder={this.props.isPlaceHolder}
+              className="select-input-label-box-value"
+              error={this.props.error}
+            >{optionLabel}</Value>
+          </SelectToggle>
+          {this.renderRequiredText()}
           <SelectOptions
+            isDisabled={this.props.isDisabled}
             selectedOptions={this.props.value}
             promotedOptions={promotedOptions}
             onOptionUpdate={this.onChange}
@@ -295,7 +322,8 @@ SelectInputLabelBox.defaultProps = {
   isDisabled: false,
   theme: {},
   isPlaceHolder: false,
-  error: false
+  error: false,
+  onChange: _.noop
 }
 
 SelectInputLabelBox.propTypes = {

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, {ThemeProvider}  from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
-import { get, size } from 'lodash';
+import { get, size, isEqual } from 'lodash';
 
-import { colors, typography, darkScrollbar } from '../styles';
-import {defaultTheme} from './TextareaInputThemes'
+import { colors, typography, darkScrollbar, lightScrollbar } from '../styles';
+import { defaultTheme } from './TextareaInputThemes'
 
 const TextareaInputWrapper = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ const TextareaBox = styled.div`
       return colors.black20;
     } else if (props.lineColor) {
       return props.lineColor;
-    } else  {
+    } else {
       return props.theme.borderColor;
     }
   }};
@@ -114,7 +114,7 @@ const TextareaBox = styled.div`
           color: ${colors.black40};
         }
       `;
-     }
+    }
   }}
   `;
 
@@ -140,7 +140,13 @@ width: 100%;
   padding: 0 15px;
 }
 ${typography.subhead1}
-${darkScrollbar}
+
+${(props) => {
+    if (isEqual(props.theme,defaultTheme))
+      return darkScrollbar;
+    else
+      return lightScrollbar;
+  }};
 
   &::-webkit-input-placeholder {
     color: ${colors.black40};
@@ -157,7 +163,7 @@ color: ${(props) => {
       return props.labelColor;
     } else {
       return props.theme.labelColor;
-    } 
+    }
   }};
 top: ${(props) => {
     if (props.error || props.isFocused || props.placeholder) {
@@ -279,7 +285,7 @@ class TextareaInput extends React.Component {
   }
 
   componentDidMount() {
-    const {value} = this.props;
+    const { value } = this.props;
 
     if (value) {
       this.setState({
@@ -295,7 +301,7 @@ class TextareaInput extends React.Component {
   }
 
   blurred = () => {
-    if(!this.state.cancelBlur) {
+    if (!this.state.cancelBlur) {
       this.setState({
         focused: false
       });
@@ -401,49 +407,49 @@ class TextareaInput extends React.Component {
 
     return (
       <ThemeProvider theme={this.props.theme}>
-      <TextareaInputWrapper className={className}>
-        <TextareaBox
-          onMouseUp={this.removeCancelBlur}
-          onMouseDown={this.cancelBlur}
-          onMouseLeave={this.removeCancelBlur}
-          onClick={this.focusOnTextarea}
-          lineColor={lineColor}
-          isFocused={this.state.focused}
-          error={error || localError}
-          open={this.state.value}
-          disabled={disabled}
-          collapsed={collapsed}>
-          <Textarea
-            onFocus={this.focused}
-            onBlur={this.blurred}
-            id={name}
-            name={name}
-            disabled={disabled}
-            error={error || localError}
-            value={this.state.value}
-            ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
-            onChange={this.onChange}
-            placeholder={placeholder}>
-          </Textarea>
-          <TextLabel
+        <TextareaInputWrapper className={className}>
+          <TextareaBox
+            onMouseUp={this.removeCancelBlur}
+            onMouseDown={this.cancelBlur}
+            onMouseLeave={this.removeCancelBlur}
+            onClick={this.focusOnTextarea}
+            lineColor={lineColor}
             isFocused={this.state.focused}
-            labelColor={labelColor}
-            open={this.state.value}
-            htmlFor={name}
             error={error || localError}
-            placeholder={placeholder}>
-            {label}
-          </TextLabel>
-        </TextareaBox>
-        {this.renderFooterText()}
-      </TextareaInputWrapper>
+            open={this.state.value}
+            disabled={disabled}
+            collapsed={collapsed}>
+            <Textarea
+              onFocus={this.focused}
+              onBlur={this.blurred}
+              className="pb-test__textarea-input"
+              id={name}
+              name={name}
+              disabled={disabled}
+              error={error || localError}
+              value={this.state.value}
+              ref={(input) => { this.textareaInput = ReactDOM.findDOMNode(input); }}
+              onChange={this.onChange}
+              placeholder={placeholder}>
+            </Textarea>
+            <TextLabel
+              isFocused={this.state.focused}
+              labelColor={labelColor}
+              open={this.state.value}
+              htmlFor={name}
+              error={error || localError}
+              placeholder={placeholder}>
+              {label}
+            </TextLabel>
+          </TextareaBox>
+          {this.renderFooterText()}
+        </TextareaInputWrapper>
       </ThemeProvider>
     );
   }
 }
 
 TextareaInput.defaultProps = {
-  name: 'Name',
   label: 'Label',
   charLimit: 0,
   error: '',
@@ -452,7 +458,7 @@ TextareaInput.defaultProps = {
 };
 
 TextareaInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string.isRequired,
   helper: PropTypes.string,
   error: PropTypes.string,

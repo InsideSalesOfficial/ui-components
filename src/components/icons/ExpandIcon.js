@@ -1,8 +1,9 @@
 import React from 'react';
 
-const ExpandIcon = () => (
+const ExpandIcon = props => (
       <svg width="16px" height="16px" x="0px" y="0px" viewBox="0 0 16 16" fill="white">
-        <g id="expand">
+            {props.title && <title>{props.title}</title>}
+            <g id="expand">
             <g id="Email-Client">
                 <g id="Expand-Icon">
                     <polygon id="Shape" fill="none" points="-4,-4 20,-4 20,20 -4,20       "/>
@@ -12,6 +13,6 @@ const ExpandIcon = () => (
             </g>
         </g>
         </svg>
-  );
+);
 
 export default ExpandIcon;

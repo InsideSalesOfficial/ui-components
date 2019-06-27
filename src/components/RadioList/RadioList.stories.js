@@ -181,6 +181,18 @@ storiesOf('Form', module)
               )
             }
           },
+          {
+            title: 'Example: Wrapping text',
+            subtitle: 'A Radio List with long text that wraps',
+            sectionFn: () => {
+              return <div style={{width: '150px'}}><RadioListComponent
+                radios={[{
+                  value: 3,
+                  id: 'abc123',
+                  label: 'Hello World This Text is Long'
+                }]} /></div>
+            }
+          }
         ]
       }
     ]

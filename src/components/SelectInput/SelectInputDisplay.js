@@ -24,7 +24,12 @@ const Input = styled.div`
 
     return colors.white10;
   }};
-  border-radius: 2px;
+  border-radius: ${(props) => {
+    if (props.theme.borderRadius) {
+      return `${props.theme.borderRadius}px`
+    }
+    return '2px';
+  }};
   box-sizing: border-box;
   border-bottom: ${(props) => {
     if (props.theme.borderColor) {
@@ -178,7 +183,9 @@ const Label = styled.div`
     if (props.theme.textPaddingRight) return props.theme.textPaddingRight;
     return 0;
   }};
-
+  padding-left: ${(props) => {
+    return props.theme.textPaddingLeft || 0;
+  }};
   text-transform: ${(props) => {
     if (props.theme.textTransform) return props.theme.textTransform;
     return 'inherit';
@@ -207,6 +214,7 @@ const AddButton = styled.div`
 `;
 
 const LabelWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -218,10 +226,10 @@ class SelectInputDisplay extends React.Component {
     const clonedLabel = typeof (label) === 'string' ? <OverflowWrapper>{label}</OverflowWrapper> : React.cloneElement(label, { isClickable: true });
 
     return (
-      <div style={{width: '100%'}}>
+      <div style={{ width: '100%' }}>
 
         {this.props.addButtonList &&
-          <AddButton><Icons.AddCircleIcon fill={colors.green} size={{width: 24, height: 24}} /> {defaultLabel}</AddButton>
+          <AddButton><Icons.AddCircleIcon fill={colors.green} size={{ width: 24, height: 24 }} /> {defaultLabel}</AddButton>
         }
         {!this.props.addButtonList &&
           <Input
