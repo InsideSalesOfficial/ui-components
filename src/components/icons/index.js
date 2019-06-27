@@ -71,6 +71,8 @@ import InfoOutlineIcon from './InfoOutlineIcon';
 import StarFilledIcon from './StarFilledIcon';
 import TagsIcon from './TagsIcon';
 import TeamsIcon from './TeamsIcon';
+import ThumbsDown from './ThumbsDown';
+import ThumbsUp from './ThumbsUp'
 
 export default {
   AddCircleIcon,
@@ -145,5 +147,7 @@ export default {
   InfoOutlineIcon,
   StarFilledIcon,
   TagsIcon,
-  TeamsIcon
+  TeamsIcon,
+  ThumbsDown,
+  ThumbsUp
 };
