@@ -235,7 +235,7 @@ export default {
   TodayIcon,
   TrashIcon,
   ThumbsDown,
-  ThumbsUp
+  ThumbsUp,
   TrophyIcon,
   UpdateFilledIcon,
   VerifyFilledIcon,
