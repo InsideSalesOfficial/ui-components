@@ -25,6 +25,14 @@ storiesOf('Form', module)
             sectionFn: () => (
               <Checkbox/>
             )
+          },
+          {
+            title: 'With label',
+            sectionFn: () => (
+              <Checkbox
+                label={'Some Checkbox'}
+              />
+            )
           }
         ]
       }

@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { colors } from '../styles';
 
 const SliderBase = styled.label`
-    cursor: pointer;
-    display: inline-block;
-    height: 14px;
-    position: relative;
-    width: 37px;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  display: inline-block;
+  height: 14px;
+  position: relative;
+  width: 37px;
 `;
 
 const SliderInput = styled.input`
@@ -68,8 +68,9 @@ const SliderTrack = styled.div`
 class ToggleSlider extends React.PureComponent {
   render() {
     return (
-      <SliderBase>
+      <SliderBase disabled={this.props.disabled}>
         <SliderInput
+          className="pb-test__toggle-slider"
           type="checkbox"
           disabled={this.props.disabled}
           onChange={this.props.toggle}

@@ -136,6 +136,7 @@ class RangeSlider extends React.Component {
           maxValue={this.props.maxValue}
           minValue={this.props.minValue}
           onChange={this.setValue}
+          className="pb-test__ranger-slider"
           step={this.props.step}
           value={this.state.value} />
       </RangeSliderWrap>

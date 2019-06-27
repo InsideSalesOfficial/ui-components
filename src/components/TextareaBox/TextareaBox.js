@@ -13,7 +13,7 @@ const padding = '16px';
 const TextareaBoxWrapper = styled.div`
   width: 100%;
   position: relative;
-    
+
   ${props => props.disabled && `
     opacity: 0.6;
   `}
@@ -134,8 +134,9 @@ class TextareaBox extends TextInput {
   }
 
   render() {
-    const { label, name, error, disabled, collapsed, className } = this.props;
+    const { label, name, disabled, collapsed, className } = this.props;
     const value = this.state.value.slice(0, this.props.max);
+    const error = this.props.error || (this.props.max && _.size(this.state.value) > this.props.max)
     return (
       <TextareaBoxWrapper
         className={className}
@@ -158,6 +159,7 @@ class TextareaBox extends TextInput {
             value={value}
           >{value}</TextareaMeasuring>
           <TextareaBoxField
+            className="pb-test__textarea-box"
             onFocus={this.focused}
             onBlur={this.blurred}
             id={name}
@@ -171,15 +173,14 @@ class TextareaBox extends TextInput {
             focused={this.state.focused}/>
           <TextBoxLabel isFocused={this.state.focused} open={this.state.value} htmlFor={name} error={error}>{label}</TextBoxLabel>
         </TextBoxFilled>
-        {this.state.focused && <Chars error={error}>{`${this.state.value.length} / ${this.props.max}`}</Chars>}
-        
+        {this.state.focused && this.props.max && <Chars error={error}>{`${_.size(this.state.value)} / ${this.props.max}`}</Chars>}
+
       </TextareaBoxWrapper>
     );
   }
 }
 
 TextareaBox.defaultProps = {
-  max: 256,
 }
 
 TextareaBox.propTypes = {

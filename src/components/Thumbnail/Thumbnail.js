@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { boxShadows, colors } from '../styles';
 
 const Box = styled.div`
+    color: ${colors.black80};
     position: absolute;
     border-radius: 4px;
     background: white;

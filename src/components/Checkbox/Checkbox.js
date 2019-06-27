@@ -1,9 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import { typography, colors } from '../styles';
 
-import { GREEN_CHECKBOX, GRAY_CHECKBOX } from './CheckboxIcons';
+import { GREEN_CHECKBOX, GRAY_CHECKBOX, GREEN_DISABLED_CHECKBOX } from './CheckboxIcons';
+import { defaultTheme } from './CheckboxThemes';
 
 const CheckboxEl = styled.input`
   position: relative;
@@ -23,7 +26,11 @@ const CheckboxEl = styled.input`
     border: none;
     background-image: url(${GREEN_CHECKBOX});
     &:disabled {
-      background-image: url(${GRAY_CHECKBOX});
+      background-image: ${props => props.greenDisabled ? `url(${GREEN_DISABLED_CHECKBOX})` : `url(${GRAY_CHECKBOX})`};
+      background-color: transparent;
+    }
+    &:greenDisabled {
+      background-image: url(${GREEN_DISABLED_CHECKBOX});
       background-color: transparent;
     }
   }
@@ -40,23 +47,48 @@ const CheckboxEl = styled.input`
 `;
 
 const Text = styled.label`
-  color: ${(props) => {
-    if (props.onWhite) {
-      return colors.black90;
-    }
-    return colors.lightGray;
-  }};
+  color: ${props => props.theme.labelColor};
   vertical-align: middle;
   ${typography.subhead1}
 `;
 
-export const Checkbox = ({ label, defaultChecked, checked, disabled, name, onChange, className, onWhiteBg }) => (
+const Checkbox = ({ label, defaultChecked, checked, disabled, name, onChange, className, theme, greenDisabled }) => (
+  <ThemeProvider theme={theme}>
     <div className={className}>
-      <CheckboxEl onChange={e => e.stopPropagation()} id={name} name={name} type="checkbox" defaultChecked={defaultChecked} checked={checked} disabled={disabled} onClick={ onChange } />
+      <CheckboxEl
+        onChange={e => e.stopPropagation()}
+        id={name}
+        name={name}
+        type="checkbox"
+        greenDisabled={greenDisabled}
+        defaultChecked={defaultChecked}
+        checked={checked}
+        disabled={disabled}
+        className="pb-test__checkbox"
+        onClick={ onChange } />
       {label && (
-        <Text htmlFor={name} onWhite={onWhiteBg}>{label}</Text>
+        <Text htmlFor={name}>{label}</Text>
       )}
     </div>
-  );
+  </ThemeProvider>
+);
+
+Checkbox.propTypes = {
+  label: PropTypes.string,
+  defaultChecked: PropTypes.bool,
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  name: PropTypes.name,
+  onChange: PropTypes.func,
+  className: PropTypes.string,
+  theme: PropTypes.object
+};
+
+Checkbox.defaultProps = {
+  defaultChecked: false,
+  disabled: false,
+  onChange: _.noop,
+  theme: defaultTheme
+};
 
 export default Checkbox;

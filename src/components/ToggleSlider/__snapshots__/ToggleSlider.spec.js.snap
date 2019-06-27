@@ -2,11 +2,12 @@
 
 exports[`ToggleSlider Snapshots shows disabled 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eZMVZj"
+  disabled={true}
 >
   <input
     checked={false}
-    className="sc-bwzfXH eKeXgs"
+    className="pb-test__toggle-slider sc-bwzfXH eKeXgs"
     disabled={true}
     onChange={[Function]}
     type="checkbox"
@@ -21,11 +22,12 @@ exports[`ToggleSlider Snapshots shows disabled 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eouhrO"
+  disabled={false}
 >
   <input
     checked={false}
-    className="sc-bwzfXH eKeXgs"
+    className="pb-test__toggle-slider sc-bwzfXH eKeXgs"
     disabled={false}
     onChange={[Function]}
     type="checkbox"
@@ -40,11 +42,12 @@ exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled on 1`] = `
 <label
-  className="sc-bdVaJa equNwL"
+  className="sc-bdVaJa eouhrO"
+  disabled={false}
 >
   <input
     checked={true}
-    className="sc-bwzfXH eKeXgs"
+    className="pb-test__toggle-slider sc-bwzfXH eKeXgs"
     disabled={false}
     onChange={[Function]}
     type="checkbox"
