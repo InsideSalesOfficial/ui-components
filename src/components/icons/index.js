@@ -69,6 +69,8 @@ import MobilePhoneIcon from './MobilePhoneIcon';
 import MoreVertIcon from './MoreVertIcon';
 import MoveIcon from './MoveIcon';
 import NeuralIcon from './NeuralIcon';
+import NoAnswerIcon from './NoAnswerIcon';
+import NoAnswerMobileIcon from './NoAnswerMobileIcon';
 import NotificationBellIcon from './NotificationBellIcon';
 import OpenInNewIcon from './OpenInNewIcon';
 import OtherFilledIcon from './OtherFilledIcon';
@@ -109,6 +111,7 @@ import TeamsIcon from './TeamsIcon';
 import ThumbsDown from './ThumbsDown';
 import ThumbsUp from './ThumbsUp';
 import UpdateFilledIcon from './UpdateFIlledIcon';
+import VerifiedMobilePhoneIcon from './VerifiedMobilePhoneIcon';
 import VerifyFilledIcon from './VerifyFilledIcon';
 import VerifyIcon from './VerifyIcon';
 import VideoLibraryIcon from './VideoLibraryIcon';
@@ -200,6 +203,8 @@ export default {
   MoreVertIcon,
   MoveIcon,
   NeuralIcon,
+  NoAnswerIcon,
+  NoAnswerMobileIcon,
   NotificationBellIcon,
   OpenInNewIcon,
   OtherFilledIcon,
@@ -238,6 +243,7 @@ export default {
   ThumbsUp,
   TrophyIcon,
   UpdateFilledIcon,
+  VerifiedMobilePhoneIcon,
   VerifyFilledIcon,
   VerifyIcon,
   VideoLibraryIcon,
