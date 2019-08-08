@@ -96,7 +96,7 @@ class FilterBar extends React.Component {
     const buttons =
     [
       (
-        <StyledInteractiveElement className='pb-test__search-button' onClick={this.showSearch}>
+        <StyledInteractiveElement className='pb-test__search-button' id={this.props.searchButtonID} onClick={this.showSearch}>
           <Icons.SearchMaterialIcon/>
         </StyledInteractiveElement>
       )
@@ -129,6 +129,7 @@ class FilterBar extends React.Component {
           <StyledInputItem
             type={'text'}
             className='pb-test__search-bar'
+            id={this.props.searchInputID}
             onChange={this.onSearchChange}
             placeholder={this.props.searchPlaceholder}
             onKeyUp={this.onKeyUp}
@@ -195,6 +196,8 @@ FilterBar.propTypes = {
   hideFilter: PropTypes.bool,
   onSearchComplete: PropTypes.func,
   onSearchClear: PropTypes.func,
+  searchButtonID: PropTypes.string,
+  searchInputID: PropTypes.string,
 };
 
 export default FilterBar;
