@@ -55,4 +55,5 @@ export {
 export {
   default as PaginationControls
 } from './PaginationControls';
-export { colors, boxShadows, scrollbars, typography } from './styles'
+export { colors, boxShadows, scrollbars, typography } from './styles';
+export { default as NeuralVerifyISC} from './NeuralVerify';
