@@ -5,7 +5,7 @@ import Icons from '../icons';
 
 import { colors } from '../styles';
 
-import { NeuralVerifyFlyout } from './neural-verify-flyout.js';
+import { NeuralVerifyFlyout } from './neural-verify-flyout';
 import { verifiedStates } from './constants';
 import { getVerifiedState } from './utils';
 
@@ -63,7 +63,7 @@ const orangeIconStyleSmall = {
   width: '20px'
 };
 
-class NeuralVerifyISC extends React.Component {
+class NeuralVerifyShield extends React.Component {
   constructor(props) {
     super(props);
 
@@ -72,24 +72,8 @@ class NeuralVerifyISC extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const previousVerifiedState = _.get(this.props, 'neuralVerified.state');
-    const previousVerifiedDetail = _.get(this.props, 'neuralVerified.detail');
-    const previousCarrier = _.get(this.props, 'neuralVerified.carrier', null);
-
-    const nextVerifiedState = _.get(nextProps, 'neuralVerified.state', 0);
-    const nextVerifiedDetail = _.get(nextProps, 'neuralVerified.detail', {});
-    const nextCarrier = _.get(nextProps, 'neuralVerified.carrier', null);
-
-    if (!this.state.neuralVerifiedState || previousVerifiedState !== nextVerifiedState || _.get(previousVerifiedDetail, 'verifiedReason') !== _.get(nextVerifiedDetail, 'verifiedReason') ||
-        previousCarrier !== nextCarrier) {
-      const neuralVerifiedState = getVerifiedState(nextVerifiedState, nextVerifiedDetail.verifiedReason, nextCarrier);
-      this.setState({ neuralVerifiedState });
-    }
-  }
-
-  getVerifiedIcon() {
-    switch (this.state.neuralVerifiedState) {
+  getVerifiedIcon(verifiedState) {
+    switch (verifiedState) {
       case verifiedStates.VERIFIED_HIGH:
         return <VerifyFilledIcon style={this.props.small ? blueIconStyleSmall : blueIconStyle} />;
       case verifiedStates.VERIFIED:
@@ -119,37 +103,40 @@ class NeuralVerifyISC extends React.Component {
     }
   }
 
-  trackNeuralVerify () {
-    this.props.trackNeuralVerify(this.state.neuralVerifiedState, this.props.location);
-  } 
+  trackNeuralVerify (verifiedState, location) {
+    this.props.hoverAction(verifiedState, location);
+  }
 
   render() {
-    const verifiedState = this.state.neuralVerifiedState;
-    const verifiedDetail = _.get(this.props.neuralVerified, 'detail', {});
+    const stateData = _.get(this.props, 'neuralVerified.state', 0);
+    const detailData = _.get(this.props, 'neuralVerified.detail', {});
+    const carrierData = _.get(this.props, 'neuralVerified.carrier', null);
+
+    const verifiedState = getVerifiedState(stateData, detailData.verifiedReason, carrierData);
     return (verifiedState !== 0 &&
-          <NeuralVerifiedContainer
-            small={this.props.small}
-            onMouseEnter={() => {
-              if (this.props.allowOverflow) this.trackNeuralVerify();
-              this.setState({ showNeuralVerifiedMessage: true });
-            }}
-            onMouseLeave={() => this.setState({ showNeuralVerifiedMessage: false })}
-          >
-            {this.getVerifiedIcon()}
-            {this.state.showNeuralVerifiedMessage && this.props.allowOverflow &&
-              <NeuralVerifyFlyout
-                type={this.props.type}
-                verifiedState={verifiedState}
-                verifiedDetail={verifiedDetail}
-              />
-            }
-          </NeuralVerifiedContainer>
+      <NeuralVerifiedContainer
+        small={this.props.small}
+        onMouseEnter={() => {
+          if (this.props.allowOverflow) this.trackNeuralVerify(verifiedState, this.props.location);
+          this.setState({ showNeuralVerifiedMessage: true });
+        }}
+        onMouseLeave={() => this.setState({ showNeuralVerifiedMessage: false })}
+      >
+        {this.getVerifiedIcon(verifiedState)}
+        {this.state.showNeuralVerifiedMessage && this.props.allowOverflow &&
+          <NeuralVerifyFlyout
+            type={this.props.type}
+            verifiedState={verifiedState}
+            verifiedDetail={detailData}
+          />
+        }
+      </NeuralVerifiedContainer>
     );
   }
 }
 
-NeuralVerifyISC.defaultProps = {
+NeuralVerifyShield.defaultProps = {
   location: ''
 };
 
-export default NeuralVerifyISC;
+export default NeuralVerifyShield;
