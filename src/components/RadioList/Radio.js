@@ -11,8 +11,11 @@ const size = 16;
 const RadioLabel = styled.label`
   ${typography.bodyCompact}
   background: ${props => props.theme.background};
+  display: flex;
+  align-items: center;
+  width: 100%;
   color: ${colors.black60};
-  display: block;
+  cursor: pointer;
   padding: ${props => {
     if (!_.isEmpty(props.label.super) && !_.isEmpty(props.label.main) && !_.isEmpty(props.theme.padding)) {
       return `6px ${props.theme.padding} 4px ${props.theme.padding}`;
@@ -34,8 +37,8 @@ const RadioInput = styled.input`
 `;
 
 const RadioCircle = styled.span`
-  width: ${size}px;
-  height: ${size}px;
+  min-width: ${size}px;
+  min-height: ${size}px;
   border-radius: 50%;
   display: inline-block;
   border: 2px solid ${props => props.theme.lightRadio ? colors.black40 : colors.black};
@@ -99,6 +102,7 @@ const RadioComponent = ({ id, name, label = "", value, setValue, selectedValue =
 
   return (<div>
     <RadioInput
+      className="pb-test__radio"
       type="radio"
       id={id}
       name={name}

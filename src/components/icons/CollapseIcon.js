@@ -1,8 +1,9 @@
 import React from 'react';
 
-const CollapseIcon = () => (
+const CollapseIcon = props => (
     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="white" width="18px" height="18px" x="0px" y="0px" viewBox="0 0 18 18">
-        <g id="collapse" transform="translate(-872.000000, -57.000000)">
+            {props.title && <title>{props.title}</title>}
+            <g id="collapse" transform="translate(-872.000000, -57.000000)">
             <g id="Email-Client" transform="translate(100.000000, 44.000000)">
                 <g id="Collapse-Icon" transform="translate(769.000000, 10.000000)">
                     <polygon id="Shape" fill="none" points="0,0 24,0 24,24 0,24       "/>

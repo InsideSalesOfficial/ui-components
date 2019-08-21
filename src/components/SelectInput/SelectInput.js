@@ -25,12 +25,17 @@ export function checkDocumentEvent(event) {
 
 export function openOptionsList() {
   document.addEventListener('click', this.checkDocumentEvent);
-  this.setState({ optionsListVisible: true });
+  this.setState({
+    optionsListVisible: true
+   });
 }
 
 export function closeOptionsList() {
   document.removeEventListener('click', this.checkDocumentEvent);
-  this.setState({ optionsListVisible: false });
+  this.setState({
+    optionsListVisible: false,
+    searchFilter: ''
+  });
 }
 
 export function toggleOptionsList() {
@@ -46,12 +51,12 @@ export function toggleOptionsListOnSearch(e) {
     const clickedInsideSearch = () => {
       const clickedElement = e.target.getAttribute('name');
       return clickedElement === 'selectSearch';
-    }
+    };
     if (clickedInsideSearch()) {
-      return
+      return;
     }
     this.closeOptionsList();
-  } else if (!this.props.isDisabled && !this.state.optionsListVisible) {
+  } else if ((!this.props.isDisabled || (this.props.multiSelect && !_.isEmpty(this.props.value))) && !this.state.optionsListVisible) {
     this.openOptionsList();
   }
 }
@@ -64,7 +69,14 @@ class SelectInput extends React.Component {
     selectArrowFollows: PropTypes.bool,
     theme: PropTypes.object,
     isDisabledOneOption: PropTypes.bool,
-    multiSelect: PropTypes.bool
+    multiSelect: PropTypes.bool,
+    closeAfterClick: PropTypes.bool,
+    primaryActionText: PropTypes.string,
+    secondaryActionText: PropTypes.string,
+    onPrimaryActionClick: PropTypes.func,
+    onSecondaryActionClick: PropTypes.func,
+    showButtonBar: PropTypes.bool,
+    maxHeight: PropTypes.string
   };
 
   static defaultProps = {
@@ -74,12 +86,16 @@ class SelectInput extends React.Component {
     onChange: value => value,
     theme: lightSelectInputTheme,
     isDisabledOneOption: false, // Prop to disable the dropdown if only one option is present
-    multiSelect: false
+    multiSelect: false,
+    primaryActionText: '',
+    secondaryActionText: '',
+    onPrimaryActionClick: () => {},
+    onSecondaryActionClick: () => {},
+    showButtonBar: false
   }
 
   constructor() {
     super();
-
     this.state = {
       optionsListVisible: false,
       valid: false,
@@ -91,11 +107,13 @@ class SelectInput extends React.Component {
   checkDocumentEvent = checkDocumentEvent.bind(this)
 
   onChange = (newValue) => {
-    if(this.props.multiSelect) {
-      if(_.includes(this.props.value, newValue)) {
+    if (this.props.multiSelect) {
+      if (_.includes(this.props.value, newValue)) {
         this.props.onChange(_.without(this.props.value, newValue));
-      } else {
+      } else if (_.isArray(this.props.value)) {
         this.props.onChange(_.concat(this.props.value, [newValue]));
+      } else {
+        this.props.onChange([newValue]);
       }
     } else {
       this.props.onChange(newValue);
@@ -103,7 +121,7 @@ class SelectInput extends React.Component {
     }
   }
 
-  toggleOptionsList = (e) => {toggleOptionsListOnSearch.bind(this)(e)}
+  toggleOptionsList = (e) => { toggleOptionsListOnSearch.bind(this)(e); }
 
   openOptionsList = openOptionsList.bind(this);
 
@@ -123,7 +141,7 @@ class SelectInput extends React.Component {
   }
 
   determineLabel = () => {
-    const { defaultLabel, options, promotedOptions, value, multiSelect } = this.props;
+    const { defaultLabel, options, promotedOptions, value, multiSelect, permanentLabel } = this.props;
 
     let copiedOptions = _.map(options, _.clone);
 
@@ -139,7 +157,7 @@ class SelectInput extends React.Component {
     }
 
     // Determine what the input label should be
-    if (!_.isNil(value)) {
+    if (!_.isNil(value) && !permanentLabel) {
       const optionObject = _.find(copiedOptions, { value });
 
       if (multiSelect && _.size(value)) {
@@ -162,7 +180,14 @@ class SelectInput extends React.Component {
     });
   }
 
-  filterOptionsWithSearch = (options) => _.filter(options, (option) => {
+  filterOptionsWithSearch = options => _.filter(options, (option) => {
+    if (_.isUndefined(option)) return false;
+    if (option.searchText) {
+      return option.searchText.toLowerCase().search(this.state.searchFilter.toLowerCase()) !== -1;
+    }
+    if (!_.isString(option.label)) {
+      return true;
+    }
     return option.label.toLowerCase().search(this.state.searchFilter.toLowerCase()) !== -1;
   });
 
@@ -171,7 +196,6 @@ class SelectInput extends React.Component {
 
     const options = this.filterOptionsWithSearch(this.props.options);
     const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
-
     return (
       /*
        * Adding className to the outtermost element allows for users of this component to create a
@@ -181,7 +205,7 @@ class SelectInput extends React.Component {
        */
       <ThemeProvider theme={this.props.theme}>
         <SelectWrapper
-          ref={(el) => { this.clickEventElement = el }}
+          ref={(el) => { this.clickEventElement = el; }}
           style={this.props.containerStyles || {}}
           className={this.props.className}
           id="select-input__wrapper"
@@ -190,7 +214,7 @@ class SelectInput extends React.Component {
             <SelectInputLabel>{this.props.label}</SelectInputLabel>
           }
           <div
-            style={{width: '100%'}}
+            style={{ width: '100%' }}
             className='pb-test__selectInputDisplay'
             onClick={(e) => { if (!isDisabled) { this.toggleOptionsList(e); } }}>
             <SelectInputDisplay
@@ -205,16 +229,26 @@ class SelectInput extends React.Component {
           </div>
           <SelectOptions
             className='pb-test__selectInputOptions'
+            image={this.props.image}
             selectedOptions={this.props.value}
             onOptionUpdate={this.onChange}
             promotedOptions={promotedOptions}
             options={options}
             optionsCount={this.countOptions()}
+            optionsTitle={this.props.optionsTitle}
             searchable={this.props.searchable}
             onSearch={this.filterOptions}
             width={this.props.selectOptionsWidth}
+            maxHeight={this.props.maxHeight}
             visible={this.state.optionsListVisible}
             multiSelect={this.props.multiSelect}
+            closeOptionsList={this.closeOptionsList}
+            closeAfterClick={this.props.closeAfterClick}
+            primaryActionText={this.props.primaryActionText}
+            secondaryActionText={this.props.secondaryActionText}
+            onPrimaryActionClick={this.props.onPrimaryActionClick}
+            onSecondaryActionClick={this.props.onSecondaryActionClick}
+            showButtonBar={this.props.showButtonBar}
             bottomActionArea={this.props.bottomActionArea}/>
         </SelectWrapper>
       </ThemeProvider>

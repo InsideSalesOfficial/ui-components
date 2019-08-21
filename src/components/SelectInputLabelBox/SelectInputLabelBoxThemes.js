@@ -1,4 +1,5 @@
 import { darkBlue, white } from "../styles/colors";
+import {colors} from '../styles';
 
 export const lineSelectInputBoxTransparentTheme = {
   background: 'transparent',
@@ -14,6 +15,7 @@ export const darkTheme = {
   valueColor: white.white90,
   labelColor: white.white60,
   borderColor: white.white40,
+  requiredColor: white.white60
 }
 
 export default {lineSelectInputBoxTransparentTheme, darkTheme};

@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@storybook/react';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 import { colors, typography } from '../styles';
 import Icons from '../icons';
@@ -189,6 +190,21 @@ storiesOf('Form', module)
             )
           },
           {
+            title: 'Searchable div Options',
+            subtitle: 'Searchable list of divs',
+            sectionFn: () => (
+              <div style={lightExample}>
+                <SelectInput
+                  options={_.map(genericOptions, (opt) => ({ value: opt.value, label: <div>{opt.label}</div>, searchText: opt.label }))}
+                  theme={lineSelectInputTheme}
+                  onChange={action('Option Selected')}
+                  defaultLabel={''}
+                  searchable
+                  />
+              </div>
+            )
+          },
+          {
             title: 'Add Button Select List',
             subtitle: `Shows the select input as an Add button instead of the select input styling. The defaultLabel prop will determing the button text.
                       This is convenient for when you need a select list to choose options from to add to another list.`,
@@ -240,6 +256,19 @@ storiesOf('Form', module)
                   options={genericOptions}
                   value={selectedOptions}
                   selectOptionsWidth={600}
+                  multiSelect />
+              </div>
+            )
+          },
+          {
+            title: 'Dropdown Max Height',
+            sectionFn: () => (
+              <div style={{...darkExample}}>
+                <SelectInput
+                  onChange={action('Option Selected')}
+                  options={genericOptions}
+                  value={selectedOptions}
+                  maxHeight={'600px'}
                   multiSelect />
               </div>
             )

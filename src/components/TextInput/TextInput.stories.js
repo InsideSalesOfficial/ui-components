@@ -38,7 +38,7 @@ storiesOf('Form', module)
               sectionFn: () => (
                 <TextInput
                   label="Label"
-                  name="firstz"
+                  name="second"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -53,7 +53,21 @@ storiesOf('Form', module)
                   label="Labely"
                   helper="Helper text."
                   error=""
-                  name="second"
+                  name="third"
+                  onSelectionStartChange={action('selectionStart')}
+                  onChange={action('value')}
+                  onFocus={action('onFocus')}
+                />
+              )
+            },
+            {
+              title: 'Example: text input with required',
+              sectionFn: () => (
+                <TextInput
+                  label="Labely"
+                  required
+                  error=""
+                  name="fourth"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -67,7 +81,7 @@ storiesOf('Form', module)
                   label="Label"
                   helper="Helper text."
                   error="Errors will override helper text."
-                  name="third"
+                  name="fifth"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -82,7 +96,7 @@ storiesOf('Form', module)
                   label="Label"
                   helper="Helper text."
                   disabled
-                  name="fourth"
+                  name="sixth"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -96,7 +110,7 @@ storiesOf('Form', module)
                   label="Label"
                   helper="Helper text."
                   disabled
-                  name="fifth"
+                  name="seventh"
                   value="this is some example text"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
@@ -109,7 +123,7 @@ storiesOf('Form', module)
                 <TextInput
                   label="Label"
                   helper="Helper text."
-                  name="sixth"
+                  name="eighth"
                   collapsed />
               )
             },
@@ -120,7 +134,7 @@ storiesOf('Form', module)
                   label="Label"
                   helper="Helper text."
                   error={"This field is required."}
-                  name="six"
+                  name="ninth"
                   collapsed />
               )
             },
@@ -129,7 +143,7 @@ storiesOf('Form', module)
               sectionFn: () => (
                 <TextInput
                   placeholder="Search"
-                  name="seven"
+                  name="tenth"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -142,7 +156,7 @@ storiesOf('Form', module)
               sectionFn: () => (
                 <TextInput
                   label="Search"
-                  name="eight"
+                  name="eleventh"
                   onSelectionStartChange={action('selectionStart')}
                   onChange={action('value')}
                   onFocus={action('onFocus')}
@@ -173,8 +187,8 @@ storiesOf('Form', module)
                     lowPadding={true}
                     selectOptionsWidth={400}
                     onSelectionStartChange={action('selectionStart')}
-                  onChange={action('value')}
-                  onFocus={action('onFocus')}
+                    onChange={action('value')}
+                    onFocus={action('onFocus')}
                     options={[
                       {
                         label: '+1 (US)',
@@ -306,14 +320,14 @@ storiesOf('Form', module)
 
                 return (<div>
                   Stateless: <TextInput
-                    label="Label"
-                    name="first"
-                    stateless
-                    value="value"
-                    onSelectionStartChange={action('selectionStart')}
-                    onChange={action('value')}
-                    onFocus={action('onFocus')}
-                  /> <br />
+                  label="Label"
+                  name="first"
+                  stateless
+                  value="value"
+                  onSelectionStartChange={action('selectionStart')}
+                  onChange={action('value')}
+                  onFocus={action('onFocus')}
+                /> <br />
                   Wrapped In Stateful Component: <StatefulWrapper />
 
                 </div>)
