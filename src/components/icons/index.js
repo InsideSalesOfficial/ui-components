@@ -54,6 +54,7 @@ import HelpCircleIcon from './HelpCircleIcon';
 import HomeIcon from './HomeIcon';
 import InfoIcon from './InfoIcon';
 import InsideSalesLogoIcon from './InsideSalesLogoIcon';
+import InfluencerIcon from './InfluencerIcon';
 import LinkedinSocialIcon from './LinkedinSocialIcon';
 import LinkIcon from './LinkIcon';
 import LaunchIcon from './LaunchIcon';
@@ -188,6 +189,7 @@ export default {
   InfoIcon,
   InfoOutlineIcon,
   InsideSalesLogoIcon,
+  InfluencerIcon,
   LaunchIcon,
   LinkedinSocialIcon,
   LinkIcon,
