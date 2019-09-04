@@ -41,7 +41,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                     />
                   </Wrapper>
               )
@@ -62,7 +61,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                     type="email"
                   />
                 </Wrapper>
@@ -81,7 +79,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                     type="email"
                   />
                 </Wrapper>
@@ -102,7 +99,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -120,7 +116,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -138,7 +133,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -156,7 +150,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -174,7 +167,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -194,7 +186,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -215,7 +206,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -236,7 +226,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -257,7 +246,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={true}
-                    hoverAction={() => {}}
                   />
                 </Wrapper>
               )
@@ -277,7 +265,6 @@ storiesOf('Components', module)
                       }
                     }
                     allowOverflow={false}
-                    hoverAction={() => {}}
                     />
                   </Wrapper>
               )
