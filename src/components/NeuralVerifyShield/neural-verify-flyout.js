@@ -24,7 +24,7 @@ const FlyoutContainer = styled.div`
   width: 360px;
   background-color: ${white.white};
   overflow: visible;
-  z-index: 101;
+  z-index: 110;
   box-shadow: 0 2px 4px 0 ${black.black14}, 0 3px 4px 0 ${black.black12}, 0 1px 5px 0 ${black.black20};
   padding: 24px;
   color: ${black.black90};
