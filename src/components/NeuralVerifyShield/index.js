@@ -19,6 +19,7 @@ const { VerifyFilledIcon, CautionFilledIcon, VerifyIcon,
 
 const NeuralVerifiedContainer = styled.div`
   align-items: center;
+  position: absolute;
 `;
 
 const iconStyle = (color, iconSize) => (
@@ -86,8 +87,7 @@ class NeuralVerifyShield extends React.Component {
 
     const verifiedState = getVerifiedState(stateData, detailData.verifiedReason, carrierData);
     return (verifiedState !== 0 &&
-      <NeuralVerifiedContainer
-        style={this.props.style}
+      <NeuralVerifiedContainer className={this.props.className}
         onMouseEnter={() => {
           if (this.props.allowOverflow) this.throttledHoverAction(verifiedState, this.props.location);
           this.setState({ showNeuralVerifiedMessage: true });
@@ -116,8 +116,7 @@ NeuralVerifyShield.defaultProps = {
   iconSize: '24px',
   allowOverflow: false,
   displaysAboveIcon: true,
-  flyoutOffset: 0,
-  style: {position: 'absolute'}
+  flyoutOffset: 0
 };
 
 export default NeuralVerifyShield;
