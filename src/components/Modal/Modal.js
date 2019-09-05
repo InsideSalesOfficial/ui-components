@@ -138,11 +138,12 @@ class Modal extends React.Component {
       center,
       children,
       theme,
+      onModalBackgroundClick = _.noop,
       ...props
     } = this.props;
     return (
       <DialogWrapper ref="message_dialog_wrapper" center={center} {...props}>
-        <DialogBackground ref="message_dialog_background" />
+        <DialogBackground ref="message_dialog_background" onClick={onModalBackgroundClick}/>
         <ThemeProvider theme={theme}>
           <DialogBase ref="message_dialog_component" center={center}>
             {children}
