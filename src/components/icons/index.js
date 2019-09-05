@@ -48,6 +48,7 @@ import ExploreIcon from './ExploreIcon';
 import EyeIcon from './EyeIcon';
 import FilterIcon from './FilterIcon';
 import ForwardEmailIcon from './ForwardEmailIcon';
+import FormatQuote from './FormatQuote';
 import GroupAddIcon from './GroupAddIcon';
 import HelpBoxIcon from './HelpBoxIcon';
 import HelpCircleIcon from './HelpCircleIcon';
@@ -261,5 +262,6 @@ export default {
   EmptyStateIcon,
   MonetizationOnIcon,
   DescriptionIcon,
-  SmsIcon
+  SmsIcon,
+  FormatQuote
 };
