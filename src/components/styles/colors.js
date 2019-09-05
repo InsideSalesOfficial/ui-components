@@ -65,8 +65,11 @@ export const black = {
   black90: 'rgba(0,0,0,0.9)',
   black60: 'rgba(0,0,0,0.6)',
   black40: 'rgba(0,0,0,0.4)',
+  black20: 'rgba(0,0,0,0.2)',
   black10: 'rgba(0,0,0,0.1)',
-  black4: 'rgba(0,0,0,0.04)'
+  black4: 'rgba(0,0,0,0.04)',
+  black14: 'rgba(0,0,0,0.14)',
+  black12: 'rgba(0,0,0,0.12)',
 };
 
 export const white = {
