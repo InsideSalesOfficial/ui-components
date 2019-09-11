@@ -57,3 +57,4 @@ export {
 } from './PaginationControls';
 export { colors, boxShadows, scrollbars, typography } from './styles';
 export { default as NeuralVerifyShield} from './NeuralVerifyShield';
+export { default as SnippetButton } from './SnippetButton';
