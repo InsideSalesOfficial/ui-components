@@ -70,6 +70,7 @@ class ToggleSlider extends React.PureComponent {
     return (
       <SliderBase disabled={this.props.disabled}>
         <SliderInput
+          className="pb-test__toggle-slider"
           type="checkbox"
           disabled={this.props.disabled}
           onChange={this.props.toggle}

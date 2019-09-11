@@ -55,7 +55,17 @@ const Text = styled.label`
 const Checkbox = ({ label, defaultChecked, checked, disabled, name, onChange, className, theme, greenDisabled }) => (
   <ThemeProvider theme={theme}>
     <div className={className}>
-      <CheckboxEl onChange={e => e.stopPropagation()} id={name} name={name} type="checkbox" greenDisabled={greenDisabled} defaultChecked={defaultChecked} checked={checked} disabled={disabled} onClick={ onChange } />
+      <CheckboxEl
+        onChange={e => e.stopPropagation()}
+        id={name}
+        name={name}
+        type="checkbox"
+        greenDisabled={greenDisabled}
+        defaultChecked={defaultChecked}
+        checked={checked}
+        disabled={disabled}
+        className="pb-test__checkbox"
+        onClick={ onChange } />
       {label && (
         <Text htmlFor={name}>{label}</Text>
       )}

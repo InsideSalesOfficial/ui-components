@@ -85,10 +85,15 @@ class SearchBox extends React.Component {
                 {this.props.enabled &&
                     <SearchBarText
                         value={this.state.value}
+                        className="pb-test__search-box-input"
                         placeholder={this.props.placeholder} onChange={this.onChange}
                         ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}/>}
                 {_.size(this.state.value) > 0 &&
-                <SearchClearContent onClick={this.clearSearch} fill={colors.white90}/>}
+                <SearchClearContent
+                  onClick={this.clearSearch}
+                  fill={colors.white90}
+                  className="pb-test__search-box-clear"
+                />}
             </SearchBarContainer>
         </ThemeProvider>
     );

@@ -48,12 +48,14 @@ import ExploreIcon from './ExploreIcon';
 import EyeIcon from './EyeIcon';
 import FilterIcon from './FilterIcon';
 import ForwardEmailIcon from './ForwardEmailIcon';
+import FormatQuote from './FormatQuote';
 import GroupAddIcon from './GroupAddIcon';
 import HelpBoxIcon from './HelpBoxIcon';
 import HelpCircleIcon from './HelpCircleIcon';
 import HomeIcon from './HomeIcon';
 import InfoIcon from './InfoIcon';
 import InsideSalesLogoIcon from './InsideSalesLogoIcon';
+import InfluencerIcon from './InfluencerIcon';
 import LinkedinSocialIcon from './LinkedinSocialIcon';
 import LinkIcon from './LinkIcon';
 import LaunchIcon from './LaunchIcon';
@@ -69,6 +71,8 @@ import MobilePhoneIcon from './MobilePhoneIcon';
 import MoreVertIcon from './MoreVertIcon';
 import MoveIcon from './MoveIcon';
 import NeuralIcon from './NeuralIcon';
+import NoAnswerIcon from './NoAnswerIcon';
+import NoAnswerMobileIcon from './NoAnswerMobileIcon';
 import NotificationBellIcon from './NotificationBellIcon';
 import OpenInNewIcon from './OpenInNewIcon';
 import OtherFilledIcon from './OtherFilledIcon';
@@ -106,7 +110,10 @@ import InfoOutlineIcon from './InfoOutlineIcon';
 import StarFilledIcon from './StarFilledIcon';
 import TagsIcon from './TagsIcon';
 import TeamsIcon from './TeamsIcon';
+import ThumbsDown from './ThumbsDown';
+import ThumbsUp from './ThumbsUp';
 import UpdateFilledIcon from './UpdateFIlledIcon';
+import VerifiedMobilePhoneIcon from './VerifiedMobilePhoneIcon';
 import VerifyFilledIcon from './VerifyFilledIcon';
 import VerifyIcon from './VerifyIcon';
 import VideoLibraryIcon from './VideoLibraryIcon';
@@ -116,6 +123,13 @@ import CallForward from './CallForward';
 import ArrowForward from './ArrowForward';
 import HeadsetMicOffIcon from './HeadsetMicOffIcon.js';
 import HeadsetMicOnIcon from './HeadsetMicOnIcon.js';
+import PlayOutlined from './PlayOutlined';
+import Record from './Record';
+import PauseOutlined from './PauseOutlined.js';
+import EmptyStateIcon from './EmptyStateIcon.js';
+import MonetizationOnIcon from './MonetizationOnIcon.js';
+import DescriptionIcon from './DescriptionIcon.js';
+import SmsIcon from './SmsIcon.js';
 
 export default {
   AddCircleIcon,
@@ -176,6 +190,7 @@ export default {
   InfoIcon,
   InfoOutlineIcon,
   InsideSalesLogoIcon,
+  InfluencerIcon,
   LaunchIcon,
   LinkedinSocialIcon,
   LinkIcon,
@@ -191,6 +206,8 @@ export default {
   MoreVertIcon,
   MoveIcon,
   NeuralIcon,
+  NoAnswerIcon,
+  NoAnswerMobileIcon,
   NotificationBellIcon,
   OpenInNewIcon,
   OtherFilledIcon,
@@ -225,8 +242,11 @@ export default {
   TemplateIcon,
   TodayIcon,
   TrashIcon,
+  ThumbsDown,
+  ThumbsUp,
   TrophyIcon,
   UpdateFilledIcon,
+  VerifiedMobilePhoneIcon,
   VerifyFilledIcon,
   VerifyIcon,
   VideoLibraryIcon,
@@ -235,5 +255,13 @@ export default {
   CallForward,
   ArrowForward,
   HeadsetMicOffIcon,
-  HeadsetMicOnIcon
+  HeadsetMicOnIcon,
+  PlayOutlined,
+  Record,
+  PauseOutlined,
+  EmptyStateIcon,
+  MonetizationOnIcon,
+  DescriptionIcon,
+  SmsIcon,
+  FormatQuote
 };

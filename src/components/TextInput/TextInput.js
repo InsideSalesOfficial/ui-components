@@ -64,7 +64,7 @@ export const TextBox = styled.div`
     if (props.error) {
       return colors.red;
     } else if (props.isFocused) {
-        return colors.green;
+      return colors.green;
     } else if (props.disabled) {
       return colors.black20;
     } else if (props.lineColor) {
@@ -80,11 +80,11 @@ export const TextBox = styled.div`
   }};
   box-sizing: border-box;
   cursor: ${(props) => {
-        if (props.disabled) {
-          return 'default';
-        }
-        return 'text';
-      }};
+    if (props.disabled) {
+      return 'default';
+    }
+    return 'text';
+  }};
   padding-top: 24px;
   padding-bottom: ${(props) => {
     if (props.error || props.isFocused) {
@@ -138,16 +138,16 @@ export const InputItem = styled.input`
 
 export const TextLabel = styled.label`
   color: ${(props) => {
-      if (props.error) {
-        return colors.red;
-      } else if (props.isFocused) {
-        return props.theme.focusedColor || colors.green;
-      } else if (props.labelColor) {
-        return props.labelColor;
-      } else {
-        return colors.black60;
-      }
-    }};
+    if (props.error) {
+      return colors.red;
+    } else if (props.isFocused) {
+      return props.theme.focusedColor || colors.green;
+    } else if (props.labelColor) {
+      return props.labelColor;
+    } else {
+      return colors.black60;
+    }
+  }};
   top: 0;
   left: 1px;
   position: absolute;
@@ -171,7 +171,7 @@ export const TextLabel = styled.label`
 
 export const TextInputHelper = styled.div`
    color: ${(props) => {
-     return props.theme.helperColor || colors.black40;
+    return props.theme.helperColor || colors.black40;
   }};
   padding-top: 4px;
   ${typography.caption}
@@ -207,7 +207,7 @@ class TextInput extends React.Component {
   toggleOptionsList = () => { toggleOptionsList.call(this) }
 
   componentDidMount() {
-    const {value} = this.props;
+    const { value } = this.props;
 
     if (value !== undefined && value !== '') {
       this.setState({
@@ -224,8 +224,8 @@ class TextInput extends React.Component {
     }
   }
 
-  handleCursorPositionChange = () =>  {
-    if(this.props.onSelectionStartChange) {
+  handleCursorPositionChange = () => {
+    if (this.props.onSelectionStartChange) {
       this.props.onSelectionStartChange(this.textInputEl.selectionStart);
     }
   }
@@ -239,7 +239,7 @@ class TextInput extends React.Component {
 
   blurred = () => {
     document.removeEventListener('keyup', this.handleCursorPositionChange)
-    if(!this.state.cancelBlur) {
+    if (!this.state.cancelBlur) {
       this.setState({
         focused: false
       });
@@ -253,7 +253,7 @@ class TextInput extends React.Component {
   renderHelperText = () => {
     const { error, helper, collapsed } = this.props;
 
-    if((!error || _.isBoolean(error)) && !helper) {
+    if ((!error || _.isBoolean(error)) && !helper) {
       return null;
     }
 
@@ -308,7 +308,7 @@ class TextInput extends React.Component {
   }
 
   scrollToTop() {
-    if(get(ReactDOM.findDOMNode(this.optionsRef), 'scrollTop', false)) {
+    if (get(ReactDOM.findDOMNode(this.optionsRef), 'scrollTop', false)) {
       ReactDOM.findDOMNode(this.optionsRef).scrollTop = 0;
     }
   }
@@ -318,11 +318,11 @@ class TextInput extends React.Component {
       e.preventDefault();
     }
 
-    if(!this.state.optionsListVisible) {
+    if (!this.state.optionsListVisible) {
       this.toggleOptionsList();
     }
 
-    const value =  get(e, 'target.value', this.textInputEl.value)
+    const value = get(e, 'target.value', this.textInputEl.value)
 
     this.setState({
       value,
@@ -346,11 +346,11 @@ class TextInput extends React.Component {
     const valIndex = opt.value.toLowerCase().indexOf(value);
     const labelIndex = opt.label.toLowerCase().indexOf(value);
 
-    if(valIndex === -1 && labelIndex !== -1) {
+    if (valIndex === -1 && labelIndex !== -1) {
       return labelIndex;
     }
 
-    if(labelIndex === -1 && valIndex !== -1) {
+    if (labelIndex === -1 && valIndex !== -1) {
       return valIndex;
     }
 
@@ -363,8 +363,8 @@ class TextInput extends React.Component {
     const lowerValue = this.getValue().toLowerCase();
     return this.getValue()
       ? filter(this.props.options, o =>
-          o.value.toLowerCase().indexOf(lowerValue) > -1 ||
-          o.label.toLowerCase().indexOf(lowerValue) > -1)
+        o.value.toLowerCase().indexOf(lowerValue) > -1 ||
+        o.label.toLowerCase().indexOf(lowerValue) > -1)
         .sort((a, b) => this.findBestOptionIndex(a, lowerValue) - this.findBestOptionIndex(b, lowerValue))
       : [];
   }
@@ -393,7 +393,8 @@ class TextInput extends React.Component {
       lowPadding,
       labelColor,
       lineColor,
-      outlinedSearch
+      outlinedSearch,
+      autoFocus
     } = this.props;
 
     return (
@@ -425,20 +426,22 @@ class TextInput extends React.Component {
             ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
             onChange={this.onChange}
             search={this.props.search}
-            placeholder={this.usePlaceholder()} />
+            placeholder={this.usePlaceholder()}
+            autoFocus={autoFocus}
+            className="pb-test__text-input" />
           {this.props.search &&
             <SearchIcon fill={colors.dustyGray} size={{ width: 22, height: 22 }} />
           }
-          { !this.props.search &&
+          {!this.props.search &&
             <TextLabel isFocused={this.state.focused} labelColor={labelColor} open={this.getValue() !== '' && this.getValue() !== undefined} htmlFor={name} error={error}>{label}</TextLabel>
           }
         </TextBox>
-        { options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
+        {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
         {this.renderHelperText()}
         {this.renderRequiredText()}
-        { options && <SelectOptions
+        {options && <SelectOptions
           onOptionUpdate={this.onDropDownSelect}
-          promotedOptions={promotedOptions || this.getPromotedOptions() }
+          promotedOptions={promotedOptions || this.getPromotedOptions()}
           options={options}
           optionsCount={options.length}
           visible={this.state.optionsListVisible}

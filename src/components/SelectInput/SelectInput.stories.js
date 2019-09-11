@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf, action } from '@storybook/react';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 import { colors, typography } from '../styles';
 import Icons from '../icons';
@@ -180,6 +181,21 @@ storiesOf('Form', module)
               <div style={lightExample}>
                 <SelectInput
                   options={genericOptions}
+                  theme={lineSelectInputTheme}
+                  onChange={action('Option Selected')}
+                  defaultLabel={''}
+                  searchable
+                  />
+              </div>
+            )
+          },
+          {
+            title: 'Searchable div Options',
+            subtitle: 'Searchable list of divs',
+            sectionFn: () => (
+              <div style={lightExample}>
+                <SelectInput
+                  options={_.map(genericOptions, (opt) => ({ value: opt.value, label: <div>{opt.label}</div>, searchText: opt.label }))}
                   theme={lineSelectInputTheme}
                   onChange={action('Option Selected')}
                   defaultLabel={''}

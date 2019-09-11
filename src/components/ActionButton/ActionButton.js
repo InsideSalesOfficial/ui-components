@@ -66,6 +66,8 @@ const Button = styled.button`
   }
 `;
 
+const actionButtonSelector = 'pb-test__action-button';
+
 const FadeInAddIcon = styled(Icons.AddIcon)`
   svg& {
     opacity: ${(props) => {
@@ -107,7 +109,7 @@ class ActionButton extends React.Component {
         toggled={this.props.toggled}
         isAddIcon={isAddIcon}
         disabled={this.props.disabled}
-        className={this.props.className}
+        className={this.props.className ? [this.props.className, actionButtonSelector].join(' ') : actionButtonSelector}
         title={this.props.title}
       >
         <Icon />

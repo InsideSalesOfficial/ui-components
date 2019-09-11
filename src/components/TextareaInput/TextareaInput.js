@@ -422,6 +422,7 @@ class TextareaInput extends React.Component {
             <Textarea
               onFocus={this.focused}
               onBlur={this.blurred}
+              className="pb-test__textarea-input"
               id={name}
               name={name}
               disabled={disabled}

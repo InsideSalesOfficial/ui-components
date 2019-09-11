@@ -223,7 +223,7 @@ const LabelWrapper = styled.div`
 class SelectInputDisplay extends React.Component {
   render() {
     const { onClick, label, isDisabled, selectArrowFollows, noCarat, defaultLabel } = this.props;
-    const clonedLabel = typeof (label) === 'string' ? <OverflowWrapper>{label}</OverflowWrapper> : React.cloneElement(label, { isClickable: true });
+    const clonedLabel = typeof (label) === 'string' ? <OverflowWrapper>{label}</OverflowWrapper> : React.cloneElement(label, { isClickable: true, allowOverflow: true });
 
     return (
       <div style={{ width: '100%' }}>

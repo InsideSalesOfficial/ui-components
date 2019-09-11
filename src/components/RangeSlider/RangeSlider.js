@@ -3,13 +3,47 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
 import InputRange from 'react-input-range';
-import './index.css';
 
 import { colors, fontFamilies, fontSizes, fontWeights } from '../styles';
 
 const RangeSliderWrap = styled.div`  
   font-family: ${fontFamilies.roboto};
+
+  .input-range--disabled {
+    .input-range__slider {
+      background: #cccccc;
+      border: 1px solid #cccccc;
+      box-shadow: none;
+      transform: none;
+    }
+    .input-range__track {
+      background: #eeeeee;
+    }
+  }
+
+  .input-range__label--value {
+    position: absolute;
+    top: -1.8rem;
+  }
+
+  .input-range__label-container {
+    left: -50%;
+    position: relative;
+  }
+
+  .input-range__track--background {
+    left: 0;
+    margin-top: -0.15rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+  }
+
   .input-range {
+    height: 1rem;
+    position: relative;
+    width: 100%;
+
     .input-range__track {
       transition: left 0s, width 0s;
     }
@@ -24,6 +58,21 @@ const RangeSliderWrap = styled.div`
   }
 
   .input-range__slider {
+    appearance: none;
+    background: #3f51b5;
+    border: 1px solid #3f51b5;
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    height: 1rem;
+    margin-left: -0.5rem;
+    margin-top: -0.65rem;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    width: 1rem;
+
     background-clip: padding-box;
     background-color: ${colors.green};
     
@@ -42,13 +91,26 @@ const RangeSliderWrap = styled.div`
     
     overflow: visible;
     outline: none;
-  }
 
-  .input-range__slider:hover {
-    box-shadow: 0 0 0 5px ${colors.green20};
+    &:active {
+      transform: scale(1.3);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.2);
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 5px ${colors.green20};
+    }
   }
 
   .input-range__track {
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    transition: left 0.3s ease-out, width 0.3s ease-out;
     background: ${colors.black12};
     height: 2px;
   }
@@ -58,6 +120,10 @@ const RangeSliderWrap = styled.div`
   }
 
   .input-range__label {
+    font-family: "Helvetica Neue", san-serif;
+    font-size: 0.8rem;
+    transform: translateZ(0);
+    white-space: nowrap;
     color: ${colors.black};
   }
 
@@ -136,6 +202,7 @@ class RangeSlider extends React.Component {
           maxValue={this.props.maxValue}
           minValue={this.props.minValue}
           onChange={this.setValue}
+          className="pb-test__ranger-slider"
           step={this.props.step}
           value={this.state.value} />
       </RangeSliderWrap>

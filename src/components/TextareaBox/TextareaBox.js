@@ -159,6 +159,7 @@ class TextareaBox extends TextInput {
             value={value}
           >{value}</TextareaMeasuring>
           <TextareaBoxField
+            className="pb-test__textarea-box"
             onFocus={this.focused}
             onBlur={this.blurred}
             id={name}

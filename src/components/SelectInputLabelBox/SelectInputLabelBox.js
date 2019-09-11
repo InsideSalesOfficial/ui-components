@@ -280,7 +280,10 @@ export default class SelectInputLabelBox extends React.Component {
           className={this.props.className}
           ref={(el) => { this.clickEventElement = el }}
           >
-          <SelectToggle onClick={this.toggleOptionsList} isDisabled={this.props.isDisabled}>
+          <SelectToggle
+          onClick={this.toggleOptionsList} isDisabled={this.props.isDisabled}
+          className="pb-test__select-input"
+          >
             <Caret open={this.state.optionsListVisible} />
             <Label error={this.props.error}value={this.props.value}>{this.props.label}</Label>
             <Value

@@ -102,6 +102,7 @@ const RadioComponent = ({ id, name, label = "", value, setValue, selectedValue =
 
   return (<div>
     <RadioInput
+      className="pb-test__radio"
       type="radio"
       id={id}
       name={name}
