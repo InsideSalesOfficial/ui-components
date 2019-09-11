@@ -1,5 +1,8 @@
 import React from 'react';
-import { Icons, Modal, colors, typography, SearchBox, SearchBoxThemes, scrollbars } from '../index';
+import Icons from '../icons';
+import Modal from '../Modal';
+import { colors, typography, scrollbars } from '../styles';
+import SearchBox, { SearchBoxThemes } from '../SearchBox';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';

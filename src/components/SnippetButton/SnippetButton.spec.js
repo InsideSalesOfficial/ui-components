@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import SnippetButton from './SnippetButton';
-import { Icons } from '../index';
+import Icons from '../icons';
 
 const snippets = {
     '-LnJ6gp_WkdhMjNEIpOP': {
