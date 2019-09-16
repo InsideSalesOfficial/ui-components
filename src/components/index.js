@@ -58,3 +58,4 @@ export {
 export { colors, boxShadows, scrollbars, typography } from './styles';
 export { default as NeuralVerifyShield} from './NeuralVerifyShield';
 export { default as SnippetButton } from './SnippetButton';
+export { MaxCol, BreakPoints, MaxColWithBoxShadow, ScreenSizes, ShowOnMed, HideOnMed, HideOnLg } from './MaxCol';
