@@ -98,7 +98,7 @@ class SnippetButton extends React.Component {
 
     return (
       <div>
-        <SnippetIconWrapper onClick={() => { this.setState({ modalOpen: true }); }}>
+        <SnippetIconWrapper id={this.props.buttonID} onClick={() => { this.setState({ modalOpen: true }); }}>
           <Icons.FormatQuote fill={colors.grayC} />
         </SnippetIconWrapper>
         {
@@ -107,13 +107,14 @@ class SnippetButton extends React.Component {
             <div>
               <ModalTitle>Insert Snippet</ModalTitle>
               <div>
-                <SearchBox searchText={this.state.searchText} theme={SearchBoxThemes.lightTheme} onChange={this.onSearch} placeholder={'Search'} />
+                <SearchBox id={this.props.searchBoxID} searchText={this.state.searchText} theme={SearchBoxThemes.lightTheme} onChange={this.onSearch} placeholder={'Search'} />
               </div>
               <SnippetsArea>
                 {
                   _.map(filteredSnippets, snippet =>
                     <SnippetBlock
                       key={snippet.id}
+                      className={'pb-test__snippet-option'}
                       onClick={() => {
                         this.setState({ modalOpen: false });
                         this.props.onSnippetClick(_.get(snippet, 'content'));
@@ -135,7 +136,9 @@ class SnippetButton extends React.Component {
 
 SnippetButton.propTypes = {
   onSnippetClick: PropTypes.func,
-  snippets: PropTypes.object
+  snippets: PropTypes.object,
+  buttonID: PropTypes.string,
+  searchBoxID: PropTypes.string,
 };
 
 export default SnippetButton;
