@@ -107,7 +107,7 @@ class SnippetButton extends React.Component {
             <div>
               <ModalTitle>Insert Snippet</ModalTitle>
               <div>
-                <SearchBox id={this.props.searchBoxID} searchText={this.state.searchText} theme={SearchBoxThemes.lightTheme} onChange={this.onSearch} placeholder={'Search'} />
+                <SearchBox textInputID={this.props.searchBoxID} searchText={this.state.searchText} theme={SearchBoxThemes.lightTheme} onChange={this.onSearch} placeholder={'Search'} />
               </div>
               <SnippetsArea>
                 {
