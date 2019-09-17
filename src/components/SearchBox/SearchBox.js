@@ -84,6 +84,7 @@ class SearchBox extends React.Component {
                 <SearchIconWrapper size={size} />
                 {this.props.enabled &&
                     <SearchBarText
+                        id={this.props.textInputID}
                         value={this.state.value}
                         className="pb-test__search-box-input"
                         placeholder={this.props.placeholder} onChange={this.onChange}
@@ -105,7 +106,8 @@ SearchBox.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  iconSize: PropTypes.number
+  iconSize: PropTypes.number,
+  textInputID: PropTypes.string,
 };
 
 SearchBox.defaultProps = {
