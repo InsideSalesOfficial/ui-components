@@ -98,7 +98,7 @@ class SnippetButton extends React.Component {
 
     return (
       <div>
-        <SnippetIconWrapper id={this.props.buttonID} onClick={() => { this.setState({ modalOpen: true }); }}>
+        <SnippetIconWrapper id={this.props.buttonID} onClick={() => { this.setState({ modalOpen: true, searchText: '' }); }}>
           <Icons.FormatQuote fill={colors.grayC} />
         </SnippetIconWrapper>
         {
