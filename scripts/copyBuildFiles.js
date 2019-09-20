@@ -10,7 +10,9 @@ glob('src/components/**/*.css', {
 }, (er, files) => {
   
   let filesToCopy = [
-    'src/components/styles/fonts'
+    'src/components/styles/fonts',
+    'src/themeHelpers/sassThemeUtils.scss',
+    'src/themeHelpers/sassConfiguration.js',
   ];
 
   if(files.length) {
