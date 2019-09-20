@@ -7,11 +7,10 @@ import { colors, white, black, gray, darkBlue, red, orange, blue, tron, green } 
 import { typography } from './typography';
 import { boxShadows } from './boxShadows';
 
-
 const allColors = {green, tron, blue, orange, red, darkBlue, gray, black, white};
 
 const ExampleWrapper = styled.div`
-  background-color: ${colors.darkBlue};
+  background-color: ${props => props.light ? colors.white : colors.darkBlue};
   padding: 32px 64px;
 `;
 
@@ -88,7 +87,7 @@ const getRGBAValues = (color) => {
 }
 
 const invertColor = (color) => {
-  const c = getRGBAValues(color);  
+  const c = getRGBAValues(color);
 
   return c.a > 0.3 && c.r + c.g + c.b > 686
       ? colors.black60
@@ -107,7 +106,7 @@ const displayColorSwatches = (colorDetails) => {
   });
 };
 
-const playbooksColors = _.map(allColors, (colorDetails, key) => {
+const generateColorSwatches = (colors) => _.map(colors, (colorDetails, key) => {
   return (
     <ColorRow key={key}>
       <ColorName>
@@ -120,10 +119,13 @@ const playbooksColors = _.map(allColors, (colorDetails, key) => {
   )
 });
 
+const oldPlaybooksColors = generateColorSwatches(allColors);
+const hotPinkPalette = generateColorSwatches({ hotPink: colors.hotPinkTheme });
+
 
 storiesOf('Base', module)
 .addWithChapters(
-  'Colors',
+  'Non Themed Colors',
   {
     info: `
       Usage
@@ -137,13 +139,48 @@ storiesOf('Base', module)
       {
         sections: [
           {
-            title: 'Color Palette',
+            title: 'Original Color Palette',
             options: {
               showSource: false
             },
             sectionFn: () => (
               <ExampleWrapper>
-                {playbooksColors}
+                {oldPlaybooksColors}
+              </ExampleWrapper>
+            )
+          }
+        ]
+      }
+    ]
+  }
+).addWithChapters(
+  'Palette',
+  {
+    info: `
+      Usage
+
+      ~~~
+      import React from 'react';
+      import { hotPinkTheme } from 'insidesales-components';
+      ~~~
+
+      Description:
+
+      There are base colors and transparencies for a subset of said base colors.
+
+      The transparencies are 10, 40, 60, and 90 percent respectively.
+    `,
+    chapters: [
+      {
+        sections: [
+          {
+            title: 'Hot Pink Palette',
+            options: {
+              showSource: false
+            },
+            sectionFn: () => (
+              <ExampleWrapper light>
+                {hotPinkPalette}
               </ExampleWrapper>
             )
           }
