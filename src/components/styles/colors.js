@@ -1,5 +1,7 @@
 import { transparentize } from 'polished';
 
+import { hotPinkTheme } from'./themes.js';
+
 export const green = {
   green: '#3AB676',
   greenB: '#34A369',
@@ -156,4 +158,21 @@ const deprecatedColors = {
   disabledTronC: '#adbfc5'
 };
 
-export const colors = Object.assign(deprecatedColors, officialColors);
+export function renderThemeIfPresentOrDefault({ key, defaultValue }) {
+  return function styledComponentProppedValue(props) {
+    return renderThemeKeyOrDefaultValue({ props, key, defaultValue });
+  };
+}
+
+export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
+  if (!key) throw new Error('Missing key renderThemeKeyOrDefaultValue');
+  if (!props.theme || !props.theme[key]) return defaultValue;
+  return props.theme[key];
+}
+
+const utilityFunctions = {
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue
+};
+
+export const colors = Object.assign(deprecatedColors, officialColors, utilityFunctions, { hotPinkTheme });
