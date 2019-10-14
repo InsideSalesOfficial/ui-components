@@ -1,6 +1,6 @@
 import { transparentize } from 'polished';
 
-import { hotPinkTheme } from'./themes.js';
+import { blueYellowTheme, hotPinkTheme } from'./themes.js';
 
 export const green = {
   green: '#3AB676',
@@ -175,4 +175,4 @@ const utilityFunctions = {
   renderThemeKeyOrDefaultValue
 };
 
-export const colors = Object.assign(deprecatedColors, officialColors, utilityFunctions, { hotPinkTheme });
+export const colors = Object.assign(deprecatedColors, officialColors, utilityFunctions, { hotPinkTheme, blueYellowTheme});

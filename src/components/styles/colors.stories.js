@@ -121,6 +121,7 @@ const generateColorSwatches = (colors) => _.map(colors, (colorDetails, key) => {
 
 const oldPlaybooksColors = generateColorSwatches(allColors);
 const hotPinkPalette = generateColorSwatches({ hotPink: colors.hotPinkTheme });
+const blueYellowPalette = generateColorSwatches({ blueYellow: colors.blueYellowTheme });
 
 
 storiesOf('Base', module)
@@ -154,7 +155,7 @@ storiesOf('Base', module)
     ]
   }
 ).addWithChapters(
-  'Palette',
+  'Hot Pink Palette',
   {
     info: `
       Usage
@@ -181,6 +182,39 @@ storiesOf('Base', module)
             sectionFn: () => (
               <ExampleWrapper light>
                 {hotPinkPalette}
+              </ExampleWrapper>
+            )
+          }
+        ]
+      }
+    ]
+  }
+).addWithChapters(
+  'Blue Yellow Palette',
+  {
+    info: `
+      Usage
+
+      ~~~
+      import React from 'react';
+      import { blueYellowPalette } from 'insidesales-components';
+      ~~~
+
+      Description:
+
+      There are base colors and transparencies for a subset of said base colors.
+    `,
+    chapters: [
+      {
+        sections: [
+          {
+            title: 'Blue Yellow Palette',
+            options: {
+              showSource: false
+            },
+            sectionFn: () => (
+              <ExampleWrapper light>
+                {blueYellowPalette}
               </ExampleWrapper>
             )
           }
