@@ -170,9 +170,22 @@ export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
   return props.theme[key];
 }
 
+ function ifThemeIsPresentUse({ value, defaultValue }) {
+  return function styledComponentProppedValueOrDefault(props) {
+    if (props.theme.brand01) return value;
+    return defaultValue;
+  };
+}
+
+export function ifThemeInPropsIsPresentUse({ props, value, defaultValue }) {
+  return ifThemeIsPresentUse({ value, defaultValue })(props);
+}
+
 const utilityFunctions = {
   renderThemeIfPresentOrDefault,
-  renderThemeKeyOrDefaultValue
+  renderThemeKeyOrDefaultValue,
+  ifThemeIsPresentUse,
+  ifThemeInPropsIsPresentUse
 };
 
 export const colors = Object.assign(deprecatedColors, officialColors, utilityFunctions, { hotPinkTheme, blueYellowTheme});
