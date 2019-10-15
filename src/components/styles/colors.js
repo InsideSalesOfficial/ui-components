@@ -172,8 +172,8 @@ export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
 
  function ifThemeIsPresentUse({ value, defaultValue }) {
   return function styledComponentProppedValueOrDefault(props) {
-    if (props.theme.brand01) return value;
-    return defaultValue;
+    if (props.theme.brand01) return value || '';
+    return defaultValue || '';
   };
 }
 
