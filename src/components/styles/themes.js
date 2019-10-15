@@ -47,7 +47,7 @@ const blueYellowDerivable = {
   ...createTransparencyVersions('#FFF', 'white'),
 
   black: '#000',
-  blackShade04: transparentize(.96, '#000'),
+  black04: transparentize(.96, '#000'),
   ...createTransparencyVersions('#000', 'black'),
 
 
