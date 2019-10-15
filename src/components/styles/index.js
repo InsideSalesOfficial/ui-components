@@ -3,6 +3,6 @@ export * from './colors';
 export * from './scrollbars';
 export * from './typography';
 
-export function generateFlexedThemeBackground(props, { height }) {
-  return { background: props.theme.primary01, height: height, display: 'flex', alignItems: 'center' };
+export function generateFlexedThemeBackground(props, otherStyles) {
+  return { background: props.theme.primary01, ...otherStyles, display: 'flex', alignItems: 'center' };
 };
