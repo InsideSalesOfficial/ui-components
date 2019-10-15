@@ -36,8 +36,9 @@ const blueYellowDerivable = {
   brand04: 'rgba(255, 221, 0, 0.1)',
 
   primary01: '#16283a',
-  ...createShadeForSecondaries('#16283a', 'primary'),
-  primary04: '#737e89',
+  primary02: shade(0.9, '#16283a'),
+  primary03: tint(0.9, '#16283a'),
+  primary04: tint(0.6, '#16283a'),
 
   brandBackup01: '#0e6aff',
   ...createShadeForSecondaries('#0e6aff', 'brandBackup'),
