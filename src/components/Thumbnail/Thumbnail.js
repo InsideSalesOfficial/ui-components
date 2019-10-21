@@ -3,13 +3,20 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { boxShadows, colors } from '../styles';
+import {
+  colors,
+  typography,
+  boxShadows,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  ifThemeInPropsIsPresentUse
+} from '../styles';
 
 const Box = styled.div`
-    color: ${colors.black80};
+    color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black80 })};
     position: absolute;
     border-radius: 4px;
-    background: white;
+    background: ${renderThemeIfPresentOrDefault({ key:'primary01', defaultValue: colors.white })};
     box-shadow: ${boxShadows.lvl6};
     padding: ${props => props.padding || '15px'};
 
@@ -75,25 +82,25 @@ const Arrow = styled.span`
 
     ${props => props.arrowTop && `
         ${arrowUpDown}
-        border-bottom: ${arrowSize} solid ${colors.white};
+        border-bottom: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
         bottom: 100%;
     `}
 
     ${props => props.arrowBottom && `
         ${arrowUpDown}
-        border-top: ${arrowSize} solid ${colors.white};
+        border-top: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
         top: 100%;
     `}
 
     ${props => props.arrowLeft && `
         ${arrowLeftRight}
-        border-right: ${arrowSize} solid ${colors.white};
+        border-right: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
         right: 100%;
     `}
 
     ${props => props.arrowRight && `
         ${arrowLeftRight}
-        border-left: ${arrowSize} solid ${colors.white};
+        border-left: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
         left: 100%;
     `}
 
