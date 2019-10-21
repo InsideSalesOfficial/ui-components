@@ -1,3 +1,6 @@
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
+
 export * from './boxShadows';
 export * from './colors';
 export * from './scrollbars';
