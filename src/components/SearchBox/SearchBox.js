@@ -17,7 +17,7 @@ const SearchBarContainer = styled.div`
       return renderThemeKeyOrDefaultValue({ props, key: 'transparent', defaultValue: props.theme.borderColor || props.theme.foreground || colors.white60 });
     }};
     background: ${(props) => {
-      return renderThemeKeyOrDefaultValue({ props, key: 'inputBackground', defaultValue: props.theme.background || colors.white10 });
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: props.theme.background || colors.white10 });
     }};
     border-radius: 3px;
     position: relative;

@@ -25,10 +25,10 @@ const Input = styled.div`
   }};
   background: ${(props) => {
     if (props.theme.background) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'inputBackground', defaultValue: props.theme.background });
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: props.theme.background });
     }
 
-    return renderThemeKeyOrDefaultValue({ props, key: 'inputBackground', defaultValue: colors.white10 });
+    return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white10 });
   }};
   border-radius: ${(props) => {
     if (props.theme.borderRadius) {

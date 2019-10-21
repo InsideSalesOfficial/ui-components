@@ -26,7 +26,7 @@ const SelectOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   visibility: hidden;
-  background: ${renderThemeIfPresentOrDefault({ key: 'inputBackground', defaultValue: colors.white })};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })};
   position: absolute;
   top: ${(props) => {
     if (props.theme.optionListPosition) return props.theme.optionListPosition;
@@ -80,7 +80,7 @@ const SelectOptionsWrapper = styled.div`
   overflow-y: auto;
 
   &::-webkit-scrollbar {
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'inputBackground', defaultValue: colors.white })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })};
     border-left: none;
     margin-right: 10px;
     width: 10px;

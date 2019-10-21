@@ -16,7 +16,7 @@ const Box = styled.div`
     color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black80 })};
     position: absolute;
     border-radius: 4px;
-    background: ${renderThemeIfPresentOrDefault({ key:'primary01', defaultValue: colors.white })};
+    background: ${renderThemeIfPresentOrDefault({ key:'primary05', defaultValue: colors.white })};
     box-shadow: ${boxShadows.lvl6};
     padding: ${props => props.padding || '15px'};
 
