@@ -25,10 +25,10 @@ const Input = styled.div`
   }};
   background: ${(props) => {
     if (props.theme.background) {
-      return renderThemeKeyOrDefaultValue({ props, key: '?', defaultValue: props.theme.background });
+      return renderThemeKeyOrDefaultValue({ props, key: 'inputBackground', defaultValue: props.theme.background });
     }
 
-    return renderThemeKeyOrDefaultValue({ props, key: 'primary03', defaultValue: colors.white10 });
+    return renderThemeKeyOrDefaultValue({ props, key: 'inputBackground', defaultValue: colors.white10 });
   }};
   border-radius: ${(props) => {
     if (props.theme.borderRadius) {
@@ -39,7 +39,7 @@ const Input = styled.div`
   box-sizing: border-box;
   border-bottom: ${(props) => {
     if (props.theme.borderColor) {
-      return `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.borderColor })}`;
+      return `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: props.theme.borderColor })}`;
     }
 
     return 0;
