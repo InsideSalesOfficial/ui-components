@@ -67,7 +67,7 @@ const blueYellowDerivable = {
   transparent: 'transparent',
 };
 
-export const blueYellowTheme = blueYellowDerivable;
+export const blueYellowTheme = { ...blueYellowDerivable, inputBackground: tint(0.9, blueYellowDerivable.primary03)};
 
 function createShadeVersions(color, colorName) {
   return {
