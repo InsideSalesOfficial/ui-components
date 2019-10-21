@@ -1,26 +1,28 @@
-function stringColorToNumber(color) {
-  if (color.startsWith('#')) return hexToRGBA(color);
-  else if (color.startsWith('rgba')) return rgbaToNumber(color);
-  throw new Error('Unknown color type')
-}
-
-function hexToRGBA(hex) {
-  if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) throw new Error(`Invalid hex: ${hex}`)
-
-  let c = hex.substring(1).split('')
-  if (c.length == 3) {
-    c = [c[0], c[0], c[1], c[1], c[2], c[2]]
-  }
-  c = `0xff${c.join('')}`
-  return Number(c)
-}
-
-function rgbaToNumber(rgba) {
-  const colors = rgba.replace('rgba', '').replace('(', '').replace(')', '').replace(' ', '').split(',');
-  return Number((Number(colors[0]) << 24) + (Number(colors[1]) << 16) + (Number(colors[2]) << 8) + (Number(colors[3])));
-}
 
 function sassOverriderByTheme({ theme, sassUtils, sass }) {
+
+  function hexToSassColor(hex) {
+    if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) throw new Error(`Invalid hex: ${hex}`)
+  
+    let c = hex.substring(1).split('')
+    if (c.length == 3) {
+      c = [c[0], c[0], c[1], c[1], c[2], c[2]]
+    }
+    c = `0xff${c.join('')}`
+    return sass.types.Color(Number(c))
+  }
+
+  function stringColorToNumber(color) {
+    if (color.startsWith('#')) return hexToSassColor(color);
+    else if (color.startsWith('rgba')) return rgbaToSassColor(color);
+    throw new Error('Unknown color type')
+  }
+  
+  function rgbaToSassColor(rgba) {
+    const colors = rgba.replace('rgba', '').replace('(', '').replace(')', '').replace(' ', '').split(',');
+    return sass.types.Color(...colors.map(Number));
+  }
+
   return {
     functions: {
       "get($keys)": function(keys) {
@@ -36,7 +38,7 @@ function sassOverriderByTheme({ theme, sassUtils, sass }) {
           }
         }
 
-        result = result ? sass.types.Color(stringColorToNumber(result)) : sassUtils.castToSass(result);
+        result = result ? stringColorToNumber(result) : sassUtils.castToSass(result);
         return result;
       }
     }
