@@ -5,11 +5,9 @@ import _ from 'lodash';
 
 import {
   colors,
-  typography,
   boxShadows,
   renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
-  ifThemeInPropsIsPresentUse
 } from '../styles';
 
 const Box = styled.div`
