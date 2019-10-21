@@ -113,10 +113,10 @@ const Input = styled.div`
   &:hover {
     background: ${(props) => {
       if (props.theme.background) {
-        return renderThemeKeyOrDefaultValue({ props, key: 'transparent', defaultValue: props.theme.background });
+        return renderThemeKeyOrDefaultValue({ props, key: '?', defaultValue: props.theme.background });
       }
 
-      return renderThemeKeyOrDefaultValue({ props, key: 'transparent', defaultValue: colors.white20 })
+      return renderThemeKeyOrDefaultValue({ props, key: '?', defaultValue: colors.white20 })
     }};
 
     color: ${(props) => {

@@ -3,7 +3,12 @@ import { storiesOf, action } from "@storybook/react";
 import styled, { ThemeProvider } from "styled-components";
 import _ from "lodash";
 
-import { generateFlexedThemeBackground, colors, typography } from "../styles";
+import {
+  renderThemeIfPresentOrDefault,
+  generateFlexedThemeBackground,
+  colors,
+  typography
+} from "../styles";
 import Icons from "../icons";
 
 import {
@@ -39,7 +44,10 @@ const selectedOptions = ["1", "2"];
 
 const AddButton = styled.div`
   ${typography.body2};
-  color: ${colors.green};
+  color: ${renderThemeIfPresentOrDefault({
+    key: "brand01",
+    defaultValue: colors.green
+  })};
   padding-left: 32px;
   position: relative;
 
