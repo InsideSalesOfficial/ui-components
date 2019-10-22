@@ -27,7 +27,7 @@ const ItemText = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: ${renderThemeIfPresentOrDefault({ key: "primary03", defaultValue: colors.offWhite})};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.offWhite})};
   padding: 4px 8px;
   margin: ${(props) => {
     if(props.labelsPosition === 'left') {
@@ -35,7 +35,7 @@ const ItemText = styled.span`
     }
     return '0 0 0 12px';
   }};
-  color: ${renderThemeIfPresentOrDefault({ key: "white90", defaultValue: colors.black90})};
+  color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
   box-shadow: ${boxShadows.lvl24};
   border-radius: 2px;
   opacity: ${(props) => {
@@ -155,10 +155,10 @@ const OverflowItemButton = styled(InteractiveElement)`
   flex-shrink: 0;
   &:hover {
     svg {
-      fill: ${renderThemeIfPresentOrDefault({ key: "white90", defaultValue: colors.black90})};
+      fill: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
     }
     ${ItemText} {
-      color: ${renderThemeIfPresentOrDefault({ key: "white90", defaultValue: colors.black90})};
+      color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
     }
   }
 `;
@@ -170,10 +170,10 @@ const IconWrapper = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: ${renderThemeIfPresentOrDefault({ key: "primary03", defaultValue: colors.offWhite})};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.offWhite})};
   box-shadow: ${boxShadows.lvl24};
   svg {
-    fill: ${renderThemeIfPresentOrDefault({ key: "white60", defaultValue: colors.black60})};
+    fill: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black60})};
   }
 `;
 
