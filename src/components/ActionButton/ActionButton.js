@@ -4,7 +4,13 @@ import styled from 'styled-components';
 import _ from 'lodash';
 
 import Icons from '../icons';
-import { colors, boxShadows } from '../styles';
+import {
+  colors,
+  boxShadows,
+  ifThemeInPropsIsPresentUse,
+  renderThemeKeyOrDefaultValue,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const Button = styled.button`
   position: relative;
@@ -17,7 +23,7 @@ const Button = styled.button`
   padding-top: 2px;
   border-radius: 50%;
   border: none;
-  background-color: ${colors.green};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
   cursor: pointer;
   transition: box-shadow 150ms ease-in-out, background-color 100ms ease-in-out;
   &:focus {
@@ -31,10 +37,13 @@ const Button = styled.button`
   }
   &:hover {
     box-shadow: ${boxShadows.lvl2};
-    background-color: ${colors.greenDarker};
+    ${props => {
+      if (props.disabled) return '';
+      return 'background-color: ' + renderThemeKeyOrDefaultValue({ props, key: 'brand02', defaultValue: colors.greenDarker });
+    }};
   }
   &:disabled {
-    opacity: 0.4;
+    ${props => ifThemeInPropsIsPresentUse({ props, value: `background-color: ${props.theme.brand03}`, defaultValue: 'opacity: 0.4;' })}
     box-shadow: none;
     cursor: default;
     padding: 0;
@@ -42,7 +51,7 @@ const Button = styled.button`
 
   svg {
     position: absolute;
-    fill: ${colors.white};
+    fill: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
     transform: ${(props) => {
       if (props.toggled && props.isAddIcon) {
         return 'rotate(45deg)';
