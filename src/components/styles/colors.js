@@ -170,7 +170,7 @@ export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
   return props.theme[key];
 }
 
- function ifThemeIsPresentUse({ value, defaultValue }) {
+export function ifThemeIsPresentUse({ value, defaultValue }) {
   return function styledComponentProppedValueOrDefault(props) {
     if (props.theme.brand01) return value || '';
     return defaultValue || '';
