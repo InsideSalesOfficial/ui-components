@@ -1,12 +1,17 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsList } from '../SelectInput';
 import SelectOptions from '../SelectInput/SelectOptions';
-import { colors } from '../styles/colors';
-import { typography } from '../styles/typography';
-import PropTypes from 'prop-types';
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  ifThemeInPropsIsPresentUse,
+} from '../styles';
 
 export const buttonAnimationTimeSeconds = 2;
 
@@ -20,71 +25,33 @@ const ButtonBase = styled.button`
   }} ${buttonAnimationTimeSeconds}s;
 
   --background: ${(props) => {
-    if (props.flat) {
-      return 'none';
-    }
-
-    if (props.danger) {
-      return colors.red;
-    }
-
-    if (props.disabled || props.fade) {
-      return colors.green40;
-    }
-
     if (props.theme.gray) {
-      return colors.grayB;
+      return renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: colors.grayB });
     }
 
-    return colors.green;
+    return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green });
   }};
   background: var(--background);
+  color: ${(props) => {
+    if (props.theme.gray) {
+      return renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: colors.black60 });
+    }
+
+    return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white90 });
+  }};
 
   transition: filter .25s ease-in-out, box-shadow .25s ease-in-out;
 
   &:active {
-    background: ${(props) => {
-      if (props.flat) {
-        return 'rgba(58,182,118,0.24)';
-      }
-
-      return 'var(--background)';
-    }};
-
-    box-shadow: ${(props) => {
-      if (props.loading || props.fade || props.disabled || props.flat) {
-        return 0;
-      }
-
-      return '0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24)';
-    }};
+    background: var(--background);
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24);
   }
 
-  cursor: ${(props) => {
-    if (props.disabled || props.fade || props.loading) {
-      return 'default';
-    }
-    return 'pointer';
-  }};
+  cursor: pointer;
 
-  border: ${(props) => {
-    if (props.outline) {
-      if (props.disabled) {
-        return `1px solid ${colors.green10}`;
-      }
-      return `1px solid ${colors.green}`;
-    }
-    return 'none';
-  }};
+  border: none;
 
   border-radius: 2px 0 0 2px;
-  color: ${(props) => {
-    if (props.theme.gray) {
-      return colors.black60;
-    }
-
-    return colors.white90;
-  }};
 
   height: 36px;
   outline: 0;
@@ -128,7 +95,7 @@ const CaretButton = styled(ButtonBase)`
       return colors.grayB;
     }
 
-    return colors.greenB;
+    return renderThemeKeyOrDefaultValue({ props, key: 'brand02', defaultValue: colors.greenB });
   }};
   border-radius: 0 2px 2px 0;
   width: 36px;
@@ -152,39 +119,22 @@ const Caret = styled.div`
     border-right: 5px transparent solid;
     border-${props => props.open ? 'bottom' : 'top'}: 5px ${(props) => {
       if (props.theme.gray) {
-        return colors.black60;
+        return renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: colors.black60 });
       }
 
-      return colors.white;
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white });
     }} solid;
   }
 `;
 
-const Dropdown = styled(SelectOptions)`
-`;
-
-const WrapperHoverStyles = (props) => {
-  return `
-  box-shadow: ${(props.loading || props.fade || props.disabled || props.flat) ?
-    0 :
-    '0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24)'};
-`;
-}
+const Dropdown = styled(SelectOptions)``;
 
 const Wrapper = styled.div`
   position: relative;
   display: inline-block;
 
-  ${(props) => {
-    if (props.isActive) {
-      return WrapperHoverStyles(props);
-    }
-  }}
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
   &:hover {
-    ${(props) => {
-      return WrapperHoverStyles(props);
-    }}
-
     ${ButtonBase}:not(:hover) {
       * {
         opacity: 0.8;
@@ -326,9 +276,7 @@ export default class DropdownButton extends React.Component {
 DropdownButton.defaultProps = {
   value: '',
   label: '',
-  isDisabled: false,
   theme: {},
-  isPlaceHolder: false
 }
 
 DropdownButton.propTypes = {
@@ -339,6 +287,4 @@ DropdownButton.propTypes = {
   })).isRequired,
   onChange: PropTypes.func,
   label: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  isPlaceHolder: PropTypes.bool
 }
