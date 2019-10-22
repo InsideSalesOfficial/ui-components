@@ -8,9 +8,7 @@ import SelectOptions from '../SelectInput/SelectOptions';
 import {
   colors,
   typography,
-  renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
-  ifThemeInPropsIsPresentUse,
 } from '../styles';
 
 export const buttonAnimationTimeSeconds = 2;
