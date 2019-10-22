@@ -55,7 +55,7 @@ const LoaderBubble = styled.div`
   }}px;
   background-color: ${(props) => {
     if (props.white) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'white', defaultValue: colors.white });
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white });
     }
 
     return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green });

@@ -44,7 +44,13 @@ function renderChapterWithTheme(theme) {
             sectionFn: () =>
               wrapComponentWithContainerAndTheme(
                 theme,
-                <div style={theme.primary01 ? {} : darkExample}>
+                <div
+                  style={
+                    theme.primary01
+                      ? { backgroundColor: theme.brand01, padding: "16px" }
+                      : darkExample
+                  }
+                >
                   <Loader white />
                 </div>
               )
