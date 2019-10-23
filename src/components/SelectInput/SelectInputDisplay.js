@@ -181,7 +181,7 @@ const Carat = styled.div`
   }};
 `;
 
-const Label = styled.div`
+export const Label = styled.div`
   margin: 0;
   width: 100%;
   padding-right: ${(props) => {
