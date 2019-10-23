@@ -8,7 +8,6 @@ import {
   typography,
   renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
-  ifThemeInPropsIsPresentUse
 } from '../styles';
 import Icons from '../icons';
 
@@ -25,7 +24,7 @@ const Input = styled.div`
   }};
   background: ${(props) => {
     if (props.theme.background) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: props.theme.background });
+      return renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: props.theme.background });
     }
 
     return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white10 });
