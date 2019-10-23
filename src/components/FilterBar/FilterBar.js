@@ -8,10 +8,14 @@ import Icons from '../icons';
 import InteractiveElement from '../InteractiveElement';
 import { InputItem } from '../TextInput/TextInput';
 
-import { colors, boxShadows } from '../styles';
+import {
+  colors,
+  boxShadows,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const FilterBarWrapper = styled.div`
-  background-color: ${colors.darkBlueD};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'primary02', defaultValue: colors.darkBlueD})};
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,7 +24,7 @@ const FilterBarWrapper = styled.div`
 `;
 
 const SearchBarWrapper = styled(FilterBarWrapper)`
-  background-color: ${colors.white};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.white})};
   padding: 0 21px 0 19px;
 `;
 
@@ -36,7 +40,7 @@ const ButtonsWrapper = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-basis: 0;
-  border-left: 1px ${colors.black20} solid;
+  border-left: 1px ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.black20})} solid;
   height: 100%;
 `;
 
@@ -44,10 +48,10 @@ const StyledInteractiveElement = styled(InteractiveElement)`
   cursor: pointer;
   display: flex;
   width: 48px;
-  fill: ${colors.white60};
+  fill: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white60})};
   justify-content: center;
   &:hover {
-    fill: ${colors.white90};
+    fill: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.white90})};
   }
 `;
 
@@ -56,7 +60,6 @@ const StyledInputItem = styled(InputItem)`
 `;
 
 class FilterBar extends React.Component {
-
   constructor(props) {
     super(props);
 
