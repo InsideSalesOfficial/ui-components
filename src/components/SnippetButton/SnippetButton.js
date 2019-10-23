@@ -1,18 +1,29 @@
 import React from 'react';
-import Icons from '../icons';
-import Modal from '../Modal';
-import { colors, typography, scrollbars } from '../styles';
-import SearchBox, { SearchBoxThemes } from '../SearchBox';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import {
+  colors,
+  typography,
+  scrollbars,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
+import Icons from '../icons';
+import Modal from '../Modal';
+import SearchBox, { SearchBoxThemes } from '../SearchBox';
+
+const StyledFormatQuote = styled(Icons.FormatQuote)`
+  fill: ${renderThemeIfPresentOrDefault({ key: 'black60', defaultValue: colors.grayC })}
+`;
+
 
 const SnippetIconWrapper = styled.div`
   cursor: pointer;
 `;
 
 const ModalTitle = styled.h3`
-  color: ${colors.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
   ${typography.title};
 `;
 
@@ -23,7 +34,7 @@ const SnippetBlock = styled.div`
   padding-right: 10px;
   
   &:hover {
-      background-color: ${colors.lighterGray};
+      background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.lighterGray })};
   }
   
   cursor: pointer;
@@ -36,13 +47,13 @@ const SnippetsArea = styled.div`
 `;
 
 const SnippetsTitle = styled.h4`
-  color: ${colors.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
   ${typography.subhead1};
   margin-bottom: 5px;
 `;
 
 const SnippetsBody = styled.p`
-  color: ${colors.black60};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black60 })};
   ${typography.body1};
   overflow: hidden;
   display: -webkit-box;
@@ -52,7 +63,7 @@ const SnippetsBody = styled.p`
 `;
 
 const SnippetsHotkey = styled.p`
-  color: ${colors.black40};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
   ${typography.subhead3};
 `;
 
@@ -99,7 +110,7 @@ class SnippetButton extends React.Component {
     return (
       <div>
         <SnippetIconWrapper id={this.props.buttonID} onClick={() => { this.setState({ modalOpen: true, searchText: '' }); }}>
-          <Icons.FormatQuote fill={colors.grayC} />
+          <StyledFormatQuote />
         </SnippetIconWrapper>
         {
           this.state.modalOpen &&
