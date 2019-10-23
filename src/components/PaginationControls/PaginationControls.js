@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import React from 'react';
 import _ from 'lodash';
 
-import { typography, colors } from '../styles';
 import MiniInput from '../MiniInput/MiniInput';
 import Icons from '../icons';
+import {
+  colors,
+  typography,
+} from "../styles";
+
 
 const PaginatedControlsWrapper = styled.div`
   width: 182px;
