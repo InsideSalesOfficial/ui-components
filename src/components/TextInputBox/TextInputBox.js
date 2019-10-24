@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import styled, { ThemeProvider } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { colors, typography } from '../styles';
@@ -10,21 +10,21 @@ import { hasValue } from './utils';
 import SelectOptions from '../SelectInput/SelectOptions';
 
 const TextBox = styled.div`
-    background-color: ${props => props.theme.background};
-    border-bottom: thin solid ${colors.black40};
+    background-color: ${props => colors.renderThemeIfPresentOrDefault({key: 'primary03', defaultValue: props.background})};
+    border-bottom: thin solid ${colors.renderThemeIfPresentOrDefault({key: 'white40', defaultValue: colors.black40})};
     border-radius: 2px;
     border-width: 2px;
     border-color: ${(props) => {
     if (props.error) {
-        return colors.red;
+        return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
     } else if (props.isFocused) {
-        return colors.green;
+        return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: 'green'});
     } else if (props.disabled) {
-        return colors.black20;
+        return colors.renderThemeKeyOrDefaultValue({props, key: 'white40', defaultValue: colors.black20 });
     } else if (props.lineColor) {
         return props.lineColor;
     } else {
-        return props.theme.borderColor;
+        return colors.renderThemeKeyOrDefaultValue({props, key: 'white40', defaultValue: props.borderColor });
     }
     }};
 
@@ -50,9 +50,9 @@ const TextBox = styled.div`
     ${(props) => {
         if (props.disabled) {
             return `
-            background-color: ${colors.black05};
+            background-color: ${colors.renderThemeKeyOrDefaultValue({props, key: 'white10', defaultValue: colors.black05})};
             label {
-                color: ${colors.black40};
+                color: ${colors.renderThemeIfPresentOrDefault({props, key: 'white40', defaultValue: colors.black40})};
             }
             `;
         }
@@ -82,7 +82,7 @@ const Caret = styled.div`
     margin: auto;
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
-    border-${props => props.open ? 'bottom' : 'top'}: 5px ${colors.black40} solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${colors.renderThemeIfPresentOrDefault({key: 'white40', defaultValue: colors.black40})} solid;
     }
 `;
 
@@ -100,8 +100,8 @@ const TextBoxLabel = styled(TextLabel)`
 
 const Chars = styled.div`
   color: ${props => {
-    if(props.error) return colors.red;
-    return colors.green;
+    if(props.error) return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
+    return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
   }};
   text-align: right;
   padding: 0.25em 0;
@@ -115,10 +115,10 @@ const InputBoxItem = styled(InputItem)`
         -webkit-appearance: none;
         margin: 0;
     }
-    ${props => props.inert && `color: ${colors.black90};`}
+    ${props => props.inert && `color: ${colors.renderThemeKeyOrDefaultValue({props, key: 'white90', defaultValue: colors.black90})};`}
     ${(props) => {
-        if(props.theme.valueColor){
-            return ('color: ' + props.theme.valueColor) ;
+        if(props.valueColor){
+            return ('color: ' + colors.renderThemeKeyOrDefaultValue({props, key: 'white90', defaultValue: props.valueColor}));
         }
     }}
 `;
@@ -137,69 +137,72 @@ export default class TextInputBox extends TextInput {
             lineColor,
             options,
             placeholder,
-            inert
+            inert,
+            theme
         } = this.props;
 
         const error = this.props.error || (this.props.max && _.size(this.state.value) > this.props.max)
         return (
-        <ThemeProvider theme={this.props.theme}>
-            <TextInputWrapper
-                className={className}
-                ref={(el) => { this.clickEventElement = el }}>
-                <TextBox
-                    onMouseUp={this.removeCancelBlur}
-                    onMouseDown={this.cancelBlur}
-                    onMouseLeave={this.removeCancelBlur}
-                    onClick={this.focusOnTextInput}
+        <TextInputWrapper
+            className={className}
+            {...theme}
+            ref={(el) => { this.clickEventElement = el }}>
+            <TextBox
+                onMouseUp={this.removeCancelBlur}
+                onMouseDown={this.cancelBlur}
+                onMouseLeave={this.removeCancelBlur}
+                onClick={this.focusOnTextInput}
+                isFocused={this.state.focused}
+                error={error}
+                open={this.getValue()}
+                disabled={disabled}
+                lineColor={lineColor}
+                collapsed={collapsed}
+                label={label}
+                {...theme}
+                options={options}>
+            <InputBoxItem
+                type={this.getInputType(inputType)}
+                onFocus={inert ? _.noop : this.focused}
+                onBlur={this.blurred}
+                id={name}
+                name={name}
+                disabled={disabled || inert}
+                inert={inert}
+                error={error}
+                value={this.getValue()}
+                ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
+                onChange={this.onChange}
+                placeholder={this.state.focused ? placeholder : ''}
+                {...theme}
+                className="pb-test__text-input" />
+            { this.props.label &&
+                <TextBoxLabel
                     isFocused={this.state.focused}
-                    error={error}
-                    open={this.getValue()}
-                    disabled={disabled}
-                    lineColor={lineColor}
-                    collapsed={collapsed}
-                    label={label}
-                    options={options}>
-                <InputBoxItem
-                    type={this.getInputType(inputType)}
-                    onFocus={inert ? _.noop : this.focused}
-                    onBlur={this.blurred}
-                    id={name}
-                    name={name}
-                    disabled={disabled || inert}
-                    inert={inert}
-                    error={error}
-                    value={this.getValue()}
-                    ref={(input) => { this.textInputEl = ReactDOM.findDOMNode(input); }}
-                    onChange={this.onChange}
-                    placeholder={this.state.focused ? placeholder : ''}
-                    className="pb-test__text-input" />
-                { this.props.label &&
-                    <TextBoxLabel
-                        isFocused={this.state.focused}
-                        labelColor={this.props.theme.labelColor || labelColor}
-                        open={hasValue(this.getValue())}
-                        htmlFor={name}
-                        error={error}>{label}
-                    </TextBoxLabel>
-                }
-                </TextBox>
-                {this.state.focused && this.props.max && <Chars error={error}>{`${_.size(this.state.value)} / ${this.props.max}`}</Chars>}
-                {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
-                {this.renderHelperText()}
-                {this.renderRequiredText()}
-                {options && <SelectOptions
-                    onOptionUpdate={this.onDropDownSelect}
-                    promotedOptions={promotedOptions || this.getPromotedOptions() }
-                    options={options}
-                    optionsCount={options.length}
-                    visible={this.state.optionsListVisible}
-                    width={this.props.selectOptionsWidth}
-                    optionsRef={(ref) => {
-                      this.optionsRef = ref;
-                    }}
-                />}
-            </TextInputWrapper>
-        </ThemeProvider>)
+                    labelColor={this.props.labelColor || labelColor}
+                    open={hasValue(this.getValue())}
+                    htmlFor={name}
+                    {...theme}
+                    error={error}>{label}
+                </TextBoxLabel>
+            }
+            </TextBox>
+            {this.state.focused && this.props.max && <Chars error={error}>{`${_.size(this.state.value)} / ${this.props.max}`}</Chars>}
+            {options && <Caret onClick={this.toggleOptionsList} open={this.state.optionsListVisible} className={'pb-caret'} />}
+            {this.renderHelperText()}
+            {this.renderRequiredText()}
+            {options && <SelectOptions
+                onOptionUpdate={this.onDropDownSelect}
+                promotedOptions={promotedOptions || this.getPromotedOptions() }
+                options={options}
+                optionsCount={options.length}
+                visible={this.state.optionsListVisible}
+                width={this.props.selectOptionsWidth}
+                optionsRef={(ref) => {
+                    this.optionsRef = ref;
+                }}
+            />}
+        </TextInputWrapper>)
     }
 }
 

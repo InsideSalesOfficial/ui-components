@@ -4,10 +4,6 @@ import { storiesOf } from '@storybook/react';
 import AppointmentIcon from '../icons/AppointmentIcon';
 import {
   colors,
-  boxShadows,
-  ifThemeInPropsIsPresentUse,
-  renderThemeKeyOrDefaultValue,
-  renderThemeIfPresentOrDefault,
   wrapComponentWithContainerAndTheme,
 } from '../styles';
 
