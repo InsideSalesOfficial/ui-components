@@ -1,29 +1,54 @@
-import React from 'react';
-import {
-  storiesOf, action,
-} from '@storybook/react';
+import React from "react";
+import styled from "styled-components";
+import { storiesOf, action } from "@storybook/react";
 
-import OverflowMenuButton from './OverflowMenuButton';
-import styled from 'styled-components';
-import { colors, typography } from '../styles';
-import NeuralIcon from '../icons/NeuralIcon';
-import ClockIcon from '../icons/ClockIcon';
-import { regularScheduledEmailTheme, neuralSendEmailTheme, neuralScheduledEmailTheme } from './OverflowMenuButtonThemes';
+import OverflowMenuButton from "./OverflowMenuButton";
+
+import {
+  regularScheduledEmailTheme,
+  neuralSendEmailTheme,
+  neuralScheduledEmailTheme
+} from "./OverflowMenuButtonThemes";
+
+import NeuralIcon from "../icons/NeuralIcon";
+import ClockIcon from "../icons/ClockIcon";
+import {
+  wrapComponentWithContainerAndTheme,
+  renderThemeIfPresentOrDefault,
+  typography,
+  colors
+} from "../styles";
 
 const EmailSendButtonText = styled.div`
-  color: ${colors.white};
   ${typography.body2};
 `;
 
 const NeuralSendWrapper = styled.div`
   display: flex;
-  ${props => props.scheduled ? 'cursor: default;' : ''}
+  ${props => (props.scheduled ? "cursor: default;" : "")}
 `;
 
 const NeuralSendButtonText = styled.div`
   padding-left: 9px;
-  color: ${colors.white};
   ${typography.body2};
+`;
+
+const Wrapper = styled.div`
+  background: ${renderThemeIfPresentOrDefault({
+    key: "primary01",
+    defaultvalue: "black"
+  })};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+`;
+
+const StyledClockIcon = styled(ClockIcon)`
+  fill: ${renderThemeIfPresentOrDefault({
+    key: "primary01",
+    defaultValue: colors.white
+  })};
 `;
 
 const options = [
@@ -33,18 +58,16 @@ const options = [
   },
   {
     content: <div>option2</div>,
-    onClick: action('on option2 click')
+    onClick: action("on option2 click")
   },
   {
-    content: <div>option3</div>,
+    content: <div>option3</div>
   }
-]
+];
 
-storiesOf('Components', module)
-  .addWithChapters(
-    'OverflowMenuButton',
-    {
-      info: `
+function renderChapterWithTheme(theme) {
+  return {
+    info: `
         Usage
 
         ~~~
@@ -52,124 +75,182 @@ storiesOf('Components', module)
         import { OverflowMenuButton } from 'insidesales-components';
         ~~~
       `,
-      chapters: [
-        {
-          sections: [
-            {
-              title: 'Manual Email Send Button',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+    chapters: [
+      {
+        sections: [
+          {
+            title: "Manual Email Send Button",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     content={<EmailSendButtonText>SEND</EmailSendButtonText>}
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Manual Email Send Button (Disabled)',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Manual Email Send Button (Disabled)",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     content={<EmailSendButtonText>SEND</EmailSendButtonText>}
                     disabled
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Manual Email Send Button (Loading)',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Manual Email Send Button (Loading)",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     content={<EmailSendButtonText>SEND</EmailSendButtonText>}
                     loading
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Regular Email Scheduled Button',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Regular Email Scheduled Button",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={false}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     theme={regularScheduledEmailTheme}
-                    content={<NeuralSendWrapper scheduled><ClockIcon fill={colors.white}/><NeuralSendButtonText>SENDING AT 12:45 PM PST</NeuralSendButtonText></NeuralSendWrapper>}
+                    content={
+                      <NeuralSendWrapper scheduled>
+                        <StyledClockIcon />
+                        <NeuralSendButtonText>
+                          SENDING AT 12:45 PM PST
+                        </NeuralSendButtonText>
+                      </NeuralSendWrapper>
+                    }
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Neural Email Send Button',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Neural Email Send Button",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     theme={neuralSendEmailTheme}
-                    content={<NeuralSendWrapper><NeuralIcon /><NeuralSendButtonText>SEND AT 12:45 PM PST</NeuralSendButtonText></NeuralSendWrapper>}
+                    content={
+                      <NeuralSendWrapper>
+                        <NeuralIcon useCurrentColor />
+                        <NeuralSendButtonText>
+                          SEND AT 12:45 PM PST
+                        </NeuralSendButtonText>
+                      </NeuralSendWrapper>
+                    }
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Neural Email Send Button (Disabled)',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Neural Email Send Button (Disabled)",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     theme={neuralSendEmailTheme}
-                    content={<NeuralSendWrapper><NeuralIcon fillOpacity={0.4}/><NeuralSendButtonText>SEND AT 12:45 PM PST</NeuralSendButtonText></NeuralSendWrapper>}
+                    content={
+                      <NeuralSendWrapper>
+                        <NeuralIcon fillOpacity={0.4} useCurrentColor />
+                        <NeuralSendButtonText>
+                          SEND AT 12:45 PM PST
+                        </NeuralSendButtonText>
+                      </NeuralSendWrapper>
+                    }
                     disabled
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Neural Email Send Button (Loading)',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Neural Email Send Button (Loading)",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={true}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     theme={neuralSendEmailTheme}
-                    content={<NeuralSendWrapper><NeuralIcon /><NeuralSendButtonText>SEND AT 12:45 PM PST</NeuralSendButtonText></NeuralSendWrapper>}
+                    content={
+                      <NeuralSendWrapper>
+                        <NeuralIcon useCurrentColor />
+                        <NeuralSendButtonText>
+                          SEND AT 12:45 PM PST
+                        </NeuralSendButtonText>
+                      </NeuralSendWrapper>
+                    }
                     loading
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Neural Email Scheduled Send Button',
-              sectionFn: () => (
-                <div style={{background: 'black', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100px'}}>
+          },
+          {
+            title: "Neural Email Scheduled Send Button",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper>
                   <OverflowMenuButton
                     shouldHover={false}
-                    openDirection={'up'}
+                    openDirection={"up"}
                     options={options}
                     theme={neuralScheduledEmailTheme}
-                    content={<NeuralSendWrapper scheduled><NeuralIcon /><NeuralSendButtonText>SENDING AT 12:45 PM PST</NeuralSendButtonText></NeuralSendWrapper>}
+                    content={
+                      <NeuralSendWrapper scheduled>
+                        <NeuralIcon useCurrentColor />
+                        <NeuralSendButtonText>
+                          SENDING AT 12:45 PM PST
+                        </NeuralSendButtonText>
+                      </NeuralSendWrapper>
+                    }
                   />
-                </div>
+                </Wrapper>
               )
-            }
-          ]
-        }
-      ]
-    }
+          }
+        ]
+      }
+    ]
+  };
+}
+
+storiesOf("Components", module)
+  .addWithChapters("Default OverflowMenuButton", renderChapterWithTheme({}))
+  .addWithChapters(
+    "OverflowMenuButton w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );
