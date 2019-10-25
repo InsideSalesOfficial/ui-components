@@ -172,13 +172,20 @@ export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
 
 export function ifThemeIsPresentUse({ value, defaultValue }) {
   return function styledComponentProppedValueOrDefault(props) {
-    if (props.theme.brand01) return value || '';
+    if (props.theme && props.theme.brand01) return value || '';
     return defaultValue || '';
   };
 }
 
 export function ifThemeInPropsIsPresentUse({ props, value, defaultValue }) {
   return ifThemeIsPresentUse({ value, defaultValue })(props);
+}
+
+export function generateFillFromProps(props, color) {
+  if (props.fill) return { fill: props.fill };
+  else if (!color) return {};
+
+  return { fill: props.useCurrentColor ? 'currentColor' : color };
 }
 
 const utilityFunctions = {
