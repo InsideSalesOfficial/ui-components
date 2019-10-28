@@ -63,7 +63,7 @@ const ButtonBase = styled.button`
   &:hover {
     background-color: ${(props) => {
       if (props.flat || props.flatAlt || props.outline) {
-        return renderThemeKeyOrDefaultValue({ props, key: 'brand04', defaultValue: colors.green10});
+        return renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.green10});
       }
 
       return 'var(--background)';
