@@ -10,9 +10,7 @@ import SelectOptions from '../SelectInput/SelectOptions';
 import {
   colors,
   typography,
-  renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
-  ifThemeInPropsIsPresentUse
 } from '../styles';
 import PropTypes from 'prop-types';
 
