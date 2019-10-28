@@ -5,7 +5,7 @@ import Icons from '../icons';
 import _ from 'lodash';
 
 import { typography, fontFamilies } from '../styles/typography';
-import { white, black } from '../styles/colors';
+import { renderThemeIfPresentOrDefault, white, black } from '../styles/colors';
 
 import { verifiedStates } from './constants';
 
@@ -22,12 +22,12 @@ const FlyoutContainer = styled.div`
   border-radius: 3px;
   min-height: 100px;
   width: 360px;
-  background-color: ${white.white};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: white.white })};
   overflow: visible;
   z-index: 110;
   box-shadow: 0 2px 4px 0 ${black.black14}, 0 3px 4px 0 ${black.black12}, 0 1px 5px 0 ${black.black20};
   padding: 24px;
-  color: ${black.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: black.black90 })};
   white-space: normal;
   font-family: ${fontFamilies.roboto};
 
@@ -79,7 +79,7 @@ const FlyoutContainer = styled.div`
     height: 0;
     border-top: ${(props) => {
       if (props.displaysAboveIcon) {
-        return `8px solid ${white.white}`;
+        return `8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: white.white })}`;
       }
       return '8px solid transparent';
 
@@ -88,7 +88,7 @@ const FlyoutContainer = styled.div`
       if (props.displaysAboveIcon) {
         return '8px solid transparent';
       }
-      return `8px solid ${white.white}`;
+      return `8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: white.white })}`;
 
     }};
     border-left: 8px solid transparent;
@@ -110,7 +110,7 @@ const Header = styled.div`
 
 const SubHeader = styled.div`
   ${fontFamilies.subhead3};
-  color: ${black.black40};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: black.black40 })};
 `;
 
 const HeaderContainer = styled.div`

@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Icons from '../icons';
 
 import {
   tron,
   black,
-  orange
+  orange,
+  renderThemeKeyOrDefaultValue
 } from '../styles/colors';
 
 import { NeuralVerifyFlyout } from './neural-verify-flyout';
@@ -30,6 +31,42 @@ const iconStyle = (color, iconSize) => (
   }
 );
 
+function getVerifiedIcon({ verifiedState, iconSize, theme = {} }) {
+  const blueIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'tron01', defaultValue: tron.tron }), iconSize);
+  const greyIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'white40', defaultValue: black.black40 }), iconSize);
+  const orangeIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'caution01', defaultValue: orange.orange }), iconSize);
+
+  switch (verifiedState) {
+    case verifiedStates.VERIFIED_HIGH:
+      return <VerifyFilledIcon style={blueIconStyle} />;
+    case verifiedStates.VERIFIED:
+      return <VerifyIcon style={blueIconStyle} />;
+    case verifiedStates.CORPORATE:
+      return <CompanyIcon style={blueIconStyle} />;
+    case verifiedStates.PREVIOUSLY_VERIFIED:
+      return <VerifyIcon style={greyIconStyle} />;
+    case verifiedStates.MATCHING:
+      return <CheckmarkFilledIcon style={greyIconStyle} />;
+    case verifiedStates.NOT_ANSWERED:
+      return <NoAnswerIcon style={orangeIconStyle} />;
+    case verifiedStates.STALE:
+      return <RemoveCircleIcon style={orangeIconStyle} />;
+    case verifiedStates.FAX:
+      return <PrintIcon style={orangeIconStyle} />;
+    case verifiedStates.VERIFIED_BAD:
+      return <CautionFilledIcon style={orangeIconStyle} />;
+    case verifiedStates.MOBILE:
+      return <MobilePhoneIcon style={blueIconStyle} />;
+    case verifiedStates.MOBILE_VERIFIED:
+      return <VerifiedMobilePhoneIcon style={blueIconStyle} />;
+    case verifiedStates.MOBILE_NOT_ANSWERED:
+      return <NoAnswerMobileIcon style={orangeIconStyle} />;
+    default:
+      return '';
+  }
+}
+
+
 class NeuralVerifyShield extends React.Component {
   constructor(props) {
     super(props);
@@ -37,48 +74,15 @@ class NeuralVerifyShield extends React.Component {
     this.state = {
       showNeuralVerifiedMessage: false,
     };
+
+    // Throttled hover action for event tracking
+    this.throttledHoverAction = _.throttle(
+      this.props.hoverAction,
+      3000,
+      { leading: true }
+    );
   }
 
-  getVerifiedIcon(neuralVerifiedState, iconSize) {
-    const blueIconStyle = iconStyle(tron.tron, iconSize);
-    const greyIconStyle = iconStyle(black.black40, iconSize);
-    const orangeIconStyle = iconStyle(orange.orange, iconSize);
-    switch (neuralVerifiedState) {
-      case verifiedStates.VERIFIED_HIGH:
-        return <VerifyFilledIcon style={blueIconStyle} />;
-      case verifiedStates.VERIFIED:
-        return <VerifyIcon style={blueIconStyle} />;
-      case verifiedStates.CORPORATE:
-        return <CompanyIcon style={blueIconStyle} />;
-      case verifiedStates.PREVIOUSLY_VERIFIED:
-        return <VerifyIcon style={greyIconStyle} />;
-      case verifiedStates.MATCHING:
-        return <CheckmarkFilledIcon style={greyIconStyle} />;
-      case verifiedStates.NOT_ANSWERED:
-        return <NoAnswerIcon style={orangeIconStyle} />;
-      case verifiedStates.STALE:
-        return <RemoveCircleIcon style={orangeIconStyle} />;
-      case verifiedStates.FAX:
-        return <PrintIcon style={orangeIconStyle} />;
-      case verifiedStates.VERIFIED_BAD:
-        return <CautionFilledIcon style={orangeIconStyle} />;
-      case verifiedStates.MOBILE:
-        return <MobilePhoneIcon style={blueIconStyle} />;
-      case verifiedStates.MOBILE_VERIFIED:
-        return <VerifiedMobilePhoneIcon style={blueIconStyle} />;
-      case verifiedStates.MOBILE_NOT_ANSWERED:
-        return <NoAnswerMobileIcon style={orangeIconStyle} />;
-      default:
-        return '';
-    }
-  }
-
-  // Throttled hover action for event tracking
-  throttledHoverAction = _.throttle(
-    this.props.hoverAction,
-    3000,
-    { leading: true }
-  );
 
   render() {
     const stateData = _.get(this.props, 'neuralVerified.state', 0);
@@ -94,7 +98,7 @@ class NeuralVerifyShield extends React.Component {
         }}
         onMouseLeave={() => this.setState({ showNeuralVerifiedMessage: false })}
       >
-        {this.getVerifiedIcon(verifiedState, this.props.iconSize)}
+        {getVerifiedIcon({ verifiedState, iconSize: this.props.iconSize, theme: this.props.theme })}
         {this.state.showNeuralVerifiedMessage && this.props.allowOverflow &&
           <NeuralVerifyFlyout
             type={this.props.type}
@@ -116,7 +120,8 @@ NeuralVerifyShield.defaultProps = {
   iconSize: '24px',
   allowOverflow: false,
   displaysAboveIcon: true,
-  flyoutOffset: 0
+  flyoutOffset: 0,
+  theme: {}
 };
 
-export default NeuralVerifyShield;
+export default withTheme(NeuralVerifyShield);
