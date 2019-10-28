@@ -2,30 +2,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import PropTypes from 'prop-types';
-import { get, size, isEqual } from 'lodash';
+import { get, size } from 'lodash';
 
-import { colors, typography, darkScrollbar, lightScrollbar } from '../styles';
-import { defaultTheme } from './TextareaInputThemes'
+import {
+  colors,
+  typography,
+  darkScrollbar,
+  lightScrollbar,
+  renderThemeIfPresentOrDefault,
+  ifThemeInPropsIsPresentUse,
+} from '../styles';
+import { defaultTheme, themeToThemeResolver } from './TextareaInputThemes'
 
 const TextareaInputWrapper = styled.div`
   width: 100%;
 `;
 
 const TextareaBox = styled.div`
-  background-color: ${props => props.theme.background};
+  background-color: ${props => themeToThemeResolver({ key: 'background', theme: props.theme })};
   border: thin solid ${colors.black40};
   border-color: ${(props) => {
     if (props.error) {
-      return colors.red;
+      return themeToThemeResolver({ key: 'errorBorderColor', theme: props.theme });
     } else if (props.isFocused) {
-      return colors.green;
+      return themeToThemeResolver({ key: 'focusedBorderColor', theme: props.theme });
     } else if (props.disabled) {
-      return colors.black20;
-    } else if (props.lineColor) {
-      return props.lineColor;
-    } else {
-      return props.theme.borderColor;
-    }
+      return themeToThemeResolver({ key: 'disabledBorderColor', theme: props.theme });
+    } else if (props.lineColor) props.lineColor;
+    return themeToThemeResolver({ key: 'borderColor', theme: props.theme });
   }};
   border-radius: 4px;
   border-width: ${(props) => {
@@ -109,19 +113,24 @@ const TextareaBox = styled.div`
   ${(props) => {
     if (props.disabled) {
       return `
-        background-color: ${colors.black05};
+        background-color: ${themeToThemeResolver({ key: 'disabledBackgroundColor', theme: props.theme })};
         label {
-          color: ${colors.black40};
+          color: ${themeToThemeResolver({ key: 'disabledColor', theme: props.theme })};
         }
       `;
     }
   }}
   `;
 
+function generateAreaScrollbar(theme) {
+  if (theme.textAreaInputWhiteTheme) return darkScrollbar;
+  return lightScrollbar;
+}
+
 const Textarea = styled.textarea`
 background-color: transparent;
 border: none;
-color: ${(props) => props.theme.valueColor};
+color: ${(props) => themeToThemeResolver({ key: 'valueColor', theme: props.theme })};
 box-sizing: border-box;
 height: 100%;
 padding: ${(props) => {
@@ -141,29 +150,23 @@ width: 100%;
 }
 ${typography.subhead1}
 
-${(props) => {
-    if (isEqual(props.theme,defaultTheme))
-      return darkScrollbar;
-    else
-      return lightScrollbar;
-  }};
+  ${(props) => ifThemeInPropsIsPresentUse({ props, value: lightScrollbar, defaultValue: generateAreaScrollbar(props.theme) })}
+  ${(props) => ifThemeInPropsIsPresentUse({ props, value: `&::-webkit-scrollbar-thumb { background-color: ${props.theme.white10}; }` })}
 
   &::-webkit-input-placeholder {
-    color: ${colors.black40};
+    color: ${props => themeToThemeResolver({ key: 'placeholderColor', theme: props.theme })};
   }
 `;
 
 const TextLabel = styled.label`
 color: ${(props) => {
     if (props.error) {
-      return colors.red;
+      return themeToThemeResolver({ key: 'labelErrorColor', theme: props.theme });
     } else if (props.isFocused) {
-      return colors.green;
-    } else if (props.labelColor) {
-      return props.labelColor;
-    } else {
-      return props.theme.labelColor;
-    }
+      return themeToThemeResolver({ key: 'labelFocusedColor', theme: props.theme });
+    } else if (props.labelColor) return props.labelColor;
+
+    return themeToThemeResolver({ key: 'labelColor', theme: props.theme });
   }};
 top: ${(props) => {
     if (props.error || props.isFocused || props.placeholder) {
@@ -200,17 +203,17 @@ const charCountTextWidth = '110px';
 
 export const CharCounterText = styled.div`
 ${typography.caption}
-color: ${colors.green};
+color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.green })};
 text-align: right;
 width: ${charCountTextWidth};
 `;
 
 export const CharCounterErrorText = styled(CharCounterText)`
-color: ${colors.red};
+color: ${renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red })};
 `;
 
 export const FooterTextContainer = styled.div`
-  color: ${colors.black40};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
   padding-top: 4px;
   ${typography.caption}
   display: flex;
@@ -222,12 +225,12 @@ export const HelperTextContainer = styled.div`
 `;
 
 export const HelperText = styled.span`
-  color: ${props => props.theme.helperColor};
+  color: ${props => themeToThemeResolver({ key: 'helperColor', theme: props.theme })};
   ${typography.caption}
 `;
 
 const HelperErrorText = styled(HelperText)`
-  color: ${colors.red};
+  color: ${renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red })};
 `;
 
 /**
