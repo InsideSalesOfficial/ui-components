@@ -9,18 +9,23 @@ import {
   boxShadows,
   renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
-  ifThemeInPropsIsPresentUse
+  ifThemeInPropsIsPresentUse,
+  ifThemeIsPresentUse,
 } from '../styles';
 
 import { OverflowWrapper } from './SelectInputThemes';
 
 import Checkbox from '../Checkbox';
 
-import TextInput from '../TextInput';
+import TextInput, { TextBox } from '../TextInput';
 
 import ButtonBar from '../ButtonBar';
 
 export const SelectOptionHeight = 36;
+
+const StyledSearchInput = styled(TextInput)`
+  ${TextBox} { ${ifThemeIsPresentUse({ value: 'background-color: transparent;'  })} }
+`;
 
 const SelectOptionsContainer = styled.div`
   display: flex;
@@ -293,7 +298,7 @@ class SelectOptions extends React.Component {
 
     return (
       <div style={{ padding: '0 24px' }} >
-        <TextInput
+        <StyledSearchInput
           label="Label"
           name="selectSearch"
           onChange={this.props.onSearch}
