@@ -165,7 +165,7 @@ export function renderThemeIfPresentOrDefault({ key, defaultValue }) {
 }
 
 export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
-  if (!key) throw new Error('Missing key renderThemeKeyOrDefaultValue');
+  if (!key) return defaultValue;
   if (!props.theme || !props.theme[key]) return defaultValue;
   return props.theme[key];
 }
