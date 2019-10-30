@@ -209,6 +209,7 @@ const Label = styled.div`
 const AddButton = styled.div`
   ${typography.body2};
   color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
+  fill: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
   padding-left: 32px;
   position: relative;
 
@@ -234,7 +235,7 @@ class SelectInputDisplay extends React.Component {
       <div className="select-input-display" style={{ width: '100%' }}>
 
         {this.props.addButtonList &&
-          <AddButton><Icons.AddCircleIcon fill={colors.green} size={{ width: 24, height: 24 }} /> {defaultLabel}</AddButton>
+          <AddButton><Icons.AddCircleIcon size={{ width: 24, height: 24 }} /> {defaultLabel}</AddButton>
         }
         {!this.props.addButtonList &&
           <Input
