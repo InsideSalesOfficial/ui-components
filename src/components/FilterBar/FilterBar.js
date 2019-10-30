@@ -14,6 +14,14 @@ import {
   renderThemeIfPresentOrDefault,
 } from '../styles';
 
+const StyledSearchIcon = styled(Icons.SearchMaterialIcon)`
+  fill: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black60 })}
+`;
+
+const StyledCloseIcon = styled(Icons.CloseIcon)`
+  fill: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black60 })}
+`;
+
 const FilterBarWrapper = styled.div`
   background-color: ${renderThemeIfPresentOrDefault({ key: 'primary02', defaultValue: colors.darkBlueD})};
   display: flex;
@@ -24,7 +32,7 @@ const FilterBarWrapper = styled.div`
 `;
 
 const SearchBarWrapper = styled(FilterBarWrapper)`
-  background-color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.white})};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'primary02', defaultValue: colors.white})};
   padding: 0 21px 0 19px;
 `;
 
@@ -127,7 +135,7 @@ class FilterBar extends React.Component {
             onClick={this.props.onSearchComplete}
             className="pb-test__filter-bar-complete-search"
           >
-            <Icons.SearchMaterialIcon fill={colors.black60}/>
+            <StyledSearchIcon />
           </InteractiveElement>
           <StyledInputItem
             type={'text'}
@@ -141,7 +149,7 @@ class FilterBar extends React.Component {
             onClick={this.hideSearch}
             className="pb-test__hide-search"
           >
-            <Icons.CloseIcon fill={colors.black60}/>
+            <StyledCloseIcon />
           </StyledInteractiveElement>
         </SearchBarWrapper>
       );
