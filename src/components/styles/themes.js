@@ -63,6 +63,7 @@ const blueYellowDerivable = {
 
   warning01: '#ff1743',
   ...createShadeForSecondaries('#ff1743', 'warning'),
+  warning04: tint(0.6, '#ff1743'),
 
   transparent: 'transparent',
 };

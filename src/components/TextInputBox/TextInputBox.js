@@ -16,7 +16,7 @@ const TextBox = styled.div`
     border-width: 2px;
     border-color: ${(props) => {
     if (props.error) {
-        return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
+        return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     } else if (props.isFocused) {
         return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: 'green'});
     } else if (props.disabled) {
@@ -100,7 +100,7 @@ const TextBoxLabel = styled(TextLabel)`
 
 const Chars = styled.div`
   color: ${props => {
-    if(props.error) return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
+    if(props.error) return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
   }};
   text-align: right;

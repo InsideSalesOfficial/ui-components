@@ -62,7 +62,7 @@ export const TextBox = styled.div`
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
     if (props.error) {
-      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     } else if (props.isFocused) {
       return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
     } else if (props.disabled) {
@@ -140,7 +140,7 @@ export const InputItem = styled.input`
 export const TextLabel = styled.label`
   color: ${(props) => {
     if (props.error) {
-      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning01', defaultValue: colors.red });
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     } else if (props.isFocused) {
       return props.theme.focusedColor || colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
     } else if (props.labelColor) {
@@ -179,7 +179,7 @@ export const TextInputHelper = styled.div`
 `;
 
 export const TextInputError = styled(TextInputHelper)`
-  color: ${colors.renderThemeIfPresentOrDefault({key: 'warning01', defaultValue: colors.red})};
+  color: ${colors.renderThemeIfPresentOrDefault({key: 'warning04', defaultValue: colors.red})};
 `;
 
 const SearchIcon = styled(Icons.SearchMaterialIcon)`

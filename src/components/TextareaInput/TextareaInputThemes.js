@@ -36,10 +36,10 @@ export default { darkTheme, defaultTheme };
 function sharedGlobalTheme(theme) {
   return {
     focusedBorderColor: theme.brand01,
-    errorBorderColor: theme.warning01,
+    errorBorderColor: theme.warning04,
     placeholderColor: theme.white40,
     labelFocusedColor: theme.brand01,
-    labelErrorColor: theme.warning01
+    labelErrorColor: theme.warning04
   };
 }
 

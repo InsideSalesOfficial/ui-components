@@ -209,7 +209,7 @@ width: ${charCountTextWidth};
 `;
 
 export const CharCounterErrorText = styled(CharCounterText)`
-color: ${renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red })};
+color: ${renderThemeIfPresentOrDefault({ key: 'warning04', defaultValue: colors.red })};
 `;
 
 export const FooterTextContainer = styled.div`
@@ -230,7 +230,7 @@ export const HelperText = styled.span`
 `;
 
 const HelperErrorText = styled(HelperText)`
-  color: ${renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red })};
+  color: ${renderThemeIfPresentOrDefault({ key: 'warning04', defaultValue: colors.red })};
 `;
 
 /**

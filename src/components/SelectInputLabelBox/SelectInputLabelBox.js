@@ -19,7 +19,7 @@ const padding = '16px';
 export const Label = styled.div`
   color: ${props => {
     if (props.error) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'warning01', defaultValue: colors.red });
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     }
     return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.labelColor || colors.black40 })
   }};
@@ -79,7 +79,7 @@ export const Value = styled.div`
   ${typography.subhead1};
   color: ${props => {
     if (props.error) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'warning01', defaultValue: colors.red });
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     }
     if (props.isPlaceHolder) {
       return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.black60 });
@@ -118,7 +118,7 @@ export const Value = styled.div`
     if (props.isDisabled){
       return 'transparent';
     } else if (props.error) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'warning01', defaultValue: colors.red });
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     } else if (props.theme.borderColor) {
       return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.borderColor });
     }
@@ -170,7 +170,7 @@ export const SelectToggle = styled.button`
     outline: 0;
     border-color: ${props => {
       if (props.error) {
-        return renderThemeKeyOrDefaultValue({ props, key: 'warning01', defaultValue: colors.red });
+        return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
       }
       return props.isDisabled ? renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: 'transparent' }) : renderThemeKeyOrDefaultValue({ props, key: 'white', defaultValue: colors.green })
     }};
