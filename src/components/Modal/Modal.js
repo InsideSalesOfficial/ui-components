@@ -62,7 +62,7 @@ const DialogBase = styled.div`
     return '102px';
   }};
 
-  background: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white})};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white})};
   box-shadow: 0 15px 12px 0 rgba(0,0,0,0.12), 0 19px 38px 0 rgba(0,0,0,0.3);
   border-radius: 2px;
   z-index: 2;
