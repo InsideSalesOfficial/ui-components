@@ -47,7 +47,6 @@ const CheckboxEl = styled.input`
     width: 19px;
     margin-right: 15px;
     border: none;
-    background-image: ;
     background-image: ${props => ifThemeInPropsIsPresentUse({ props, value: renderThemedCheckedCheckbox(props), defaultValue: `url(${GREEN_CHECKBOX})`})};
     &:disabled {
       background-image: ${props => ifThemeInPropsIsPresentUse({ props, value: renderThemedDisabledCheckedBackgroundImage(props), defaultValue: renderDisabledCheckedBackgroundImage(props)})};
