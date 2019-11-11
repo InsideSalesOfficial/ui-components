@@ -6,5 +6,5 @@ export function isValued(value) {
   else if (Array.isArray(value) && value.length > 0) return true;
   else if (typeof x === 'symbol') return true;
 
-  return typeof value === 'object' && Object.keys(value) > 0;
+  return typeof value === 'object' && Object.keys(value).length > 0;
 }
