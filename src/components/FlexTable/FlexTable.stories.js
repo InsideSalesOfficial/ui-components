@@ -6,18 +6,16 @@ import {
 import styled from 'styled-components';
 
 import FlexTable, * as FT from './FlexTable';
-import { colors } from '../styles';
+import { renderThemeIfPresentOrDefault, wrapComponentWithContainerAndTheme, colors } from "../styles";
 
 const ExampleWrapper = styled.div`
-  background-color: ${colors.darkBlue};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.darkBlue})};
   padding: 32px 64px;
 `;
 
 
-storiesOf('Components', module)
-  .addWithChapters(
-    'FlexTable',
-    {
+function renderChapterWithTheme(theme) {
+  return {
       info: `
         Usage
 
@@ -31,7 +29,7 @@ storiesOf('Components', module)
           sections: [
             {
               title: 'Example: Toggle with 4 items',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <ExampleWrapper>
                   <FlexTable>
                     <FT.TR>
@@ -101,5 +99,12 @@ storiesOf('Components', module)
           ]
         }
       ]
-    }
+    };
+}
+
+storiesOf('Components', module)
+  .addWithChapters("Default FlexTable", renderChapterWithTheme({}))
+  .addWithChapters(
+    "FlexTable w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

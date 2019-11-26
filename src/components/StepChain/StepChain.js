@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import { colors, typography } from '../styles';
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 import Icons from '../icons';
 
 const StepChainWrapper = styled.div`
@@ -15,7 +19,7 @@ const StepChainWrapper = styled.div`
     position: absolute;
     width: 100%;
     top: 20px;
-    border-bottom: thin solid ${colors.black20};
+    border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
   }
 `;
 
@@ -27,7 +31,7 @@ const StepWrapper = styled.div`
     width: 50%;
     height: 40px;
     top: 0;
-    background-color: ${colors.white};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
   }
   &:last-child::before {
     content: '';
@@ -36,7 +40,7 @@ const StepWrapper = styled.div`
     height: 40px;
     top: 0;
     right: 0;
-    background-color: ${colors.white};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
   }
 `;
 
@@ -45,15 +49,15 @@ const StepItem = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: ${colors.aluminum};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.aluminum })};
   margin: auto;
   margin-bottom: 8px;
-  border: 8px solid ${colors.white};
+  border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
   box-sizing: content-box;
 `;
 
-const GreenStep = styled(StepItem)`
-  background-color: ${colors.green};
+const ColoredStep = styled(StepItem)`
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
 `;
 
 const StepText = styled.span`
@@ -65,7 +69,7 @@ const StepText = styled.span`
   margin: auto;
   width: 100%;
   text-align: center;
-  color: ${colors.white};
+  color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
   ${typography.caption}
 `;
 
@@ -76,17 +80,17 @@ const StyledCheckMark = styled(Icons.CheckmarkFilledIcon)`
   bottom: 0;
   left: 0;
   margin: auto;
-  fill: ${colors.white};
+  fill: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
 `;
 
 const StepName = styled.div`
   text-align: center;
-  color: ${colors.black40};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
   ${typography.body2}
 `;
 
 const DarkStepName = styled(StepName)`
-  color: ${colors.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
 `;
 
 
@@ -110,9 +114,9 @@ class StepChain extends React.Component {
         const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
         return (
           <StepWrapper key={key}>
-            <GreenStep>
+            <ColoredStep>
               <StepText>{checkOrKey}</StepText>
-            </GreenStep>
+            </ColoredStep>
             <DarkStepName>{text}</DarkStepName>
           </StepWrapper>
         );

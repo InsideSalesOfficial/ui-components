@@ -2,7 +2,11 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-import { colors } from '../styles';
+import {
+  colors,
+  renderThemeKeyOrDefaultValue,
+} from '../styles';
+
 
 const bounce = keyframes`
   0%, 80%, 100% {
@@ -51,10 +55,10 @@ const LoaderBubble = styled.div`
   }}px;
   background-color: ${(props) => {
     if (props.white) {
-      return colors.white;
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white });
     }
 
-    return colors.green;
+    return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green });
   }};
   border-radius: 100%;
   display: inline-block;

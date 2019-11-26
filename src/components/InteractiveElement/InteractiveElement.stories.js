@@ -3,10 +3,13 @@ import { storiesOf, action } from '@storybook/react';
 
 import InteractiveElement from './';
 
-storiesOf('Base', module)
-.addWithChapters(
-  'InteractiveElement',
-  {
+import {
+  wrapComponentWithContainerAndTheme,
+  colors,
+} from "../styles";
+
+function renderChapterWithTheme(theme) {
+  return {
     info: `
       Usage
 
@@ -20,7 +23,7 @@ storiesOf('Base', module)
         sections: [
           {
             title: 'Default',
-            sectionFn: () => (
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
               <InteractiveElement onClick={action('clicked')}>
                 I can be clicked
               </InteractiveElement>
@@ -29,6 +32,12 @@ storiesOf('Base', module)
         ]
       }
     ]
-  }
-);
+  };
+}
 
+storiesOf('Base', module)
+  .addWithChapters("Default InteractiveElement", renderChapterWithTheme({}))
+  .addWithChapters(
+    "InteractiveElement w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
+  );

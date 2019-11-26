@@ -2,11 +2,16 @@ import styled from 'styled-components';
 import React from 'react';
 import _ from 'lodash';
 
-import { typography, colors } from '../styles';
 import * as Themes from './MiniInputThemes';
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+} from "../styles";
 
 const StyledMiniInput = styled.input`
-    color: ${props => props.theme.color};
+    color: ${props => renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: props.secondaryTheme.color})};
     border-radius: 2px;
     width: 40px;
     padding-left: 8px;
@@ -15,7 +20,7 @@ const StyledMiniInput = styled.input`
     text-align: center;
     background: transparent;
     box-sizing: border-box;
-    border: 1px solid ${props => props.theme.borderColor};
+    border: 1px solid ${props => renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: props.secondaryTheme.borderColor})};
     ${props => props.disabled && `opacity: 0.4;`}
 
     &::-webkit-outer-spin-button,
@@ -24,15 +29,16 @@ const StyledMiniInput = styled.input`
     }
 
     &:focus {
-        color: ${colors.green};
-        border-color: ${colors.green};
+        color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.green })};
+        border-color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.green })};
     }
     ${typography.body2}
 `;
 
-const MiniInput = ({theme, value, onChange, onEnterUp, type, disabled, onFocus, onBlur}) =>
+// theme is passed as secondaryTheme to not override theme providers theme.
+const MiniInput = ({value, onChange, onEnterUp, type, disabled, onFocus, onBlur, ...props }) =>
     <StyledMiniInput
-        theme={theme}
+        secondaryTheme={props.theme || {}}
         value={value}
         type={type}
         disabled={disabled}
@@ -48,7 +54,7 @@ const MiniInput = ({theme, value, onChange, onEnterUp, type, disabled, onFocus, 
             e.stopPropagation();
             onChange(_.get(e, 'target.value'));
         }}
-        className="pb-test__mini-input"/>
+      className="pb-test__mini-input"/>
 
 
 MiniInput.defaultProps = {

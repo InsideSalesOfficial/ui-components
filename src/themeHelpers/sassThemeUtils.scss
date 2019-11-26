@@ -1,0 +1,7 @@
+@function theme($themeValue, $defaultValue) {
+  @if not $themeValue or $themeValue == & {
+      @return $defaultValue;
+  }
+
+  @return $themeValue;
+}

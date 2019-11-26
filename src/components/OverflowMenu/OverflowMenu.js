@@ -5,7 +5,13 @@ import * as _ from 'lodash';
 
 import InteractiveElement from '../InteractiveElement';
 import Icons from '../icons';
-import { boxShadows, colors, typography } from '../styles';
+import {
+  ifThemeIsPresentUse,
+  ifThemeInPropsIsPresentUse,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  boxShadows, colors, typography,
+} from "../styles";
 
 const OverflowParent = styled.div`
   position: relative;
@@ -27,8 +33,8 @@ const SelectOption = styled.div`
   transition: background .25s ease-in-out;
 
   ${typography.subhead1}
-  color: ${props => props.isDisabled ? colors.grayC : colors.selectItemColor};
-  background: ${props => props.isHighlighted ? colors.hoverGray : colors.white};
+  color: ${props => props.isDisabled ? renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.grayC }) : renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.selectItemColor })};
+  background: ${props => props.isHighlighted ? renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.hoverGray }) : renderThemeKeyOrDefaultValue({ props, key: 'primary03', defaultValue: colors.white })};
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -37,8 +43,9 @@ const SelectOption = styled.div`
 
 
   &:hover {
-    background: ${props => props.isDisabled ? colors.white : colors.hoverGray};
-    color: ${props => props.isDisabled ? colors.grayC : colors.selectItemColor};
+    ${props => props.isDisabled ? ifThemeInPropsIsPresentUse({ props, value: 'cursor: default;' }): 'cursor: pointer;' }
+    background: ${props => props.isDisabled ? renderThemeKeyOrDefaultValue({ props, key: 'transparent', defaultValue: colors.white }) : renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.hoverGray })};
+    color: ${props => props.isDisabled ? renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.grayC }) : renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.selectItemColor })};
   };
 `;
 
@@ -64,7 +71,7 @@ const DropdownCaret = styled.div`
     height: ${caretSize}px;
     transform: translateY(${props => props.openUp ? '-' : ''}50%) rotate(45deg);
     transform-origin: center;
-    background: ${colors.white};
+    background: ${renderThemeIfPresentOrDefault({ key: "primary03", defaultValue: colors.white })};
     box-shadow: ${boxShadows.lvl20};
     display: block;
     position: absolute;
@@ -88,14 +95,14 @@ const OptionsContainer = styled.div`
 const OptionsWrapper = styled.div`
   width: 100%;
   align-items: flex-start;
-  background-color: ${colors.white};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "primary03", defaultValue: colors.white })};
   border-radius: 3px;
 `;
 
 const SubmenuOptionsWrapper = styled.div`
   display: flex;
   border-radius: 3px;
-  background-color: ${colors.white};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "primary03", defaultValue: colors.white })};
 
   &:first-child ${SelectOption} {
     margin-top: 8px;

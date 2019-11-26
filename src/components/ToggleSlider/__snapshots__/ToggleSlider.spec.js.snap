@@ -2,7 +2,7 @@
 
 exports[`ToggleSlider Snapshots shows disabled 1`] = `
 <label
-  className="sc-bdVaJa eZMVZj"
+  className="sc-bdVaJa kSRYIC"
   disabled={true}
 >
   <input
@@ -14,7 +14,7 @@ exports[`ToggleSlider Snapshots shows disabled 1`] = `
   />
   <div
     checked={false}
-    className="sc-htpNat iYUQYI"
+    className="sc-htpNat hnrsOU"
     disabled={true}
   />
 </label>
@@ -22,7 +22,7 @@ exports[`ToggleSlider Snapshots shows disabled 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 <label
-  className="sc-bdVaJa eouhrO"
+  className="sc-bdVaJa cMcrxJ"
   disabled={false}
 >
   <input
@@ -42,7 +42,7 @@ exports[`ToggleSlider Snapshots shows toggled off 1`] = `
 
 exports[`ToggleSlider Snapshots shows toggled on 1`] = `
 <label
-  className="sc-bdVaJa eouhrO"
+  className="sc-bdVaJa cMcrxJ"
   disabled={false}
 >
   <input

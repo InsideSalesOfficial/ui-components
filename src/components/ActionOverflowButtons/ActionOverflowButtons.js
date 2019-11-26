@@ -6,7 +6,12 @@ import styled from 'styled-components';
 import ActionButton from '../ActionButton';
 import Icons from '../icons';
 import InteractiveElement from '../InteractiveElement';
-import { colors, boxShadows, typography } from '../styles';
+import {
+  colors,
+  typography,
+  boxShadows,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const ANIMATION_IN_TOTAL = 400;
 const ANIMATION_IN_ITEM = 200;
@@ -22,7 +27,7 @@ const ItemText = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: ${colors.offWhite};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.offWhite})};
   padding: 4px 8px;
   margin: ${(props) => {
     if(props.labelsPosition === 'left') {
@@ -30,7 +35,7 @@ const ItemText = styled.span`
     }
     return '0 0 0 12px';
   }};
-  color: ${colors.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
   box-shadow: ${boxShadows.lvl24};
   border-radius: 2px;
   opacity: ${(props) => {
@@ -80,7 +85,7 @@ const OverflowList = styled.ul`
   }};
   transition: opacity ${ANIMATION_OUT}ms linear;
   ${(props) => {
-    return _.map(props.overflowItems, (item, key) => {
+    return _.map(props.overflowItems, (_item, key) => {
       const currentItemKey = key + 1;
       return `
         ${props.openDirection === 'down' ? 'li:nth-child' : 'li:nth-last-child'}(${currentItemKey}) {
@@ -150,10 +155,10 @@ const OverflowItemButton = styled(InteractiveElement)`
   flex-shrink: 0;
   &:hover {
     svg {
-      fill: ${colors.black90};
+      fill: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
     }
     ${ItemText} {
-      color: ${colors.black90};
+      color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black90})};
     }
   }
 `;
@@ -165,10 +170,10 @@ const IconWrapper = styled.div`
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: ${colors.offWhite};
+  background-color: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.offWhite})};
   box-shadow: ${boxShadows.lvl24};
   svg {
-    fill: ${colors.black60};
+    fill: ${renderThemeIfPresentOrDefault({ key: "noValue", defaultValue: colors.black60})};
   }
 `;
 

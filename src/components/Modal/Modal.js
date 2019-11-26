@@ -4,7 +4,10 @@ import styled, { ThemeProvider } from 'styled-components';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 
-import { colors } from '../styles';
+import {
+  colors,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const DialogWrapper = styled.div`
   position: ${(props) => {
@@ -39,7 +42,7 @@ const DialogBackground = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  background-color: ${colors.black50};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'black60', defaultValue: colors.black50})};
 `;
 
 const DialogBase = styled.div`
@@ -59,7 +62,7 @@ const DialogBase = styled.div`
     return '102px';
   }};
 
-  background: ${colors.white};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white})};
   box-shadow: 0 15px 12px 0 rgba(0,0,0,0.12), 0 19px 38px 0 rgba(0,0,0,0.3);
   border-radius: 2px;
   z-index: 2;
@@ -138,11 +141,12 @@ class Modal extends React.Component {
       center,
       children,
       theme,
+      onModalBackgroundClick = _.noop,
       ...props
     } = this.props;
     return (
       <DialogWrapper ref="message_dialog_wrapper" center={center} {...props}>
-        <DialogBackground ref="message_dialog_background" />
+        <DialogBackground ref="message_dialog_background" onClick={onModalBackgroundClick}/>
         <ThemeProvider theme={theme}>
           <DialogBase ref="message_dialog_component" center={center}>
             {children}

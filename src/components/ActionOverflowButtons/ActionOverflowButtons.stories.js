@@ -1,88 +1,97 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import { storiesOf, action } from "@storybook/react";
+
+import ActionOverflowButtons from "./ActionOverflowButtons";
+
 import {
-  storiesOf,
-  action
-} from '@storybook/react';
-
-import ActionOverflowButtons from './ActionOverflowButtons';
-import { colors } from '../styles';
-
+  colors,
+  wrapComponentWithContainerAndTheme,
+  renderThemeIfPresentOrDefault
+} from "../styles/index.js";
 
 const dropDownItems = [
   {
-    icon: 'EditFilledIcon',
-    text: 'Edit',
-    onClick: action('clicked'),
-    className: 'nickelodeon-guts'
+    icon: "EditFilledIcon",
+    text: "Edit",
+    onClick: action("clicked"),
+    className: "nickelodeon-guts"
   },
   {
-    icon: 'GroupAddIcon',
-    text: 'Add Group',
-    onClick: action('clicked')
+    icon: "GroupAddIcon",
+    text: "Add Group",
+    onClick: action("clicked")
   },
   {
-    icon: 'HomeIcon',
-    text: 'Home',
-    onClick: action('clicked')
+    icon: "HomeIcon",
+    text: "Home",
+    onClick: action("clicked")
   },
   {
-    icon: 'PlayIcon',
-    text: 'I would not try to read this entire line, it is too long',
-    onClick: action('clicked')
-  },
+    icon: "PlayIcon",
+    text: "I would not try to read this entire line, it is too long",
+    onClick: action("clicked")
+  }
 ];
 
 const dropDownItems2 = [
   {
-    icon: 'EditFilledIcon',
-    text: 'Edit'
+    icon: "EditFilledIcon",
+    text: "Edit"
   },
   {
-    icon: 'GroupAddIcon',
-    text: 'Add Group'
-  },
+    icon: "GroupAddIcon",
+    text: "Add Group"
+  }
 ];
 
 const dropDownItems8 = [
   {
-    icon: 'EditFilledIcon',
-    text: 'Edit'
+    icon: "EditFilledIcon",
+    text: "Edit"
   },
   {
-    icon: 'GroupAddIcon',
-    text: 'Add Group'
+    icon: "GroupAddIcon",
+    text: "Add Group"
   },
   {
-    icon: 'HomeIcon',
-    text: 'Home'
+    icon: "HomeIcon",
+    text: "Home"
   },
   {
-    icon: 'PlayIcon',
-    text: 'I would'
+    icon: "PlayIcon",
+    text: "I would"
   },
   {
-    icon: 'EditFilledIcon',
-    text: 'Edit'
+    icon: "EditFilledIcon",
+    text: "Edit"
   },
   {
-    icon: 'GroupAddIcon',
-    text: 'Add Group'
+    icon: "GroupAddIcon",
+    text: "Add Group"
   },
   {
-    icon: 'HomeIcon',
-    text: 'Home'
+    icon: "HomeIcon",
+    text: "Home"
   },
   {
-    icon: 'PlayIcon',
-    text: 'I would'
-  },
+    icon: "PlayIcon",
+    text: "I would"
+  }
 ];
 
-storiesOf('Components', module)
-  .addWithChapters(
-    'ActionOverflowButtons',
-    {
-      info: `
+const Wrapper = styled.div`
+  background-color: ${renderThemeIfPresentOrDefault({ key: "primary01", defaultValue: colors.greenBackground})};
+`;
+
+const defaultStyleOverride = {
+  padding: "16px",
+  paddingBottom: "300px"
+};
+
+function renderChapterWithTheme(theme) {
+  return {
+    info: `
         Usage
 
         ~~~
@@ -90,66 +99,98 @@ storiesOf('Components', module)
         import {ActionOverflowButtons} from 'insidesales-components';
         ~~~
       `,
-      chapters: [
-        {
-          sections: [
-            {
-              title: 'Example: Toggle with 4 items',
-              sectionFn: () => (
-                <div style={{padding: '16px', paddingBottom: '300px', backgroundColor: colors.greenBackground}}>
+    chapters: [
+      {
+        sections: [
+          {
+            title: "Example: Toggle with 4 items",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper style={defaultStyleOverride}>
                   <ActionOverflowButtons
                     className="main-class"
                     overflowItems={dropDownItems}
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Example: Toggle with 2 items',
-              sectionFn: () => (
-                <div style={{padding: '16px', paddingBottom: '300px', backgroundColor: colors.greenBackground}}>
-                  <ActionOverflowButtons
-                    overflowItems={dropDownItems2}
-                  />
-                </div>
+          },
+          {
+            title: "Example: Toggle with 2 items",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper style={defaultStyleOverride}>
+                  <ActionOverflowButtons overflowItems={dropDownItems2} />
+                </Wrapper>
               )
-            },
-            {
-              title: 'Example: Toggle with 8 items (for demo purposes; never use more than 6 items)',
-              sectionFn: () => (
-                <div style={{padding: '16px', paddingBottom: '500px', backgroundColor: colors.greenBackground}}>
+          },
+          {
+            title:
+              "Example: Toggle with 8 items (for demo purposes; never use more than 6 items)",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper
+                  style={{
+                    ...defaultStyleOverride,
+                    paddingBottom: "500px"
+                  }}
+                >
                   <ActionOverflowButtons
                     actionButtonIcon="CogIcon"
                     overflowItems={dropDownItems8}
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Example: Toggle with 4 items; Labels on left',
-              sectionFn: () => (
-                <div style={{padding: '16px', paddingBottom: '300px', paddingLeft: '300px', backgroundColor: colors.greenBackground}}>
+          },
+          {
+            title: "Example: Toggle with 4 items; Labels on left",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper
+                  style={{
+                    ...defaultStyleOverride,
+                    paddingLeft: "300px"
+                  }}
+                >
                   <ActionOverflowButtons
                     labelsPosition="left"
                     overflowItems={dropDownItems}
                   />
-                </div>
+                </Wrapper>
               )
-            },
-            {
-              title: 'Example: Toggle with 4 items; Labels on left; Open up',
-              sectionFn: () => (
-                <div style={{padding: '16px', paddingTop: '300px', paddingLeft: '300px', backgroundColor: colors.greenBackground}}>
+          },
+          {
+            title: "Example: Toggle with 4 items; Labels on left; Open up",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <Wrapper
+                  style={{
+                    ...defaultStyleOverride,
+                    paddingLeft: "300px",
+                    paddingTop: "300px"
+                  }}
+                >
                   <ActionOverflowButtons
                     labelsPosition="left"
                     openDirection="up"
                     overflowItems={dropDownItems}
                   />
-                </div>
+                </Wrapper>
               )
-            },
-          ]
-        }
-      ]
-    }
+          }
+        ]
+      }
+    ]
+  };
+}
+
+storiesOf("Components", module)
+  .addWithChapters("Default ActionOverflowButtons", renderChapterWithTheme({}))
+  .addWithChapters(
+    "ActionOverflowButtons w/ BlueYellowTheme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

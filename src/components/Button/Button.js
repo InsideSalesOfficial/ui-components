@@ -1,15 +1,22 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, withTheme } from 'styled-components';
 import * as _ from 'lodash';
 
 import Loader from '../Loader';
-import { colors, typography, boxShadows } from '../styles';
+import {
+  colors,
+  typography,
+  boxShadows,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  ifThemeInPropsIsPresentUse,
+} from '../styles';
 
 export const buttonAnimationTimeSeconds = 2;
 
 const fade = keyframes`
   0%   {
-    background: ${colors.green};
+    background: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green})};
     box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
   }
   100% {
@@ -29,15 +36,15 @@ const ButtonBase = styled.button`
 
   --background: ${(props) => {
     if (props.danger && props.disabled) {
-      return colors.red10;
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning03', defaultValue: colors.red10 });
     }
 
     if (props.disabled || props.fade) {
-      return colors.green10;
+      return renderThemeKeyOrDefaultValue({ props, key: 'brand03', defaultValue: colors.green10 });
     }
 
     if (props.danger) {
-      return colors.red;
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning01', defaultValue: colors.red });
     }
 
     if (props.outline || props.flat || props.flatAlt) {
@@ -45,10 +52,10 @@ const ButtonBase = styled.button`
     }
 
     if (props.neuralytics) {
-      return colors.tron;
+      return renderThemeKeyOrDefaultValue({ props, key: 'tron01', defaultValue: colors.tron});
     }
 
-    return colors.green;
+    return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green});
   }};
   background: var(--background);
 
@@ -56,7 +63,7 @@ const ButtonBase = styled.button`
   &:hover {
     background-color: ${(props) => {
       if (props.flat || props.flatAlt || props.outline) {
-        return colors.green10;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.green10});
       }
 
       return 'var(--background)';
@@ -75,7 +82,7 @@ const ButtonBase = styled.button`
     transition: box-shadow .01s linear, background-color .01s linear;
     background-color: ${(props) => {
       if (props.flat || props.flatAlt || props.outline) {
-        return colors.green10;
+        return renderThemeKeyOrDefaultValue({ props, key: 'brand04', defaultValue: colors.green10});
       }
 
       return 'var(--background)';
@@ -97,7 +104,7 @@ const ButtonBase = styled.button`
 
     color: ${(props) => {
       if (props.flat || props.outline) {
-        return colors.green
+        return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green});
       }
     }};
   }
@@ -120,16 +127,17 @@ const ButtonBase = styled.button`
     }};
     color: ${(props) => {
       if ((props.flat && !props.onDarkBg) || (props.outline && !props.onDarkBg)) {
-        return colors.black40;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: colors.black40});
       }
       if (props.flatAlt) {
-        return colors.green40;
+        return renderThemeKeyOrDefaultValue({ props, key: 'brand03', defaultValue: colors.green40});
       }
-      return colors.white40;
+      if (props.danger && ifThemeInPropsIsPresentUse({ props, value: true })) return renderThemeKeyOrDefaultValue({ props, key: 'white40'});
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white40});
     }};
     border-color: ${(props) => {
       if (props.outline) {
-        return colors.green40;
+        return renderThemeKeyOrDefaultValue({ props, key: 'brand03', defaultValue: colors.green40});
       }
       return;
     }};
@@ -145,9 +153,9 @@ const ButtonBase = styled.button`
   border: ${(props) => {
     if (props.outline) {
       if (props.disabled) {
-        return `1px solid ${colors.green40}`;
+        return `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'brand03', defaultValue: colors.green40})}`;
       }
-      return `1px solid ${colors.green}`;
+      return `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green})}`;
     }
     return 'none';
   }};
@@ -155,12 +163,14 @@ const ButtonBase = styled.button`
   border-radius: 2px;
   color: ${(props) => {
     if ((props.outline && !props.onDarkBg) || (props.flat && !props.onDarkBg)) {
-      return colors.black90;
+      return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.black90});
     }
     if (props.flatAlt) {
-      return colors.green;
+      return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green});
     }
-    return colors.white90;
+
+    if (props.danger && ifThemeInPropsIsPresentUse({ props, value: true })) return renderThemeKeyOrDefaultValue({ props, key: 'white90'});
+    return renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white90});
   }};
 
   height: 36px;
@@ -199,7 +209,7 @@ const CenteredSpan = styled.span`
 
 const buttonSelector = 'pb-test__button';
 
-export const Button = ({ className, label, loading, onClick, ...props }) => {
+export const Button = withTheme(({ className, label, loading, onClick, ...props }) => {
   const debouncedOnClick = _.debounce(onClick, 175);
 
   return <ButtonBase
@@ -218,7 +228,7 @@ export const Button = ({ className, label, loading, onClick, ...props }) => {
       )}
     </span>
   </ButtonBase>;
-};
+});
 
 Button.defaultProps = {
   onClick: _.identity

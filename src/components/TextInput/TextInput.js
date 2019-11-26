@@ -44,13 +44,13 @@ const Caret = styled.div`
     margin: auto;
     border-left: 5px transparent solid;
     border-right: 5px transparent solid;
-    border-${props => props.open ? 'bottom' : 'top'}: 5px ${colors.black40} solid;
+    border-${props => props.open ? 'bottom' : 'top'}: 5px ${colors.renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40})} solid;
   }
 `;
 
 export const TextBox = styled.div`
   border: ${(props) => {
-    return props.outlinedSearch ? "1px solid rgba(0,0,0,0.4)" : 'none'
+    return props.outlinedSearch ? `1px solid ${colors.renderThemeKeyOrDefaultValue({props, key: 'white40', defaultValue: 'rgba(0,0,0,0.4)'})}` : 'none'
   }};
   border-radius: ${(props) => {
     if (props.disabled) {
@@ -58,19 +58,19 @@ export const TextBox = styled.div`
     }
     return '0';
   }};
-  background-color: ${colors.white};
+  background-color: ${colors.renderThemeIfPresentOrDefault({key: 'primary05', defaultValue: colors.white})};
   border-bottom: thin solid ${colors.black40};
   border-color: ${(props) => {
     if (props.error) {
-      return colors.red;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     } else if (props.isFocused) {
-      return colors.green;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
     } else if (props.disabled) {
-      return colors.black20;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'primary04', defaultValue: colors.black20 });
     } else if (props.lineColor) {
       return props.lineColor;
     }
-    return colors.black40;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'primary03', defaultValue: colors.black40 });
   }};
   border-width: ${(props) => {
     if (props.isFocused || props.error || props.disabled) {
@@ -106,9 +106,9 @@ export const TextBox = styled.div`
   ${(props) => {
     if (props.disabled) {
       return `
-        background-color: ${colors.black05};
+        background-color: ${colors.renderThemeKeyOrDefaultValue({props, key: 'primary03', defaultValue: colors.black05})};
         label {
-          color: ${colors.black40};
+          color: ${colors.renderThemeKeyOrDefaultValue({props, key: 'primary04', defaultValue: colors.black40})};
         }
       `;
     }
@@ -125,27 +125,28 @@ export const InputItem = styled.input`
   resize: none;
   text-align: left;
   width: 100%;
-
+  color: ${colors.renderThemeIfPresentOrDefault({key: 'white90', defaultValue: colors.black90 })};
+  
   &:focus {
     outline: 0;
   }
   ${typography.subhead1}
   ${darkScrollbar}
   &::placeholder {
-    color: ${colors.black30};
+    color: ${colors.renderThemeIfPresentOrDefault({key: 'white40', defaultValue: colors.black30})};
   }
 `;
 
 export const TextLabel = styled.label`
   color: ${(props) => {
     if (props.error) {
-      return colors.red;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'warning04', defaultValue: colors.red });
     } else if (props.isFocused) {
-      return props.theme.focusedColor || colors.green;
+      return props.theme.focusedColor || colors.renderThemeKeyOrDefaultValue({props, key: 'brand01', defaultValue: colors.green });
     } else if (props.labelColor) {
       return props.labelColor;
     } else {
-      return colors.black60;
+      return colors.renderThemeKeyOrDefaultValue({props, key: 'white60', defaultValue: colors.black60 });
     }
   }};
   top: 0;
@@ -171,14 +172,14 @@ export const TextLabel = styled.label`
 
 export const TextInputHelper = styled.div`
    color: ${(props) => {
-    return props.theme.helperColor || colors.black40;
+    return props.theme.helperColor || colors.renderThemeKeyOrDefaultValue({props, key: 'white40', defaultValue: colors.black40 });
   }};
   padding-top: 4px;
   ${typography.caption}
 `;
 
 export const TextInputError = styled(TextInputHelper)`
-  color: ${colors.red};
+  color: ${colors.renderThemeIfPresentOrDefault({key: 'warning04', defaultValue: colors.red})};
 `;
 
 const SearchIcon = styled(Icons.SearchMaterialIcon)`

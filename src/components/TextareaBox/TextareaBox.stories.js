@@ -6,10 +6,13 @@ import {
 
 import TextareaBox from './TextareaBox';
 
-storiesOf('Form', module)
-  .addWithChapters(
-    'TextareaBox',
-    {
+import {
+  wrapComponentWithContainerAndTheme,
+  colors,
+} from "../styles";
+
+function renderChapterWithTheme(theme) {
+  return {
       info: `
         Usage
 
@@ -23,7 +26,7 @@ storiesOf('Form', module)
           sections: [
             {
               title: 'Example: textarea default empty',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaBox
                   label="Label"
                   name="first"
@@ -33,7 +36,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with existing text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaBox
                   label="Label"
                   name="firstz"
@@ -44,7 +47,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with error text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaBox
                   label="Label"
                   helper="Helper text."
@@ -57,7 +60,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea disabled',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaBox
                   label="Label"
                   helper="Helper text."
@@ -69,7 +72,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea disabled with text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaBox
                   label="Label"
                   helper="Helper text."
@@ -82,5 +85,12 @@ storiesOf('Form', module)
           ]
         }
       ]
-    }
+    };
+}
+
+storiesOf('Form', module)
+  .addWithChapters("Default TextareaBox", renderChapterWithTheme({}))
+  .addWithChapters(
+    "TextareaBox w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

@@ -1,5 +1,7 @@
 import { transparentize } from 'polished';
 
+import { blueYellowTheme, hotPinkTheme } from'./themes.js';
+
 export const green = {
   green: '#3AB676',
   greenB: '#34A369',
@@ -65,8 +67,11 @@ export const black = {
   black90: 'rgba(0,0,0,0.9)',
   black60: 'rgba(0,0,0,0.6)',
   black40: 'rgba(0,0,0,0.4)',
+  black20: 'rgba(0,0,0,0.2)',
   black10: 'rgba(0,0,0,0.1)',
-  black4: 'rgba(0,0,0,0.04)'
+  black4: 'rgba(0,0,0,0.04)',
+  black14: 'rgba(0,0,0,0.14)',
+  black12: 'rgba(0,0,0,0.12)',
 };
 
 export const white = {
@@ -153,4 +158,41 @@ const deprecatedColors = {
   disabledTronC: '#adbfc5'
 };
 
-export const colors = Object.assign(deprecatedColors, officialColors);
+export function renderThemeIfPresentOrDefault({ key, defaultValue }) {
+  return function styledComponentProppedValue(props) {
+    return renderThemeKeyOrDefaultValue({ props, key, defaultValue });
+  };
+}
+
+export function renderThemeKeyOrDefaultValue({ props, key, defaultValue }) {
+  if (!key) return defaultValue;
+  if (!props.theme || !props.theme[key]) return defaultValue;
+  return props.theme[key];
+}
+
+export function ifThemeIsPresentUse({ value, defaultValue }) {
+  return function styledComponentProppedValueOrDefault(props) {
+    if (props.theme && props.theme.brand01) return value || '';
+    return defaultValue || '';
+  };
+}
+
+export function ifThemeInPropsIsPresentUse({ props, value, defaultValue }) {
+  return ifThemeIsPresentUse({ value, defaultValue })(props);
+}
+
+export function generateFillFromProps(props, color) {
+  if (props.fill) return { fill: props.fill };
+  else if (!color) return {};
+
+  return { fill: props.useCurrentColor ? 'currentColor' : color };
+}
+
+const utilityFunctions = {
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  ifThemeIsPresentUse,
+  ifThemeInPropsIsPresentUse
+};
+
+export const colors = Object.assign(deprecatedColors, officialColors, utilityFunctions, { hotPinkTheme, blueYellowTheme});

@@ -4,8 +4,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { colors, typography, darkScrollbar } from '../styles';
-
+import {
+  colors,
+  typography,
+  darkScrollbar,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 import TextInput, { TextBox, TextLabel } from '../TextInput/TextInput';
 
 const padding = '16px';
@@ -14,13 +18,11 @@ const TextareaBoxWrapper = styled.div`
   width: 100%;
   position: relative;
 
-  ${props => props.disabled && `
-    opacity: 0.6;
-  `}
+  ${props => props.disabled && 'opacity: 0.6;'};
 `;
 
 const TextBoxFilled = styled(TextBox)`
-  background: ${colors.lighterGray};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.lighterGray })};
   height: ${props => props.isFocused || props.open ? 'auto' : '56px' };
   border-radius: 2px;
   min-height: 59px;
@@ -28,9 +30,9 @@ const TextBoxFilled = styled(TextBox)`
   &, &:hover {
     padding: 22px ${padding} 0 ${padding};
     border-bottom: 2px solid ${props => {
-      if(props.error) return colors.red;
-      if(props.isFocused) return colors.green;
-      return colors.black40;
+      if(props.error) return renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red });
+      if(props.isFocused) return renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green });
+      return renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 });
     }};
   }
 `
@@ -45,8 +47,8 @@ const TextBoxLabel = styled(TextLabel)`
 
 const Chars = styled.div`
   color: ${props => {
-    if(props.error) return colors.red;
-    return colors.green;
+    if(props.error) return renderThemeIfPresentOrDefault({ key: 'warning01', defaultValue: colors.red });
+    return renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green });
   }};
   text-align: right;
   padding: 0.25em 0;
@@ -80,6 +82,7 @@ const InputBoxStyles = `
 const TextareaBoxField = styled.textarea`
   ${InputBoxStyles}
   min-height: ${props => props.focused ? '89px' : '24px'};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
   height: ${props => {
     let filledHeight = props.filledHeight;
 
