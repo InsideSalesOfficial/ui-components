@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import { colors, typography } from '../styles';
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+} from '../styles';
 import Icons from '../icons';
 
 import SelectInputLabel from './SelectInputLabel';
@@ -19,10 +24,10 @@ const Input = styled.div`
   }};
   background: ${(props) => {
     if (props.theme.background) {
-      return props.theme.background;
+      return renderThemeKeyOrDefaultValue({ props, key: 'noValue', defaultValue: props.theme.background });
     }
 
-    return colors.white10;
+    return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white10 });
   }};
   border-radius: ${(props) => {
     if (props.theme.borderRadius) {
@@ -33,7 +38,7 @@ const Input = styled.div`
   box-sizing: border-box;
   border-bottom: ${(props) => {
     if (props.theme.borderColor) {
-      return `1px solid ${props.theme.borderColor}`;
+      return `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: props.theme.borderColor })}`;
     }
 
     return 0;
@@ -50,9 +55,9 @@ const Input = styled.div`
   }};
 
   color: ${(props) => {
-    if (!props.isDisabled && props.theme.textColor) return props.theme.textColor;
-    if (!props.isDisabled) return props.theme.inputColor;
-    return props.theme.disabledInputColor;
+    if (!props.isDisabled && props.theme.textColor) return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.textColor });
+    if (!props.isDisabled) return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.inputColor });
+    return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.disabledInputColor });
   }};
   cursor: ${(props) => {
     if (!props.isDisabled) return 'pointer';
@@ -88,17 +93,17 @@ const Input = styled.div`
   &:focus {
     color: ${(props) => {
       if (props.isDisabled && props.theme.disabledInputColor) {
-        return props.theme.disabledInputColor;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.disabledInputColor });
       } else if (props.theme.focusTextColor) {
-        return props.theme.focusTextColor;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.focusTextColor });
       }
     }};
 
     .input-carat {
       border-top: ${(props) => {
-        if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${props.theme.disabledSelectArrowColor}`;
+        if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: props.theme.disabledSelectArrowColor })}`;
         else if (props.theme.focusSelectArrowColor) {
-          return `5px solid ${props.theme.focusSelectArrowColor}`;
+          return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: props.theme.focusSelectArrowColor })}`;
         }
       }};
     }
@@ -107,25 +112,25 @@ const Input = styled.div`
   &:hover {
     background: ${(props) => {
       if (props.theme.background) {
-        return props.theme.background;
+        return renderThemeKeyOrDefaultValue({ props, key: '?', defaultValue: props.theme.background });
       }
 
-      return colors.white20;
+      return renderThemeKeyOrDefaultValue({ props, key: '?', defaultValue: colors.white20 })
     }};
 
     color: ${(props) => {
       if (props.isDisabled && props.theme.disabledInputColor) {
-        return props.theme.disabledInputColor;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.disabledInputColor });
       } else if (props.theme.hoverTextColor) {
-        return props.theme.hoverTextColor;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.hoverTextColor });
       }
     }};
 
     .input-carat {
       border-top: ${(props) => {
-        if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${props.theme.disabledSelectArrowColor}`;
+        if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.disabledSelectArrowColor })}`;
         else if (props.theme.hoverSelectArrowColor) {
-          return `5px solid ${props.theme.hoverSelectArrowColor}`;
+          return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.hoverSelectArrowColor })}`;
         }
       }};
     }
@@ -133,7 +138,7 @@ const Input = styled.div`
   &:focus {
     box-shadow: ${(props) => {
       if (!props.theme) {
-        return `inset 0 1px 1px transparent, 0 0 5px ${colors.white60}`;
+        return `inset 0 1px 1px transparent, 0 0 5px ${renderThemeIfPresentOrDefault({ key: 'black40', defaultValue: colors.white60 })}`;
       }
     }};
     outline: none;
@@ -146,9 +151,9 @@ const Carat = styled.div`
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: ${(props) => {
-    if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${props.theme.disabledSelectArrowColor}`;
-    else if (props.theme.iconColor) return `5px solid ${props.theme.iconColor}`;
-    else if (props.theme.selectArrowColor) return `5px solid ${props.theme.selectArrowColor}`;
+    if (props.isDisabled && props.theme.disabledSelectArrowColor) return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.disabledSelectArrowColor })}`;
+    else if (props.theme.iconColor) return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.iconColor })}`;
+    else if (props.theme.selectArrowColor) return `5px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.selectArrowColor })}`;
   }};
 
   position: ${(props) => {
@@ -203,7 +208,8 @@ const Label = styled.div`
 
 const AddButton = styled.div`
   ${typography.body2};
-  color: ${colors.green};
+  color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
+  fill: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
   padding-left: 32px;
   position: relative;
 
@@ -223,13 +229,13 @@ const LabelWrapper = styled.div`
 class SelectInputDisplay extends React.Component {
   render() {
     const { onClick, label, isDisabled, selectArrowFollows, noCarat, defaultLabel } = this.props;
-    const clonedLabel = typeof (label) === 'string' ? <OverflowWrapper>{label}</OverflowWrapper> : React.cloneElement(label, { isClickable: true });
+    const clonedLabel = typeof (label) === 'string' ? <OverflowWrapper>{label}</OverflowWrapper> : React.cloneElement(label, { isClickable: true, allowOverflow: true });
 
     return (
-      <div style={{ width: '100%' }}>
+      <div className="select-input-display" style={{ width: '100%' }}>
 
         {this.props.addButtonList &&
-          <AddButton><Icons.AddCircleIcon fill={colors.green} size={{ width: 24, height: 24 }} /> {defaultLabel}</AddButton>
+          <AddButton><Icons.AddCircleIcon size={{ width: 24, height: 24 }} /> {defaultLabel}</AddButton>
         }
         {!this.props.addButtonList &&
           <Input

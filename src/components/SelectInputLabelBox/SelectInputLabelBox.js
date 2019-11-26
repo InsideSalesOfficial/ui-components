@@ -7,8 +7,11 @@ import { isValued } from './utils';
 
 import { checkDocumentEvent, openOptionsList, closeOptionsList, toggleOptionsListOnSearch } from '../SelectInput';
 import SelectOptions from '../SelectInput/SelectOptions';
-import { colors } from '../styles/colors';
-import { typography } from '../styles/typography';
+import {
+  colors,
+  typography,
+  renderThemeKeyOrDefaultValue,
+} from '../styles';
 import PropTypes from 'prop-types';
 
 const padding = '16px';
@@ -16,9 +19,9 @@ const padding = '16px';
 export const Label = styled.div`
   color: ${props => {
     if (props.error) {
-      return colors.red;
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     }
-    return props.theme.labelColor || colors.black40;
+    return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.labelColor || colors.black40 })
   }};
   transition: all 200ms;
   transform: translateY(-50%);
@@ -61,9 +64,9 @@ const Caret = styled.div`
     border-right: 5px transparent solid;
     border-${props => props.open ? 'bottom' : 'top'}: 5px ${props => {
       if (props.theme.borderColor){
-        return props.theme.borderColor;
+        return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: props.theme.borderColor });
       }
-      return props.open ? colors.black90 : colors.black40;
+      return props.open ? renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.black90 }) : renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: colors.black40 });
     }} solid;
   }
 `;
@@ -76,17 +79,16 @@ export const Value = styled.div`
   ${typography.subhead1};
   color: ${props => {
     if (props.error) {
-      return colors.red;
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     }
     if (props.isPlaceHolder) {
-      return colors.black60;
+      return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.black60 });
     }
 
     if (props.theme.valueColor){
-      return props.theme.valueColor;
+      return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.valueColor });
     }
-
-    return colors.black90;
+    return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.black90 })
   }};
   height: 56px;
   padding: 22px 26px 0 ${(props) => {
@@ -98,10 +100,10 @@ export const Value = styled.div`
   }};
   background: ${(props) => {
     if (props.theme.background) {
-      return props.theme.background;
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary03', defaultValue: props.theme.background });
     }
 
-    return colors.grayA;
+    return renderThemeKeyOrDefaultValue({ props, key: 'primary03', defaultValue: colors.grayA });
   }};
   box-sizing: border-box;
   border-bottom-width: ${(props) => {
@@ -116,12 +118,12 @@ export const Value = styled.div`
     if (props.isDisabled){
       return 'transparent';
     } else if (props.error) {
-      return colors.red;
+      return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
     } else if (props.theme.borderColor) {
-      return props.theme.borderColor;
+      return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: props.theme.borderColor });
     }
 
-    return colors.black40;
+    return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: colors.black40 });
   }};
   cursor: ${props => props.isDisabled ? 'auto' : 'pointer'};
   border-radius: ${(props) => {
@@ -168,9 +170,9 @@ export const SelectToggle = styled.button`
     outline: 0;
     border-color: ${props => {
       if (props.error) {
-        return colors.red;
+        return renderThemeKeyOrDefaultValue({ props, key: 'warning04', defaultValue: colors.red });
       }
-      return props.isDisabled ? 'transparent' : colors.green
+      return props.isDisabled ? renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: 'transparent' }) : renderThemeKeyOrDefaultValue({ props, key: 'white', defaultValue: colors.green })
     }};
   }
 `;

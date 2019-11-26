@@ -1,7 +1,6 @@
 {
   "name": "insidesales-components",
   "description": "A set of UI components built with React and Styled-Components used on products by InsideSales.com.",
-  "homepage": "http://insidesalesofficial.github.io/ui-components/storybook/",
   "repository": {
     "type": "git",
     "url": "https://github.com/InsideSalesOfficial/insidesales-components.git"
@@ -128,7 +127,7 @@
     "predeploy:docs": "npm-run-all --parallel build:docs build:storybook",
     "deploy:docs": "gh-pages -d build",
     "build:commonjs": "cross-env NODE_ENV=development babel ./src/components --out-dir ./lib --ignore spec.js,stories.js",
-    "build:storybook": "build-storybook -c .storybook -o ./build/storybook",
+    "build:storybook": "build-storybook -c .storybook -o ./build/storybook && cp -r ./build/storybook ./docs/",
     "prepublish": "npm run build:lib",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },

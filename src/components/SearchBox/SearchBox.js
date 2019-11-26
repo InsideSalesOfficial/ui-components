@@ -1,35 +1,45 @@
-import { colors } from '../styles';
-import Icons from '../icons';
 import styled, { ThemeProvider } from 'styled-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+import Icons from '../icons';
+import {
+  colors,
+  renderThemeKeyOrDefaultValue,
+} from '../styles';
 
 const SearchBarContainer = styled.div`
     height: 36px;
     border: 1px solid;
-    border-color: ${(props) => { return props.theme.borderColor || props.theme.foreground || colors.white60; }};
-    background: ${(props) => { return props.theme.background || colors.white10; }};
+    border-color: ${(props) => {
+      return renderThemeKeyOrDefaultValue({ props, key: 'transparent', defaultValue: props.theme.borderColor || props.theme.foreground || colors.white60 });
+    }};
+    background: ${(props) => {
+      return renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: props.theme.background || colors.white10 });
+    }};
     border-radius: 3px;
     position: relative;
     width: 100%;
 `;
-
 
 const SearchIconWrapper = styled(Icons.SearchMaterialIcon)`
     position: absolute;
     left: 7px;
     top: 50%;
     transform: translateY(-50%);
-    fill: ${(props) => { return props.theme.iconColor || props.theme.foreground || colors.white60; }};
+    fill: ${(props) => {
+      return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.iconColor || props.theme.foreground || colors.white60 });
+    }};
 `;
 
 const SearchBarText = styled.input`
     font-size: 16px;
     line-height: 20px;
-    color: ${(props) => { return props.theme.valueColor || props.theme.foreground || colors.white60; }};
+    color: ${(props) => {
+      return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.valueColor || props.theme.foreground || colors.white60 });
+    }};
     width: 100%;
     height: 100%;
     padding-right: 8px;
@@ -41,7 +51,9 @@ const SearchBarText = styled.input`
     outline: 0;
     border: 0;
     &::placeholder {
-    color: ${(props) => { return props.theme.placeholderColor || props.theme.foreground || colors.white60; }};
+    color: ${(props) => {
+      return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: props.theme.placeholderColor || props.theme.foreground || colors.white60 });
+    }};
     }
 `;
 
@@ -84,6 +96,7 @@ class SearchBox extends React.Component {
                 <SearchIconWrapper size={size} />
                 {this.props.enabled &&
                     <SearchBarText
+                        id={this.props.textInputID}
                         value={this.state.value}
                         className="pb-test__search-box-input"
                         placeholder={this.props.placeholder} onChange={this.onChange}
@@ -105,7 +118,8 @@ SearchBox.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  iconSize: PropTypes.number
+  iconSize: PropTypes.number,
+  textInputID: PropTypes.string,
 };
 
 SearchBox.defaultProps = {

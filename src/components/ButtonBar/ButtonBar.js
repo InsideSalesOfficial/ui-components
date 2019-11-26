@@ -3,7 +3,11 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import Button from '../Button';
 import InteractiveElement from '../InteractiveElement';
-import { colors } from '../styles';
+import {
+  colors,
+  renderThemeIfPresentOrDefault,
+  ifThemeInPropsIsPresentUse,
+} from '../styles';
 
 const ButtonContainer = styled.div`
   width: 100%;
@@ -26,7 +30,7 @@ const SecondaryActionElement = styled(InteractiveElement)`
   background-color: transparent;
   border: none;
   padding: 0;
-  color: ${colors.black90};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black90})};
   cursor: pointer;
   text-align: left;
 `;
@@ -35,14 +39,14 @@ const SecondaryActionButton = styled(Button)`
   width: auto;
   border: none;
   padding: 0;
-  color: ${props => props.theme.labelColor || colors.black90};
+  color: ${props => ifThemeInPropsIsPresentUse({ props, value: props.theme.white60, defaultValue: props.theme.labelColor || colors.black90})};
 `;
 
 const PrimaryActionElement = styled(InteractiveElement)`
   background-color: transparent;
   border: none;
   padding: 0;
-  color: ${colors.green};
+  color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green})};
   cursor: pointer;
   text-align: left;
 `;

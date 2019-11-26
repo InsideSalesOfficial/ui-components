@@ -15,8 +15,8 @@ export const lineHeights = {
 };
 
 export const fontFamilies = {
-  robotoCondensed: '"Roboto Condensed", "Open Sans"',
-  roboto: '"Roboto", "Open Sans"'
+  robotoCondensed: '"Roboto Condensed", Helvetica, Arial, "Open Sans", sans-serif',
+  roboto: '"Roboto", Helvetica, Arial, "Open Sans", sans-serif'
 };
 
 export const fontWeights = {
@@ -59,6 +59,11 @@ export const typography = {
     line-height: 24px;
     font-weight: ${fontWeights.regular};
     letter-spacing: 0.5px;
+  `,
+  subhead3: `
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: ${fontWeights.regular};
   `,
   body2: `
     font-size: 14px;

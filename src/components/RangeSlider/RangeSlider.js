@@ -3,13 +3,41 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
 import InputRange from 'react-input-range';
-import './index.css';
 
-import { colors, fontFamilies, fontSizes, fontWeights } from '../styles';
+import {
+  colors,
+  fontFamilies,
+  fontSizes,
+  fontWeights,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const RangeSliderWrap = styled.div`  
   font-family: ${fontFamilies.roboto};
+
+  .input-range__label--value {
+    position: absolute;
+    top: -1.8rem;
+  }
+
+  .input-range__label-container {
+    left: -50%;
+    position: relative;
+  }
+
+  .input-range__track--background {
+    left: 0;
+    margin-top: -0.15rem;
+    position: absolute;
+    right: 0;
+    top: 50%;
+  }
+
   .input-range {
+    height: 1rem;
+    position: relative;
+    width: 100%;
+
     .input-range__track {
       transition: left 0s, width 0s;
     }
@@ -24,11 +52,26 @@ const RangeSliderWrap = styled.div`
   }
 
   .input-range__slider {
+    appearance: none;
+    background: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: '#3f51b5'})};
+    border: 1px solid ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: '#3f51b5'})};
+    border-radius: 100%;
+    cursor: pointer;
+    display: block;
+    height: 1rem;
+    margin-left: -0.5rem;
+    margin-top: -0.65rem;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    width: 1rem;
+
     background-clip: padding-box;
-    background-color: ${colors.green};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
     
     border-radius: 50%;
-    border-color: ${colors.green};
+    border-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
 
     box-sizing: border-box;
     margin-left: 0;
@@ -42,23 +85,40 @@ const RangeSliderWrap = styled.div`
     
     overflow: visible;
     outline: none;
-  }
 
-  .input-range__slider:hover {
-    box-shadow: 0 0 0 5px ${colors.green20};
+    &:active {
+      transform: scale(1.3);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 5px ${renderThemeIfPresentOrDefault({ key: 'brand02', defaultValue: 'rgba(63, 81, 181, 0.2)'})};
+    }
+
+    &:hover {
+      box-shadow: 0 0 0 5px ${renderThemeIfPresentOrDefault({ key: 'brand04', defaultValue: colors.green20 })};
+    }
   }
 
   .input-range__track {
-    background: ${colors.black12};
+    border-radius: 0.3rem;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    transition: left 0.3s ease-out, width 0.3s ease-out;
+    background: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.black12 })};
     height: 2px;
   }
 
   .input-range__track--active {
-    background: ${colors.green};
+    background: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
   }
 
   .input-range__label {
-    color: ${colors.black};
+    font-family: "Helvetica Neue", san-serif;
+    font-size: 0.8rem;
+    transform: translateZ(0);
+    white-space: nowrap;
+    color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black })};
   }
 
   .input-range__label--min,
@@ -85,7 +145,7 @@ const RangeSliderWrap = styled.div`
 `;
 
 const Label = styled.label`
-  color: ${colors.aluminum};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.aluminum })};
   display: block;
   font-size: ${fontSizes.xxSmall};
   font-weight: ${fontWeights.light};

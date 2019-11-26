@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { colors, fontSizes, typography } from '../styles';
 import Modal from '../Modal'
 import ButtonBar from '../ButtonBar';
+import {
+  colors,
+  fontSizes,
+  typography,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 
 const Title = styled.div`
   width: 100%;
 
-  color: ${colors.black87};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black87 })};
 
   margin-bottom: 8px;
 
@@ -25,7 +30,7 @@ const ContentWrapper = styled.div`
 
 const BodyDisplay = styled.div`
   margin-bottom: 20px;
-  color: ${colors.black60};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white', defaultValue: colors.black60 })};
   ${typography.body1}
   margin-top: ${(props) => {
     if (props.dialogTitle) {

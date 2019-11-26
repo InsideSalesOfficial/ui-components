@@ -3,23 +3,35 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import { colors, typography, boxShadows } from '../styles';
+import {
+  colors,
+  typography,
+  boxShadows,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+  ifThemeInPropsIsPresentUse,
+  ifThemeIsPresentUse,
+} from '../styles';
 
 import { OverflowWrapper } from './SelectInputThemes';
 
 import Checkbox from '../Checkbox';
 
-import TextInput from '../TextInput';
+import TextInput, { TextBox } from '../TextInput';
 
 import ButtonBar from '../ButtonBar';
 
 export const SelectOptionHeight = 36;
 
+const StyledSearchInput = styled(TextInput)`
+  ${TextBox} { ${ifThemeIsPresentUse({ value: 'background-color: transparent;'  })} }
+`;
+
 const SelectOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   visibility: hidden;
-  background: ${colors.white};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })};
   position: absolute;
   top: ${(props) => {
     if (props.theme.optionListPosition) return props.theme.optionListPosition;
@@ -73,7 +85,7 @@ const SelectOptionsWrapper = styled.div`
   overflow-y: auto;
 
   &::-webkit-scrollbar {
-    background-color: ${colors.white};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })};
     border-left: none;
     margin-right: 10px;
     width: 10px;
@@ -85,7 +97,7 @@ const SelectOptionsWrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
-    background-color: ${colors.black40};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.black40 })};
     border: 1px solid transparent;
     border-radius: 5px;
   }
@@ -109,7 +121,7 @@ const SelectOption = styled.div`
   }};
   box-sizing: border-box;
   border-bottom: ${(props) => {
-    if (props.theme.optionBorderSeparator) return props.theme.optionBorderSeparator;
+    if (props.theme.optionBorderSeparator) return ifThemeInPropsIsPresentUse({ props, value: `1px solid ${props.theme.white10}`, defaultValue: props.theme.optionBorderSeparator });
     return 'none';
   }};
   opacity: ${(props) => {
@@ -126,10 +138,10 @@ const SelectOption = styled.div`
 
   color:
   ${(props) => {
-    if (props.disabled) return colors.middleGray;
-    else if (props.theme.optionTextColor) return props.theme.optionTextColor;
-    else if (props.theme.textColor) return props.theme.textColor;
-    return colors.selectItemColor;
+    if (props.disabled) return renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: colors.middleGray });
+    else if (props.theme.optionTextColor) return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.optionTextColor });
+    else if (props.theme.textColor) return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: props.theme.textColor });
+    return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.selectItemColor })
   }};
 
   cursor: ${(props) => {
@@ -150,15 +162,15 @@ const SelectOption = styled.div`
   ${(props) => {
     if (!props.disabled) {
       return `&:hover {
-        background: ${colors.gray90};
-        color: ${colors.selectItemColor};
+        background: ${renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.gray90 })};
+        color: ${renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.selectItemColor })};
       };`;
     }
   }}
 `;
 
 const PromotedOptions = styled.div`
-  border-bottom: ${props => (props.listLength === 0 || props.hideDivider) ? '0' : `1px solid ${colors.barLightGray}`};
+  border-bottom: ${props => (props.listLength === 0 || props.hideDivider) ? '0' : `1px solid ${renderThemeKeyOrDefaultValue({ props, key: 'white40', defaultValue: colors.barLightGray })}`};
   margin-bottom: ${props => props.hideDivider ? '0' : '8px'};
   width: 100%;
 `;
@@ -169,14 +181,14 @@ const BottomActionAreaWrapper = styled.div`
 
 const BottomActionAreaDivider = styled.hr`
   height: 1px;
-  background-color: ${colors.black40};
-  color: ${colors.black40};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
 `;
 
 const OptionsTitle = styled.div`
   height: 24px;
 	width: 100%;
-	color: rgba(0,0,0,0.87);
+	color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: 'rgba(0,0,0,0.87)' })};
 	font-family: Roboto;
 	font-size: 20px;
 	font-weight: 500;
@@ -286,7 +298,7 @@ class SelectOptions extends React.Component {
 
     return (
       <div style={{ padding: '0 24px' }} >
-        <TextInput
+        <StyledSearchInput
           label="Label"
           name="selectSearch"
           onChange={this.props.onSearch}

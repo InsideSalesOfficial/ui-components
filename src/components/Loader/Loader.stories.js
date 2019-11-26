@@ -1,19 +1,18 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import Loader from './';
+import Loader from "./";
+
+import { wrapComponentWithContainerAndTheme, colors } from "../styles";
 
 const darkExample = {
-  height: '40px',
-  backgroundColor: '#2a434a',
-  padding: '16px'
-}
+  height: "40px",
+  backgroundColor: "#2a434a",
+  padding: "16px"
+};
 
-
-storiesOf('Base', module)
-.addWithChapters(
-  'Loader',
-  {
+function renderChapterWithTheme(theme) {
+  return {
     info: `
       Usage
 
@@ -26,34 +25,45 @@ storiesOf('Base', module)
       {
         sections: [
           {
-            title: 'Default',
-            sectionFn: () => (
-              <Loader/>
-            )
+            title: "Default",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(theme, <Loader />)
           },
           {
-            title: 'Medium',
-            sectionFn: () => (
-              <Loader medium/>
-            )
+            title: "Medium",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(theme, <Loader medium />)
           },
           {
-            title: 'Small',
-            sectionFn: () => (
-              <Loader small/>
-            )
+            title: "Small",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(theme, <Loader small />)
           },
           {
-            title: 'White',
-            sectionFn: () => (
-              <div style={darkExample}>
-                <Loader white/>
-              </div>
-            )
-          },
+            title: "White",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <div
+                  style={
+                    theme.primary01
+                      ? { backgroundColor: theme.brand01, padding: "16px" }
+                      : darkExample
+                  }
+                >
+                  <Loader white />
+                </div>
+              )
+          }
         ]
       }
     ]
-  }
-);
+  };
+}
 
+storiesOf("Base", module)
+  .addWithChapters("Default Loader", renderChapterWithTheme({}))
+  .addWithChapters(
+    "Loader w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
+  );

@@ -1,29 +1,44 @@
-import React from 'react';
-import moment from 'moment';
-import styled from 'styled-components';
-import { action, storiesOf } from '@storybook/react';
+import React from "react";
+import moment from "moment";
+import styled from "styled-components";
+import { action, storiesOf } from "@storybook/react";
 
-import RangeSlider from './RangeSlider';
-import { fontSizes } from '../styles';
+import RangeSlider from "./RangeSlider";
+
+import { colors, wrapComponentWithContainerAndTheme } from "../styles";
+import { fontSizes } from "../styles";
 
 const Hour = styled.span`
-  .isdc-ext-wrap & {
-    font-size: ${fontSizes.small};
-    margin-right: 4px;
-  }
+  font-size: ${fontSizes.small};
+  margin-right: 4px;
 `;
 
 const Meridian = styled.small`
-  .isdc-ext-wrap & {
-    font-size: ${fontSizes.xxSmall};
-  }
+  font-size: ${fontSizes.xxSmall};
 `;
 
-storiesOf('Form', module)
-  .addWithChapters(
-    'RangeSlider',
-    {
-      info: `
+function formatLabel(value) {
+  return (
+    <div>
+      <Hour>
+        {moment()
+          .startOf("day")
+          .add(value, "hours")
+          .format("h")}
+      </Hour>
+      <Meridian>
+        {moment()
+          .startOf("day")
+          .add(value, "hours")
+          .format("A")}
+      </Meridian>
+    </div>
+  );
+}
+
+function renderChapterWithTheme(theme) {
+  return {
+    info: `
         Usage
 
         ~~~
@@ -31,24 +46,30 @@ storiesOf('Form', module)
         import {RangeSlider} from 'insidesales-components';
         ~~~
       `,
-      chapters: [
-        {
-          sections: [
-            {
-              title: 'Example: Single Range',
-              subtitle: 'A range slider with one value',
-              sectionFn: () => (
+    chapters: [
+      {
+        sections: [
+          {
+            title: "Example: Single Range",
+            subtitle: "A range slider with one value",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
                 <RangeSlider
                   label="Pick a number"
                   minValue={0}
                   maxValue={100}
-                  onRangeUpdate={action('rangeValues')} />
+                  onRangeUpdate={action("rangeValues")}
+                />,
+                { height: "100px" }
               )
-            },
-            {
-              title: 'Example: Double Range',
-              subtitle: 'A range slider with a min and max value option',
-              sectionFn: () => (
+          },
+          {
+            title: "Example: Double Range",
+            subtitle: "A range slider with a min and max value option",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
                 <RangeSlider
                   label="Pick a number"
                   initialValue={{
@@ -57,15 +78,18 @@ storiesOf('Form', module)
                   }}
                   minValue={0}
                   maxValue={100}
-                  onRangeUpdate={action('rangeValues')} />
+                  onRangeUpdate={action("rangeValues")}
+                />,
+                { height: "100px" }
               )
-            },
-            {
-              title: 'Example: Date Range',
-              subtitle: 'You can easily create a date range by formatting the labels.',
-              info: `
+          },
+          {
+            title: "Example: Date Range",
+            subtitle:
+              "You can easily create a date range by formatting the labels.",
+            info: `
                 RangeSlider has a formatLabel prop which accepts a function where you can access the handle labels to format them
-                
+
                 ~~~
                 const formatLabel = value => (
                   <div>
@@ -75,37 +99,47 @@ storiesOf('Form', module)
                 );
                 ~~~
               `,
-              sectionFn: () => {
-                const formatLabel = value => (
-                  <div>
-                    <Hour>{moment().startOf('day').add(value, 'hours').format('h')}</Hour>
-                    <Meridian>{moment().startOf('day').add(value, 'hours').format('A')}</Meridian>
-                  </div>
-                );
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <RangeSlider
+                  label="time is between"
+                  formatLabel={formatLabel}
+                  initialValue={{
+                    min: 8,
+                    max: 17
+                  }}
+                  minValue={0}
+                  maxValue={24}
+                  onRangeUpdate={action("rangeValues")}
+                />,
+                { height: "100px" }
+              )
+          },
+          {
+            title: "Example: Custom Value Step",
+            subtitle: "A range slider a step value of 10",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <RangeSlider
+                  minValue={0}
+                  maxValue={100}
+                  onRangeUpdate={action("rangeValues")}
+                  step={10}
+                />,
+                { height: "100px" }
+              )
+          }
+        ]
+      }
+    ]
+  };
+}
 
-                return <RangeSlider
-                        label="time is between"
-                        formatLabel={formatLabel}
-                        initialValue={{
-                          min: 8,
-                          max: 17
-                        }}
-                        minValue={0}
-                        maxValue={24}
-                        onRangeUpdate={action('rangeValues')} />
-              }
-            },
-            {
-              title: 'Example: Custom Value Step',
-              subtitle: 'A range slider a step value of 10',
-              sectionFn: () => <RangeSlider
-                              minValue={0}
-                              maxValue={100}
-                              onRangeUpdate={action('rangeValues')}
-                              step={10} />
-            }
-          ]
-        }
-      ]
-    }
+storiesOf("Form", module)
+  .addWithChapters("Default RangeSlider", renderChapterWithTheme({}))
+  .addWithChapters(
+    "RangeSlider w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

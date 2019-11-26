@@ -1,7 +1,11 @@
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import { storiesOf, action } from '@storybook/react';
 
 import ToggleSlider from './';
+
+import { colors } from '../styles/colors.js';
+import { generateFlexedThemeBackground } from '../styles/index.js';
 
 class ToggleSliderWrapper extends React.PureComponent {
   constructor(props) {
@@ -12,19 +16,21 @@ class ToggleSliderWrapper extends React.PureComponent {
     };
   }
   render() {
-    return <ToggleSlider checked={this.state.checked} disabled={this.state.disabled} toggle={() => {
-      this.props.toggle();
-      this.setState({ checked: !this.state.checked})
-    }
-    } />
+    return (
+      <ThemeProvider theme={this.props.theme}>
+        <div style={generateFlexedThemeBackground(this.props, { height: '30px' })}>
+          <ToggleSlider checked={this.state.checked} disabled={this.state.disabled} toggle={() => {
+                this.props.toggle();
+                this.setState({ checked: !this.state.checked})
+          }} />
+        </div>
+      </ThemeProvider>
+    )
   }
 }
 
-
-storiesOf('Form', module)
-  .addWithChapters(
-  'ToggleSlider',
-  {
+function renderChapterWithTheme(theme = {}) {
+  return {
     info: `
             Usage
 
@@ -40,40 +46,54 @@ storiesOf('Form', module)
             title: 'Example: Toggled On',
             subtitle: 'A slider toggled on',
             sectionFn: () => (
-              <ToggleSlider
-                toggle={action('toggle slider clicked')}
-                checked={true} />
+                <ToggleSliderWrapper
+                  theme={theme}
+                  toggle={action('toggle slider clicked')}
+                  checked={true} />
             )
           },
           {
             title: 'Example: Toggled Off',
             subtitle: 'A slider toggled off',
             sectionFn: () => (
-              <ToggleSlider
-                toggle={action('toggle slider clicked')}
-                checked={false} />
+                <ToggleSliderWrapper
+                  theme={theme}
+                  toggle={action('toggle slider clicked')}
+                  checked={false} />
             )
           },
           {
             title: 'Example: Disabled Toggle',
             subtitle: 'A toggle slider that cannot be toggled.',
             sectionFn: () => (
-              <ToggleSliderWrapper toggle={action("toggled")}
-              checked={false}
-              disabled={true} />
+                <ToggleSliderWrapper toggle={action("toggled")}
+                  theme={theme}
+                checked={false}
+                disabled={true} />
             )
           },
           {
-            title: 'Example: Wrapped in another component',
-            subtitle: 'A toggle slider wrapped by another component that updates the checked prop on toggle',
+            title: 'Example: Disabled on Toggle',
+            subtitle: 'A toggle slider that cannot be toggled.',
             sectionFn: () => (
-              <ToggleSliderWrapper toggle={action("toggled")}
-              checked={true}
-              disabled={false} />
+                <ToggleSliderWrapper toggle={action("toggled")}
+                  theme={theme}
+                checked={true}
+                disabled={true} />
             )
           }
         ]
       }
     ]
-  }
+  };
+}
+
+
+storiesOf('Form', module)
+  .addWithChapters(
+    'Default ToggleSlider',
+    renderChapterWithTheme({})
+  ).addWithChapters(
+    'ToggleSlider w/ BlueYellow',
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

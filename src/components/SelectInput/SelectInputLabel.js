@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-import { colors, typography } from '../styles';
+import { renderThemeIfPresentOrDefault, colors, typography } from '../styles';
 import { ellipsis } from 'polished';
 
 const SelectInputLabel = styled.label`
   color: ${(props) => {
     if (props.theme.labelColor) return props.theme.labelColor;
-    return colors.boulder;
+    return renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.boulder });
   }};
   ${typography.caption};
   ${ellipsis()}

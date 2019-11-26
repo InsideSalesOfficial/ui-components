@@ -2,7 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import AppointmentIcon from '../icons/AppointmentIcon';
-import { colors } from '../styles/colors';
+import {
+  colors,
+  wrapComponentWithContainerAndTheme,
+} from '../styles';
+
 import moment from 'moment';
 
 import Example from './example';
@@ -61,38 +65,45 @@ const examples = [
   }
 ];
 
+function renderChapterWithTheme(theme = {}) {
+  return {
+    info: `
+      Usage
+
+      ~~~
+      import React from 'react';
+      import {DatePicker} from 'insidesales-components';
+      ~~~
+    `,
+    chapters: [
+      {
+        sections: [
+          {
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
+              <div>
+                {examples.map((example, idx) => (
+                  <Example title={example.title} description={example.description} key={idx}>
+                    <ExampleWrapper>
+                      {example.render()}
+                    </ExampleWrapper>
+                  </Example>
+                ))}
+              </div>
+            )
+          }
+        ]
+      }
+    ]
+  }
+}
+
 storiesOf('Components', module)
   .addWithChapters(
     'DatePicker',
-    {
-      info: `
-        Usage
-
-        ~~~
-        import React from 'react';
-        import {DatePicker} from 'insidesales-components';
-        ~~~
-      `,
-      chapters: [
-        {
-          sections: [
-            {
-              sectionFn: () => (
-                <div>
-                  {examples.map((example, idx) => (
-                    <Example title={example.title} description={example.description} key={idx}>
-                      <ExampleWrapper>
-                        {example.render()}
-                      </ExampleWrapper>
-                    </Example>
-                  ))}
-                </div>
-              )
-            }
-          ]
-        }
-      ]
-    }
+    renderChapterWithTheme()
+  ).addWithChapters(
+    'DatePicker w/ BlueYellow',
+    renderChapterWithTheme(colors.blueYellowTheme)
   );
 
   

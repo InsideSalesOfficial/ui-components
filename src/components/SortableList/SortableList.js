@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styled from 'styled-components';
 
-import { colors, typography } from '../styles';
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+} from '../styles';
 import OverflowMenu from '../OverflowMenu';
 
 const ItemList = styled.ul`
@@ -12,7 +16,7 @@ const ItemList = styled.ul`
 `;
 
 const Item = styled.li`
-  background: ${colors.galeryGray};
+  background: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.galeryGray })};
   border-radius: 2px;
   display: flex;
   height: 40px;
@@ -25,11 +29,12 @@ const Item = styled.li`
 const Label = styled.p`
   ${typography.body1};
   margin: 0;
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.dimGray })};
 `;
 
 const Menu = styled(OverflowMenu)`
   .overflow-menu__icon {
-    fill: ${colors.dimGray};
+    fill: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.dimGray })};
   }
 `;
 

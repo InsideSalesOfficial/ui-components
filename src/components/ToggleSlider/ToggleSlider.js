@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { colors } from '../styles';
+import {
+  colors,
+  renderThemeKeyOrDefaultValue,
+  renderThemeIfPresentOrDefault,
+  ifThemeInPropsIsPresentUse
+} from '../styles';
 
 const SliderBase = styled.label`
   cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
@@ -10,22 +15,28 @@ const SliderBase = styled.label`
   height: 14px;
   position: relative;
   width: 37px;
+  ${props => ifThemeInPropsIsPresentUse({ props, value: props.disabled ? 'opacity: 0.6;' : '' })}
 `;
 
 const SliderInput = styled.input`
   display: none;
 `;
 
-const SliderTrack = styled.div`
-  background-color: ${(props) => {
-    if (props.disabled) {
-      return colors.grayD;
-    }
-    if (props.checked) {
-      return colors.green70;
-    }
+function renderDefaultSliderKnobColors(props) {
+  if (props.disabled) return colors.grayC;
+  if (props.checked) return colors.green;
+  return colors.lightGray;
+}
 
-    return colors.grey;
+function renderBrandedSliderKnobColors(props) {
+  if (!props.checked) return props.theme.white40;
+  return props.theme.brand01;
+}
+
+const SliderTrack = styled.div`
+  background-color: ${props => {
+    if (!props.checked) return renderThemeKeyOrDefaultValue({ props, key: 'white10', defaultValue: colors.grey });
+    return renderThemeKeyOrDefaultValue({ props, key: 'brand03', defaultValue: colors.green70 });
   }};
   border-radius: 34px;
   bottom: 0;
@@ -36,25 +47,16 @@ const SliderTrack = styled.div`
   transition: .4s;
 
   &:before {
-    background-color: ${(props) => {
-      if (props.disabled) {
-        return colors.grayC;
-      }
-      if (props.checked) {
-        return colors.green;
-      }
-
-      return colors.lightGray;
-    }};
+    background-color: ${props => ifThemeInPropsIsPresentUse({ props, value: renderBrandedSliderKnobColors(props), defaultValue: renderDefaultSliderKnobColors(props) })};
     border-radius: 50%;
-    box-shadow: 0 1px 1px ${colors.black};
+    box-shadow: 0 1px 1px ${renderThemeIfPresentOrDefault({ key: 'black', defaultValue: colors.black })};
     content: "";
     height: 20px;
     left: 0px;
     position: absolute;
     top: -3px;
     transform: ${(props) => {
-      if (props.checked && !props.disabled) {
+      if (props.checked) {
         return 'translateX(17px)';
       }
 

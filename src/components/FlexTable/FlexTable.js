@@ -1,8 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { colors, typography } from '../styles';
 import TableItem, { TableItemText, TableItemTextButton, TableItemIconButton } from './TableItem';
+
+import {
+  colors,
+  typography,
+  renderThemeIfPresentOrDefault,
+  renderThemeKeyOrDefaultValue,
+} from '../styles';
 
 export const TR = styled.div`
   padding: 0;
@@ -18,8 +24,8 @@ const TableItemCommon = styled(TableItem)`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border-bottom: 1px solid ${colors.white60};
-  color: ${colors.white90};
+  border-bottom: 1px solid ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.white60 })};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.white90 })};
   padding: 9px 6px;
   overflow: ${(props) => {
     if (!props.overflow) {
@@ -79,15 +85,15 @@ const TableItemCommon = styled(TableItem)`
 `;
 
 export const TH = styled(TableItemCommon)`
-  color: ${colors.white60};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white60 })};
   ${TableItemIconButton} {
     &:hover {
       svg {
         fill: ${(props) => {
           if (props.onClick) {
-            return colors.white90;
+            return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.white90 });
           }
-          return colors.white60;
+          return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.white60 });
         }};
       }
     }
@@ -95,7 +101,7 @@ export const TH = styled(TableItemCommon)`
       svg {
         fill: ${(props) => {
           if (props.onClick) {
-            return colors.white60;
+            return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.white60 });
           }
         }};
       }
@@ -103,21 +109,21 @@ export const TH = styled(TableItemCommon)`
   }
 
   svg {
-    fill: ${colors.white60};
+    fill: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white60 })};
   }
   ${TableItemTextButton} {
     &:hover {
       color: ${(props) => {
         if (props.onClick) {
-          return colors.white90;
+          return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.white90 });
         }
-        return colors.white60;
+        return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.white60 });
       }};
     }
     &:active {
       color: ${(props) => {
         if (props.onClick) {
-          return colors.white60;
+          return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.white60 });
         }
       }};
     }
@@ -135,10 +141,10 @@ export const TD = styled(TableItemCommon)`
         return css`
           cursor: pointer;
           &:hover {
-            color: ${colors.white};
+            color: ${renderThemeKeyOrDefaultValue({ props, key: 'white', defaultValue: colors.white })};
           }
           &:active {
-            color: ${colors.white60};
+            color: ${renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.white60 })};
           }
         `;
       }

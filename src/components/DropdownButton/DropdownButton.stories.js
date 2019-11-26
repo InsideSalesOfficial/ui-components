@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 
 import DropdownButton from './DropdownButton';
 import Icons from '../icons';
+import { wrapComponentWithContainerAndTheme, colors } from "../styles";
 
 const SFIcon = Icons.ColoredSalesforceIcon;
 
@@ -15,10 +16,8 @@ const dropdownOptions = [
   { value: '2', label: 'Option 2', }
 ];
 
-storiesOf('Base', module)
-.addWithChapters(
-  'DropdownButton',
-  {
+function renderChapterWithTheme(theme) {
+  return {
     info: `
       Usage
 
@@ -32,7 +31,7 @@ storiesOf('Base', module)
         sections: [
           {
             title: 'Default',
-            sectionFn: () => (
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
@@ -40,8 +39,28 @@ storiesOf('Base', module)
             )
           },
           {
+            title: 'Disabled',
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
+              <DropdownButton
+                disabled
+                options={dropdownOptions}
+                onClick={buttonAction}
+              />
+            )
+          },
+          {
+            title: 'Danger',
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
+              <DropdownButton
+                danger
+                options={dropdownOptions}
+                onClick={buttonAction}
+              />
+            )
+          },
+          {
             title: 'Gray',
-            sectionFn: () => (
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
@@ -51,7 +70,7 @@ storiesOf('Base', module)
           },
           {
             title: 'With Icon',
-            sectionFn: () => (
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
@@ -61,7 +80,7 @@ storiesOf('Base', module)
           },
           {
             title: 'Gray with Icon',
-            sectionFn: () => (
+            sectionFn: () => wrapComponentWithContainerAndTheme(theme,
               <DropdownButton
                 options={dropdownOptions}
                 onClick={buttonAction}
@@ -73,6 +92,12 @@ storiesOf('Base', module)
         ]
       }
     ]
-  }
-);
+  };
+}
 
+storiesOf('Base', module)
+  .addWithChapters("Default DropdownButton", renderChapterWithTheme({}))
+  .addWithChapters(
+    "DropdownButton w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
+  );

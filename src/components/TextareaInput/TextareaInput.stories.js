@@ -7,10 +7,13 @@ import {
 import TextareaInput from './TextareaInput';
 import { darkTheme } from './TextareaInputThemes';
 
-storiesOf('Form', module)
-  .addWithChapters(
-    'TextareaInput',
-    {
+import {
+  wrapComponentWithContainerAndTheme,
+  colors,
+} from "../styles";
+
+function renderChapterWithTheme(theme) {
+  return {
       info: `
         Usage
 
@@ -24,7 +27,7 @@ storiesOf('Form', module)
           sections: [
             {
               title: 'Example: textarea default empty',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   name="first"
@@ -34,7 +37,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with placeholder',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   placeholder="Hi, what would you like to say?"
@@ -44,7 +47,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with existing text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   name="firstz"
@@ -55,7 +58,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with helper text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Labely"
                   helper="Helper text."
@@ -67,7 +70,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with error text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   helper="Helper text."
@@ -79,7 +82,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea disabled',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   helper="Helper text."
@@ -91,7 +94,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea disabled with text',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   helper="Helper text."
@@ -103,7 +106,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea closed without value',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   helper="Helper text."
@@ -113,7 +116,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea closed without value and has an error',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   helper="Helper text."
@@ -124,7 +127,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with value and character limit',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   name="first"
@@ -136,7 +139,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea with value over character limit',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   name="first"
@@ -148,7 +151,7 @@ storiesOf('Form', module)
             },
             {
               title: 'Example: textarea dark theme',
-              sectionFn: () => (
+              sectionFn: () => wrapComponentWithContainerAndTheme(theme,
                 <TextareaInput
                   label="Label"
                   name="first"
@@ -163,5 +166,12 @@ storiesOf('Form', module)
           ]
         }
       ]
-    }
+    };
+}
+
+storiesOf('Form', module)
+  .addWithChapters("Default TextareaInput", renderChapterWithTheme({}))
+  .addWithChapters(
+    "TextareaInput w/ BlueYellow Theme",
+    renderChapterWithTheme(colors.blueYellowTheme)
   );

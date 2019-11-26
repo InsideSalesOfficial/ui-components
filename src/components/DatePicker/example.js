@@ -19,13 +19,13 @@ WebkitFontSmoothing: antialiased
 `;
 
 const DescriptionExample = styled.p`
-color: ${colors.grayD},
+color: ${colors.renderThemeIfPresentOrDefault({key: 'white90', defaultValue: colors.grayD})};
 fontWeight: ${fontWeights.light},
 marginTop: 10px
 `;
 
 const TitleExample = styled.h2`
-color: ${colors.grayE},
+color: ${colors.renderThemeIfPresentOrDefault({key: 'white90', defaultValue: colors.grayE})};
 fontWeight: ${fontWeights.regular},
 fontSize: ${fontSizes.large},
 margin: 0
@@ -46,6 +46,7 @@ flexDirection: column
 `;
 
 const ExampleText = styled.p`
+color: ${colors.renderThemeIfPresentOrDefault({key: 'white90', defaultValue: colors.grayE})};
 display: inline-flex,
 flex: 0 0 100%,
 flexDirection: column,
