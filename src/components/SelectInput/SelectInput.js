@@ -29,7 +29,7 @@ export function openOptionsList() {
     optionsListVisible: true
    });
   if (_.isFunction(_.get(this.props, 'onOpenOptionsList'))) {
-    _.get(this.props, 'onOpenOptionsList')();
+    this.props.onOpenOptionsList()
   }
 }
 
