@@ -102,7 +102,7 @@ const DatePickerWrapper = styled.div`
     }}
   }
 
-      
+
   .CalendarDay, .CalendarDay__default {
     color: ${colors.renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black40 })};
     border: 1px solid ${colors.renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black40 })};
@@ -156,7 +156,7 @@ const DatePickerWrapper = styled.div`
     fill: ${colors.renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black60 })};
   }
 
-      
+
   .DateInput_fangShape {
     fill: ${colors.renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   }
@@ -175,7 +175,7 @@ const DatePickerWrapper = styled.div`
     color: ${colors.renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black })};
   }
 
-    
+
   .CalendarDay__blocked_out_of_range,
   .CalendarDay__blocked_out_of_range:hover {
     color: ${colors.renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black10 })};
@@ -184,7 +184,7 @@ const DatePickerWrapper = styled.div`
 
 
   .DateInput_input__focused {
-    border-bottom: ${colors.renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
+    border-bottom-color: ${colors.renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
   }
 
   .CalendarDay__selected, .CalendarDay__selected:hover {
