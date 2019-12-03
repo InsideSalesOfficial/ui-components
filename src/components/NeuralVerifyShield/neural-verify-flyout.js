@@ -57,7 +57,7 @@ const FlyoutContainer = styled.div`
       return `2px -3px 4px 0 ${black.black10}`;
     }};
     z-index: -1;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: white.white })}
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: white.white })};
   }
 
   &:after {
