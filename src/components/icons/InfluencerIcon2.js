@@ -3,7 +3,7 @@ import React from 'react';
 const InfluencerIcon2 = props => (
     <svg {...props.size || { width: '24px', height: '24px' }} {...props} viewBox="0 0 24 24">
         {props.title && <title>{props.title}</title>}
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-69.000000, -294.000000)" fill={props.fill}>
                 <g transform="translate(40.000000, 199.000000)">
                     <g transform="translate(29.000000, 95.000000)">
