@@ -53,6 +53,8 @@ import GroupAddIcon from './GroupAddIcon';
 import HelpBoxIcon from './HelpBoxIcon';
 import HelpCircleIcon from './HelpCircleIcon';
 import HomeIcon from './HomeIcon';
+import HourGlassIcon from './HourGlassIcon';
+import InfluencerIcon2 from './InfluencerIcon2';
 import InfoIcon from './InfoIcon';
 import InsideSalesLogoIcon from './InsideSalesLogoIcon';
 import InfluencerIcon from './InfluencerIcon';
@@ -83,6 +85,7 @@ import PauseCircleIconBold from './PauseCircleIconBold';
 import PersonAddIcon from './PersonAddIcon';
 import PersonIcon from './PersonIcon';
 import PhoneFilledIcon from './PhoneFilledIcon';
+import PhoneFilledIcon2 from './PhoneFilledIcon2';
 import PhoneIcon from './PhoneIcon';
 import PlaybookIcon from './PlaybookIcon';
 import PlayCircleIcon from './PlayCircleIcon';
@@ -186,11 +189,13 @@ export default {
   HelpBoxIcon,
   HelpCircleIcon,
   HomeIcon,
+  HourGlassIcon,
   ImportIcon,
   InfoIcon,
   InfoOutlineIcon,
   InsideSalesLogoIcon,
   InfluencerIcon,
+  InfluencerIcon2,
   LaunchIcon,
   LinkedinSocialIcon,
   LinkIcon,
@@ -218,6 +223,7 @@ export default {
   PersonAddIcon,
   PersonIcon,
   PhoneFilledIcon,
+  PhoneFilledIcon2,
   PhoneIcon,
   PlaybookIcon,
   PlayCircleIcon,
