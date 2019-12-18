@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { colors, generateFillFromProps } from '../styles/colors.js';
+
 const InfluencerIcon2 = props => (
     <svg {...props.size || { width: '24px', height: '24px' }} {...props} viewBox="0 0 24 24">
         {props.title && <title>{props.title}</title>}
-        <g stroke="none" strokeWidth="1" fillRule="evenodd">
-            <g transform="translate(-69.000000, -294.000000)">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+            <g transform="translate(-69.000000, -294.000000)" {...generateFillFromProps(props, colors.tron)}>
                 <g transform="translate(40.000000, 199.000000)">
                     <g transform="translate(29.000000, 95.000000)">
                         <path d="M10.8852174,8.01565217 C9.16347826,8.01565217 7.77652174,9.4026087 7.77652174,11.1243478 C7.77652174,12.846087 9.16347826,14.2330435 10.8852174,14.2330435 C12.6069565,14.2330435 13.993913,12.846087 13.993913,11.1243478 C13.993913,9.4026087 12.6069565,8.01565217 10.8852174,8.01565217"></path>
