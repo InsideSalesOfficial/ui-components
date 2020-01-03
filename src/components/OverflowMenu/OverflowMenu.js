@@ -166,6 +166,9 @@ class OverflowMenu extends React.Component {
   }
 
   toggleMenu = () => {
+    if (_.isFunction(_.get(this.props, 'onOpenMenu'))) {
+      this.props.onOpenMenu()
+    }
     if (this.state.menuVisible) {
       this.closeMenu();
     } else if (!this.props.isDisabled) {

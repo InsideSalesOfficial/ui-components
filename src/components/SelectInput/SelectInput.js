@@ -28,6 +28,9 @@ export function openOptionsList() {
   this.setState({
     optionsListVisible: true
    });
+  if (_.isFunction(_.get(this.props, 'onOpenOptionsList'))) {
+    this.props.onOpenOptionsList()
+  }
 }
 
 export function closeOptionsList() {

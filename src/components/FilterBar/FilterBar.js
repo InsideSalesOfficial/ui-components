@@ -77,6 +77,7 @@ class FilterBar extends React.Component {
   }
 
   showSearch = () => {
+    this.props.onShowSearch();
     this.setState({
       showSearch: true
     });
@@ -164,6 +165,7 @@ class FilterBar extends React.Component {
           headerLabel={this.props.sortLabel}
           value={this.props.selectedSortOption}
           selectOptionsWidth={330}
+          onOpenOptionsList={this.props.onOpenOptionsList}
           theme={{
             background: 'transparent',
             noLeftPadding: true,
@@ -193,6 +195,8 @@ FilterBar.defaultProps = {
   searchPlaceholder: 'Search',
   onSearchComplete: _.noop,
   onSearchClear: _.noop,
+  onShowSearch: _.noop,
+  onOpenOptionsList: _.noop,
 };
 
 FilterBar.propTypes = {
@@ -207,6 +211,8 @@ FilterBar.propTypes = {
   hideFilter: PropTypes.bool,
   onSearchComplete: PropTypes.func,
   onSearchClear: PropTypes.func,
+  onShowSearch: PropTypes.func,
+  onOpenOptionsList: PropTypes.func,
   searchButtonID: PropTypes.string,
   searchInputID: PropTypes.string,
 };
