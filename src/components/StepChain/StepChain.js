@@ -31,7 +31,7 @@ const StepWrapper = styled.div`
     width: 50%;
     height: 40px;
     top: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   }
   &:last-child::before {
     content: '';
@@ -40,7 +40,7 @@ const StepWrapper = styled.div`
     height: 40px;
     top: 0;
     right: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   }
 `;
 
