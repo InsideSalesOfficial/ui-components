@@ -6,6 +6,7 @@ import _ from 'lodash';
 import {
   colors,
   boxShadows,
+  typography,
   renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
 } from '../styles';
@@ -17,6 +18,7 @@ const Box = styled.div`
     background: ${renderThemeIfPresentOrDefault({ key:'primary05', defaultValue: colors.white })};
     box-shadow: ${boxShadows.lvl6};
     padding: ${props => props.padding || '15px'};
+    ${typography.body1}
 
     ${props => props.dialogYCenter && `
         top: 50%;
@@ -122,7 +124,7 @@ const Arrow = styled.span`
 
 `;
 
-const Thumbnail = (props) => 
+const Thumbnail = (props) =>
     <Box {..._.pick(props, [
         'dialogYCenter',
         'dialogXCenter',
