@@ -97,7 +97,7 @@ const SelectOptionsWrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.black40 })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
     border: 1px solid transparent;
     border-radius: 5px;
   }
