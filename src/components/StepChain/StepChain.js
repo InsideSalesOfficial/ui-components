@@ -31,7 +31,7 @@ const StepWrapper = styled.div`
     width: 50%;
     height: 40px;
     top: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   }
   &:last-child::before {
     content: '';
@@ -40,7 +40,7 @@ const StepWrapper = styled.div`
     height: 40px;
     top: 0;
     right: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   }
 `;
 
@@ -52,7 +52,7 @@ const StepItem = styled.div`
   background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.aluminum })};
   margin: auto;
   margin-bottom: 8px;
-  border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+  border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   box-sizing: content-box;
 `;
 
@@ -69,7 +69,7 @@ const StepText = styled.span`
   margin: auto;
   width: 100%;
   text-align: center;
-  color: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+  color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   ${typography.caption}
 `;
 
@@ -80,7 +80,7 @@ const StyledCheckMark = styled(Icons.CheckmarkFilledIcon)`
   bottom: 0;
   left: 0;
   margin: auto;
-  fill: ${renderThemeIfPresentOrDefault({ key: 'primary01', defaultValue: colors.white })};
+  fill: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
 `;
 
 const StepName = styled.div`
