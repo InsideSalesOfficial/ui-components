@@ -14,34 +14,41 @@ const StepChainWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    top: 20px;
-    border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   width: 100%;
+  //   top: 20px;
+  //   border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
+  // }
 `;
 
 const StepWrapper = styled.div`
   position: relative;
-  &:first-child::before {
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 40px;
-    top: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-  }
-  &:last-child::before {
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 40px;
-    top: 0;
-    right: 0;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-  }
+  &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      top: 20px;
+      border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
+    }
+  // &:first-child::before {
+  //   content: '';
+  //   position: absolute;
+  //   width: 50%;
+  //   height: 40px;
+  //   top: 0;
+  //   background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
+  // }
+  // &:last-child::before {
+  //   content: '';
+  //   position: absolute;
+  //   width: 50%;
+  //   height: 40px;
+  //   top: 0;
+  //   right: 0;
+  //   background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
+  // }
 `;
 
 const StepItem = styled.div`
@@ -50,9 +57,8 @@ const StepItem = styled.div`
   height: 24px;
   border-radius: 50%;
   background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.aluminum })};
-  margin: auto;
-  margin-bottom: 8px;
-  border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
+  margin: 8px;
+  // border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   box-sizing: content-box;
 `;
 
@@ -107,10 +113,11 @@ class StepChain extends React.Component {
 
   chainItems = () => {
     const { stepLabels, currentStep } = this.props;
-    return _.map(stepLabels, (text, key) => {
+    return stepLabels.reduce((acc, text, key) => {
       const keyPlus = key + 1;
-
-      if (currentStep >= keyPlus) {
+      console.log("Acc: ", acc);
+      const newThing = () => {
+        if (currentStep >= keyPlus) {
         const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
         return (
           <StepWrapper key={key}>
@@ -130,7 +137,10 @@ class StepChain extends React.Component {
         </StepWrapper>
       );
     }
-  )};
+    acc.push(newThing());
+    return acc
+  }, [])
+  };
 
   render() {
     return (
