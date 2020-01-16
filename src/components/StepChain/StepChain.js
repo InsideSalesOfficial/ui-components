@@ -14,41 +14,27 @@ const StepChainWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   width: 100%;
-  //   top: 20px;
-  //   border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
-  // }
+`;
+
+const Line = styled.div`
+  width: 100%;
+  align-self: flex-start;
+  padding-top: 20px;
+  border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
 `;
 
 const StepWrapper = styled.div`
   position: relative;
-  &::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      top: 20px;
-      border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
-    }
-  // &:first-child::before {
-  //   content: '';
-  //   position: absolute;
-  //   width: 50%;
-  //   height: 40px;
-  //   top: 0;
-  //   background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-  // }
-  // &:last-child::before {
-  //   content: '';
-  //   position: absolute;
-  //   width: 50%;
-  //   height: 40px;
-  //   top: 0;
-  //   right: 0;
-  //   background-color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-  // }
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &:first-child {
+    align-items: flex-start;
+  }
+  &:last-child {
+    align-items: flex-end;
+  }
 `;
 
 const StepItem = styled.div`
@@ -58,7 +44,6 @@ const StepItem = styled.div`
   border-radius: 50%;
   background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.aluminum })};
   margin: 8px;
-  // border: 8px solid ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   box-sizing: content-box;
 `;
 
@@ -99,7 +84,6 @@ const DarkStepName = styled(StepName)`
   color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
 `;
 
-
 class StepChain extends React.Component {
   constructor(props) {
     super(props);
@@ -115,7 +99,6 @@ class StepChain extends React.Component {
     const { stepLabels, currentStep } = this.props;
     return stepLabels.reduce((acc, text, key) => {
       const keyPlus = key + 1;
-      console.log("Acc: ", acc);
       const newThing = () => {
         if (currentStep >= keyPlus) {
         const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
@@ -138,6 +121,7 @@ class StepChain extends React.Component {
       );
     }
     acc.push(newThing());
+    stepLabels.length -1 !== key && acc.push(<Line />);
     return acc
   }, [])
   };
