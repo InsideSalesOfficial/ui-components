@@ -29,12 +29,6 @@ const StepWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  &:first-child {
-    align-items: flex-start;
-  }
-  &:last-child {
-    align-items: flex-end;
-  }
 `;
 
 const StepItem = styled.div`
