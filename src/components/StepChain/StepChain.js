@@ -91,9 +91,9 @@ class StepChain extends React.Component {
 
   chainItems = () => {
     const { stepLabels, currentStep } = this.props;
-    return stepLabels.reduce((acc, text, key) => {
+    return stepLabels.reduce((array, text, key) => {
       const keyPlus = key + 1;
-      const newThing = () => {
+      const step = () => {
         if (currentStep >= keyPlus) {
         const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
         return (
@@ -114,9 +114,9 @@ class StepChain extends React.Component {
         </StepWrapper>
       );
     }
-    acc.push(newThing());
-    stepLabels.length -1 !== key && acc.push(<Line />);
-    return acc
+    array.push(step());
+    stepLabels.length -1 !== key && array.push(<Line />);
+    return array
   }, [])
   };
 
