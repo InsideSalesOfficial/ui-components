@@ -72,6 +72,7 @@ const StyledCheckMark = styled(Icons.CheckmarkFilledIcon)`
 const StepName = styled.div`
   text-align: center;
   color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
+  white-space: nowrap;
   ${typography.body2}
 `;
 
