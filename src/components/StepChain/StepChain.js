@@ -115,7 +115,7 @@ class StepChain extends React.Component {
       );
     }
     array.push(step());
-    stepLabels.length -1 !== key && array.push(<Line />);
+    stepLabels.length - 1 !== key && array.push(<Line />);
     return array
   }, [])
   };
