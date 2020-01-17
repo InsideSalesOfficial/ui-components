@@ -11,7 +11,7 @@ import { generateFlexedThemeBackground } from '../styles/index.js';
 
 const ThemeComponent = (props) => (
   <ThemeProvider theme={props.theme}>
-    <div style={generateFlexedThemeBackground(props, { width: '90%', height: '100px', padding: '0 8px' })}>
+    <div style={generateFlexedThemeBackground(props, { width: '300px', padding: '24px' })}>
       {props.children}
     </div>
   </ThemeProvider>

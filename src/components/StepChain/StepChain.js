@@ -20,7 +20,7 @@ const Line = styled.div`
   width: 100%;
   align-self: flex-start;
   padding-top: 20px;
-  border-bottom: thin solid ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black20 })};
+  border-bottom: 2px solid ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black20 })};
 `;
 
 const StepWrapper = styled.div`
@@ -36,12 +36,14 @@ const StepItem = styled.div`
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.aluminum })};
+  color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white })};
+  background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.aluminum })};
   margin: 8px;
   box-sizing: content-box;
 `;
 
 const ColoredStep = styled(StepItem)`
+  color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
 `;
 
@@ -54,7 +56,6 @@ const StepText = styled.span`
   margin: auto;
   width: 100%;
   text-align: center;
-  color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
   ${typography.caption}
 `;
 
