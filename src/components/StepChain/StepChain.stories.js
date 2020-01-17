@@ -11,7 +11,7 @@ import { generateFlexedThemeBackground } from '../styles/index.js';
 
 const ThemeComponent = (props) => (
   <ThemeProvider theme={props.theme}>
-    <div style={generateFlexedThemeBackground(props, { width: '300px', padding: '24px' })}>
+    <div style={generateFlexedThemeBackground(props, { width: '100%', padding: '24px 0' })}>
       {props.children}
     </div>
   </ThemeProvider>
@@ -35,7 +35,7 @@ function renderChapterWithTheme(theme) {
               sectionFn: () => (
                 <ThemeComponent theme={theme}>
                   <StepChain
-                    stepLabels={['Name', 'Connect', 'Record']}
+                    stepLabels={['Sign In', 'Connect', 'Record']}
                     currentStep={1}
                   />
                 </ThemeComponent>
@@ -46,7 +46,7 @@ function renderChapterWithTheme(theme) {
               sectionFn: () => (
                 <ThemeComponent theme={theme}>
                   <StepChain
-                    stepLabels={['Name', 'Connect', 'Record']}
+                    stepLabels={['Sign In', 'Connect', 'Record']}
                     currentStep={2}
                   />
                 </ThemeComponent>
@@ -57,7 +57,7 @@ function renderChapterWithTheme(theme) {
               sectionFn: () => (
                 <ThemeComponent theme={theme}>
                   <StepChain
-                    stepLabels={['Name', 'Connect', 'Record']}
+                    stepLabels={['Sign In', 'Connect', 'Record']}
                     currentStep={3}
                   />
                 </ThemeComponent>

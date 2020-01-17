@@ -3,80 +3,63 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 
-import {
-  colors,
-  typography,
-  renderThemeIfPresentOrDefault,
-} from '../styles';
+import { colors, typography, renderThemeIfPresentOrDefault } from '../styles';
 import Icons from '../icons';
 
 const StepChainWrapper = styled.div`
   position: relative;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr 32px 1fr);
 `;
 
-const Line = styled.div`
-  width: 100%;
-  align-self: flex-start;
-  padding-top: 20px;
-  border-bottom: 2px solid ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black20 })};
-`;
-
-const StepWrapper = styled.div`
-  position: relative;
-  width: 40px;
+const Number = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-self: center;
   align-items: center;
-`;
-
-const StepItem = styled.div`
-  position: relative;
+  justify-content: center;
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white })};
-  background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.aluminum })};
-  margin: 8px;
-  box-sizing: content-box;
-`;
-
-const ColoredStep = styled(StepItem)`
-  color: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-  background-color: ${renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
-`;
-
-const StepText = styled.span`
-  position: absolute;
-  display: inline-block;
-  top: 0;
-  bottom: 0;
-  height: fit-content;
-  margin: auto;
-  width: 100%;
-  text-align: center;
+  color: ${props =>
+    props.colorChange
+      ? renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.white })
+      : renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
+  background-color: ${props =>
+    props.colorChange
+      ? renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.aluminum })
+      : renderThemeIfPresentOrDefault({ key: 'brand01', defaultValue: colors.green })};
+  grid-column: ${props => props.column};
   ${typography.caption}
 `;
 
-const StyledCheckMark = styled(Icons.CheckmarkFilledIcon)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  fill: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
-`;
-
-const StepName = styled.div`
+const Label = styled.div`
   text-align: center;
-  color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
+  grid-row: 2;
+  grid-column-start: ${props => props.column - 1};
+  grid-column-end: ${props => props.column + 2};
+  color: ${props =>
+    props.colorChange
+      ? renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })
+      : renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
   ${typography.body2}
 `;
 
-const DarkStepName = styled(StepName)`
-  color: ${renderThemeIfPresentOrDefault({ key: 'white90', defaultValue: colors.black90 })};
+const Line = styled.div`
+  :first-child {
+    border-top: none;
+  }
+  :last-child {
+    border-top: none;
+  }
+  width: 100%;
+  align-self: center;
+  border-top: 2px solid
+    ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.black20 })};
+  grid-column: ${props => props.column};
+`;
+
+const StyledCheckMark = styled(Icons.CheckmarkFilledIcon)`
+  fill: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })};
 `;
 
 class StepChain extends React.Component {
@@ -84,60 +67,47 @@ class StepChain extends React.Component {
     super(props);
 
     this.state = {
-      focused: false
+      focused: false,
     };
   }
 
-  checkMark = () => (<StyledCheckMark size={{width: '20px', height: '20px'}} />);
+  checkMark = () => <StyledCheckMark size={{ width: '20px', height: '20px' }} />;
 
   chainItems = () => {
     const { stepLabels, currentStep } = this.props;
-    return stepLabels.reduce((array, text, key) => {
-      const keyPlus = key + 1;
-      const step = () => {
-        if (currentStep >= keyPlus) {
-        const checkOrKey = (currentStep === keyPlus) ? keyPlus : this.checkMark();
-        return (
-          <StepWrapper key={key}>
-            <ColoredStep>
-              <StepText>{checkOrKey}</StepText>
-            </ColoredStep>
-            <DarkStepName>{text}</DarkStepName>
-          </StepWrapper>
-        );
-      }
-      return (
-        <StepWrapper key={key}>
-          <StepItem>
-            <StepText>{keyPlus}</StepText>
-          </StepItem>
-          <StepName>{text}</StepName>
-        </StepWrapper>
+    return stepLabels.reduce((array, label, index) => {
+      const col = index * 3 + 2;
+      const checkOrKey = currentStep <= index + 1 ? index + 1 : this.checkMark();
+      const colorChange = currentStep <= index;
+      array.push(
+        <Line column={col - 1} />,
+        <Number column={col} colorChange={colorChange}>
+          {checkOrKey}
+        </Number>,
+        <Label column={col} colorChange={colorChange}>
+          {label}
+        </Label>,
+        <Line column={col + 1} />
       );
-    }
-    array.push(step());
-    stepLabels.length - 1 !== key && array.push(<Line />);
-    return array
-  }, [])
+      return array;
+    }, []);
   };
 
   render() {
     return (
-      <StepChainWrapper className={this.props.className}>
-        {this.chainItems()}
-      </StepChainWrapper>
+      <StepChainWrapper className={this.props.className}>{this.chainItems()}</StepChainWrapper>
     );
   }
 }
 
 StepChain.defaultProps = {
-  stepLabels: ['a','b'],
-  currentStep: 1
+  stepLabels: ['a', 'b'],
+  currentStep: 1,
 };
 
 StepChain.propTypes = {
   stepLabels: PropTypes.array.isRequired,
-  currentStep: PropTypes.number.isRequired
+  currentStep: PropTypes.number.isRequired,
 };
 
 export default StepChain;
