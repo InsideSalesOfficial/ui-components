@@ -80,14 +80,14 @@ class StepChain extends React.Component {
       const checkOrKey = currentStep <= index + 1 ? index + 1 : this.checkMark();
       const colorChange = currentStep <= index;
       array.push(
-        <Line column={col - 1} />,
-        <Number column={col} colorChange={colorChange}>
+        <Line column={col - 1} key={`pb-stepchain-line-${col - 1}`} />,
+        <Number column={col} colorChange={colorChange} key={`pb-stepchain-number-${col}`}>
           {checkOrKey}
         </Number>,
-        <Label column={col} colorChange={colorChange}>
+        <Label column={col} colorChange={colorChange} key={`pb-stepchain-label-${col}`}>
           {label}
         </Label>,
-        <Line column={col + 1} />
+        <Line column={col + 1} key={`pb-stepchain-line-${col + 1}`} />
       );
       return array;
     }, []);
