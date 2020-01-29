@@ -33,7 +33,7 @@ const iconStyle = (color, iconSize) => (
 
 function getVerifiedIcon({ verifiedState, iconSize, theme = {} }) {
   const blueIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'tron01', defaultValue: tron.tron }), iconSize);
-  const greyIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'white40', defaultValue: black.black40 }), iconSize);
+  const greyIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'grey', defaultValue: black.black40 }), iconSize);
   const orangeIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'caution01', defaultValue: orange.orange }), iconSize);
 
   switch (verifiedState) {
