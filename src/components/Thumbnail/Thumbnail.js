@@ -72,35 +72,35 @@ const arrowUpDown = `
 
 const arrowLeftRight = `
     border-top: ${arrowSize} solid transparent;
-    border-bottom: ${arrowSize} solid transparent; 
+    border-bottom: ${arrowSize} solid transparent;
 `;
 
 const Arrow = styled.span`
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     position: absolute;
 
     ${props => props.arrowTop && `
         ${arrowUpDown}
-        border-bottom: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-bottom: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         bottom: 100%;
     `}
 
     ${props => props.arrowBottom && `
         ${arrowUpDown}
-        border-top: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-top: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         top: 100%;
     `}
 
     ${props => props.arrowLeft && `
         ${arrowLeftRight}
-        border-right: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-right: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         right: 100%;
     `}
 
     ${props => props.arrowRight && `
         ${arrowLeftRight}
-        border-left: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-left: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         left: 100%;
     `}
 
