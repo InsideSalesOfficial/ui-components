@@ -111,6 +111,7 @@ import TrophyIcon from './TrophyIcon';
 import ImportIcon from './ImportIcon';
 import InfoOutlineIcon from './InfoOutlineIcon';
 import StarFilledIcon from './StarFilledIcon';
+import StarUnFilledIcon from './StarUnFilledIcon';
 import TagsIcon from './TagsIcon';
 import TeamsIcon from './TeamsIcon';
 import ThumbsDown from './ThumbsDown';
@@ -241,6 +242,7 @@ export default {
   SharedIcon,
   SkipIcon,
   StarFilledIcon,
+  StarUnFilledIcon,
   SyncIcon,
   TagsIcon,
   TaskIcons,
