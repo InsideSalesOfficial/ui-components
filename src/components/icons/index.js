@@ -100,6 +100,7 @@ import ReminderIcon from './ReminderIcon';
 import RemoveCircleIcon from './RemoveCircleIcon';
 import SalesforceIcon from './SalesforceIcon';
 import SearchMaterialIcon from './SearchMaterialIcon';
+import SendosoIcon from './SendosoIcon';
 import SharedIcon from './SharedIcon';
 import SkipIcon from './SkipIcon';
 import SyncIcon from './SyncIcon';
@@ -239,6 +240,7 @@ export default {
   RemoveCircleIcon,
   SalesforceIcon,
   SearchMaterialIcon,
+  SendosoIcon,
   SharedIcon,
   SkipIcon,
   StarFilledIcon,
