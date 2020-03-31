@@ -12,6 +12,7 @@ import BouncedIcon from './BouncedIcon';
 import BuildingsIcon from './BuildingsIcon';
 import CalendarIcon from './CalendarIcon';
 import CallbackIcon from './CallbackIcon';
+import CallMadeIcon from './CallMadeIcon';
 import CautionFilledIcon from './CautionFilledIcon';
 import CautionIcon from './CautionIcon';
 import CheckboxIcon from './CheckboxIcon';
@@ -151,6 +152,7 @@ export default {
   BuildingsIcon,
   CalendarIcon,
   CallbackIcon,
+  CallMadeIcon,
   CautionFilledIcon,
   CautionIcon,
   CheckboxIcon,
