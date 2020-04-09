@@ -106,6 +106,9 @@ class NeuralVerifyShield extends React.Component {
             verifiedDetail={detailData}
             displaysAboveIcon={this.props.displaysAboveIcon}
             flyoutOffset={this.props.flyoutOffset}
+            flyoutPosition={this.props.flyoutPosition}
+            flyoutTop={this.props.flyoutTop}
+            flyoutLeft={this.props.flyoutLeft}
             location={this.props.location}
           />
         }

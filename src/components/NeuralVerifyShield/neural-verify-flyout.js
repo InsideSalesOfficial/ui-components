@@ -19,6 +19,16 @@ const FlyoutContainer = styled.div`
   top: ${props => props.displaysAboveIcon ? 'initial' : '35px'};
   bottom: ${props => props.displaysAboveIcon ? '35px' : 'initial'};
   right: ${props => props.flyoutOffset * -1}px;
+  ${(props) => {
+    if (!props.flyoutPosition) return '';
+    return `
+      position: ${props.flyoutPosition};
+      top: ${props.flyoutTop}px;
+      right: auto;
+      bottom: auto;
+      left: ${props.flyoutLeft}px;
+    `;
+  }};
   border-radius: 3px;
   min-height: 100px;
   width: 360px;
@@ -196,7 +206,13 @@ export class NeuralVerifyFlyout extends React.Component {
 
   render() {
     return (
-      <FlyoutContainer flyoutOffset={this.props.flyoutOffset} displaysAboveIcon={this.props.displaysAboveIcon}>
+      <FlyoutContainer 
+        flyoutOffset={this.props.flyoutOffset}
+        flyoutPosition={this.props.flyoutPosition}
+        flyoutTop={this.props.flyoutTop}
+        flyoutLeft={this.props.flyoutLeft}
+        displaysAboveIcon={this.props.displaysAboveIcon}
+      >
         <TopContainer>
           <NeuralIcon/>
           <HeaderContainer>
