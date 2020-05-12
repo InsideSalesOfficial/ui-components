@@ -130,7 +130,7 @@ const DatePickerWrapper = styled.div`
   .CalendarDay__default,
   .CalendarDay__default:hover:not(.CalendarDay__selected):not(.CalendarDay__blocked_out_of_range),
   .CalendarDay__blocked_out_of_range:hover {
-    background-color: ${colors.renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })}
+    background-color: ${colors.renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })}
   }
 
   .SingleDatePickerInput__disabled,
@@ -208,7 +208,7 @@ export class DatePicker extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.dateValue) {
+    if (!this.props.dateValue && this.props.useDefaultDate) {
       this.props.onDateChange(this.state.defaultDate);
     }
   }
@@ -235,7 +235,15 @@ export class DatePicker extends React.Component {
       return false;
     }
 
-    const selectedDate = this.props.dateValue || this.state.defaultDate;
+    let selectedDate = this.props.dateValue || this.state.defaultDate;
+
+    if (!selectedDate && this.props.useDefaultDate) {
+      selectedDate = this.state.defaultDate;
+    }
+
+    if (!selectedDate) {
+      return false;
+    }
 
     const dateDifference = day.startOf('day').diff(selectedDate.startOf('day'), 'days');
     const dayIsWithinOneWeek = dateDifference > 0 && dateDifference <= 8;
@@ -244,7 +252,10 @@ export class DatePicker extends React.Component {
   }
 
   render() {
-    const selectedDate = this.props.dateValue || this.state.defaultDate;
+    let selectedDate = this.props.dateValue;
+    if (!selectedDate && this.props.useDefaultDate) {
+      selectedDate = this.state.defaultDate;
+    }
     return (
       <DatePickerWrapper
         className={`date-picker ${this.props.className}`}
@@ -279,6 +290,7 @@ export class DatePicker extends React.Component {
 DatePicker.defaultProps = {
   displayFormat: 'MMMM DD, YYYY',
   daySize: 36,
+  useDefaultDate: true,
   onDateChange: _.identity,
   customInputIcon: <CalendarIcon size={{ width: 18, height: 20 }} fill={colors.black40}/>
 };
