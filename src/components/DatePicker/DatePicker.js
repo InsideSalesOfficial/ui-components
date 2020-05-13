@@ -198,19 +198,32 @@ const Label = styled.label`
   ${typography.caption};
 `;
 
+const DEFAULT_DATE = moment().startOf('day');
+
 export class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultDate: moment().startOf('day'),
       focused: false,
     };
   }
 
   componentDidMount() {
-    if (!this.props.dateValue && this.props.useDefaultDate) {
-      this.props.onDateChange(this.state.defaultDate);
+    if (!this.props.dateValue && !this.props.shouldSkipDefaultDate) {
+      this.props.onDateChange(DEFAULT_DATE);
     }
+  }
+
+  getSelectedDate = () => {
+    if (this.props.dateValue) {
+      return this.props.dateValue;
+    }
+
+    if (!this.props.shouldSkipDefaultDate) {
+      return DEFAULT_DATE;
+    }
+
+    return;
   }
 
   isOutsideRange = (momentObject) => {
@@ -235,11 +248,7 @@ export class DatePicker extends React.Component {
       return false;
     }
 
-    let selectedDate = this.props.dateValue || this.state.defaultDate;
-
-    if (!selectedDate && this.props.useDefaultDate) {
-      selectedDate = this.state.defaultDate;
-    }
+    const selectedDate = this.getSelectedDate();
 
     if (!selectedDate) {
       return false;
@@ -252,10 +261,7 @@ export class DatePicker extends React.Component {
   }
 
   render() {
-    let selectedDate = this.props.dateValue;
-    if (!selectedDate && this.props.useDefaultDate) {
-      selectedDate = this.state.defaultDate;
-    }
+    const selectedDate = this.getSelectedDate();
     return (
       <DatePickerWrapper
         className={`date-picker ${this.props.className}`}
@@ -290,7 +296,6 @@ export class DatePicker extends React.Component {
 DatePicker.defaultProps = {
   displayFormat: 'MMMM DD, YYYY',
   daySize: 36,
-  useDefaultDate: true,
   onDateChange: _.identity,
   customInputIcon: <CalendarIcon size={{ width: 18, height: 20 }} fill={colors.black40}/>
 };
