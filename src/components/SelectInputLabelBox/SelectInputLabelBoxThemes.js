@@ -6,6 +6,7 @@ export const lineSelectInputBoxTransparentTheme = {
   borderWidth: '1px',
   leftDisplayPosition: '0',
   caretTopPosition: '62%',
+  optionListPositionLeft: '0',
   selectDisplayWidth: '240px'
 }
 

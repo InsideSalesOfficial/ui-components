@@ -37,6 +37,10 @@ const SelectOptionsContainer = styled.div`
     if (props.theme.optionListPosition) return props.theme.optionListPosition;
     return 'calc(100%)';
   }};
+  ${props => {
+    if (!props.theme.optionListPositionLeft) return '';
+    return `left: ${props.theme.optionListPositionLeft};`;
+  }}
   width: ${props => props.width ? `${props.width}px` : '100%'};
   z-index: 2;
   box-shadow: ${(props) => {
@@ -97,7 +101,7 @@ const SelectOptionsWrapper = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-clip: content-box;
-    background-color: ${renderThemeIfPresentOrDefault({ key: 'white10', defaultValue: colors.black40 })};
+    background-color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.black40 })};
     border: 1px solid transparent;
     border-radius: 5px;
   }

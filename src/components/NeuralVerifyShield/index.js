@@ -20,7 +20,7 @@ const { VerifyFilledIcon, CautionFilledIcon, VerifyIcon,
 
 const NeuralVerifiedContainer = styled.div`
   align-items: center;
-  position: absolute;
+  position: relative;
 `;
 
 const iconStyle = (color, iconSize) => (
@@ -33,7 +33,7 @@ const iconStyle = (color, iconSize) => (
 
 function getVerifiedIcon({ verifiedState, iconSize, theme = {} }) {
   const blueIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'tron01', defaultValue: tron.tron }), iconSize);
-  const greyIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'white40', defaultValue: black.black40 }), iconSize);
+  const greyIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'grey', defaultValue: black.black40 }), iconSize);
   const orangeIconStyle = iconStyle(renderThemeKeyOrDefaultValue({ props: { theme }, key: 'caution01', defaultValue: orange.orange }), iconSize);
 
   switch (verifiedState) {
@@ -90,14 +90,15 @@ class NeuralVerifyShield extends React.Component {
     const carrierData = _.get(this.props, 'neuralVerified.carrier', null);
 
     const verifiedState = getVerifiedState(stateData, detailData.verifiedReason, carrierData);
+    const mouseProps = this.props.enableHoverState ? {
+      onMouseEnter: () => {
+        if (this.props.allowOverflow) this.throttledHoverAction(verifiedState, this.props.location);
+        this.setState({ showNeuralVerifiedMessage: true });
+      },
+      onMouseLeave:() => this.setState({ showNeuralVerifiedMessage: false })
+    } : {};
     return (verifiedState !== 0 &&
-      <NeuralVerifiedContainer className={this.props.className}
-        onMouseEnter={() => {
-          if (this.props.allowOverflow) this.throttledHoverAction(verifiedState, this.props.location);
-          this.setState({ showNeuralVerifiedMessage: true });
-        }}
-        onMouseLeave={() => this.setState({ showNeuralVerifiedMessage: false })}
-      >
+      <NeuralVerifiedContainer className={this.props.className} {...mouseProps}>
         {getVerifiedIcon({ verifiedState, iconSize: this.props.iconSize, theme: this.props.theme })}
         {this.state.showNeuralVerifiedMessage && this.props.allowOverflow &&
           <NeuralVerifyFlyout
@@ -121,7 +122,8 @@ NeuralVerifyShield.defaultProps = {
   allowOverflow: false,
   displaysAboveIcon: true,
   flyoutOffset: 0,
-  theme: {}
+  theme: {},
+  enableHoverState: true
 };
 
 export default withTheme(NeuralVerifyShield);

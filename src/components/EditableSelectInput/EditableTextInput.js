@@ -67,12 +67,12 @@ class EditableTextInput extends React.Component {
   }
 
   render() {
-    const { toggleOptionsList, displayPlaceholder, displayValue, isOptionsDisabled } = this.props;
+    const { toggleOptionsList, displayPlaceholder, displayValue, isOptionsDisabled, textInputType } = this.props;
 
     return (
       <InputWrapper>
         <TextInput
-          type="text"
+          type={textInputType || "text"}
           className="pb-test__editable-select-input"
           value={displayValue}
           onChange={this.onChange}
@@ -90,7 +90,8 @@ class EditableTextInput extends React.Component {
 EditableTextInput.propTypes = {
   toggleOptionsList: PropTypes.func.isRequired,
   inputChange: PropTypes.func.isRequired,
-  displayValue: PropTypes.string
+  displayValue: PropTypes.string,
+  textInputType: PropTypes.string
 };
 
 EditableTextInput.defaultProps = {

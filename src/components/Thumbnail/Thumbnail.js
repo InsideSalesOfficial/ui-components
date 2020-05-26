@@ -6,6 +6,7 @@ import _ from 'lodash';
 import {
   colors,
   boxShadows,
+  typography,
   renderThemeIfPresentOrDefault,
   renderThemeKeyOrDefaultValue,
 } from '../styles';
@@ -17,6 +18,7 @@ const Box = styled.div`
     background: ${renderThemeIfPresentOrDefault({ key:'primary05', defaultValue: colors.white })};
     box-shadow: ${boxShadows.lvl6};
     padding: ${props => props.padding || '15px'};
+    ${typography.body1}
 
     ${props => props.dialogYCenter && `
         top: 50%;
@@ -70,35 +72,35 @@ const arrowUpDown = `
 
 const arrowLeftRight = `
     border-top: ${arrowSize} solid transparent;
-    border-bottom: ${arrowSize} solid transparent; 
+    border-bottom: ${arrowSize} solid transparent;
 `;
 
 const Arrow = styled.span`
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     position: absolute;
 
     ${props => props.arrowTop && `
         ${arrowUpDown}
-        border-bottom: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-bottom: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         bottom: 100%;
     `}
 
     ${props => props.arrowBottom && `
         ${arrowUpDown}
-        border-top: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-top: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         top: 100%;
     `}
 
     ${props => props.arrowLeft && `
         ${arrowLeftRight}
-        border-right: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-right: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         right: 100%;
     `}
 
     ${props => props.arrowRight && `
         ${arrowLeftRight}
-        border-left: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary01', defaultValue: colors.white })};
+        border-left: ${arrowSize} solid ${renderThemeKeyOrDefaultValue({ props, key: 'primary05', defaultValue: colors.white })};
         left: 100%;
     `}
 
@@ -122,7 +124,7 @@ const Arrow = styled.span`
 
 `;
 
-const Thumbnail = (props) => 
+const Thumbnail = (props) =>
     <Box {..._.pick(props, [
         'dialogYCenter',
         'dialogXCenter',

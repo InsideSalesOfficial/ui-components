@@ -130,7 +130,7 @@ const DatePickerWrapper = styled.div`
   .CalendarDay__default,
   .CalendarDay__default:hover:not(.CalendarDay__selected):not(.CalendarDay__blocked_out_of_range),
   .CalendarDay__blocked_out_of_range:hover {
-    background-color: ${colors.renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white })}
+    background-color: ${colors.renderThemeIfPresentOrDefault({ key: 'primary05', defaultValue: colors.white })}
   }
 
   .SingleDatePickerInput__disabled,
@@ -198,19 +198,32 @@ const Label = styled.label`
   ${typography.caption};
 `;
 
+const DEFAULT_DATE = moment().startOf('day');
+
 export class DatePicker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultDate: moment().startOf('day'),
       focused: false,
     };
   }
 
   componentDidMount() {
-    if (!this.props.dateValue) {
-      this.props.onDateChange(this.state.defaultDate);
+    if (!this.props.dateValue && !this.props.shouldSkipDefaultDate) {
+      this.props.onDateChange(DEFAULT_DATE);
     }
+  }
+
+  getSelectedDate = () => {
+    if (this.props.dateValue) {
+      return this.props.dateValue;
+    }
+
+    if (!this.props.shouldSkipDefaultDate) {
+      return DEFAULT_DATE;
+    }
+
+    return;
   }
 
   isOutsideRange = (momentObject) => {
@@ -235,7 +248,11 @@ export class DatePicker extends React.Component {
       return false;
     }
 
-    const selectedDate = this.props.dateValue || this.state.defaultDate;
+    const selectedDate = this.getSelectedDate();
+
+    if (!selectedDate) {
+      return false;
+    }
 
     const dateDifference = day.startOf('day').diff(selectedDate.startOf('day'), 'days');
     const dayIsWithinOneWeek = dateDifference > 0 && dateDifference <= 8;
@@ -244,7 +261,7 @@ export class DatePicker extends React.Component {
   }
 
   render() {
-    const selectedDate = this.props.dateValue || this.state.defaultDate;
+    const selectedDate = this.getSelectedDate();
     return (
       <DatePickerWrapper
         className={`date-picker ${this.props.className}`}

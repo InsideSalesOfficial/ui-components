@@ -12,6 +12,7 @@ import BouncedIcon from './BouncedIcon';
 import BuildingsIcon from './BuildingsIcon';
 import CalendarIcon from './CalendarIcon';
 import CallbackIcon from './CallbackIcon';
+import CallMadeIcon from './CallMadeIcon';
 import CautionFilledIcon from './CautionFilledIcon';
 import CautionIcon from './CautionIcon';
 import CheckboxIcon from './CheckboxIcon';
@@ -100,6 +101,7 @@ import ReminderIcon from './ReminderIcon';
 import RemoveCircleIcon from './RemoveCircleIcon';
 import SalesforceIcon from './SalesforceIcon';
 import SearchMaterialIcon from './SearchMaterialIcon';
+import SendosoIcon from './SendosoIcon';
 import SharedIcon from './SharedIcon';
 import SkipIcon from './SkipIcon';
 import SyncIcon from './SyncIcon';
@@ -111,6 +113,7 @@ import TrophyIcon from './TrophyIcon';
 import ImportIcon from './ImportIcon';
 import InfoOutlineIcon from './InfoOutlineIcon';
 import StarFilledIcon from './StarFilledIcon';
+import StarUnFilledIcon from './StarUnFilledIcon';
 import TagsIcon from './TagsIcon';
 import TeamsIcon from './TeamsIcon';
 import ThumbsDown from './ThumbsDown';
@@ -149,6 +152,7 @@ export default {
   BuildingsIcon,
   CalendarIcon,
   CallbackIcon,
+  CallMadeIcon,
   CautionFilledIcon,
   CautionIcon,
   CheckboxIcon,
@@ -238,9 +242,11 @@ export default {
   RemoveCircleIcon,
   SalesforceIcon,
   SearchMaterialIcon,
+  SendosoIcon,
   SharedIcon,
   SkipIcon,
   StarFilledIcon,
+  StarUnFilledIcon,
   SyncIcon,
   TagsIcon,
   TaskIcons,
