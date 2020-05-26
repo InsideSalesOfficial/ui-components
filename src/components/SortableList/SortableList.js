@@ -38,39 +38,9 @@ const Menu = styled(OverflowMenu)`
   }
 `;
 
-class SortableList extends React.Component {
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })).isRequired,
-    onItemsChanged: PropTypes.func
-  }
 
-  static defaultProps = {
-    onItemsChanged: () => {}
-  };
-
-  constructor() {
-    super();
-
-    this.state = {
-      items: []
-    };
-  }
-
-  componentWillMount() {
-    if(!_.get(this.props, 'items')) return;
-
-    this.setState({
-      items: _.cloneDeep(this.props.items)
-    }, () => {
-      this.props.onItemsChanged(this.state.items);
-    });
-  }
-
-  moveItemInArray(array, element, delta) {
+function moveItemInArray(onItemsChanged) {
+  return function(array, element, delta) {
     const newArray = _.cloneDeep(array);
 
     const index = _.findIndex(array, {id: element.id});
@@ -78,57 +48,59 @@ class SortableList extends React.Component {
 
     if (newIndex < 0 || newIndex === newArray.length) return;
 
-    var indexes = [index, newIndex].sort(); 
+    var indexes = [index, newIndex].sort();
 
     newArray.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
 
-    this.setState({
-      items: newArray
-    }, () => {
-      this.props.onItemsChanged(this.state.items);
-    });
-  }
-
-  moveItemUp = (item) => {
-    this.moveItemInArray(this.state.items, item, -1);
-  }
-
-  moveItemDown = (item) => {
-    this.moveItemInArray(this.state.items, item, 1);
-  }
-
-  removeItem = (itemId) => {
-    const items = _.cloneDeep(this.state.items);
-    this.setState({
-      items: _.filter(items, (item) => item.id !== itemId)
-    }, () => {
-      this.props.onItemDeleted(itemId)
-    });
-  }
-
-  generateMenuOptions = (item) => [{
-    action: this.moveItemUp.bind(null, item),
-    label: 'Move Up'
-  }, {
-    action: this.moveItemDown.bind(null, item),
-    label: 'Move Down'
-  }, {
-    action: this.removeItem.bind(null, item.id),
-    label: 'Delete'
-  }];
-
-  render() {
-    return (
-      <ItemList>
-        {this.state.items.map(item => (
-          <Item key={item.id}>
-            <Label>{item.label}</Label>
-            <Menu options={this.generateMenuOptions(item)} />
-          </Item>
-        ))}
-      </ItemList>
-    )
+    onItemsChanged(newArray);
   }
 }
+
+function generateMenuOptions({ onItemsChanged, onItemDeleted }) {
+  return function({ item, items }) {
+    return [{
+      action: () => moveItemInArray(onItemsChanged)(items, item, -1),
+      label: 'Move Up'
+    }, {
+      action: () => moveItemInArray(onItemsChanged)(items, item, 1),
+      label: 'Move Down'
+    }, {
+      action: () => onItemDeleted(item.id),
+      label: 'Delete'
+    }];
+  }
+}
+
+
+function SortableList(props) {
+  const items = props.items || [];
+  const { onItemsChanged, onItemDeleted } = props;
+  return (
+    <ItemList>
+      {items.map(item => (
+        <Item key={item.id}>
+          <Label>{item.label}</Label>
+          <Menu options={generateMenuOptions({ onItemsChanged, onItemDeleted })({ item, items })} />
+        </Item>
+      ))}
+    </ItemList>
+  );
+}
+
+SortableList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  })).isRequired,
+  onItemsChanged: PropTypes.func,
+  onItemDeleted: PropTypes.func,
+}
+
+SortableList.defaultProps = {
+  onItemsChanged: () => {},
+  onItemDeleted: () => {}
+};
+
 
 export default SortableList;

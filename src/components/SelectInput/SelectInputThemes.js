@@ -28,6 +28,7 @@ export const taskSelectInputTheme = {
   optionHeight: 'auto',
   optionMinHeight: 32,
   optionListPosition: '0',
+  optionListPositionLeft: '0',
   optionsListShadow: '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12)',
   optionBorderSeparator: `1px solid ${colors.gray90}`,
   textColor: colors.black90,
@@ -69,6 +70,7 @@ export const addButtonSelectInputTheme = {
   optionHeight: 'auto',
   optionMinHeight: 32,
   optionListPosition: '0',
+  optionListPositionLeft: '0',
   optionTextColor: colors.black90,
   optionsListShadow: '0 0 8px 0 rgba(0,0,0,0.12), 0 8px 8px 0 rgba(0,0,0,0.24)',
 };
@@ -100,6 +102,7 @@ export const lineSelectInputTheme = {
   iconPosition: 'absolute',
   iconRightPosition: '6px',
   optionListPosition: '0',
+  optionListPositionLeft: '0',
   optionsListShadow: '0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12)',
   textColor: colors.black,
   noLeftPadding: true,

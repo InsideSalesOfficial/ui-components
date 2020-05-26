@@ -68,6 +68,7 @@ class EditableSelectInput extends React.Component {
           inputChange={this.inputChange}
           ref={(input) => { this.textInputParent = input; }}
           isOptionsDisabled={isOptionsDisabled}
+          textInputType={this.props.editableTextInputType}
           toggleFocusState={this.props.toggleFocusState} />
         <SelectOptions
           ref={(options) => { this.clickEventElement = options; }}
@@ -86,7 +87,8 @@ EditableSelectInput.propTypes = {
   isDisabled: PropTypes.bool,
   options: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
+  editableTextInputType: PropTypes.string
 };
 
 EditableSelectInput.defaultProps = {

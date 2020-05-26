@@ -9,7 +9,7 @@ import {
   renderThemeIfPresentOrDefault,
 } from '../styles';
 
-const DialogWrapper = styled.div`
+const FixedDialogWrapper = styled.div`
   position: ${(props) => {
     if (props.onStoryBook) {
       return 'relative';
@@ -23,26 +23,20 @@ const DialogWrapper = styled.div`
     }
     return 'flex-start';
   }};
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  padding: ${(props) => {
-    if (props.center) {
-      return '0';
-    }
-    return '70px 0 50px 0;';
-  }};
+  top: calc(0px + 10%);
+  left: calc(50% - ${props => props.theme.width / 2}px);
+  padding: 0;
   z-index: 900050;
 `;
 
-const DialogBackground = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+const FixedDialogBackground = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   background-color: ${renderThemeIfPresentOrDefault({ key: 'black60', defaultValue: colors.black50})};
+  z-index: 900050;
 `;
 
 const DialogBase = styled.div`
@@ -55,12 +49,7 @@ const DialogBase = styled.div`
   flex-grow: 0;
   padding: 16px;
   margin: 0 auto;
-  margin-top: ${(props) => {
-    if (props.center) {
-      return '0';
-    }
-    return '102px';
-  }};
+  margin-top: 0;
 
   background: ${renderThemeIfPresentOrDefault({ key: 'primary03', defaultValue: colors.white})};
   box-shadow: 0 15px 12px 0 rgba(0,0,0,0.12), 0 19px 38px 0 rgba(0,0,0,0.3);
@@ -144,15 +133,18 @@ class Modal extends React.Component {
       onModalBackgroundClick = _.noop,
       ...props
     } = this.props;
+
     return (
-      <DialogWrapper ref="message_dialog_wrapper" center={center} {...props}>
-        <DialogBackground ref="message_dialog_background" onClick={onModalBackgroundClick}/>
-        <ThemeProvider theme={theme}>
-          <DialogBase ref="message_dialog_component" center={center}>
-            {children}
-          </DialogBase>
-        </ThemeProvider>
-      </DialogWrapper>
+      <ThemeProvider theme={theme}>
+        <div>
+          <FixedDialogBackground ref="message_dialog_background" onClick={onModalBackgroundClick}/>
+          <FixedDialogWrapper ref="message_dialog_wrapper" center={center} {...props}>
+            <DialogBase ref="message_dialog_component" center={center}>
+              {children}
+            </DialogBase>
+          </FixedDialogWrapper>
+        </div>
+      </ThemeProvider>
     );
   }
 }
