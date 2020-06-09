@@ -36,11 +36,11 @@ const RadioLabel = styled.label`
       return `6px ${props.theme.padding} 4px ${props.theme.padding}`;
     } else if (!_.isEmpty(props.theme.padding)) {
       return props.theme.padding;
-    } 
+    }
     return '0.75em';
   }};
   margin: ${props => props.theme.margin} 0;
-  
+
   ${props => {
     if (props.active) {
       return css`
@@ -61,7 +61,9 @@ const RadioLabel = styled.label`
 `;
 
 const RadioInput = styled.input`
-  display: none;
+  opacity: 0;
+  position: fixed;
+  width: 0;
 `;
 
 function renderThemedRadioCircleBorder(props) {
@@ -107,7 +109,7 @@ const RadioCircle = styled.span`
       left: 50%;
       transform: translate(-50%, -50%);
     }
-  `} 
+  `}
 `;
 
 const MultiLineLabelWrapper = styled.div`
@@ -149,6 +151,7 @@ const RadioComponent = ({ id, name, label = "", value, setValue, selectedValue =
       value={value}
       checked={active}
       onChange={() => { setValue(value) }}
+      onFocus={() => { setValue(value) }}
     />
     <RadioLabel htmlFor={id} active={active} label={label}>
       <RadioCircle active={active}></RadioCircle>{findLabel(label)}
