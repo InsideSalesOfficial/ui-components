@@ -9,7 +9,6 @@ import { colors } from "../styles/colors.js";
 import { generateFlexedThemeBackground } from "../styles/index.js";
 
 let value = 3;
-let name = "test-radio";
 
 function wrapComponentWithContainerAndTheme(theme, Component) {
   const storyContainerStyle = generateFlexedThemeBackground(
@@ -65,7 +64,7 @@ function renderChapterWithTheme(theme) {
                   radios={radios}
                   value={value}
                   onChange={action("onChange")}
-                  name={name}
+                  name={"standard-radio-list"}
                 />
               );
             }
@@ -100,7 +99,7 @@ function renderChapterWithTheme(theme) {
                   value={value}
                   theme={lightRadioListTheme}
                   onChange={action("onChange")}
-                  name={name}
+                  name={"light-themed-radio-list"}
                 />
               );
             }
@@ -131,7 +130,7 @@ function renderChapterWithTheme(theme) {
                   super();
 
                   this.state = {
-                    value: 1
+                    value: null
                   };
                 }
 
@@ -145,7 +144,7 @@ function renderChapterWithTheme(theme) {
                         onChange={val => {
                           this.setState({ value: val });
                         }}
-                        name={name}
+                        name={"stateful-wrapper"}
                       />
 
                       <div>Current Value: {this.state.value}</div>
@@ -200,7 +199,7 @@ function renderChapterWithTheme(theme) {
                   radios={radios}
                   value={value}
                   onChange={action("onChange")}
-                  name={name}
+                  name={"two-line-label"}
                 />
               );
             }
