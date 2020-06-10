@@ -1,12 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components'
 import PropTypes from 'prop-types';
 
 import {
 	colors,
 	fontFamilies,
 	fontSizes,
-	fontWeights, ifThemeInPropsIsPresentUse,
+	fontWeights,
 	renderThemeKeyOrDefaultValue,
 } from '../styles';
 
@@ -114,48 +114,46 @@ const ButtonLabel = styled.label`
   text-overflow: ellipsis;
 `;
 
-class PairedButtons extends React.PureComponent {
-	renderButton = (option, index) => {
-		const { buttonWidth, options } = this.props;
-		const isActive = option.value === this.props.selectedOptionValue;
-		const align =
-			index === 0
-				? ALIGN_LEFT
-				: index === options.length - 1
-				? ALIGN_RIGHT
-				: '';
-		return [
-			<Button
-				active={isActive}
-				left
-				onClick={() => this.onClickToggle(option.value)}
-				buttonWidth={buttonWidth}
-				key={option.value + '1'}
-				align={align}
-				{...this.props}
-			>
-				<ButtonLabel buttonWidth={buttonWidth} {...this.props}>
-					{option.label}
-				</ButtonLabel>
-			</Button>,
-		];
-	};
+export const PairedButtons = withTheme(props => {
+	const { options, buttonWidth } = props;
 
-	onClickToggle = optionValue => {
-		if (optionValue === this.props.selectedOptionValue) return;
+	const onClickToggle = optionValue => {
+		if (optionValue === props.selectedOptionValue) return;
 		this.props.onToggle(optionValue);
 	};
 
-	render() {
-		const { options, buttonWidth } = this.props;
-		if (options.length < 2 || options.length > 3) return null;
-		return (
-			<ButtonsContainer buttonWidth={buttonWidth} count={options.length}>
-				{options.map(this.renderButton)}
-			</ButtonsContainer>
-		);
-	}
-}
+	const renderButton = (option, index) => {
+			const isActive = option.value === props.selectedOptionValue;
+			const align =
+				index === 0
+					? ALIGN_LEFT
+					: index === options.length - 1
+					? ALIGN_RIGHT
+					: '';
+			return [
+				<Button
+					active={isActive}
+					left
+					onClick={() => onClickToggle(option.value)}
+					buttonWidth={buttonWidth}
+					key={option.value + '1'}
+					align={align}
+					{...this.props}
+				>
+					<ButtonLabel buttonWidth={buttonWidth} {...this.props}>
+						{option.label}
+					</ButtonLabel>
+				</Button>,
+			];
+		};
+
+	if (options.length < 2 || options.length > 3) return null;
+	return (
+		<ButtonsContainer buttonWidth={buttonWidth} count={options.length}>
+			{options.map(renderButton)}
+		</ButtonsContainer>
+	);
+});
 
 PairedButtons.defaultProps = {};
 
