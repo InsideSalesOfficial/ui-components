@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { storiesOf, action } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 
 import PairedButtons from './';
 
@@ -53,12 +53,12 @@ class PairedButtonsWrapper extends React.PureComponent {
   render() {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <div style={generateFlexedThemeBackground(this.props, { height: '30px' })}>
+        <div style={generateFlexedThemeBackground(this.props, { height: '30px', width: '500px' })}>
           <PairedButtons
             options={demoOptions}
-            selectedOptionValue={this.state.selected}
-            onToggle={selected => {
-              this.setState({ selected })}
+            selected={this.state.selected}
+            onChange={newSelection => {
+              this.setState({ selected: newSelection })}
             }
             {...this.props}/>
         </div>
