@@ -26,6 +26,7 @@ const StyledButton = styled(Button)`
       : props.align === ALIGN_RIGHT
       ? '0 4px 4px 0'
       : '0 0 0 0'};
+  ${props => props.align === ALIGN_RIGHT ? '' : 'border-right: none'}
 `;
 
 function onChangeCheck ({onChange, selected}) {
