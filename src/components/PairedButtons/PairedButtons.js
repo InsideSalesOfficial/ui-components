@@ -8,13 +8,7 @@ const ALIGN_LEFT = 'align_left';
 
 const ButtonsContainer = styled.div`  
   display: grid;
-  grid-template-columns: ${props => {
-    let result = '';
-    for (let i = props.count; i > 0; i--) {
-      result += ' auto';
-    }
-    return result;
-  }}
+  grid-template-columns: ${props => props.gridTemplateColumns}
   position: relative;
   width: 100%;
 `;
@@ -46,10 +40,6 @@ function renderButton ({onChange, selected, options, id, disabled, onDarkBg}) {
         : index === options.length - 1
         ? ALIGN_RIGHT
         : '';
-    let otherProperties = {};
-    if (option.value !== selected) {
-      otherProperties.outline = true
-    }
     return [
       <StyledButton
         onClick={onChangeCheck({onChange, selected})(option, index)}
@@ -59,7 +49,7 @@ function renderButton ({onChange, selected, options, id, disabled, onDarkBg}) {
         disabled={disabled}
         label={option.label}
         onDarkBg={onDarkBg }
-        {...otherProperties}
+        outline={option.value !== selected}
       />,
     ];
   }
@@ -69,7 +59,7 @@ export function PairedButtons (props) {
   const { options, selected, onChange, id, disabled, onDarkBg} = props;
 
   return (
-    <ButtonsContainer count={options.length}>
+    <ButtonsContainer gridTemplateColumns={'1fr '.repeat(options.length).trim()}>
       {options.map(renderButton({options, selected, onChange, id, disabled, onDarkBg }))}
     </ButtonsContainer>
   );
