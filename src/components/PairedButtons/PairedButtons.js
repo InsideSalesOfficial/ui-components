@@ -8,7 +8,7 @@ const ALIGN_LEFT = 'align_left';
 
 const ButtonsContainer = styled.div`  
   display: grid;
-  grid-template-columns: ${props => props.gridTemplateColumns}
+  grid-template-columns: ${props => props.gridTemplateColumns};
   position: relative;
   width: 100%;
 `;
