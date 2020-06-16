@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import _ from 'lodash';
 import { ThemeProvider } from 'styled-components';
 
@@ -10,6 +11,16 @@ import SelectWrapper from './SelectWrapper';
 import SelectInputLabel from './SelectInputLabel';
 import SelectInputDisplay from './SelectInputDisplay';
 import SelectOptions from './SelectOptions';
+import CloseIcon from "../icons/CloseFullIcon";
+import {colors, renderThemeKeyOrDefaultValue} from "../styles";
+
+const StyledCloseIcon = styled(CloseIcon)`
+  fill: ${props => renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green})};
+  cursor: pointer;
+  position: relative;
+  top: 6px;
+  left: 5px;
+`;
 
 export function checkDocumentEvent(event) {
   const component = ReactDOM.findDOMNode(this.clickEventElement);
@@ -124,6 +135,10 @@ class SelectInput extends React.Component {
     }
   }
 
+  onClear = () => {
+    this.props.onChange([]);
+  }
+
   toggleOptionsList = (e) => { toggleOptionsListOnSearch.bind(this)(e); }
 
   openOptionsList = openOptionsList.bind(this);
@@ -199,6 +214,7 @@ class SelectInput extends React.Component {
 
     const options = this.filterOptionsWithSearch(this.props.options);
     const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
+    const width = this.props.multiSelect && this.props.value.length ? 'calc(100% - 30px)' : '100%';
     return (
       /*
        * Adding className to the outtermost element allows for users of this component to create a
@@ -217,7 +233,7 @@ class SelectInput extends React.Component {
             <SelectInputLabel>{this.props.label}</SelectInputLabel>
           }
           <div
-            style={{ width: '100%' }}
+            style={{ width }}
             className='pb-test__selectInputDisplay'
             onClick={(e) => { if (!isDisabled) { this.toggleOptionsList(e); } }}>
             <SelectInputDisplay
@@ -253,6 +269,7 @@ class SelectInput extends React.Component {
             onSecondaryActionClick={this.props.onSecondaryActionClick}
             showButtonBar={this.props.showButtonBar}
             bottomActionArea={this.props.bottomActionArea}/>
+          {this.props.multiSelect && this.props.value.length && <StyledCloseIcon onClick={this.onClear}/>}
         </SelectWrapper>
       </ThemeProvider>
     );
