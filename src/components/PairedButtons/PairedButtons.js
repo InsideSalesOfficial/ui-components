@@ -65,8 +65,6 @@ export function PairedButtons (props) {
   );
 }
 
-PairedButtons.defaultProps = {};
-
 PairedButtons.propTypes = {
   onChange: PropTypes.func.isRequired,
   selected: PropTypes.string,
