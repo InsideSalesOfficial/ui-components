@@ -21,6 +21,12 @@ const SelectWrapper = styled.div`
   *, *:before, *:after {
     box-sizing: border-box;
   }
+
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  display: grid;
+  ${props => props.gridTemplateColumns ? `grid-template-columns: ${props.gridTemplateColumns}` : ''}
 `;
 
 export default SelectWrapper;

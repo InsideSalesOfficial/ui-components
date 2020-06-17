@@ -12,7 +12,7 @@ import SelectInputLabel from './SelectInputLabel';
 import SelectInputDisplay from './SelectInputDisplay';
 import SelectOptions from './SelectOptions';
 import CloseIcon from "../icons/CloseFullIcon";
-import {colors, renderThemeKeyOrDefaultValue} from "../styles";
+import {fontWeights, colors, renderThemeKeyOrDefaultValue} from "../styles";
 
 const IconWrapper = styled.div`
   flex: 1;
@@ -26,6 +26,28 @@ const StyledCloseIcon = styled(CloseIcon)`
   justify-self: center;
   align-self: center;
 `;
+
+const SelectBaseWrapper = styled.div`
+  align-items: flex-start;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-flow: no-wrap;
+  justify-content: ${(props) => {
+    if (props.theme.wrapperJustifyContent) {
+      return props.theme.wrapperJustifyContent;
+    }
+    return 'flex-start';
+  }};
+  font-family: 'isdc-roboto', 'Roboto', sans-serif;
+  font-weight: ${fontWeights.light};
+  position: relative;
+  width: 100%;
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+`;
+
 
 export function checkDocumentEvent(event) {
   const component = ReactDOM.findDOMNode(this.clickEventElement);
@@ -219,7 +241,8 @@ class SelectInput extends React.Component {
 
     const options = this.filterOptionsWithSearch(this.props.options);
     const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
-    const width = this.props.multiSelect && this.props.value.length ? 'calc(100% - 30px)' : '100%';
+    const width = '100%';
+    const willRenderCloseIcon = this.props.multiSelect && this.props.value.length;
     return (
       /*
        * Adding className to the outtermost element allows for users of this component to create a
@@ -233,7 +256,9 @@ class SelectInput extends React.Component {
           style={this.props.containerStyles || {}}
           className={this.props.className}
           id="select-input__wrapper"
+          gridTemplateColumns={willRenderCloseIcon ? '1fr 36px' : '1fr'}
         >
+          <SelectBaseWrapper>
           {this.props.label && !this.props.addButtonList &&
             <SelectInputLabel>{this.props.label}</SelectInputLabel>
           }
@@ -274,9 +299,9 @@ class SelectInput extends React.Component {
             onSecondaryActionClick={this.props.onSecondaryActionClick}
             showButtonBar={this.props.showButtonBar}
             bottomActionArea={this.props.bottomActionArea}/>
-          {this.props.multiSelect && this.props.value.length && <IconWrapper>
-            <StyledCloseIcon onClick={this.onClear}/>
-          </IconWrapper>}
+      </SelectBaseWrapper>
+
+          {willRenderCloseIcon && <StyledCloseIcon onClick={this.onClear}/>}
         </SelectWrapper>
       </ThemeProvider>
     );
