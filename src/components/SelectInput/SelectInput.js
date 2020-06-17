@@ -14,12 +14,17 @@ import SelectOptions from './SelectOptions';
 import CloseIcon from "../icons/CloseFullIcon";
 import {colors, renderThemeKeyOrDefaultValue} from "../styles";
 
+const IconWrapper = styled.div`
+  flex: 1;
+  display: grid;
+  height: 36px;
+`
+
 const StyledCloseIcon = styled(CloseIcon)`
   fill: ${props => renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green})};
   cursor: pointer;
-  position: relative;
-  top: 6px;
-  left: 5px;
+  justify-self: center;
+  align-self: center;
 `;
 
 export function checkDocumentEvent(event) {
@@ -269,7 +274,9 @@ class SelectInput extends React.Component {
             onSecondaryActionClick={this.props.onSecondaryActionClick}
             showButtonBar={this.props.showButtonBar}
             bottomActionArea={this.props.bottomActionArea}/>
-          {this.props.multiSelect && this.props.value.length && <StyledCloseIcon onClick={this.onClear}/>}
+          {this.props.multiSelect && this.props.value.length && <IconWrapper>
+            <StyledCloseIcon onClick={this.onClear}/>
+          </IconWrapper>}
         </SelectWrapper>
       </ThemeProvider>
     );
