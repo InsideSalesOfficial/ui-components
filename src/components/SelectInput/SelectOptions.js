@@ -226,7 +226,7 @@ class SelectOptions extends React.Component {
     return (
       <SelectOption
         className={'pb-option'}
-        key={keyID}
+        key={option.keyID || keyID}
         visible={this.props.visible}
         style={delay}
         disabled={disabled}
