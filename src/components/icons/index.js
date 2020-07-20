@@ -9,6 +9,7 @@ import ArrowDropDownIcon from './ArrowDropDownIcon';
 import ArrowDropUpIcon from './ArrowDropUpIcon';
 import AutoEmailIcon from './AutoEmailIcon';
 import BouncedIcon from './BouncedIcon';
+import EmailBouncedIcon from './EmailBouncedIcon.js';
 import BuildingsIcon from './BuildingsIcon';
 import CalendarIcon from './CalendarIcon';
 import CallbackIcon from './CallbackIcon';
@@ -275,5 +276,6 @@ export default {
   MonetizationOnIcon,
   DescriptionIcon,
   SmsIcon,
-  FormatQuote
+  FormatQuote,
+  EmailBouncedIcon
 };
