@@ -286,6 +286,20 @@ function renderChapterWithTheme(theme) {
               )
           },
           {
+            title: "Multi Select None Selected",
+            sectionFn: () =>
+              wrapComponentWithContainerAndTheme(
+                theme,
+                <SelectInput
+                  onChange={action("Option Selected")}
+                  options={genericOptions}
+                  value={[]}
+                  multiSelect
+                />,
+                darkExample
+              )
+          },
+          {
             title: "Multi Select/Bottom Action Area",
             sectionFn: () =>
               wrapComponentWithContainerAndTheme(

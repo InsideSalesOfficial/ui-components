@@ -243,7 +243,7 @@ class SelectInput extends React.Component {
     const options = this.filterOptionsWithSearch(this.props.options);
     const promotedOptions = this.filterOptionsWithSearch(this.props.promotedOptions);
     const width = '100%';
-    const willRenderCloseIcon = this.props.multiSelect && this.props.value.length;
+    const willRenderCloseIcon = !!(this.props.multiSelect && this.props.value.length);
     return (
       /*
        * Adding className to the outtermost element allows for users of this component to create a
