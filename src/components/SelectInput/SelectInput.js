@@ -28,17 +28,18 @@ const StyledCloseIcon = styled(CloseIcon)`
 `;
 
 const SelectBaseWrapper = styled.div`
-  align-items: flex-start;
-  border: 0;
-  cursor: pointer;
   display: flex;
-  flex-flow: no-wrap;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: ${(props) => {
     if (props.theme.wrapperJustifyContent) {
       return props.theme.wrapperJustifyContent;
     }
     return 'flex-start';
   }};
+  border: 0;
+  cursor: pointer;
+  flex-flow: no-wrap;
   font-family: 'isdc-roboto', 'Roboto', sans-serif;
   font-weight: ${fontWeights.light};
   position: relative;
