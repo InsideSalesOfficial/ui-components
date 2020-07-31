@@ -11,14 +11,8 @@ import SelectWrapper from './SelectWrapper';
 import SelectInputLabel from './SelectInputLabel';
 import SelectInputDisplay from './SelectInputDisplay';
 import SelectOptions from './SelectOptions';
-import CloseIcon from "../icons/CloseFullIcon";
+import CloseIcon from "../icons/CloseCircleIcon";
 import {fontWeights, colors, renderThemeKeyOrDefaultValue} from "../styles";
-
-const IconWrapper = styled.div`
-  flex: 1;
-  display: grid;
-  height: 36px;
-`
 
 const StyledCloseIcon = styled(CloseIcon)`
   fill: ${props => renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green})};
