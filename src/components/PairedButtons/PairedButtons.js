@@ -45,10 +45,11 @@ function renderButton ({onChange, selected, options, id, disabled, onDarkBg}) {
         onClick={onChangeCheck({onChange, selected})(option, index)}
         key={option.value}
         align={align}
-        id={id + option.value + '_button'}
+        id={`${id}_${option.value.replace(' ', '_')}_button`}
         disabled={disabled}
         label={option.label}
-        onDarkBg={onDarkBg }
+        onDarkBg={onDarkBg}
+        className={option.value === selected ? 'paired_button_selected' : ''}
         outline={option.value !== selected}
       />,
     ];
@@ -59,7 +60,7 @@ export function PairedButtons (props) {
   const { options, selected, onChange, id, disabled, onDarkBg} = props;
 
   return (
-    <ButtonsContainer gridTemplateColumns={'1fr '.repeat(options.length).trim()}>
+    <ButtonsContainer gridTemplateColumns={'1fr '.repeat(options.length).trim()} id={id}>
       {options.map(renderButton({options, selected, onChange, id, disabled, onDarkBg }))}
     </ButtonsContainer>
   );
