@@ -137,6 +137,7 @@ import EmptyStateIcon from './EmptyStateIcon.js';
 import MonetizationOnIcon from './MonetizationOnIcon.js';
 import DescriptionIcon from './DescriptionIcon.js';
 import SmsIcon from './SmsIcon.js';
+import UnsubscribeIcon from './unsubscribeIcon.js';
 
 export default {
   AddCircleIcon,
@@ -277,5 +278,6 @@ export default {
   DescriptionIcon,
   SmsIcon,
   FormatQuote,
-  EmailBouncedIcon
+  EmailBouncedIcon,
+  UnsubscribeIcon
 };
