@@ -24,7 +24,7 @@ function labelColor(props) {
 function Label({ error, isDisabled, isOptionSelected, label }) {
   return (
     <Wrapper error={error} isDisabled={isDisabled} isOptionSelected={isOptionSelected}>
-      {this.props.label}
+      {label}
     </Wrapper>
   );
 }
