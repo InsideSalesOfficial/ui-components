@@ -220,9 +220,9 @@ class SelectOptions extends React.Component {
     };
 
     const optionSelected = multiSelect && _.includes(selectedOptions, option.value);
+    const titleInfo = typeof (option.label) === 'string' ? option.label : option.optionLabel;
 
     const disabled = option.disabled || this.props.isDisabled;
-
     return (
       <SelectOption
         className={'pb-option'}
@@ -232,6 +232,7 @@ class SelectOptions extends React.Component {
         disabled={disabled}
         noPadding={option.noPadding}
         lowPadding={this.props.lowPadding}
+        title={titleInfo}
         onClick={() => {
           if (!disabled) {
             onOptionUpdate(option.value);
