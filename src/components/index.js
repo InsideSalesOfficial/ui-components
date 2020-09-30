@@ -42,10 +42,11 @@ export {default as RadioList} from './RadioList';
 export {default as Radio} from './RadioList/Radio';
 export {
   default as SelectInputKeyboard,
-  SelectThemes
+  SelectInputKeyboardThemes
 } from './SelectInputKeyboard';
 export {
-  default as SelectInputLabelBox
+  default as SelectInputLabelBox,
+  SelectInputLabelBoxThemes
 } from './SelectInputLabelBox';
 export {default as TextareaBox} from './TextareaBox';
 export {
