@@ -77,7 +77,7 @@ const DropdownCaret = styled.div`
     position: absolute;
     ${props => props.openUp ? 'top' : 'bottom'}: 0;
   }
-`
+`;
 
 const OptionsContainer = styled.div`
   position: absolute;
@@ -206,7 +206,7 @@ class OverflowMenu extends React.Component {
       const positionText = {position: 'absolute', left: '101%',  width: 'auto'}
       const mainMenu = <SelectOption
         key={idx}
-        className="pb-test__select-option"
+        className="pb-test__select-option overflow-option"
         onMouseEnter={this.handleSelectedId(option.id, depthLevel)}
         onClick={option.isDisabled ? ()=> {} : option.action}
         isHighlighted={option.isHighlighted}
@@ -218,12 +218,12 @@ class OverflowMenu extends React.Component {
         submenu = this.renderMenu(option.subOptions, newDepthLevel);
       }
       return (
-        <SubmenuOptionsWrapper key={idx}>
-          <OptionsWrapper>
+        <SubmenuOptionsWrapper key={idx} className="overflow-option-wrapper">
+          <OptionsWrapper className="overflow-main-menu-options-wrapper">
             {mainMenu}
           </OptionsWrapper>
           {!_.isUndefined(submenu) &&
-            <OptionsWrapper style={positionText}>
+            <OptionsWrapper style={positionText} className="overflow-submenu-option-wrapper">
               {submenu}
             </OptionsWrapper>
           }
@@ -231,11 +231,7 @@ class OverflowMenu extends React.Component {
       )
     }
     );
-    return (
-      <div>
-        {menu}
-      </div>
-    );
+    return (menu);
   }
 
   render() {
@@ -245,14 +241,18 @@ class OverflowMenu extends React.Component {
         ref={(el) => { this.clickEventElement = el }}>
         <OverflowParent>
           <FlexInteractiveElement
-            className="pb-test__toggle-menu"
+            className="pb-test__toggle-menu overflow-action-icon"
             onClick={() => { this.toggleMenu(); }}
           >
             {this.props.icon}
           </FlexInteractiveElement>
           {(this.state.menuVisible || this.props.stayOpen) &&
               [<DropdownCaret {..._.pick(this.props, ['openUp', 'openDown'])} />,
-              <OptionsContainer openUp={this.props.openUp} openRight={this.props.openRight}>
+              <OptionsContainer
+                openUp={this.props.openUp}
+                openRight={this.props.openRight}
+                className="overflow-option-container"
+              >
                 {this.renderMenu(this.props.options)}
               </OptionsContainer>]
           }
