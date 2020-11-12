@@ -128,7 +128,9 @@ class OverflowMenu extends React.Component {
     options: PropTypes.array.isRequired,
     onChange: PropTypes.func.isRequired,
     icon: PropTypes.element,
-    stayOpen: PropTypes.bool
+    stayOpen: PropTypes.bool,
+    onOpenMenu: PropTypes.func,
+    isOpen: PropTypes.func,
   };
 
   static defaultProps = {
@@ -142,7 +144,9 @@ class OverflowMenu extends React.Component {
       fill={colors.white80}
       size={{ width: 24, height: 24 }}
     />,
-    stayOpen: false
+    stayOpen: false,
+    isOpen: () => {},
+    onOpenMenu: () => {},
   };
 
   constructor() {
@@ -166,9 +170,7 @@ class OverflowMenu extends React.Component {
   }
 
   toggleMenu = () => {
-    if (_.isFunction(_.get(this.props, 'onOpenMenu'))) {
-      this.props.onOpenMenu()
-    }
+    this.props.onOpenMenu()
     if (this.state.menuVisible) {
       this.closeMenu();
     } else if (!this.props.isDisabled) {
@@ -178,15 +180,21 @@ class OverflowMenu extends React.Component {
 
   openMenu = () => {
     document.addEventListener('click', this.checkDocumentEvent);
-    this.setState({ menuVisible: true });
+    this.setState(
+      { menuVisible: true },
+      this.props.isOpen(true)
+    );
   }
 
   closeMenu = () => {
     document.removeEventListener('click', this.checkDocumentEvent);
-    this.setState({
+    this.setState(
+      {
       menuVisible: false,
       selectedIds: []
-    });
+      },
+      this.props.isOpen(false)
+    );
   }
 
   handleSelectedId = (selected, depthLevel) => {
