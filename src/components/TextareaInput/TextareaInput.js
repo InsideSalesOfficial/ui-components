@@ -203,7 +203,7 @@ const charCountTextWidth = '110px';
 
 export const CharCounterText = styled.div`
 ${typography.caption}
-color: ${renderThemeIfPresentOrDefault({ key: 'white60', defaultValue: colors.green })};
+color: ${renderThemeIfPresentOrDefault({ key: 'white40', defaultValue: colors.green })};
 text-align: right;
 width: ${charCountTextWidth};
 `;

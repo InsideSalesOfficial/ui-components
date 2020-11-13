@@ -166,7 +166,7 @@ const ButtonBase = styled.button`
   border-radius: 2px;
   color: ${(props) => {
     if ((props.outline && !props.onDarkBg) || (props.flat && !props.onDarkBg)) {
-      return renderThemeKeyOrDefaultValue({ props, key: 'white90', defaultValue: colors.black90});
+      return renderThemeKeyOrDefaultValue({ props, key: 'white60', defaultValue: colors.black90});
     }
     if (props.flatAlt) {
       return renderThemeKeyOrDefaultValue({ props, key: 'brand01', defaultValue: colors.green});
